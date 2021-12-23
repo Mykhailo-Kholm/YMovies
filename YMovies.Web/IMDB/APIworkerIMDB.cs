@@ -10,84 +10,97 @@ namespace YMovies.Web.IMDB
 {
     public class APIworkerIMDB
     {
+        
         static private string apiKey = "k_ycaf020q";
-        public async Task GetTop250MoviesAsync()
+        /// <summary>
+        /// топ 250 фильмов IMDB
+        /// </summary>
+        /// <returns> Task&lt;List&lt;Top250DataDetail&gt;&gt;</returns>
+        public async Task<List<Top250DataDetail>> GetTop250MoviesAsync()
         {
             var apiLib = new ApiLib(apiKey);
             var data = await apiLib.Top250MoviesAsync();
-            if (data.ErrorMessage is null)
-            {
-                var list = data.Items;
-            }
-
+            return data.Items;
         }
+
         /// <summary>
-        /// Возвращает фильмы по заданому жанру. Также может влючать временные ограничения.
+        /// Возвращает до 100 фильмов по умолчанию или по заданым параметрам(title, genre, releaseFrom, releaseTo, certificate, sort, group)
         /// </summary>
-        /// <param name="genre">Пример: AdvancedSearchGenre.Action</param>
-        /// <param name="releaseFrom">Дата начала поиска Пример: "2001-01-01"</param>
-        /// <param name="releaseTo">Дата окончания поиска Пример: "2011-11-11"</param>
-        /// <returns></returns>
-        public async Task<List<AdvancedSearchResult>> Get100ByGenre(AdvancedSearchGenre genre = AdvancedSearchGenre.Action, string releaseFrom = null, string releaseTo = null)
+        /// <param name="title"></param>
+        /// <param name="genre"></param>
+        /// <param name="releaseFrom"></param>
+        /// <param name="releaseTo"></param>
+        /// <param name="certificate"></param>
+        /// <param name="sort"></param>
+        /// <param name="group"></param>
+        /// <returns>Task&lt;List&lt;AdvancedSearchResult&gt;&gt;</returns>
+        public async Task<List<AdvancedSearchResult>> GetOneHundredFilmsAsync(string title = null,
+            AdvancedSearchGenre genre = 0, 
+            string releaseFrom = null, 
+            string releaseTo = null,
+            AdvancedSearchUSCertificate certificate = 0,
+            AdvancedSearchSort sort = AdvancedSearchSort.Popularity_Ascending,
+            AdvancedSearchTitleGroup group = 0)
         {
             var apiLib = new ApiLib(apiKey);
-            var data = await apiLib.AdvancedSearchAsync(new AdvancedSearchInput(){Genres = genre, Count = AdvancedSearchCount.Hundred, ReleaseDateFrom = releaseFrom, ReleaseDateTo = releaseTo });
-            return data.Results;
-        }
-
-        public async Task<List<AdvancedSearchResult>> Get100FromTop1000Async(AdvancedSearchSort sort = AdvancedSearchSort.Popularity_Ascending)
-        {
-            var apiLib = new ApiLib(apiKey);
-            var data = await apiLib.AdvancedSearchAsync(new AdvancedSearchInput() {TitleGroups = AdvancedSearchTitleGroup.Top_1000, Count = AdvancedSearchCount.Hundred ,Sort = sort});
-            return data.Results;
-        }
-
-        public async Task<List<AdvancedSearchResult>> Get100FromBottom1000Async()
-        {
-            var apiLib = new ApiLib(apiKey);
-            var data = await apiLib.AdvancedSearchAsync(new AdvancedSearchInput() { TitleGroups = AdvancedSearchTitleGroup.Bottom_1000 , Count = AdvancedSearchCount.Hundred });
-            return data.Results;
-        }
-
-        public async Task<List<AdvancedSearchResult>> Get100ByCertificate(AdvancedSearchUSCertificate certificate)
-        {
-            var apiLib = new ApiLib(apiKey);
-            var data = await apiLib.AdvancedSearchAsync(new AdvancedSearchInput() {Count = AdvancedSearchCount.Hundred, USCertificates = certificate});
+            var data = await apiLib.AdvancedSearchAsync(
+                new AdvancedSearchInput() 
+                { 
+                    Title = title,
+                    Genres = genre, 
+                    Count = AdvancedSearchCount.Hundred, 
+                    ReleaseDateFrom = releaseFrom, 
+                    ReleaseDateTo = releaseTo,
+                    Sort=sort,
+                    USCertificates = certificate,
+                    TitleGroups = group,
+                }
+            );
             return data.Results;
         }
         /// <summary>
-        /// Метод возвращает 100 фильмов с похожим именем и датой начиная с releaseFrom и заканчивая releaseTo.
+        /// Поиск фильмов с похожим title
         /// </summary>
-        /// <param name="title">Тайтл</param>
-        /// <param name="releaseFrom">Дата начала поиска Пример: "2001-01-01"</param>
-        /// <param name="releaseTo">Пример:Дата окончания поиска Пример: "2011-11-11"</param>
-        public async Task<List<AdvancedSearchResult>> Get100ByTitle(string title, string releaseFrom = null, string releaseTo = null)
+        /// <param name="title">Имя фильма</param>
+        /// <returns>Task&lt;List&lt;SearchResult&gt;&gt;</returns>
+        public async Task<List<SearchResult>> SearchByTitle(string title)
         {
             var apiLib = new ApiLib(apiKey);
-            var data = await apiLib.AdvancedSearchAsync(new AdvancedSearchInput()
-                {Count = AdvancedSearchCount.Hundred, Title = title, ReleaseDateFrom = releaseFrom,ReleaseDateTo = releaseTo});
+            var data = await apiLib.SearchTitleAsync(title);
             return data.Results;
         }
-
-        public async Task<List<SearchResult>> SearchFor(string title)
-        {
-            var apiLib = new ApiLib(apiKey);
-            var data = await apiLib.SearchAsync(title);
-            return data.Results;
-        }
-
+        /// <summary>
+        /// Png картинка репорт по данным фильма
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Task&lt;byte[]&gt;</returns>
         public async Task<byte[]> ReportForMovie(string id = "tt0110413")
         {
             var apiLib = new ApiLib(apiKey);
             var data = await apiLib.ReportBytesAsync(id,language: Language.en,false);
             return data;
         }
-
-        public async Task<string> MovieBudget(string id = "tt0110413")
+        /// <summary>
+        /// Фильмы которые показывают в кинотеатрах \ новинки
+        /// </summary>
+        /// <returns>Task&lt;List&lt;NewMovieDataDetail&gt;&gt;</returns>
+        public async Task<List<NewMovieDataDetail>> GetNewMovies()
         {
             var apiLib = new ApiLib(apiKey);
-            var data = await apiLib.TitleAsync(id);
-            return data.BoxOffice.Budget;
+            var data = await apiLib.InTheatersAsync();
+            return data.Items;
+        }
+
+        /// <summary>
+        /// Информация фильма по его id
+        /// </summary>
+        /// <param name="id">Пример: tt1375666</param>
+        /// <returns>Task&lt;TitleData&gt;</returns>
+        public async Task<TitleData> MovieOrSeriesInfo(string id = null)
+        {
+            var apiLib = new ApiLib(apiKey);
+            var data = await apiLib.TitleAsync(id,FullCast:true);
+            return data;
         }
     }
 }
