@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace YMovies.Database.Models
 {
-    public class Movie
+    public class Series
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int MovieId { get; set; }
+        public int SeriesId { get; set; }
         public string ImdbId { get; set; }
         public string Title { get; set; }
         public string PosterUrl { get; set; }
@@ -21,8 +21,7 @@ namespace YMovies.Database.Models
         public decimal Budget { get; set; }
         public string BoxOffice { get; set; }
         public decimal ImdbRating { get; set; }
-
-
+        public int StatisticId { get; set; }
         public virtual ICollection<Cast> Cast { get; set; }
         public virtual ICollection<Country> Countries { get; set; }
         public virtual ICollection<Genre> Genres { get; set; }

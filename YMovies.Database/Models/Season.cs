@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace YMovies.Database.Models
 {
-    public class User
+    public class Season
     {
-        public int Id { get; set; }
+        public int SeasonId { get; set; }
+        public string Name { get; set; }
+        public int NumberOfEpisodes { get; set; }
     }
 }
