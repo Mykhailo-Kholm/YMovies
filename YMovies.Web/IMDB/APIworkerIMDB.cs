@@ -74,10 +74,10 @@ namespace YMovies.Web.IMDB
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Task&lt;byte[]&gt;</returns>
-        public async Task<byte[]> ReportForMovie(string id = "tt0110413")
+        public async Task<byte[]> ReportForMovie(string id = null)
         {
             var apiLib = new ApiLib(apiKey);
-            var data = await apiLib.ReportBytesAsync(id,language: Language.en,false);
+            var data = await apiLib.ReportBytesAsync(id,language: Language.en,false,Ratings: true);
             return data;
         }
         /// <summary>
