@@ -92,7 +92,7 @@ namespace YMovies.Web.IMDB
         }
 
         /// <summary>
-        /// Информация фильма по его id
+        /// Информация фильма по id
         /// </summary>
         /// <param name="id">Пример: tt1375666</param>
         /// <returns>Task&lt;TitleData&gt;</returns>
