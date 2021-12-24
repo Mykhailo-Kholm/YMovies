@@ -9,7 +9,7 @@ namespace YMovies.Identity.Users
     {
         public string Name { get; set; }
 
-        public string Surname { get; set; }
+        public string SecondName { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
