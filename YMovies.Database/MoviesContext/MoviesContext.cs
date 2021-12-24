@@ -21,7 +21,7 @@ namespace YMovies.Database.MoviesContext
         public MoviesContext() : base("DefaultConnection")
         {
         }
-
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Movie>()
@@ -82,7 +82,6 @@ namespace YMovies.Database.MoviesContext
                 .HasMany<Season>(sr => sr.Seasons)
                 .WithRequired(s => s.CurrentSeries)
                 .HasForeignKey<int>(s => s.CurrentSeriesId);
-
             modelBuilder.Entity<Movie>()
                 .HasOptional(m => m.Statistic)
                 .WithRequired(st => st.Movie);

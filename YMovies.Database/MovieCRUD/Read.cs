@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YMovies.Database
+namespace YMovies.Database.MovieCRUD
 {
-    public class Class1
+    class Read
     {
-        public void test()
-        {
-        }
     }
 }
