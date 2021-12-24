@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9895EA37-952E-4939-935A-4993C55AF9FF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YMovies.Database</RootNamespace>
+    <AssemblyName>YMovies.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Migrations\202112221351088_InitialModelOfMovies.cs" />
+    <Compile Include="Migrations\202112221351088_InitialModelOfMovies.designer.cs">
+      <DependentUpon>202112221351088_InitialModelOfMovies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112231056408_AddedUser.cs" />
+    <Compile Include="Migrations\202112231056408_AddedUser.Designer.cs">
+      <DependentUpon>202112231056408_AddedUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112231155400_AddSeriesRelationships.cs" />
+    <Compile Include="Migrations\202112231155400_AddSeriesRelationships.Designer.cs">
+      <DependentUpon>202112231155400_AddSeriesRelationships.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112231218552_updateModles.cs" />
+    <Compile Include="Migrations\202112231218552_updateModles.Designer.cs">
+      <DependentUpon>202112231218552_updateModles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112231238075_Empty.cs" />
+    <Compile Include="Migrations\202112231238075_Empty.Designer.cs">
+      <DependentUpon>202112231238075_Empty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112231241229_Empty1.cs" />
+    <Compile Include="Migrations\202112231241229_Empty1.Designer.cs">
+      <DependentUpon>202112231241229_Empty1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112231537103_UpdateCastMovieRelationship.cs" />
+    <Compile Include="Migrations\202112231537103_UpdateCastMovieRelationship.Designer.cs">
+      <DependentUpon>202112231537103_UpdateCastMovieRelationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112231544570_UpdateCountryMovieAndGenreMovieRelationship.cs" />
+    <Compile Include="Migrations\202112231544570_UpdateCountryMovieAndGenreMovieRelationship.Designer.cs">
+      <DependentUpon>202112231544570_UpdateCountryMovieAndGenreMovieRelationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112231552268_UpdateCountryCastGenreAndSeriesRelationship.cs" />
+    <Compile Include="Migrations\202112231552268_UpdateCountryCastGenreAndSeriesRelationship.Designer.cs">
+      <DependentUpon>202112231552268_UpdateCountryCastGenreAndSeriesRelationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.cs" />
+    <Compile Include="Migrations\202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.Designer.cs">
+      <DependentUpon>202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.cs" />
+    <Compile Include="Migrations\202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.Designer.cs">
+      <DependentUpon>202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112240902068_UpdateUser.cs" />
+    <Compile Include="Migrations\202112240902068_UpdateUser.Designer.cs">
+      <DependentUpon>202112240902068_UpdateUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112240920041_AddSeriesSeasonRelationship.cs" />
+    <Compile Include="Migrations\202112240920041_AddSeriesSeasonRelationship.Designer.cs">
+      <DependentUpon>202112240920041_AddSeriesSeasonRelationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112241018461_UpdatedLikedWatchedRElationship.cs" />
+    <Compile Include="Migrations\202112241018461_UpdatedLikedWatchedRElationship.Designer.cs">
+      <DependentUpon>202112241018461_UpdatedLikedWatchedRElationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Cast.cs" />
+    <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\Liked.cs" />
+    <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\Season.cs" />
+    <Compile Include="Models\Series.cs" />
+    <Compile Include="Models\Statistic.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Watched.cs" />
+    <Compile Include="MovieCRUD\Create.cs" />
+    <Compile Include="MovieCRUD\Delete.cs" />
+    <Compile Include="MovieCRUD\Read.cs" />
+    <Compile Include="MovieCRUD\Update.cs" />
+    <Compile Include="MoviesContext\MoviesContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202112221351088_InitialModelOfMovies.resx">
+      <DependentUpon>202112221351088_InitialModelOfMovies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112231056408_AddedUser.resx">
+      <DependentUpon>202112231056408_AddedUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112231155400_AddSeriesRelationships.resx">
+      <DependentUpon>202112231155400_AddSeriesRelationships.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112231218552_updateModles.resx">
+      <DependentUpon>202112231218552_updateModles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112231238075_Empty.resx">
+      <DependentUpon>202112231238075_Empty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112231241229_Empty1.resx">
+      <DependentUpon>202112231241229_Empty1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112231537103_UpdateCastMovieRelationship.resx">
+      <DependentUpon>202112231537103_UpdateCastMovieRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112231544570_UpdateCountryMovieAndGenreMovieRelationship.resx">
+      <DependentUpon>202112231544570_UpdateCountryMovieAndGenreMovieRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112231552268_UpdateCountryCastGenreAndSeriesRelationship.resx">
+      <DependentUpon>202112231552268_UpdateCountryCastGenreAndSeriesRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.resx">
+      <DependentUpon>202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.resx">
+      <DependentUpon>202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112240902068_UpdateUser.resx">
+      <DependentUpon>202112240902068_UpdateUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112240920041_AddSeriesSeasonRelationship.resx">
+      <DependentUpon>202112240920041_AddSeriesSeasonRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112241018461_UpdatedLikedWatchedRElationship.resx">
+      <DependentUpon>202112241018461_UpdatedLikedWatchedRElationship.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

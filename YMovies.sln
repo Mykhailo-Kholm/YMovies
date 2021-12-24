@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMovies.Web", "YMovies.Web\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMovies.Identity", "YMovies.Identity\YMovies.Identity.csproj", "{4EEDAF86-A5BB-49F7-A513-1DA7A4F302B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMovies.MovieDbService", "YMovies.Database\YMovies.MovieDbService.csproj", "{9895EA37-952E-4939-935A-4993C55AF9FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,7 @@ Global
 		{D0A0481B-0FCE-4922-8DDB-1FE2247387CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0A0481B-0FCE-4922-8DDB-1FE2247387CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0A0481B-0FCE-4922-8DDB-1FE2247387CF}.Release|Any CPU.Build.0 = Release|Any CPU
+
 		{4EEDAF86-A5BB-49F7-A513-1DA7A4F302B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4EEDAF86-A5BB-49F7-A513-1DA7A4F302B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EEDAF86-A5BB-49F7-A513-1DA7A4F302B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
