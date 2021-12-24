@@ -11,5 +11,8 @@ namespace YMovies.Database.Models
     public class Watched
     {
         public int WatchedId { get; set; }
+        public User User { get; set; }
+        public ICollection<Movie> WatchedMovies { get; set; }
+        public ICollection<Season> WatchedSeasons { get; set; }
     }
 }

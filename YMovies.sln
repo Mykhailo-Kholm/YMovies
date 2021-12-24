@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMovies.Web", "YMovies.Web\YMovies.Web.csproj", "{D0A0481B-0FCE-4922-8DDB-1FE2247387CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMovies.Database", "YMovies.Database\YMovies.Database.csproj", "{9895EA37-952E-4939-935A-4993C55AF9FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMovies.MovieDbService", "YMovies.Database\YMovies.MovieDbService.csproj", "{9895EA37-952E-4939-935A-4993C55AF9FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

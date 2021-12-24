@@ -23,6 +23,9 @@ namespace YMovies.Database.Models
         public decimal ImdbRating { get; set; }
 
 
+        public virtual Statistic Statistic { get; set; }
+        public virtual ICollection<Liked> Liked { get; set; }
+        public virtual ICollection<Watched> Watched { get; set; }
         public virtual ICollection<Cast> Cast { get; set; }
         public virtual ICollection<Country> Countries { get; set; }
         public virtual ICollection<Genre> Genres { get; set; }

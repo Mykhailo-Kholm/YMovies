@@ -87,6 +87,26 @@
     <Compile Include="Migrations\202112231552268_UpdateCountryCastGenreAndSeriesRelationship.Designer.cs">
       <DependentUpon>202112231552268_UpdateCountryCastGenreAndSeriesRelationship.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.cs" />
+    <Compile Include="Migrations\202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.Designer.cs">
+      <DependentUpon>202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.cs" />
+    <Compile Include="Migrations\202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.Designer.cs">
+      <DependentUpon>202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112240902068_UpdateUser.cs" />
+    <Compile Include="Migrations\202112240902068_UpdateUser.Designer.cs">
+      <DependentUpon>202112240902068_UpdateUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112240920041_AddSeriesSeasonRelationship.cs" />
+    <Compile Include="Migrations\202112240920041_AddSeriesSeasonRelationship.Designer.cs">
+      <DependentUpon>202112240920041_AddSeriesSeasonRelationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112241018461_UpdatedLikedWatchedRElationship.cs" />
+    <Compile Include="Migrations\202112241018461_UpdatedLikedWatchedRElationship.Designer.cs">
+      <DependentUpon>202112241018461_UpdatedLikedWatchedRElationship.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cast.cs" />
     <Compile Include="Models\Country.cs" />
@@ -101,9 +121,7 @@
     <Compile Include="MoviesContext\MoviesContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IdentityContext\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
@@ -135,6 +153,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112231552268_UpdateCountryCastGenreAndSeriesRelationship.resx">
       <DependentUpon>202112231552268_UpdateCountryCastGenreAndSeriesRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.resx">
+      <DependentUpon>202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.resx">
+      <DependentUpon>202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112240902068_UpdateUser.resx">
+      <DependentUpon>202112240902068_UpdateUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112240920041_AddSeriesSeasonRelationship.resx">
+      <DependentUpon>202112240920041_AddSeriesSeasonRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112241018461_UpdatedLikedWatchedRElationship.resx">
+      <DependentUpon>202112241018461_UpdatedLikedWatchedRElationship.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

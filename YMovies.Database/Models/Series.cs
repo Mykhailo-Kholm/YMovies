@@ -21,7 +21,9 @@ namespace YMovies.Database.Models
         public decimal Budget { get; set; }
         public string BoxOffice { get; set; }
         public decimal ImdbRating { get; set; }
-        public int StatisticId { get; set; }
+
+        public ICollection<Season> Seasons { get; set; }
+        public virtual Statistic Statistic { get; set; }
         public virtual ICollection<Cast> Cast { get; set; }
         public virtual ICollection<Country> Countries { get; set; }
         public virtual ICollection<Genre> Genres { get; set; }
