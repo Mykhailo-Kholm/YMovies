@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Async;
+using YMovies.Web.IMDB;
 
 namespace YMovies.Web.Controllers
 {
@@ -25,6 +28,15 @@ namespace YMovies.Web.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public async Task<ActionResult> Mock(string id)
+        {
+            APIworkerIMDB imdb = new APIworkerIMDB();
+
+            ViewData["MovieReport"] = await imdb.ReportForMovie(id);
+
+            return View("MockFilm");
         }
     }
 }
