@@ -1,0 +1,44 @@
+﻿@model YMovies.Web.ViewModels.MovieModel
+
+@{
+    ViewBag.Title = "MockSearch";
+}
+
+<h2>MockSearch</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label>Title</label>
+            </th>
+            <th>
+                <label>Genre</label>
+            </th>
+            <th>
+                <label>IMDB rating</label>
+            </th>
+            <th>
+                <label>Poster</label>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (var item in Model.Movies)
+       {
+           <tr>
+               <td>
+                   @Html.DisplayFor(modelItem => item.Title)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.Genre)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.imDbRating)
+               </td>
+               <td>
+                   <img src="@item.Image" width="400px" height="600px"/>
+               </td>
+           </tr>
+       }
+    </tbody>
+</table>
