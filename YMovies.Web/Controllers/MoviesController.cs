@@ -30,20 +30,61 @@ namespace YMovies.Web.Controllers
             }
         };
 
+        public static List<Genre> Genres = new List<Genre>()
+        {
+            new Genre()
+            {
+                Id = 1,
+                Name = "Genre1"
+            },
+            new Genre()
+            {
+                Id = 2,
+                Name = "Genre2"
+            },
+            new Genre()
+            {
+                Id = 3,
+                Name = "Genre3"
+            }
+        };
+
+        public static List<Cast> Casts = new List<Cast>()
+        {
+            new Cast()
+            {
+                Id = 1,
+                Name = "First",
+                Surname = "Actor"
+            },
+            new Cast()
+            {
+                Id = 2,
+                Name = "Second",
+                Surname = "Actor"
+            },
+            new Cast()
+            {
+                Id = 3,
+                Name = "Third",
+                Surname = "Actor"
+            }
+        };
+
         public static List<Movie> movies = new List<Movie>()
         {
             new Movie()
             {
-                Id = 1,
-                Name = "Movie one",
-                Rating = 3,
-                Year = 2021,
+                MovieId = 1,
+                Title = "Movie one",
+                ImdbRating = 3,
+                Year = "2021",
                 UsersRating = 1,
-                Description = "descriptionOne",
-                GenresList = new List<string>()
+                Plot = "descriptionOne",
+                Genres = new List<Genre>()
                 {
-                    "FirstGenre",
-                    "SecondGenre"
+                    Genres[0],
+                    Genres[2],
                 },
                 Type = "Movie",
                 Countries = new List<Country>()
@@ -52,21 +93,24 @@ namespace YMovies.Web.Controllers
 
                 },
 
-                Cast = "Actor, Director",
+                Cast = new List<Cast>()
+                {
+                    Casts[0]
+                },
                 Budget = 100
             },
             new Movie()
             {
-                Id = 1,
-                Name = "Movie one",
-                Rating = 3,
-                Year = 2021,
+                MovieId = 2,
+                Title = "Movie one",
+                ImdbRating = 3,
+                Year = "2021",
                 UsersRating = 1,
-                Description = "descriptionOne",
-                GenresList = new List<string>()
+                Plot = "descriptionOne",
+                Genres = new List<Genre>()
                 {
-                    "FirstGenre",
-                    "SecondGenre"
+                    Genres[1],
+
                 },
                 Type = "Movie",
                 Countries = new List<Country>()
@@ -76,21 +120,24 @@ namespace YMovies.Web.Controllers
 
                 },
 
-                Cast = "Actor, Director",
+                Cast = new List<Cast>()
+                {
+                    Casts[1]
+                },
                 Budget = 100
             },
             new Movie()
             {
-                Id = 3,
-                Name = "Movie one",
-                Rating = 3,
-                Year = 2021,
+                MovieId = 3,
+                Title = "Movie one",
+                ImdbRating = 3,
+                Year = "2021",
                 UsersRating = 1,
-                Description = "descriptionOne",
-                GenresList = new List<string>()
+                Plot = "descriptionOne",
+                Genres = new List<Genre>()
                 {
-                    "FirstGenre",
-                    "SecondGenre"
+                    Genres[0],
+                    Genres[1],
                 },
                 Type = "Movie",
                 Countries = new List<Country>()
@@ -100,21 +147,25 @@ namespace YMovies.Web.Controllers
                     countries[2]
 
                 },
-                Cast = "Actor, Director",
+                Cast = new List<Cast>()
+                {
+                    Casts[1],
+                    Casts[2]
+                },
                 Budget = 100
             },
             new Movie()
             {
-                Id = 2,
-                Name = "Movie two",
-                Rating = 2,
-                Year = 1998,
+                MovieId = 4,
+                Title = "Movie two",
+                ImdbRating = 2,
+                Year = "1998",
                 UsersRating = 12,
-                Description = "desc2",
-                GenresList = new List<string>()
+                Plot = "desc2",
+                Genres = new List<Genre>()
                 {
-                    "ThirdGenre",
-                    "SecondGenre"
+                    Genres[0],
+
                 },
                 Type = "Serial",
                 Countries = new List<Country>()
@@ -123,21 +174,25 @@ namespace YMovies.Web.Controllers
                     countries[1]
 
                 },
-                Cast = "Actors",
+                Cast = new List<Cast>()
+                {
+                    Casts[0],
+                    Casts[2]
+                },
                 Budget = 120
             },
             new Movie()
             {
-                Id = 1,
-                Name = "Movie one",
-                Rating = 3,
-                Year = 2021,
+                MovieId = 5,
+                Title = "Movie one",
+                ImdbRating = 3,
+                Year = "2021",
                 UsersRating = 1,
-                Description = "descriptionOne",
-                GenresList = new List<string>()
+                Plot = "descriptionOne",
+                Genres = new List<Genre>()
                 {
-                    "FirstGenre",
-                    "SecondGenre"
+                    Genres[0],
+
                 },
                 Type = "Movie",
                 Countries = new List<Country>()
@@ -146,21 +201,25 @@ namespace YMovies.Web.Controllers
                     countries[1]
 
                 },
-                Cast = "Actor, Director",
+                Cast = new List<Cast>()
+                {
+                    Casts[1],
+                    Casts[2]
+                },
                 Budget = 100
             },
             new Movie()
             {
-                Id = 1,
-                Name = "Movie one",
-                Rating = 3,
-                Year = 2021,
+                MovieId = 6,
+                Title = "Movie one",
+                ImdbRating = 3,
+                Year = "2021",
                 UsersRating = 1,
-                Description = "descriptionOne",
-                GenresList = new List<string>()
+                Plot = "descriptionOne",
+                Genres = new List<Genre>()
                 {
-                    "FirstGenre",
-                    "SecondGenre"
+                    Genres[0],
+
                 },
                 Type = "Movie",
                 Countries = new List<Country>()
@@ -169,21 +228,25 @@ namespace YMovies.Web.Controllers
                     countries[1]
 
                 },
-                Cast = "Actor, Director",
+                Cast = new List<Cast>()
+                {
+                    Casts[1],
+                    Casts[2]
+                },
                 Budget = 100
             },
             new Movie()
             {
-                Id = 2,
-                Name = "Movie two",
-                Rating = 2,
-                Year = 1998,
+                MovieId = 7,
+                Title = "Movie two",
+                ImdbRating = 2,
+                Year = "1998",
                 UsersRating = 12,
-                Description = "desc2",
-                GenresList = new List<string>()
+                Plot = "desc2",
+                Genres = new List<Genre>()
                 {
-                    "ThirdGenre",
-                    "SecondGenre"
+                    Genres[0],
+
                 },
                 Type = "Serial",
                 Countries = new List<Country>()
@@ -192,7 +255,11 @@ namespace YMovies.Web.Controllers
                     countries[1]
 
                 },
-                Cast = "Actors",
+                Cast = new List<Cast>()
+                {
+                    Casts[1],
+                    Casts[2]
+                },
                 Budget = 120
             }
         };
@@ -212,7 +279,7 @@ namespace YMovies.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            Movie movie = movies.FirstOrDefault(m => m.Id == id);
+            Movie movie = movies.FirstOrDefault(m => m.MovieId == id);
             return View(movie);
         }
     }

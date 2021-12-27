@@ -10,15 +10,15 @@
 <td>
     <div>
         <div align="center">
-            @item.Name
+            @item.Title
         </div>
         <div>
-            <a href="@Url.Action("Details", "Movies", new { id = item.Id})">
+            <a href="@Url.Action("Details", "Movies", new { id = item.MovieId})">
                 <img src="@Url.Content("~/Content/Images/film.png")" class="postr" height=" 250" width="243" />
             </a>
         </div>
         <div align="center">
-            <span>Plot: @item.Description</span>
+            <span>Plot: @item.Plot</span>
         </div>
     </div>
 

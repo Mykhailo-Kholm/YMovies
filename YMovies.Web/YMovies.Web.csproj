@@ -192,7 +192,9 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="TempModels\Cast.cs" />
     <Compile Include="TempModels\Country.cs" />
+    <Compile Include="TempModels\Genre.cs" />
     <Compile Include="TempModels\Movie.cs" />
     <Compile Include="ViewModels\CountryMovieViewModel.cs" />
   </ItemGroup>

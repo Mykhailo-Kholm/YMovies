@@ -6,31 +6,31 @@
 }
 
 <div>
-    @Model.Name
+    @Model.Title
 </div>
 <div style="float:left;">
     <img src="@Url.Content("~/Content/Images/film.png")" class="postr" height="150" width="143" />
 </div>
-<div class="godshort">
+<div>
     <span>
         Year: @Model.Year
     </span>
 </div>
-<div class="godshort">
+<div>
     <span>
         Genres:
-        @foreach (var genre in Model.GenresList)
+        @foreach (var genre in Model.Genres)
         {
-            @genre
+            @genre.Name
         }
     </span>
 </div>
-<div class="godshort">
+<div>
     <span>
         Type: @Model.Type
     </span>
 </div>
-<div class="godshort">
+<div >
     <span>
         Countries:
         @foreach (var country in Model.Countries)
@@ -39,34 +39,39 @@
         }
     </span>
 </div>
-<div class="godshort">
+<div>
     <span>
-        Cast: @Model.Cast
+        Cast:
+        @foreach (var cast in Model.Cast)
+        {
+        @cast.Name @cast.Surname
+           
+        }
     </span>
 </div>
-<div class="godshort">
+<div >
     <span>
-        Plot: @Model.Description
+        Plot: @Model.Plot
     </span>
 </div>
-<div class="godshort">
+<div>
     <span>
-        Rating IMDb: @Model.Rating
+        Rating IMDb: @Model.ImdbRating
     </span>
 </div>
-<div class="godshort">
+<div>
     <span>
         Site users rating: @Model.UsersRating
     </span>
 </div>
 
-<div class="godshort">
+<div>
     <span>
         @Html.ActionLink("Like", "Index", "Home", new { @class = "btn btn-primary" })
         @Html.ActionLink("Dislike", "Index", "Home", new { @class = "btn btn-primary" })
     </span>
 </div>
-<div class="godshort">
+<div>
     <span>
         <input data-val="true"
                data-val-required="The isActive field is required."
