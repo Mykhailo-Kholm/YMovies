@@ -1,0 +1,79 @@
+﻿@using Microsoft.Ajax.Utilities
+@model YMovies.Web.TempModels.Movie
+
+@{
+    ViewBag.Title = "MovieDetails";
+}
+
+<div>
+    @Model.Name
+</div>
+<div style="float:left;">
+    <img src="@Url.Content("~/Content/Images/film.png")" class="postr" height="150" width="143" />
+</div>
+<div class="godshort">
+    <span>
+        Year: @Model.Year
+    </span>
+</div>
+<div class="godshort">
+    <span>
+        Genres:
+        @foreach (var genre in Model.GenresList)
+        {
+            @genre
+        }
+    </span>
+</div>
+<div class="godshort">
+    <span>
+        Type: @Model.Type
+    </span>
+</div>
+<div class="godshort">
+    <span>
+        Countries:
+        @foreach (var country in Model.Countries)
+        {
+            @country.Name
+        }
+    </span>
+</div>
+<div class="godshort">
+    <span>
+        Cast: @Model.Cast
+    </span>
+</div>
+<div class="godshort">
+    <span>
+        Plot: @Model.Description
+    </span>
+</div>
+<div class="godshort">
+    <span>
+        Rating IMDb: @Model.Rating
+    </span>
+</div>
+<div class="godshort">
+    <span>
+        Site users rating: @Model.UsersRating
+    </span>
+</div>
+
+<div class="godshort">
+    <span>
+        @Html.ActionLink("Like", "Index", "Home", new { @class = "btn btn-primary" })
+        @Html.ActionLink("Dislike", "Index", "Home", new { @class = "btn btn-primary" })
+    </span>
+</div>
+<div class="godshort">
+    <span>
+        <input data-val="true"
+               data-val-required="The isActive field is required."
+               id="isActive"
+               name="isActive"
+               type="checkbox"
+               value="true">Mark as watched
+        </input>
+    </span>
+</div>
