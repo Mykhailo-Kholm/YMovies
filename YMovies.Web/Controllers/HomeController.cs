@@ -54,6 +54,7 @@ namespace YMovies.Web.Controllers
                 {
                     movieModel.Movies.Add(new MovieGenreViewModel()
                         {
+                            id = film.Id,
                             Title = film.Title,
                             Genre = film.Genres,
                             Image = film.Image,
@@ -80,6 +81,7 @@ namespace YMovies.Web.Controllers
                 {
                     movieModel.Movies.Add(new MovieGenreViewModel()
                         {
+                            id = film.Id,
                             Title = film.Title,
                             Genre = film.Genres,
                             Image = film.Image,
