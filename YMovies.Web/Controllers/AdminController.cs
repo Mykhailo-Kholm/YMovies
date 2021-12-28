@@ -2,47 +2,77 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using YMovies.Identity.Dtos;
 using YMovies.Identity.Managers;
-using YMovies.Identity.Users;
+using YMovies.Identity.Models;
+using YMovies.Web.Dtos;
+using YMovies.Web.Models.AdminViewModels;
 using YMovies.Web.Utilities;
 
 namespace YMovies.Web.Controllers
 {
-    [Authorize(Roles ="admin")]
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
-        private ApplicationUserManager _userManager;
-
         public AdminController()
         {
-        }
-
-        public AdminController(ApplicationUserManager userManager)
-        {
-            UserManager = userManager;
         }
 
         public ApplicationUserManager UserManager
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
         }
 
-        public ActionResult ManageUsers()
+        public ApplicationRoleManager RoleManager
         {
-            IEnumerable<ApplicationUser> users = UserManager.Users.ToList();
-            var models = AutoMap.Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserDto>>(users);
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+        }
 
-            return View(models);
+        public ActionResult Find()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(string email)
+        {
+            var user = await UserManager.FindByEmailAsync(email);
+
+            if (user == null)
+                return HttpNotFound();
+
+            var roles = RoleManager.Roles.ToList();
+            var rolesSelectedList = new SelectList(roles, "Name", "Name");
+
+            var model = new RoleEditingModel
+            {
+                UserId = user.Id,
+                Email = user.Email,
+                Roles = rolesSelectedList
+            };
+
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ConfirmEdit(string userId, string role = "user")
+        {
+            var temp = await RoleManager.FindByNameAsync(role);
+            
+            if (temp == null)
+                return HttpNotFound();
+            
+            await UserManager.AddToRoleAsync(userId, temp.Name);
+
+            return RedirectToAction("Index", "Home", null);
         }
     }
 }

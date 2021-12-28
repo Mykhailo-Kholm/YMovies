@@ -7,7 +7,7 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
     using YMovies.Identity.Managers;
-    using YMovies.Identity.Users;
+    using YMovies.Identity.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<YMovies.Identity.IdentityContext>
     {
@@ -21,16 +21,13 @@
         {
             var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var roleManager = new RoleManager<ApplicationRole>(new RoleStore<ApplicationRole>(context));
 
-            var adminRole = RoleManager.GetAdmin();
-            var userRole = RoleManager.GetUser();
+            var adminRole = RoleCreator.GetAdmin();
 
             roleManager.Create(adminRole);
-            roleManager.Create(userRole);
 
             context.Roles.AddOrUpdate(adminRole);
-            context.Roles.AddOrUpdate(userRole);
 
             var admin = new ApplicationUser
             {
@@ -41,13 +38,9 @@
             };
 
             string password = "Admin01_pass";
-            var result = userManager.Create(admin, password);
 
-            if (result.Succeeded)
-            {
-                userManager.AddToRole(admin.Id, adminRole.Name);
-                userManager.AddToRole(admin.Id, userRole.Name);
-            }
+            userManager.Create(admin, password);
+            userManager.AddToRole(admin.Id, adminRole.Name);
 
             context.Users.AddOrUpdate(admin);
         }

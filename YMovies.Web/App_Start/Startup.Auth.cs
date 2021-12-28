@@ -6,7 +6,7 @@ using Owin;
 using System;
 using YMovies.Identity;
 using YMovies.Identity.Managers;
-using YMovies.Identity.Users;
+using YMovies.Identity.Models;
 
 namespace YMovies.Web
 {
@@ -17,7 +17,7 @@ namespace YMovies.Web
             app.CreatePerOwinContext(IdentityContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
-
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,

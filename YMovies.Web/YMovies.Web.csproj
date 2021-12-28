@@ -198,6 +198,9 @@
     <Compile Include="Models\AccountViewModels\RegisterViewModel.cs" />
     <Compile Include="Models\AccountViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="Models\AdminViewModels\ManageUsersViewModel.cs" />
+    <Compile Include="Models\AdminViewModels\RoleEditingModel.cs" />
+    <Compile Include="Models\AdminViewModels\UserRoleModel.cs" />
+    <Compile Include="Models\AdminViewModels\UserWithRole.cs" />
     <Compile Include="Models\ManageViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="Models\ManageViewModels\IndexViewModel.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
@@ -305,7 +308,8 @@
     <Content Include="Views\Home\MockFilm.cshtml" />
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Movies\Details.cshtml" />
-    <Content Include="Views\Admin\ManageUsers.cshtml" />
+    <Content Include="Views\Admin\Find.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
