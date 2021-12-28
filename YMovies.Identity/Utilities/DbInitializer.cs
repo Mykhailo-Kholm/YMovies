@@ -23,12 +23,12 @@ namespace YMovies.Identity.Utilities
             var admin = new ApplicationUser
             {
                 Name = "Petya",
-                Surname = "Pupkin",
-                Email = "somemail@mail.ru",
-                UserName = "somemail@mail.ru"
+                SecondName = "Pupkin",
+                Email = "admin01@gmail.com",
+                UserName = "admin01@gmail.com"
             };
 
-            string password = "A12_aaa";
+            string password = "Admin01_pass";
             var result = userManager.Create(admin, password);
 
             if (result.Succeeded)
@@ -36,7 +36,7 @@ namespace YMovies.Identity.Utilities
                 userManager.AddToRole(admin.Id, adminRole.Name);
                 userManager.AddToRole(admin.Id, userRole.Name);
             }
-
+               
             base.Seed(context);
         }
     }

@@ -75,6 +75,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IAccountService.cs" />
+    <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="IdentityContext.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Managers\ApplicationSignInManager.cs" />
@@ -82,6 +84,22 @@
     <Compile Include="Migrations\202112231323074_InitialCreate.cs" />
     <Compile Include="Migrations\202112231323074_InitialCreate.designer.cs">
       <DependentUpon>202112231323074_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112241145564_ChangeUserFiledName.cs" />
+    <Compile Include="Migrations\202112241145564_ChangeUserFiledName.designer.cs">
+      <DependentUpon>202112241145564_ChangeUserFiledName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112241209019_TestSeed.cs" />
+    <Compile Include="Migrations\202112241209019_TestSeed.designer.cs">
+      <DependentUpon>202112241209019_TestSeed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112241223089_AddNewField.cs" />
+    <Compile Include="Migrations\202112241223089_AddNewField.designer.cs">
+      <DependentUpon>202112241223089_AddNewField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112241229423_RemoveUselessField.cs" />
+    <Compile Include="Migrations\202112241229423_RemoveUselessField.designer.cs">
+      <DependentUpon>202112241229423_RemoveUselessField.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,6 +112,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202112231323074_InitialCreate.resx">
       <DependentUpon>202112231323074_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112241145564_ChangeUserFiledName.resx">
+      <DependentUpon>202112241145564_ChangeUserFiledName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112241209019_TestSeed.resx">
+      <DependentUpon>202112241209019_TestSeed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112241223089_AddNewField.resx">
+      <DependentUpon>202112241223089_AddNewField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112241229423_RemoveUselessField.resx">
+      <DependentUpon>202112241229423_RemoveUselessField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
