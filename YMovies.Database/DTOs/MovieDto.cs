@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YMovies.Database.MovieCRUD
+namespace YMovies.Database.DTOs
 {
-    class Read
+    class MovieDto
     {
     }
 }
