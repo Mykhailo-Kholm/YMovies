@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using YMovies.Identity.Dtos;
+using YMovies.Web.Dtos;
 
 namespace YMovies.Web.Models.AdminViewModels
 {

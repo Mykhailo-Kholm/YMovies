@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
-using YMovies.Identity.Users;
+using YMovies.Identity.Models;
 using YMovies.Web.Dtos;
 using YMovies.Web.Models;
 

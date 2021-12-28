@@ -75,12 +75,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\IAccountService.cs" />
-    <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="IdentityContext.cs" />
+    <Compile Include="Managers\ApplicationRoleManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Managers\ApplicationSignInManager.cs" />
-    <Compile Include="Managers\RoleManager.cs" />
+    <Compile Include="Migrations\202112281459037_EmptyOne.cs" />
+    <Compile Include="Migrations\202112281459037_EmptyOne.designer.cs">
+      <DependentUpon>202112281459037_EmptyOne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112281507397_Trying.cs" />
+    <Compile Include="Migrations\202112281507397_Trying.designer.cs">
+      <DependentUpon>202112281507397_Trying.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112281715594_ChangeSeed.cs" />
+    <Compile Include="Migrations\202112281715594_ChangeSeed.designer.cs">
+      <DependentUpon>202112281715594_ChangeSeed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\RoleCreator.cs" />
     <Compile Include="Migrations\202112231323074_InitialCreate.cs" />
     <Compile Include="Migrations\202112231323074_InitialCreate.designer.cs">
       <DependentUpon>202112231323074_InitialCreate.cs</DependentUpon>
@@ -102,8 +113,9 @@
       <DependentUpon>202112241229423_RemoveUselessField.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Users\ApplicationUser.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Utilities\DbInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +136,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112241229423_RemoveUselessField.resx">
       <DependentUpon>202112241229423_RemoveUselessField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112281459037_EmptyOne.resx">
+      <DependentUpon>202112281459037_EmptyOne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112281507397_Trying.resx">
+      <DependentUpon>202112281507397_Trying.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112281715594_ChangeSeed.resx">
+      <DependentUpon>202112281715594_ChangeSeed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

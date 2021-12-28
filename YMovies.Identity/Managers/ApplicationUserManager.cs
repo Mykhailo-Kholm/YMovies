@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using System;
-using YMovies.Identity.Users;
+using YMovies.Identity.Models;
 
 namespace YMovies.Identity.Managers
 {
@@ -41,6 +41,7 @@ namespace YMovies.Identity.Managers
                 manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
+
             return manager;
         }
     }

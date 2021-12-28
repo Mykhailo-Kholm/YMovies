@@ -3,7 +3,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using YMovies.Identity.Users;
+using YMovies.Identity.Models;
 
 namespace YMovies.Identity.Managers
 {
