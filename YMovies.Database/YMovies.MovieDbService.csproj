@@ -118,14 +118,14 @@
     <Compile Include="Models\Statistic.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Watched.cs" />
-    <Compile Include="MovieCRUD\Create.cs" />
-    <Compile Include="MovieCRUD\Delete.cs" />
-    <Compile Include="MovieCRUD\Read.cs" />
-    <Compile Include="MovieCRUD\Update.cs" />
-    <Compile Include="MoviesContext\MoviesContext.cs" />
+    <Compile Include="DatabaseContext\MoviesContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+    <Folder Include="IRepository\" />
+    <Folder Include="Repository\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
