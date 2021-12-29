@@ -83,47 +83,42 @@ namespace YMovies.Database.DatabaseContext
             modelBuilder.Entity<Series>()
                 .HasOptional(s => s.Statistic)
                 .WithRequired(st => st.Series);
+
             modelBuilder.Entity<User>()
-                .HasRequired(u => u.Liked)
-                .WithRequiredPrincipal(l => l.User);
+                .HasMany<Movie>(u => u.LikedMovies)
+                .WithMany(m => m.UsersLiked)
+                .Map(mu =>
+                {
+                    mu.MapLeftKey("UserRefId");
+                    mu.MapRightKey("MovieRefId");
+                    mu.ToTable("LikedMovie");
+                });
             modelBuilder.Entity<User>()
-                .HasRequired(u => u.Watched)
-                .WithRequiredPrincipal(w => w.User);
-            modelBuilder.Entity<Liked>()
-                .HasMany<Movie>(l => l.LikedMovies)
-                .WithMany(m => m.Liked)
-                .Map(ml =>
+                .HasMany<Season>(u => u.LikedSeasons)
+                .WithMany(s => s.UsersLiked)
+                .Map(su =>
                 {
-                    ml.MapLeftKey("LikedRefId");
-                    ml.MapRightKey("MovieRefId");
-                    ml.ToTable("LikedMovie");
+                    su.MapLeftKey("UserRefId");
+                    su.MapRightKey("SeasonRefId");
+                    su.ToTable("LikedSeason");
                 });
-            modelBuilder.Entity<Liked>()
-                .HasMany<Season>(l => l.LikedSeasons)
-                .WithMany(s => s.Liked)
-                .Map(sl =>
+            modelBuilder.Entity<User>()
+                .HasMany<Movie>(u => u.WatchedMovies)
+                .WithMany(m => m.UsersWatched)
+                .Map(mu =>
                 {
-                    sl.MapLeftKey("LikedRefId");
-                    sl.MapRightKey("SeasonRefId");
-                    sl.ToTable("LikedSeason");
+                    mu.MapLeftKey("UserRefId");
+                    mu.MapRightKey("MovieRefId");
+                    mu.ToTable("WatchedMovie");
                 });
-            modelBuilder.Entity<Watched>()
-                .HasMany<Movie>(w => w.WatchedMovies)
-                .WithMany(m => m.Watched)
-                .Map(mw =>
+            modelBuilder.Entity<User>()
+                .HasMany<Season>(u => u.WatchedSeasons)
+                .WithMany(s => s.UsersWatched)
+                .Map(su =>
                 {
-                    mw.MapLeftKey("WatchedRefId");
-                    mw.MapRightKey("MovieRefId");
-                    mw.ToTable("WatchedMovie");
-                });
-            modelBuilder.Entity<Watched>()
-                .HasMany<Season>(w => w.WatchedSeasons)
-                .WithMany(s => s.Watched)
-                .Map(wl =>
-                {
-                    wl.MapLeftKey("WatchedRefId");
-                    wl.MapRightKey("SeasonRefId");
-                    wl.ToTable("WatchedSeason");
+                    su.MapLeftKey("UserRefId");
+                    su.MapRightKey("SeasonRefId");
+                    su.ToTable("WatchedSeason");
                 });
 
         }

@@ -11,7 +11,7 @@ namespace YMovies.Database.Models
         public int CurrentSeriesId { get; set; }
         public Series CurrentSeries { get; set; }
 
-        public virtual ICollection<Liked> Liked { get; set; }
-        public virtual ICollection<Watched> Watched { get; set; }
+        public virtual ICollection<User> UsersLiked { get; set; }
+        public virtual ICollection<User> UsersWatched { get; set; }
     }
 }
