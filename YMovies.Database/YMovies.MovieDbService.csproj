@@ -130,6 +130,7 @@
     <Compile Include="Models\Season.cs" />
     <Compile Include="Models\Series.cs" />
     <Compile Include="Models\Statistic.cs" />
+    <Compile Include="Models\Type.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="DatabaseContext\MoviesContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
