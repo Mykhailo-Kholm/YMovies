@@ -38,16 +38,23 @@ namespace YMovies.Web.Controllers
 
         public ActionResult Find()
         {
-            return View();
+            var model = new FindModel();
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(string email)
+        public async Task<ActionResult> Edit(FindModel Model)
         {
-            var user = await UserManager.FindByEmailAsync(email);
+            if (!ModelState.IsValid)
+                return View("Find", Model);
+            
+            var user = await UserManager.FindByEmailAsync(Model.Email);
 
             if (user == null)
-                return HttpNotFound();
+            {
+                ModelState.AddModelError("Email", "This user isn't exists");
+                return View("Find", Model);
+            }
 
             var roles = RoleManager.Roles.ToList();
             var rolesSelectedList = new SelectList(roles, "Name", "Name");
@@ -59,18 +66,18 @@ namespace YMovies.Web.Controllers
                 Roles = rolesSelectedList
             };
 
-            return PartialView(model);
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<ActionResult> ConfirmEdit(string userId, string role = "user")
+        public async Task<ActionResult> ConfirmEdit(string userId, string roles)
         {
-            var temp = await RoleManager.FindByNameAsync(role);
-            
-            if (temp == null)
-                return HttpNotFound();
-            
-            await UserManager.AddToRoleAsync(userId, temp.Name);
+            var user = await UserManager.FindByIdAsync(userId);
+            var userRole = user.Roles.First();
+            var role = await RoleManager.FindByIdAsync(userRole.RoleId);
+
+            await UserManager.RemoveFromRoleAsync(userId, role.Name);
+            await UserManager.AddToRoleAsync(userId, roles);
 
             return RedirectToAction("Index", "Home", null);
         }

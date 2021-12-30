@@ -11,6 +11,7 @@ namespace YMovies.Web.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize(Roles ="admin, user")]
         public ActionResult Index()
         {            
             return View();
