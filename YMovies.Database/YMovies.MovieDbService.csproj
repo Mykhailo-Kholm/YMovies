@@ -120,6 +120,7 @@
     <Compile Include="Models\Watched.cs" />
     <Compile Include="DatabaseContext\MoviesContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchModel\SearchingModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DTOs\" />
