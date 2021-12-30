@@ -197,10 +197,9 @@
     <Compile Include="Models\AccountViewModels\LoginViewModel.cs" />
     <Compile Include="Models\AccountViewModels\RegisterViewModel.cs" />
     <Compile Include="Models\AccountViewModels\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\AdminViewModels\FindModel.cs" />
     <Compile Include="Models\AdminViewModels\ManageUsersViewModel.cs" />
     <Compile Include="Models\AdminViewModels\RoleEditingModel.cs" />
-    <Compile Include="Models\AdminViewModels\UserRoleModel.cs" />
-    <Compile Include="Models\AdminViewModels\UserWithRole.cs" />
     <Compile Include="Models\ManageViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="Models\ManageViewModels\IndexViewModel.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
