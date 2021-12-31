@@ -12,7 +12,11 @@ namespace YMovies.Database.Repositories.Repository
     {
         private readonly MoviesContext _context;
         public MovieRepository(MoviesContext context) => _context = context;
-        public IEnumerable<Movie> Items => _context.Movies;
+        public IEnumerable<Movie> Items => _context.Movies
+            .Include(m=> m.Countries)
+            .Include(m=>m.Genres)
+            .Include(m=>m.Cast)
+            .Include(m=>m.Statistic);
         public Movie GetItem(int id)
         {
             var movie = _context.Movies.FirstOrDefault(m => m.MovieId == id);

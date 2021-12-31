@@ -34,12 +34,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -122,6 +126,14 @@
     <Compile Include="Migrations\202112291407444_UpdateRelationshipForUserWatched.designer.cs">
       <DependentUpon>202112291407444_UpdateRelationshipForUserWatched.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112301424171_AddType.cs" />
+    <Compile Include="Migrations\202112301424171_AddType.designer.cs">
+      <DependentUpon>202112301424171_AddType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112301449261_AddFixToRelationshipType.cs" />
+    <Compile Include="Migrations\202112301449261_AddFixToRelationshipType.designer.cs">
+      <DependentUpon>202112301449261_AddFixToRelationshipType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cast.cs" />
     <Compile Include="Models\Country.cs" />
@@ -143,6 +155,8 @@
     <Compile Include="Repositories\Repository\SeriesRepository.cs" />
     <Compile Include="Repositories\Repository\StatisticRepository.cs" />
     <Compile Include="Repositories\Repository\UserRepository.cs" />
+    <Compile Include="Services\IService\IService.cs" />
+    <Compile Include="Services\Service\MovieService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -200,6 +214,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112291407444_UpdateRelationshipForUserWatched.resx">
       <DependentUpon>202112291407444_UpdateRelationshipForUserWatched.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112301424171_AddType.resx">
+      <DependentUpon>202112301424171_AddType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112301449261_AddFixToRelationshipType.resx">
+      <DependentUpon>202112301449261_AddFixToRelationshipType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

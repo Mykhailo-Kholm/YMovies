@@ -18,6 +18,8 @@ namespace YMovies.Database.Models
         public string BoxOffice { get; set; }
         public decimal ImdbRating { get; set; }
 
+        public Type Type { get; set; }
+
         public ICollection<Season> Seasons { get; set; }
         public virtual Statistic Statistic { get; set; }
         public virtual ICollection<Cast> Cast { get; set; }

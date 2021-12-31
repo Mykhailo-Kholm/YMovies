@@ -17,7 +17,7 @@ namespace YMovies.Database.Models
         public decimal Budget { get; set; }
         public string BoxOffice { get; set; }
         public decimal ImdbRating { get; set; }
-
+        public Type Type { get; set; }
 
         public virtual Statistic Statistic { get; set; }
         public virtual ICollection<User> UsersLiked { get; set; }

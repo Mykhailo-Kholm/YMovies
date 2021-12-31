@@ -120,6 +120,12 @@ namespace YMovies.Database.DatabaseContext
                     su.MapRightKey("SeasonRefId");
                     su.ToTable("WatchedSeason");
                 });
+            modelBuilder.Entity<Movie>()
+                .HasRequired(m => m.Type)
+                .WithRequiredPrincipal(t => t.Movie);
+            modelBuilder.Entity<Series>()
+                .HasRequired(s => s.Type)
+                .WithRequiredPrincipal(t => t.Series);
 
         }
     }
