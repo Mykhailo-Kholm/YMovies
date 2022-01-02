@@ -251,7 +251,6 @@ namespace YMovies.Web.Controllers
                 Type = "Serial",
                 Countries = new List<Country>()
                 {
-                    countries[0],
                     countries[1]
 
                 },
@@ -265,15 +264,38 @@ namespace YMovies.Web.Controllers
         };
 
         [HttpGet]
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string action)
         {
             var pageSize = 10;
             var pageNumber = page ?? 1;
+            List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
+            if (Request.UrlReferrer != null)
+            {
+                string prev = Request.UrlReferrer.ToString();
+            }
+
+            foreach (var movie in movies)
+            {
+                moviesInfos.Add
+                (
+new MoviesInfo(){Id = movie.MovieId, ImdbRating = movie.ImdbRating, Genres = movie.Genres}
+                );
+            }
             var countryMovieViewModel = new CountryMovieViewModel()
             {
-                MoviePageList = movies.ToPagedList(pageNumber, pageSize),
-                Movies = movies
+                MoviePageList = moviesInfos.ToPagedList(pageNumber, pageSize),
+                Countries = countries,
+                MoviesInfo = moviesInfos
             };
+            if (Session["Movies"] != null)
+            {
+                countryMovieViewModel.MoviesInfo = Session["Movies"] as List<MoviesInfo>;
+            }
+            else
+            {
+                countryMovieViewModel.MoviesInfo = moviesInfos;
+            }
+            //Session["Countries"] = countries;
             return View(countryMovieViewModel);
         }
 
@@ -282,5 +304,65 @@ namespace YMovies.Web.Controllers
             Movie movie = movies.FirstOrDefault(m => m.MovieId == id);
             return View(movie);
         }
+
+        public ActionResult Partial()
+        {
+            return PartialView(countries);
+        }
+
+        
+        public ActionResult FilterInclude(string action, int countryId)
+        {
+
+            List<Movie> newMovies = new List<Movie>();
+            if (Session["Movies"] != null)
+            {
+                newMovies  = Session["Movies"] as List<Movie>;
+            }
+
+            //newMovies = movies.Movies.Where(p => countries.Any(p2 => countryId == p.Id)).ToList();
+            foreach (var m in movies)
+            {
+                foreach (var c in m.Countries)
+                {   
+                    if(c.Id==countryId)
+                        newMovies.Add(m);
+                }
+            }
+
+            Session["Movies"] = newMovies;
+            //List<Movie> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult FilterExclude(int countryId)
+        {
+
+            List<Movie> newMovies = new List<Movie>();
+            if (Session["Movies"] != null)
+            {
+                newMovies = Session["Movies"] as List<Movie>;
+            }
+
+            int count = 0;
+            //newMovies = movies.Movies.Where(p => countries.Any(p2 => countryId == p.Id)).ToList();
+            foreach (var m in movies)
+            {
+                foreach (var c in m.Countries)
+                {
+                    if (c.Id != countryId)
+                    {
+                        newMovies.Remove(m);
+                    }
+                    break;
+                }
+            }
+
+            Session["Movies"] = newMovies;
+            //List<Movie> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
+            return RedirectToAction("Index");
+        }
+
+
     }
 }

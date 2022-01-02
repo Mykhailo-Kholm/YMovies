@@ -196,6 +196,7 @@
     <Compile Include="TempModels\Country.cs" />
     <Compile Include="TempModels\Genre.cs" />
     <Compile Include="TempModels\Movie.cs" />
+    <Compile Include="TempModels\MoviesInfo.cs" />
     <Compile Include="ViewModels\CountryMovieViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +262,7 @@
     <Content Include="Views\Home\MockFilm.cshtml" />
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Movies\Details.cshtml" />
+    <Content Include="Views\Movies\Partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
