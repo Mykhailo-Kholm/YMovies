@@ -7,20 +7,24 @@
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-    <h4>Change your account settings</h4>
+    <h4>Your personal information</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>Name: </dt>
+        <dd>
+            @Html.DisplayTextFor(m => m.Name)
+        </dd>
+        <dt>Secondname: </dt>
+        <dd>
+            @Html.DisplayTextFor(m => m.SecondName)
+        </dd>
+        <dt>Email: </dt>
+        <dd>
+            @Html.DisplayTextFor(m => m.Email)
+        </dd>
         <dt>Password:</dt>
         <dd>
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-        </dd>        
-        
+            @Html.ActionLink("Change your password", "ChangePassword")
+        </dd>
     </dl>
 </div>

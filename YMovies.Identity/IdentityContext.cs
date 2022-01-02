@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System.Data.Entity;
-using YMovies.Identity.Users;
-using YMovies.Identity.Utilities;
+using YMovies.Identity.Models;
 
 namespace YMovies.Identity
 {
     public class IdentityContext : IdentityDbContext<ApplicationUser>
     {
         public IdentityContext()
-            : base("name=IdentityDb") 
+            : base("name=IdentityDb")
         {
         }
 
