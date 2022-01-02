@@ -1,5 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -33,24 +34,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="DTOs\CastDto.cs" />
+    <Compile Include="DTOs\CountryDto.cs" />
+    <Compile Include="DTOs\GenreDto.cs" />
+    <Compile Include="DTOs\MovieDto.cs" />
+    <Compile Include="DTOs\SeasonDto.cs" />
+    <Compile Include="DTOs\SeriesDto.cs" />
+    <Compile Include="DTOs\StatisticDto.cs" />
+    <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Migrations\202112221351088_InitialModelOfMovies.cs" />
     <Compile Include="Migrations\202112221351088_InitialModelOfMovies.designer.cs">
       <DependentUpon>202112221351088_InitialModelOfMovies.cs</DependentUpon>
@@ -107,23 +114,50 @@
     <Compile Include="Migrations\202112241018461_UpdatedLikedWatchedRElationship.Designer.cs">
       <DependentUpon>202112241018461_UpdatedLikedWatchedRElationship.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112291336541_UpdateRelationshipUsersLikes.cs" />
+    <Compile Include="Migrations\202112291336541_UpdateRelationshipUsersLikes.Designer.cs">
+      <DependentUpon>202112291336541_UpdateRelationshipUsersLikes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112291354448_FixRelationshipForUserLikes.cs" />
+    <Compile Include="Migrations\202112291354448_FixRelationshipForUserLikes.designer.cs">
+      <DependentUpon>202112291354448_FixRelationshipForUserLikes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112291407444_UpdateRelationshipForUserWatched.cs" />
+    <Compile Include="Migrations\202112291407444_UpdateRelationshipForUserWatched.designer.cs">
+      <DependentUpon>202112291407444_UpdateRelationshipForUserWatched.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112301424171_AddType.cs" />
+    <Compile Include="Migrations\202112301424171_AddType.designer.cs">
+      <DependentUpon>202112301424171_AddType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112301449261_AddFixToRelationshipType.cs" />
+    <Compile Include="Migrations\202112301449261_AddFixToRelationshipType.designer.cs">
+      <DependentUpon>202112301449261_AddFixToRelationshipType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cast.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Genre.cs" />
-    <Compile Include="Models\Liked.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\Season.cs" />
     <Compile Include="Models\Series.cs" />
     <Compile Include="Models\Statistic.cs" />
+    <Compile Include="Models\Type.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\Watched.cs" />
-    <Compile Include="MovieCRUD\Create.cs" />
-    <Compile Include="MovieCRUD\Delete.cs" />
-    <Compile Include="MovieCRUD\Read.cs" />
-    <Compile Include="MovieCRUD\Update.cs" />
-    <Compile Include="MoviesContext\MoviesContext.cs" />
+    <Compile Include="DatabaseContext\MoviesContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IRepository\IRepository.cs" />
+    <Compile Include="Repositories\Repository\CastRepository.cs" />
+    <Compile Include="Repositories\Repository\CountryRepository.cs" />
+    <Compile Include="Repositories\Repository\GenreRepository.cs" />
+    <Compile Include="Repositories\Repository\MovieRepository.cs" />
+    <Compile Include="Repositories\Repository\SeasonRepository.cs" />
+    <Compile Include="Repositories\Repository\SeriesRepository.cs" />
+    <Compile Include="Repositories\Repository\StatisticRepository.cs" />
+    <Compile Include="Repositories\Repository\UserRepository.cs" />
+    <Compile Include="Services\IService\IService.cs" />
+    <Compile Include="Services\Service\MovieService.cs" />
+    <Compile Include="SearchModel\SearchingModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -173,6 +207,29 @@
     <EmbeddedResource Include="Migrations\202112241018461_UpdatedLikedWatchedRElationship.resx">
       <DependentUpon>202112241018461_UpdatedLikedWatchedRElationship.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112291336541_UpdateRelationshipUsersLikes.resx">
+      <DependentUpon>202112291336541_UpdateRelationshipUsersLikes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112291354448_FixRelationshipForUserLikes.resx">
+      <DependentUpon>202112291354448_FixRelationshipForUserLikes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112291407444_UpdateRelationshipForUserWatched.resx">
+      <DependentUpon>202112291407444_UpdateRelationshipForUserWatched.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112301424171_AddType.resx">
+      <DependentUpon>202112301424171_AddType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112301449261_AddFixToRelationshipType.resx">
+      <DependentUpon>202112301449261_AddFixToRelationshipType.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
 </Project>

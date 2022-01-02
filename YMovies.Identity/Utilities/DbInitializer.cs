@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using YMovies.Identity.Managers;
-using YMovies.Identity.Users;
+using YMovies.Identity.Models;
 
 namespace YMovies.Identity.Utilities
 {
@@ -12,10 +12,10 @@ namespace YMovies.Identity.Utilities
         {
             var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var roleManager = new RoleManager<ApplicationRole>(new RoleStore<ApplicationRole>(context));
 
-            var adminRole = RoleManager.GetAdmin();
-            var userRole = RoleManager.GetUser();
+            var adminRole = RoleCreator.GetAdmin();
+            var userRole = RoleCreator.GetUser();
 
             roleManager.Create(adminRole);
             roleManager.Create(userRole);
@@ -23,20 +23,16 @@ namespace YMovies.Identity.Utilities
             var admin = new ApplicationUser
             {
                 Name = "Petya",
-                Surname = "Pupkin",
-                Email = "somemail@mail.ru",
-                UserName = "somemail@mail.ru"
+                SecondName = "Pupkin",
+                Email = "admin01@gmail.com",
+                UserName = "admin01@gmail.com"
             };
 
-            string password = "A12_aaa";
-            var result = userManager.Create(admin, password);
+            string password = "Admin01_pass";
+            userManager.Create(admin, password);
 
-            if (result.Succeeded)
-            {
-                userManager.AddToRole(admin.Id, adminRole.Name);
-                userManager.AddToRole(admin.Id, userRole.Name);
-            }
-
+            userManager.AddToRole(admin.Id, adminRole.Name);
+               
             base.Seed(context);
         }
     }

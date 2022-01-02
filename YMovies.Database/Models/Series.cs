@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace YMovies.Database.Models
 {
@@ -21,6 +17,8 @@ namespace YMovies.Database.Models
         public decimal Budget { get; set; }
         public string BoxOffice { get; set; }
         public decimal ImdbRating { get; set; }
+
+        public Type Type { get; set; }
 
         public ICollection<Season> Seasons { get; set; }
         public virtual Statistic Statistic { get; set; }

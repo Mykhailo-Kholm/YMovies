@@ -3,11 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using YMovies.Identity.Users;
+using YMovies.Identity.Models;
 
 namespace YMovies.Identity.Managers
 {
@@ -33,15 +29,11 @@ namespace YMovies.Identity.Managers
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
                 RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
             };
 
             manager.UserLockoutEnabledByDefault = true;
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(30);
-            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
@@ -49,6 +41,7 @@ namespace YMovies.Identity.Managers
                 manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
+
             return manager;
         }
     }
