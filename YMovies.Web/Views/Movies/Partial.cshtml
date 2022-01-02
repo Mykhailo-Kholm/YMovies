@@ -1,0 +1,10 @@
+﻿@model List<YMovies.Web.TempModels.Country>
+
+@foreach (var country in Model)
+{
+    @Html.HiddenFor(c => country.Id)
+    @Html.ActionLink(country.Name, "FilterInclude", "Movies", new {countryId = country.Id}, new {@class = "btn btn-primary" })
+    @Html.ActionLink("Exclude", "FilterExclude", "Movies", country.Id, new {@class = "btn btn-primary" })
+
+}
+@ViewBag.Message
