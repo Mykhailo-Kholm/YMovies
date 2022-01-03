@@ -34,6 +34,14 @@ namespace YMovies.Web.Controllers
             }
         }
 
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+        }
+
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -81,7 +89,7 @@ namespace YMovies.Web.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
+                    await UserManager.AddToRoleAsync(user.Id, RoleCreator.GetUser().Name);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
