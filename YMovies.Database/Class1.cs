@@ -1,4 +1,4 @@
-﻿namespace YMovies.Database
+﻿namespace YMovies.MovieDbService
 {
     public class Class1
     {
