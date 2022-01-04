@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace YMovies.Database.Models
+namespace YMovies.MovieDbService.Models
 {
     public class Movie
     {

@@ -1,11 +1,7 @@
-﻿using System;
+﻿using IMDbApiLib.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Async;
-using IMDbApiLib.Models;
 using YMovies.Web.IMDB;
 using YMovies.Web.ViewModels;
 
@@ -13,9 +9,8 @@ namespace YMovies.Web.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize(Roles ="admin, user")]
         public ActionResult Index()
-        {            
+        {
             return View();
         }
 
@@ -41,7 +36,7 @@ namespace YMovies.Web.Controllers
 
             return View("MockFilm");
         }
-        
+
         public async Task<ActionResult> Genre(string genre)
         {
             APIworkerIMDB imdb = new APIworkerIMDB();
@@ -53,14 +48,14 @@ namespace YMovies.Web.Controllers
                 if (film.Genres.ToLower().Contains(genre.ToLower()))
                 {
                     movieModel.Movies.Add(new MovieGenreViewModel()
-                        {
-                            id = film.Id,
-                            Title = film.Title,
-                            Genre = film.Genres,
-                            Image = film.Image,
-                            imDbRating = film.IMDbRating
+                    {
+                        id = film.Id,
+                        Title = film.Title,
+                        Genre = film.Genres,
+                        Image = film.Image,
+                        imDbRating = film.IMDbRating
 
-                        }
+                    }
                     );
 
                 }
@@ -80,13 +75,13 @@ namespace YMovies.Web.Controllers
                 if (film.Title.ToLower().Contains(title.ToLower()))
                 {
                     movieModel.Movies.Add(new MovieGenreViewModel()
-                        {
-                            id = film.Id,
-                            Title = film.Title,
-                            Genre = film.Genres,
-                            Image = film.Image,
-                            imDbRating = film.IMDbRating
-                        }
+                    {
+                        id = film.Id,
+                        Title = film.Title,
+                        Genre = film.Genres,
+                        Image = film.Image,
+                        imDbRating = film.IMDbRating
+                    }
                     );
 
                 }

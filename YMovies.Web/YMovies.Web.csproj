@@ -205,7 +205,8 @@
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="TempModels\MoviesInfo.cs" />
+    <Compile Include="ViewModels\MovieGenreViewModel.cs" />
+    <Compile Include="ViewModels\MovieModel.cs" />
     <Compile Include="TempModels\Cast.cs" />
     <Compile Include="TempModels\Country.cs" />
     <Compile Include="TempModels\Genre.cs" />
@@ -213,8 +214,6 @@
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Utilites\AutoMap.cs" />
     <Compile Include="ViewModels\CountryMovieViewModel.cs" />
-    <Compile Include="ViewModels\MovieGenreViewModel.cs" />
-    <Compile Include="ViewModels\MovieModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -318,7 +317,6 @@
     <Content Include="Views\Movies\Details.cshtml" />
     <Content Include="Views\Admin\Find.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
-    <Content Include="Views\Movies\Partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -334,6 +332,10 @@
     <ProjectReference Include="..\BL\BL.csproj">
       <Project>{690e00f0-4fba-45c1-a6f9-ca471e65bc16}</Project>
       <Name>BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YMovies.Database\YMovies.MovieDbService.csproj">
+      <Project>{9895ea37-952e-4939-935a-4993c55af9ff}</Project>
+      <Name>YMovies.MovieDbService</Name>
     </ProjectReference>
     <ProjectReference Include="..\YMovies.Identity\YMovies.Identity.csproj">
       <Project>{4eedaf86-a5bb-49f7-a513-1da7a4f302b9}</Project>

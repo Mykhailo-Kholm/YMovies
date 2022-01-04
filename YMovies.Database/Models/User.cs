@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace YMovies.Database.Models
 {
-    public class User
+    internal class User
     {
+
         public int Id { get; set; }
         public string FullName { get; set; }
         public ICollection<Movie> LikedMovies { get; set; }

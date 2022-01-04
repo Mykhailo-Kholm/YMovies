@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity.Migrations;
-using YMovies.Database.DatabaseContext;
-using YMovies.Database.Models;
+using YMovies.MovieDbService.DatabaseContext;
+using YMovies.MovieDbService.Models;
 
-namespace YMovies.Database.Migrations
+namespace YMovies.MovieDbService.Migrations
 {
     internal sealed class Configuration : DbMigrationsConfiguration<MoviesContext>
     {
