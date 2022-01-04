@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using PagedList;
 using YMovies.Web.TempModels;
@@ -263,8 +262,43 @@ namespace YMovies.Web.Controllers
             }
         };
 
+        public async Task<ActionResult> Like(int id)
+        {
+            return RedirectToAction("Details", id);
+
+        }
+
+        public async Task<ActionResult> DisLike(int id)
+        {
+            return RedirectToAction("Details", id);
+
+        }
+
+        public async Task<ActionResult> MostLiked()
+        {
+            return RedirectToAction("Index");
+
+        }
+
+        public async Task<ActionResult> MostWatched()
+        {
+            return RedirectToAction("Index");
+
+        }
+
+        public async Task<ActionResult> TopByIMDb()
+        {
+            return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> Search()
+        {
+            return RedirectToAction("Index");
+        }
+
+
         [HttpGet]
-        public ActionResult Index(int? page, string action)
+        public async Task<ActionResult> Index(int? page, string action)
         {
             var pageSize = 10;
             var pageNumber = page ?? 1;
@@ -299,7 +333,7 @@ new MoviesInfo(){Id = movie.MovieId, ImdbRating = movie.ImdbRating, Genres = mov
             return View(countryMovieViewModel);
         }
 
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
             Movie movie = movies.FirstOrDefault(m => m.MovieId == id);
             return View(movie);
@@ -310,8 +344,7 @@ new MoviesInfo(){Id = movie.MovieId, ImdbRating = movie.ImdbRating, Genres = mov
             return PartialView(countries);
         }
 
-        
-        public ActionResult FilterInclude(string action, int countryId)
+        public async Task<ActionResult> FilterInclude(string action, int countryId)
         {
 
             List<Movie> newMovies = new List<Movie>();
@@ -321,21 +354,21 @@ new MoviesInfo(){Id = movie.MovieId, ImdbRating = movie.ImdbRating, Genres = mov
             }
 
             //newMovies = movies.Movies.Where(p => countries.Any(p2 => countryId == p.Id)).ToList();
-            foreach (var m in movies)
-            {
-                foreach (var c in m.Countries)
-                {   
-                    if(c.Id==countryId)
-                        newMovies.Add(m);
-                }
-            }
+            //foreach (var m in movies)
+            //{
+            //    foreach (var c in m.Countries)
+            //    {   
+            //        if(c.Id==countryId)
+            //            newMovies.Add(m);
+            //    }
+            //}
 
             Session["Movies"] = newMovies;
             //List<Movie> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
             return RedirectToAction("Index");
         }
 
-        public ActionResult FilterExclude(int countryId)
+        public async Task<ActionResult> FilterExclude(int countryId)
         {
 
             List<Movie> newMovies = new List<Movie>();
@@ -344,25 +377,22 @@ new MoviesInfo(){Id = movie.MovieId, ImdbRating = movie.ImdbRating, Genres = mov
                 newMovies = Session["Movies"] as List<Movie>;
             }
 
-            int count = 0;
             //newMovies = movies.Movies.Where(p => countries.Any(p2 => countryId == p.Id)).ToList();
-            foreach (var m in movies)
-            {
-                foreach (var c in m.Countries)
-                {
-                    if (c.Id != countryId)
-                    {
-                        newMovies.Remove(m);
-                    }
-                    break;
-                }
-            }
+            //foreach (var m in movies)
+            //{
+            //    foreach (var c in m.Countries)
+            //    {
+            //        if (c.Id != countryId)
+            //        {
+            //            newMovies.Remove(m);
+            //        }
+            //        break;
+            //    }
+            //}
 
             Session["Movies"] = newMovies;
             //List<Movie> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
             return RedirectToAction("Index");
         }
-
-
     }
 }
