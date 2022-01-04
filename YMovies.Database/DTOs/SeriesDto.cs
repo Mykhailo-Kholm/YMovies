@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace YMovies.Database.DTOs
+namespace YMovies.MovieDbService.DTOs
 {
     class SeriesDto
     {

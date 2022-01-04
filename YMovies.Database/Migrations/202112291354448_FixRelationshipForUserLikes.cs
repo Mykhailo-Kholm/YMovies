@@ -1,4 +1,4 @@
-﻿namespace YMovies.Database.Migrations
+﻿namespace YMovies.MovieDbService.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity.Migrations;
 using YMovies.MovieDbService.DatabaseContext;
-using YMovies.MovieDbService.Models;
 
 namespace YMovies.MovieDbService.Migrations
 {

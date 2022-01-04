@@ -12,7 +12,7 @@ namespace YMovies.Web
     {
         protected void Application_Start()
         {
-            Database.SetInitializer<IdentityContext>(new DbInitializer());
+            MovieDbService.SetInitializer<IdentityContext>(new DbInitializer());
            
             AutoMap.RegisterMapping();
             AreaRegistration.RegisterAllAreas();

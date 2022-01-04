@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.MemoryMappedFiles;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using YMovies.Database.DTOs;
-using YMovies.Database.Repositories.Repository;
-using YMovies.Database.Services.IService;
+using YMovies.MovieDbService.Services.IService;
+using YMovies.MovieDbService.DTOs;
+using YMovies.MovieDbService.Repositories.Repository;
 
-namespace YMovies.Database.Services.Service
+namespace YMovies.MovieDbService.Services.Service
 {
     class MovieService:IService<MovieDto>
     {

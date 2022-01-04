@@ -1,4 +1,4 @@
-﻿namespace YMovies.Database.DTOs
+﻿namespace YMovies.MovieDbService.DTOs
 {
     class SeasonDto
     {

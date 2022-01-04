@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YMovies.Database.Services.IService
+namespace YMovies.MovieDbService.Services.IService
 {
     interface IService<T>
     {

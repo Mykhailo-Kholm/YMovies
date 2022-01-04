@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using YMovies.Database.DatabaseContext;
-using YMovies.Database.Models;
-using YMovies.Database.Repositories.IRepository;
+using YMovies.MovieDbService.DatabaseContext;
+using YMovies.MovieDbService.Models;
+using YMovies.MovieDbService.Repositories.IRepository;
 
-namespace YMovies.Database.Repositories.Repository
+namespace YMovies.MovieDbService.Repositories.Repository
 {
     class GenreRepository: IRepository<Genre>
     {

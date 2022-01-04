@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace YMovies.Database.Models
+namespace YMovies.MovieDbService.Models
 {
     public class Type
     {
