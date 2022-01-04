@@ -1,3 +1,4 @@
+using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -11,7 +12,7 @@ namespace YMovies.Web
     {
         protected void Application_Start()
         {
-            System.Data.Entity.Database.SetInitializer<IdentityContext>(new DbInitializer());
+            Database.SetInitializer<IdentityContext>(new DbInitializer());
            
             AutoMap.RegisterMapping();
             AreaRegistration.RegisterAllAreas();
