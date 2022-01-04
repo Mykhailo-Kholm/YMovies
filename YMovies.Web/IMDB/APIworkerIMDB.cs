@@ -10,15 +10,18 @@ namespace YMovies.Web.IMDB
 {
     public class APIworkerIMDB
     {
-        
-        static private string apiKey = "k_ycaf020q";
+        private ApiLib apiLib;
+        private string apiKey = System.Web.Configuration.WebConfigurationManager.AppSettings["IMDBApiKey"];
+        public APIworkerIMDB()
+        {
+            apiLib = new ApiLib(apiKey);
+        }
         /// <summary>
         /// топ 250 фильмов IMDB
         /// </summary>
         /// <returns> Task&lt;List&lt;Top250DataDetail&gt;&gt;</returns>
         public async Task<List<Top250DataDetail>> GetTop250MoviesAsync()
         {
-            var apiLib = new ApiLib(apiKey);
             var data = await apiLib.Top250MoviesAsync();
             return data.Items;
         }
@@ -42,7 +45,6 @@ namespace YMovies.Web.IMDB
             AdvancedSearchSort sort = AdvancedSearchSort.Popularity_Ascending,
             AdvancedSearchTitleGroup group = 0)
         {
-            var apiLib = new ApiLib(apiKey);
             var data = await apiLib.AdvancedSearchAsync(
                 new AdvancedSearchInput() 
                 { 
@@ -65,7 +67,6 @@ namespace YMovies.Web.IMDB
         /// <returns>Task&lt;List&lt;SearchResult&gt;&gt;</returns>
         public async Task<List<SearchResult>> SearchByTitle(string title)
         {
-            var apiLib = new ApiLib(apiKey);
             var data = await apiLib.SearchTitleAsync(title);
             return data.Results;
         }
@@ -76,7 +77,6 @@ namespace YMovies.Web.IMDB
         /// <returns>Task&lt;byte[]&gt;</returns>
         public async Task<byte[]> ReportForMovie(string id = null)
         {
-            var apiLib = new ApiLib(apiKey);
             var data = await apiLib.ReportBytesAsync(id,language: Language.en,false,Ratings: true);
             return data;
         }
@@ -86,7 +86,6 @@ namespace YMovies.Web.IMDB
         /// <returns>Task&lt;List&lt;NewMovieDataDetail&gt;&gt;</returns>
         public async Task<List<NewMovieDataDetail>> GetNewMovies()
         {
-            var apiLib = new ApiLib(apiKey);
             var data = await apiLib.InTheatersAsync();
             return data.Items;
         }
@@ -98,7 +97,6 @@ namespace YMovies.Web.IMDB
         /// <returns>Task&lt;TitleData&gt;</returns>
         public async Task<TitleData> MovieOrSeriesInfo(string id = null)
         {
-            var apiLib = new ApiLib(apiKey);
             var data = await apiLib.TitleAsync(id,FullCast:true);
             return data;
         }
