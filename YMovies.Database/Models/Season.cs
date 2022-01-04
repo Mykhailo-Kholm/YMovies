@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace YMovies.Database.Models
+namespace YMovies.MovieDbService.Models
 {
     public class Season
     {

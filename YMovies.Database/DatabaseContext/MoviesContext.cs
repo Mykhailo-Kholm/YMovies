@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
-using YMovies.Database.Models;
+using YMovies.MovieDbService.Models;
 
-namespace YMovies.Database.DatabaseContext
+namespace YMovies.MovieDbService.DatabaseContext
 {
     public class MoviesContext:DbContext
     {
