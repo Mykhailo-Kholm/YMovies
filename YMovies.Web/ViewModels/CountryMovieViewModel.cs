@@ -9,7 +9,8 @@ namespace YMovies.Web.ViewModels
 {
     public class CountryMovieViewModel
     {
-        public IPagedList<Movie> MoviePageList { get; set; }
-        public List<Movie> Movies { get; set; }
+        public IPagedList<MoviesInfo> MoviePageList { get; set; }
+        public List<MoviesInfo> MoviesInfo { get; set; }
+        public List<Country> Countries { get; set; }
     }
 }

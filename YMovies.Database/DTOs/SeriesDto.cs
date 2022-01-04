@@ -2,9 +2,9 @@
 
 namespace YMovies.Database.DTOs
 {
-    class MovieDto
+    class SeriesDto
     {
-        public int MovieId { get; set; }
+        public int SeriesId { get; set; }
         public string ImdbId { get; set; }
         public string Title { get; set; }
         public string PosterUrl { get; set; }
@@ -14,6 +14,7 @@ namespace YMovies.Database.DTOs
         public string BoxOffice { get; set; }
         public decimal ImdbRating { get; set; }
 
+        public  ICollection<SeasonDto> Seasons { get; set; }
         public StatisticDto Statistic { get; set; }
         public ICollection<CastDto> Cast { get; set; }
         public ICollection<CountryDto> Countries { get; set; }
