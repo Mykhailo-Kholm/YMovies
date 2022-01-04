@@ -5,7 +5,7 @@ using System.Web;
 
 namespace YMovies.Web
 {
-    public class Temp
+    public class Another
     {
     }
 }
