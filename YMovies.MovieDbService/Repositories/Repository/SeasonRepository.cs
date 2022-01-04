@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;

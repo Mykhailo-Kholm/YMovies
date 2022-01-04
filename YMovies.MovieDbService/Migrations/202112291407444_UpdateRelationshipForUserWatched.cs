@@ -39,7 +39,7 @@
                 .ForeignKey("dbo.Seasons", t => t.SeasonRefId, cascadeDelete: true)
                 .Index(t => t.UserRefId);
             
-            DropTable("dbo.Watched");
+            //DropTable("dbo.Watched");
         }
         
         public override void Down()
