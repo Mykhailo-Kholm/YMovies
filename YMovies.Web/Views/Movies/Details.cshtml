@@ -30,7 +30,7 @@
         Type: @Model.Type
     </span>
 </div>
-<div >
+<div>
     <span>
         Countries:
         @foreach (var country in Model.Countries)
@@ -44,12 +44,12 @@
         Cast:
         @foreach (var cast in Model.Cast)
         {
-        @cast.Name @cast.Surname
-           
+            @cast.Name @cast.Surname
+
         }
     </span>
 </div>
-<div >
+<div>
     <span>
         Plot: @Model.Plot
     </span>
@@ -64,21 +64,17 @@
         Site users rating: @Model.UsersRating
     </span>
 </div>
-
-<div>
-    <span>
-        @Html.ActionLink("Like", "Index", "Home", new { @class = "btn btn-primary" })
-        @Html.ActionLink("Dislike", "Index", "Home", new { @class = "btn btn-primary" })
-    </span>
-</div>
-<div>
-    <span>
-        <input data-val="true"
-               data-val-required="The isActive field is required."
-               id="isActive"
-               name="isActive"
-               type="checkbox"
-               value="true">Mark as watched
-        </input>
-    </span>
-</div>
+@if (User.Identity.IsAuthenticated)
+{
+    <div>
+        <span>
+            @Html.ActionLink("Like", "Like", "Movies",Model.MovieId, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Dislike", "DisLike", "Movies", Model.MovieId, new { @class = "btn btn-primary" })
+        </span>
+    </div>
+    <div>
+        <span>
+            Mark as watched: @Html.CheckBoxFor(m => m.IsWatched)
+        </span>
+    </div>
+}

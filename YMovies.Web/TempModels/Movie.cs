@@ -16,7 +16,8 @@ namespace YMovies.Web.TempModels
         public int UsersRating { get; set; }
         public string Plot { get; set; }
         public string Type { get; set; }
-     
+        public bool IsWatched { get; set; }//added
+
         public string Year { get; set; }
         public decimal Budget { get; set; }
 
