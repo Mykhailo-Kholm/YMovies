@@ -12,5 +12,8 @@ namespace YMovies.Web.ViewModels
         public IPagedList<MoviesInfo> MoviePageList { get; set; }
         public List<MoviesInfo> MoviesInfo { get; set; }
         public List<Country> Countries { get; set; }
+        public List<Genre> Genres { get; set; }
+        public List<Type> Types { get; set; }
+        public List<string> Years { get; set; }
     }
 }
