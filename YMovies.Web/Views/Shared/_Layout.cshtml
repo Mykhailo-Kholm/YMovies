@@ -3,48 +3,39 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
+    <title>@ViewBag.Title - YMovies</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("YMovies", "Index", "Movies", new { area = "" }, new { @class = "navbar-brand" })
+    <div class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="container">           
+            <div class="d-flex">
+                <div class="p-2 flex-fill">
+                    @Html.ActionLink("YMovies", "Index", "Movies", null, new { @class = "navbar-brand" })
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="p-2 flex-fill">
+                    <form asp-controller="Movies" asp-action="Search">
+                        <div class="input-group">
+                            <input class="form-control me-2" type="text" name="SearchString" />
+                            <button class="btn btn-outline-success" type="submit" value="Search">Search</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="p-2 flex-fill">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">@Html.ActionLink("Most liked", "MostLiked", "Movies", null, new { @class = "nav-link active" })</li>
+                        <li class="nav-item">@Html.ActionLink("Most watched", "MostWatched", "Movies", null, new { @class = "nav-link active" })</li>
+                        <li class="nav-item">@Html.ActionLink("Top 250 by IMDb", "TopByIMDb", "Movies", null, new { @class = "nav-link active" })</li>
+                        <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link active" })</li>
+                    </ul>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <p>
-                        <form asp-controller="Movies" asp-action="Search">
-                            <p>
-                                <input type="text" name="SearchString"/>
-                                <input type="submit" value="Search"/>
-                            </p>
-                        </form>
-                        </p>
-
-                    </li>
-                    <li>@Html.ActionLink("Movies", "Index", "Movies")</li>
-                    <li>@Html.ActionLink("Most liked", "MostLiked", "Movies")</li>
-                    <li>@Html.ActionLink("Most watched", "MostWatched", "Movies")</li>
-                    <li>@Html.ActionLink("Top 250 by IMDb", "TopByIMDb", "Movies")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    @if (User.IsInRole("admin"))
-                    {
-                <li>@Html.ActionLink("Manage users", "Find", "Admin")</li>
-}
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
+        </div>  
+        @Html.Partial("_UserPartial")
     </div>
     <div class="container body-content">
         @RenderBody()
@@ -53,9 +44,8 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

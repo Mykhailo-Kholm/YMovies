@@ -11,7 +11,7 @@ namespace YMovies.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Movies");
         }
 
         public ActionResult About()
@@ -20,14 +20,7 @@ namespace YMovies.Web.Controllers
 
             return View();
         }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
+     
         public async Task<ActionResult> Mock(string id)
         {
             APIworkerIMDB imdb = new APIworkerIMDB();
