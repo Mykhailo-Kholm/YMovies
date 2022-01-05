@@ -1,44 +1,60 @@
 ﻿@using Microsoft.AspNet.Identity
 
+<style>
+    .dropdown-submenu {
+        position: relative;
+    }
+
+        .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -1px;
+        }
+</style>
+
 <div class="d-flex">
     @if (Request.IsAuthenticated)
     {
         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
         {
-            @Html.AntiForgeryToken()
-            <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        @HttpContext.Current.User.Identity.Name
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+@Html.AntiForgeryToken()
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @HttpContext.Current.User.Identity.Name
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li>
+                                    @Html.ActionLink("Liked movies", "Liked", "User", null, new { @class = "dropdown-item" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Watched movies", "Watched", "User", null, new { @class = "dropdown-item" })
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    @Html.ActionLink("Account settings", "Index", "Manage", null, new { @class = "dropdown-item" })
+                                </li>
+                                @if (HttpContext.Current.User.IsInRole("admin"))
+                                {
                         <li>
-                            @Html.ActionLink("Liked movies", "Liked", "User", null, new { @class = "dropdown-item" })
+                @Html.ActionLink("Manage users", "Find", "Admin", null, new { @class = "dropdown-item" })
+            </li>
+                                    <li>
+                                        @Html.ActionLink("Manage Films", "ManageFilms", "Admin", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                    </li>
+                                    }
+                                <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                            </ul>
                         </li>
-                        <li>
-                            @Html.ActionLink("Watched movies", "Watched", "User", null, new { @class = "dropdown-item" })
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            @Html.ActionLink("Account settings", "Index", "Manage", null, new { @class = "dropdown-item" })
-                        </li>
-                        @if (HttpContext.Current.User.IsInRole("admin"))
-                        {
-                            <li>
-                                @Html.ActionLink("Manage users", "Find", "Admin", null, new { @class = "dropdown-item" })
-                            </li>
-                        }
-                        <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-                    </ul>
-                </li>
-            </ul>
-        }
-    }
-    else
-    {
-        <ul class="nav navbar-nav navbar-right gap-2">
-            <li>@Html.ActionLink("Sign Up", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-outline-light " })</li>
-            <li>@Html.ActionLink("Sign In", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-light" })</li>
-        </ul>
-    }
+                    </ul> }
+            }
+            else
+            {
+<ul class="nav navbar-nav navbar-right gap-2">
+    <li>@Html.ActionLink("Sign Up", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-outline-light " })</li>
+    <li>@Html.ActionLink("Sign In", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-light" })</li>
+</ul>}
+
+
 </div>
+

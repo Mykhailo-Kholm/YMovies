@@ -49,7 +49,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="DTOs\CastDto.cs" />
     <Compile Include="DTOs\CountryDto.cs" />
     <Compile Include="DTOs\GenreDto.cs" />

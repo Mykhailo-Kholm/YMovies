@@ -363,8 +363,6 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Home\MockFilm.cshtml" />
     <Content Include="Views\Home\MockSearch.cshtml" />
     <Content Include="Views\Home\MockFilm.cshtml" />
