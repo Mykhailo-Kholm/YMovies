@@ -93,42 +93,7 @@ namespace YMovies.Web.Controllers
         {
             return View("FilmCreation", new NewFilm());
         }
-
-        private List<Cast> _casts = new List<Cast>()
-        {
-            new Cast()
-            {
-                Id = 1,
-                Name = "First",
-                Surname = "Actor"
-            },
-            new Cast()
-            {
-                Id = 2,
-                Name = "Second",
-                Surname = "Actor"
-            },
-            new Cast()
-            {
-                Id = 3,
-                Name = "Third",
-                Surname = "Actor"
-            }
-        };
-
-        [HttpPost]
-        public ActionResult Cast(string name)
-        {
-            var list = (from actor in _castsRepo.Items
-                        where actor.Name.StartsWith(name)
-                        select new
-                        {
-                            label = actor.Name + " " + actor.Surname,
-                            id = actor.Id
-                        }).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
-
+        
         [HttpPost]
         public ActionResult CreateFilm(NewFilm model)
         {
