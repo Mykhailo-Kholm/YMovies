@@ -56,6 +56,7 @@
     <Compile Include="DTOs\SeasonDto.cs" />
     <Compile Include="DTOs\SeriesDto.cs" />
     <Compile Include="DTOs\StatisticDto.cs" />
+    <Compile Include="DTOs\TypeDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Migrations\202112221351088_InitialModelOfMovies.cs" />
     <Compile Include="Migrations\202112221351088_InitialModelOfMovies.designer.cs">

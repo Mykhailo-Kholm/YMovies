@@ -6,7 +6,7 @@ using YMovies.MovieDbService.Repositories.Repository;
 
 namespace YMovies.MovieDbService.Services.Service
 {
-    class MovieService:IService<MovieDto>
+    public class MovieService : IService<MovieDto>
     {
         private readonly MovieRepository _repository;
         public MovieService(MovieRepository repository) => _repository = repository;

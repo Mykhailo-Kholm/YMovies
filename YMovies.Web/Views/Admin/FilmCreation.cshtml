@@ -1,0 +1,88 @@
+﻿@model YMovies.Web.ViewModels.FilmCreationViewModel
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Create Film</h4>
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.Title, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Movie.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Movie.Title, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.Plot, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Movie.Plot, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Movie.Plot, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.PosterUrl, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Movie.PosterUrl, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Movie.PosterUrl, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.Year, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Movie.Year, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Movie.Year, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.ImdbRating, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Movie.ImdbRating, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Movie.ImdbRating, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.Budget, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Movie.Budget, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Movie.Budget, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.BoxOffice, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Movie.BoxOffice, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Movie.BoxOffice, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.Casts, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Casts, Model.Casts as SelectList, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Casts, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
