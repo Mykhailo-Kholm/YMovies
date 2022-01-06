@@ -9,7 +9,10 @@ namespace YMovies.Web.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
+    using StaticVoid.Core.Repository;
     using Ymovies.Web.Utilities;
+    using YMovies.MovieDbService.DatabaseContext;
+    using YMovies.MovieDbService.Repositories.Repository;
 
     public static class NinjectWebCommon 
     {
@@ -53,6 +56,8 @@ namespace YMovies.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+           
+
             System.Web.Mvc.DependencyResolver.SetResolver(new
                 NinjectDependencyResolver(kernel));
         }

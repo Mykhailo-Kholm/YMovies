@@ -33,15 +33,17 @@ namespace Ymovies.Web.Utilities
         {
             var context = new MoviesContext();
 
-            kernel.Bind<IRepository<Genre>>().To<GenreRepository>()
+            kernel.Bind(typeof(IRepository<Movie>)).To(typeof(MovieRepository))
                                 .WithConstructorArgument("context", context);
 
-            kernel.Bind<IRepository<Cast>>().To<CastRepository>()
+            kernel.Bind(typeof(IRepository<Genre>)).To(typeof(GenreRepository))
                                 .WithConstructorArgument("context", context);
 
-            kernel.Bind<IRepository<Country>>().To<CountryRepository>()
+            kernel.Bind(typeof(IRepository<Cast>)).To(typeof(CastRepository))
                                 .WithConstructorArgument("context", context);
-           
+
+            kernel.Bind(typeof(IRepository<Country>)).To(typeof(CountryRepository))
+                                .WithConstructorArgument("context", context);           
         }
     }
 }
