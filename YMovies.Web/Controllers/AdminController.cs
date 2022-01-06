@@ -95,7 +95,7 @@ namespace YMovies.Web.Controllers
         }
         
         [HttpPost]
-        public ActionResult CreateFilm(FilmCreationViewModel model)
+        public ActionResult CreateFilm(NewFilm model)
         {
             if (!ModelState.IsValid)
                 return View("FilmCreation", model);
@@ -103,5 +103,5 @@ namespace YMovies.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
     }
-    
+
 }
