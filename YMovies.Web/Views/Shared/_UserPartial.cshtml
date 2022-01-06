@@ -36,13 +36,13 @@
                                 </li>
                                 @if (HttpContext.Current.User.IsInRole("admin"))
                                 {
-                        <li>
+            <li>
                 @Html.ActionLink("Manage users", "Find", "Admin", null, new { @class = "dropdown-item" })
             </li>
                                     <li>
                                         @Html.ActionLink("Manage Films", "ManageFilms", "Admin", null, new { @class = "dropdown-item", @tabindex = "-1" })
                                     </li>
-                                    }
+}
                                 <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
                             </ul>
                         </li>

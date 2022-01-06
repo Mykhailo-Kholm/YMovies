@@ -1,23 +1,23 @@
 ﻿using Microsoft.AspNet.Identity.Owin;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using YMovies.Identity.Managers;
-using YMovies.Identity.Models;
-using YMovies.Web.Dtos;
+using YMovies.MovieDbService.Models;
+using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.Web.Models.AdminViewModels;
-using YMovies.Web.Utilities;
 
 namespace YMovies.Web.Controllers
 {
     [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
-        public AdminController()
+        readonly IRepository<Movie> moviesRepo;
+
+        public AdminController(IRepository<Movie> moviesRepo)
         {
+            this.moviesRepo = moviesRepo;
         }
 
         public ApplicationUserManager UserManager
@@ -47,7 +47,7 @@ namespace YMovies.Web.Controllers
         {
             if (!ModelState.IsValid)
                 return View("Find", Model);
-            
+
             var user = await UserManager.FindByEmailAsync(Model.Email);
 
             if (user == null)
@@ -80,6 +80,20 @@ namespace YMovies.Web.Controllers
             await UserManager.AddToRoleAsync(userId, roles);
 
             return RedirectToAction("Index", "Home", null);
+        }
+
+
+        [HttpGet]
+        public ActionResult CreateFilm() => View(new NewFilm());
+
+        [HttpPost]
+        public ActionResult CreateFilm(NewFilm model)
+        {
+            if(!ModelState.IsValid)
+                return View(model);
+
+
+
         }
     }
 }
