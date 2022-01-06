@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using YMovies.MovieDbService.DTOs;
 
-namespace YMovies.Web.Controllers
+namespace YMovies.Web.ViewModels
 {
     public class NewFilm
     {
@@ -30,12 +30,17 @@ namespace YMovies.Web.Controllers
         public string BoxOffice { get; set; }
         
         [Required]
+        [RegularExpression("[0-9],[0-9]")]
         public decimal ImdbRating { get; set; }        
         
+        [Required(ErrorMessage = "This field cannot be empty")]
         public ICollection<CastDto> Cast { get; set; }
         
+        [Required(ErrorMessage = "This field cannot be empty")]
         public ICollection<CountryDto> Countries { get; set; }
         
+        [Required(ErrorMessage = "This field cannot be empty")]
         public ICollection<GenreDto> Genres { get; set; }
+
     }
 }

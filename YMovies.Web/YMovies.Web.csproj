@@ -186,6 +186,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="ViewModels\NewFilm.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
@@ -401,10 +402,6 @@
     <ProjectReference Include="..\YMovies.Identity\YMovies.Identity.csproj">
       <Project>{4eedaf86-a5bb-49f7-a513-1da7a4f302b9}</Project>
       <Name>YMovies.Identity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YMovies.MovieDbService\YMovies.MovieDbService.csproj">
-      <Project>{9895ea37-952e-4939-935a-4993c55af9ff}</Project>
-      <Name>YMovies.MovieDbService</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

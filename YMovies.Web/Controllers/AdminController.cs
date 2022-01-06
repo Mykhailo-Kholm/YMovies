@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.Owin;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -7,17 +8,22 @@ using YMovies.Identity.Managers;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.Web.Models.AdminViewModels;
+using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Controllers
 {
     [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
-        readonly IRepository<Movie> moviesRepo;
+        readonly IRepository<Movie> _moviesRepo;
+        readonly IRepository<Cast> _castsRepo;
+        readonly IRepository<Genre> _genresRepo;
 
-        public AdminController(IRepository<Movie> moviesRepo)
+        public AdminController(IRepository<Movie> moviesRepo, IRepository<Cast> castsRepo, IRepository<Genre> genresRepo)
         {
-            this.moviesRepo = moviesRepo;
+           _moviesRepo = moviesRepo;
+            _castsRepo = castsRepo;
+            _genresRepo = genresRepo;
         }
 
         public ApplicationUserManager UserManager
@@ -82,18 +88,27 @@ namespace YMovies.Web.Controllers
             return RedirectToAction("Index", "Home", null);
         }
 
-
         [HttpGet]
-        public ActionResult CreateFilm() => View(new NewFilm());
+        public ActionResult CreateFilm()
+        {
+            var model = new FilmCreationViewModel
+            {
+                Casts = new SelectList(_castsRepo.Items.ToList(), "Id", "Name" + " " + "Surname"),
+                Genres = new SelectList(_genresRepo.Items.ToList(), "Id", "Name"),
+                Countries = new SelectList(_genresRepo.Items.ToList(), "Id", "Name")
+            };
+
+            return View("FilmCreation", model);
+        }
 
         [HttpPost]
-        public ActionResult CreateFilm(NewFilm model)
+        public ActionResult CreateFilm(FilmCreationViewModel model)
         {
             if(!ModelState.IsValid)
                 return View(model);
 
-
-
+            return RedirectToAction("Index", "Home");
         }
     }
+    
 }
