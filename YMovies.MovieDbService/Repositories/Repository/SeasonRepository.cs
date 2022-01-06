@@ -38,5 +38,20 @@ namespace YMovies.MovieDbService.Repositories.Repository
             _context.Seasons.Remove(season);
             _context.SaveChanges();
         }
+
+        public void AddSeason(int seriesId)
+        {
+            var series = _context.Series.FirstOrDefault(s => s.SeriesId == seriesId);
+            if (series == null) return;
+            var season = new Season()
+            {
+                Name = "Season" + (series.Seasons.Count + 1),
+                CurrentSeries = series,
+                CurrentSeriesId = seriesId
+            };
+            _context.Seasons.Add(season);
+            series.Seasons.Add(_context.Seasons.FirstOrDefault(x => x.SeasonId==season.SeasonId));
+            _context.SaveChanges();
+        }
     }
 }

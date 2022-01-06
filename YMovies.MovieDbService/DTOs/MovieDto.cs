@@ -13,8 +13,10 @@ namespace YMovies.MovieDbService.DTOs
         public decimal Budget { get; set; }
         public string BoxOffice { get; set; }
         public decimal ImdbRating { get; set; }
-
-        public StatisticDto Statistic { get; set; }
+        public decimal Rating { get; set; }
+        public int NumberOfLikes { get; set; }
+        public int NumberOfDislikes { get; set; }
+        public string Type { get; set; }
         public ICollection<CastDto> Cast { get; set; }
         public ICollection<CountryDto> Countries { get; set; }
         public ICollection<GenreDto> Genres { get; set; }

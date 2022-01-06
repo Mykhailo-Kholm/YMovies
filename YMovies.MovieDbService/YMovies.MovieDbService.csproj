@@ -55,84 +55,11 @@
     <Compile Include="DTOs\MovieDto.cs" />
     <Compile Include="DTOs\SeasonDto.cs" />
     <Compile Include="DTOs\SeriesDto.cs" />
-    <Compile Include="DTOs\StatisticDto.cs" />
     <Compile Include="DTOs\TypeDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
-    <Compile Include="Migrations\202112221351088_InitialModelOfMovies.cs" />
-    <Compile Include="Migrations\202112221351088_InitialModelOfMovies.designer.cs">
-      <DependentUpon>202112221351088_InitialModelOfMovies.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112231056408_AddedUser.cs" />
-    <Compile Include="Migrations\202112231056408_AddedUser.Designer.cs">
-      <DependentUpon>202112231056408_AddedUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112231155400_AddSeriesRelationships.cs" />
-    <Compile Include="Migrations\202112231155400_AddSeriesRelationships.Designer.cs">
-      <DependentUpon>202112231155400_AddSeriesRelationships.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112231218552_updateModles.cs" />
-    <Compile Include="Migrations\202112231218552_updateModles.Designer.cs">
-      <DependentUpon>202112231218552_updateModles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112231238075_Empty.cs" />
-    <Compile Include="Migrations\202112231238075_Empty.Designer.cs">
-      <DependentUpon>202112231238075_Empty.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112231241229_Empty1.cs" />
-    <Compile Include="Migrations\202112231241229_Empty1.Designer.cs">
-      <DependentUpon>202112231241229_Empty1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112231537103_UpdateCastMovieRelationship.cs" />
-    <Compile Include="Migrations\202112231537103_UpdateCastMovieRelationship.Designer.cs">
-      <DependentUpon>202112231537103_UpdateCastMovieRelationship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112231544570_UpdateCountryMovieAndGenreMovieRelationship.cs" />
-    <Compile Include="Migrations\202112231544570_UpdateCountryMovieAndGenreMovieRelationship.Designer.cs">
-      <DependentUpon>202112231544570_UpdateCountryMovieAndGenreMovieRelationship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112231552268_UpdateCountryCastGenreAndSeriesRelationship.cs" />
-    <Compile Include="Migrations\202112231552268_UpdateCountryCastGenreAndSeriesRelationship.Designer.cs">
-      <DependentUpon>202112231552268_UpdateCountryCastGenreAndSeriesRelationship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.cs" />
-    <Compile Include="Migrations\202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.Designer.cs">
-      <DependentUpon>202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.cs" />
-    <Compile Include="Migrations\202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.Designer.cs">
-      <DependentUpon>202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112240902068_UpdateUser.cs" />
-    <Compile Include="Migrations\202112240902068_UpdateUser.Designer.cs">
-      <DependentUpon>202112240902068_UpdateUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112240920041_AddSeriesSeasonRelationship.cs" />
-    <Compile Include="Migrations\202112240920041_AddSeriesSeasonRelationship.Designer.cs">
-      <DependentUpon>202112240920041_AddSeriesSeasonRelationship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112241018461_UpdatedLikedWatchedRElationship.cs" />
-    <Compile Include="Migrations\202112241018461_UpdatedLikedWatchedRElationship.Designer.cs">
-      <DependentUpon>202112241018461_UpdatedLikedWatchedRElationship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112291336541_UpdateRelationshipUsersLikes.cs" />
-    <Compile Include="Migrations\202112291336541_UpdateRelationshipUsersLikes.Designer.cs">
-      <DependentUpon>202112291336541_UpdateRelationshipUsersLikes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112291354448_FixRelationshipForUserLikes.cs" />
-    <Compile Include="Migrations\202112291354448_FixRelationshipForUserLikes.designer.cs">
-      <DependentUpon>202112291354448_FixRelationshipForUserLikes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112291407444_UpdateRelationshipForUserWatched.cs" />
-    <Compile Include="Migrations\202112291407444_UpdateRelationshipForUserWatched.designer.cs">
-      <DependentUpon>202112291407444_UpdateRelationshipForUserWatched.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112301424171_AddType.cs" />
-    <Compile Include="Migrations\202112301424171_AddType.designer.cs">
-      <DependentUpon>202112301424171_AddType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202112301449261_AddFixToRelationshipType.cs" />
-    <Compile Include="Migrations\202112301449261_AddFixToRelationshipType.designer.cs">
-      <DependentUpon>202112301449261_AddFixToRelationshipType.cs</DependentUpon>
+    <Compile Include="Migrations\202201051352531_Init.cs" />
+    <Compile Include="Migrations\202201051352531_Init.designer.cs">
+      <DependentUpon>202201051352531_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cast.cs" />
@@ -141,7 +68,6 @@
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\Season.cs" />
     <Compile Include="Models\Series.cs" />
-    <Compile Include="Models\Statistic.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="DatabaseContext\MoviesContext.cs" />
@@ -158,13 +84,19 @@
     <Compile Include="Repositories\Repository\MovieRepository.cs" />
     <Compile Include="Repositories\Repository\SeasonRepository.cs" />
     <Compile Include="Repositories\Repository\SeriesRepository.cs" />
-    <Compile Include="Repositories\Repository\StatisticRepository.cs" />
+    <Compile Include="Repositories\Repository\TypeRepository.cs" />
     <Compile Include="Repositories\Repository\UserRepository.cs" />
     <Compile Include="Services\IService\IService.cs" />
+    <Compile Include="Services\Service\CastService.cs" />
+    <Compile Include="Services\Service\CountryService.cs" />
+    <Compile Include="Services\Service\GenreService.cs" />
     <Compile Include="Services\Service\MovieService.cs" />
     <Compile Include="SearchModel\SearchingModel.cs" />
+    <Compile Include="Services\Service\SeasonService.cs" />
+    <Compile Include="Services\Service\SeriesService.cs" />
+    <Compile Include="Services\Service\TypeService.cs" />
+    <Compile Include="Services\Service\UserService.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
@@ -174,62 +106,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202112221351088_InitialModelOfMovies.resx">
-      <DependentUpon>202112221351088_InitialModelOfMovies.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112231056408_AddedUser.resx">
-      <DependentUpon>202112231056408_AddedUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112231155400_AddSeriesRelationships.resx">
-      <DependentUpon>202112231155400_AddSeriesRelationships.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112231218552_updateModles.resx">
-      <DependentUpon>202112231218552_updateModles.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112231238075_Empty.resx">
-      <DependentUpon>202112231238075_Empty.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112231241229_Empty1.resx">
-      <DependentUpon>202112231241229_Empty1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112231537103_UpdateCastMovieRelationship.resx">
-      <DependentUpon>202112231537103_UpdateCastMovieRelationship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112231544570_UpdateCountryMovieAndGenreMovieRelationship.resx">
-      <DependentUpon>202112231544570_UpdateCountryMovieAndGenreMovieRelationship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112231552268_UpdateCountryCastGenreAndSeriesRelationship.resx">
-      <DependentUpon>202112231552268_UpdateCountryCastGenreAndSeriesRelationship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.resx">
-      <DependentUpon>202112240659221_UpdateRelationshipBetweenMovieSeriesAndStatistic.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.resx">
-      <DependentUpon>202112240843340_AddLikedWatchedSeriesAndMoviesRelationship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112240902068_UpdateUser.resx">
-      <DependentUpon>202112240902068_UpdateUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112240920041_AddSeriesSeasonRelationship.resx">
-      <DependentUpon>202112240920041_AddSeriesSeasonRelationship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112241018461_UpdatedLikedWatchedRElationship.resx">
-      <DependentUpon>202112241018461_UpdatedLikedWatchedRElationship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112291336541_UpdateRelationshipUsersLikes.resx">
-      <DependentUpon>202112291336541_UpdateRelationshipUsersLikes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112291354448_FixRelationshipForUserLikes.resx">
-      <DependentUpon>202112291354448_FixRelationshipForUserLikes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112291407444_UpdateRelationshipForUserWatched.resx">
-      <DependentUpon>202112291407444_UpdateRelationshipForUserWatched.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112301424171_AddType.resx">
-      <DependentUpon>202112301424171_AddType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202112301449261_AddFixToRelationshipType.resx">
-      <DependentUpon>202112301449261_AddFixToRelationshipType.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202201051352531_Init.resx">
+      <DependentUpon>202201051352531_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
