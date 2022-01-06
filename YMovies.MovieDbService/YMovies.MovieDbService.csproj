@@ -50,11 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\CastDto.cs" />
-    <Compile Include="DTOs\GenresDto.cs" />
+    <Compile Include="DTOs\CountryDto.cs" />
     <Compile Include="DTOs\GenreDto.cs" />
     <Compile Include="DTOs\MovieDto.cs" />
     <Compile Include="DTOs\SeasonDto.cs" />
     <Compile Include="DTOs\SeriesDto.cs" />
+    <Compile Include="DTOs\StatisticDto.cs" />
     <Compile Include="DTOs\TypeDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Migrations\202201051352531_Init.cs" />

@@ -9,6 +9,7 @@ using YMovies.MovieDbService.Repositories.Repository;
 using YMovies.MovieDbService.Services.IService;
 using YMovies.MovieDbService.Services.Service;
 
+
 namespace Ymovies.Web.Utilities
 {
     public class NinjectDependencyResolver : IDependencyResolver
@@ -46,7 +47,7 @@ namespace Ymovies.Web.Utilities
 
             kernel.Bind(typeof(IRepository<Country>)).To(typeof(CountryRepository))
                                 .WithConstructorArgument("context", context);
-
+           
             kernel.Bind(typeof(IService<GenresDto>)).To(typeof(CountryService))
                 .WithConstructorArgument("repository", new CountryRepository(context));
 

@@ -8,6 +8,7 @@ using YMovies.Identity.Managers;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.Web.Models.AdminViewModels;
+using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Controllers
 {
@@ -94,7 +95,7 @@ namespace YMovies.Web.Controllers
         }
         
         [HttpPost]
-        public ActionResult CreateFilm(NewFilm model)
+        public ActionResult CreateFilm(FilmCreationViewModel model)
         {
             if (!ModelState.IsValid)
                 return View("FilmCreation", model);
@@ -102,4 +103,5 @@ namespace YMovies.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
     }
+    
 }
