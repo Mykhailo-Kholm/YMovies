@@ -20,5 +20,6 @@ namespace YMovies.Web.DTOs
         public ICollection<CastWebDto> Cast { get; set; }
         public ICollection<CountryWebDto> Countries { get; set; }
         public ICollection<GenreWebDto> Genres { get; set; }
+        public bool IsWatched { get; set; }
     }
 }

@@ -221,10 +221,6 @@
     <Compile Include="TempModels\MoviesInfo.cs" />
     <Compile Include="ViewModels\MovieGenreViewModel.cs" />
     <Compile Include="ViewModels\MovieModel.cs" />
-    <Compile Include="TempModels\Cast.cs" />
-    <Compile Include="TempModels\Country.cs" />
-    <Compile Include="TempModels\Genre.cs" />
-    <Compile Include="TempModels\Movie.cs" />
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Utilites\AutoMap.cs" />
     <Compile Include="ViewModels\CountryMovieViewModel.cs" />
