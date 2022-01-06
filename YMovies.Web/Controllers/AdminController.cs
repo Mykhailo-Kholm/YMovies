@@ -22,8 +22,8 @@ namespace YMovies.Web.Controllers
         public AdminController(IRepository<Movie> moviesRepo, IRepository<Cast> castsRepo, IRepository<Genre> genresRepo)
         {
            _moviesRepo = moviesRepo;
-            _castsRepo = castsRepo;
-            _genresRepo = genresRepo;
+           _castsRepo = castsRepo;
+           _genresRepo = genresRepo;
         }
 
         public ApplicationUserManager UserManager
