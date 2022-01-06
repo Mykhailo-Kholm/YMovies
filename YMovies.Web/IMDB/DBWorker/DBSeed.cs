@@ -1,24 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.Services.IService;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Services.Service;
 using IMDbApiLib.Models;
+using YMovies.MovieDbService.Models;
+using YMovies.MovieDbService.Repositories.IRepository;
+using YMovies.MovieDbService.Repositories.Repository;
 
 namespace YMovies.Web.IMDB.DBWorker
 {
     public class DBSeed : ISeed
     {
         private readonly MoviesContext _context;
-        private readonly IService<MovieDto> _movieService;
+        private readonly IRepository<Movie> _movieRepository;
         private readonly APIworkerIMDB aPIworkerIMDB;
         public DBSeed()
         {
             _context = new MoviesContext();
-            _movieService = new MovieService(new MovieDbService.Repositories.Repository.MovieRepository(_context));
+            _movieRepository = new MovieRepository(_context);
             aPIworkerIMDB = new APIworkerIMDB();
         }
         public async void AddMovieByImbdId(string imdbId)
@@ -36,12 +40,11 @@ namespace YMovies.Web.IMDB.DBWorker
             }
 
 
-
-            _movieService.AddItem(MapMovieToDtoFromImdb(media));
+            _movieRepository.AddItem(MapMovieToDtoFromImdb(media));
         }
-        private MovieDto MapMovieToDtoFromImdb(TitleData imdbModel)
+        private Movie MapMovieToDtoFromImdb(TitleData imdbModel)
         {
-            var movie = new MovieDto
+            var movie = new Movie
             {
                 ImdbId = imdbModel.Id,
                 Title = imdbModel.Title,
@@ -51,17 +54,20 @@ namespace YMovies.Web.IMDB.DBWorker
                 //Budget = 0m,
                 BoxOffice = imdbModel.Companies,
                 //ImdbRating = Decimal.Parse(imdbModel.IMDbRating),
-                Type = imdbModel.Type,
-                Cast = new List<CastDto>(),
-                Genres = new List<GenreDto>(),
-                Countries = new List<CountryDto>()
+                //Type = imdbModel.Type,
+                Type = new MovieDbService.Models.Type(),
+                Cast = new List<Cast>(),
+                Genres = new List<Genre>(),
+                Countries = new List<Country>(),
+                UsersLiked = new List<User>(),
+                UsersWatched = new List<User>()
             };
 
-
+            movie.Type.Name = imdbModel.Type;
 
             foreach(var actor in imdbModel.ActorList)
             {
-                movie.Cast.Add(new CastDto
+                movie.Cast.Add(new Cast
                 {
                     Name = actor.Name,
                     PictureUrl = actor.Image
@@ -70,7 +76,7 @@ namespace YMovies.Web.IMDB.DBWorker
 
             foreach(var country in imdbModel.CountryList)
             {
-                movie.Countries.Add(new CountryDto
+                movie.Countries.Add(new Country
                 {
                     Name = country.Value
                 });
@@ -78,7 +84,7 @@ namespace YMovies.Web.IMDB.DBWorker
 
             foreach (var genre in imdbModel.GenreList)
             {
-                movie.Genres.Add(new GenreDto
+                movie.Genres.Add(new Genre
                 {
                     Name = genre.Value
                 });

@@ -2,7 +2,7 @@
 
 namespace YMovies.MovieDbService.Repositories.IRepository
 {
-    interface IRepository<T>
+    public interface IRepository<T>
     {
         IEnumerable<T> Items { get; }
         T GetItem(int id);
