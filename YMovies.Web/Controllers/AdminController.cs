@@ -12,7 +12,7 @@ using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
+
     public class AdminController : Controller
     {
         readonly IRepository<Movie> _moviesRepo;
@@ -21,9 +21,9 @@ namespace YMovies.Web.Controllers
 
         public AdminController(IRepository<Movie> moviesRepo, IRepository<Cast> castsRepo, IRepository<Genre> genresRepo)
         {
-           _moviesRepo = moviesRepo;
-           _castsRepo = castsRepo;
-           _genresRepo = genresRepo;
+            _moviesRepo = moviesRepo;
+            _castsRepo = castsRepo;
+            _genresRepo = genresRepo;
         }
 
         public ApplicationUserManager UserManager
@@ -91,24 +91,52 @@ namespace YMovies.Web.Controllers
         [HttpGet]
         public ActionResult CreateFilm()
         {
-            var model = new FilmCreationViewModel
-            {
-                Casts = new SelectList(_castsRepo.Items.ToList(), "Id", "Name" + " " + "Surname"),
-                Genres = new SelectList(_genresRepo.Items.ToList(), "Id", "Name"),
-                Countries = new SelectList(_genresRepo.Items.ToList(), "Id", "Name")
-            };
+            return View("FilmCreation", new NewFilm());
+        }
 
-            return View("FilmCreation", model);
+        private List<Cast> _casts = new List<Cast>()
+        {
+            new Cast()
+            {
+                Id = 1,
+                Name = "First",
+                Surname = "Actor"
+            },
+            new Cast()
+            {
+                Id = 2,
+                Name = "Second",
+                Surname = "Actor"
+            },
+            new Cast()
+            {
+                Id = 3,
+                Name = "Third",
+                Surname = "Actor"
+            }
+        };
+
+        [HttpPost]
+        public ActionResult Cast(string name)
+        {
+            var list = (from actor in _castsRepo.Items
+                        where actor.Name.StartsWith(name)
+                        select new
+                        {
+                            label = actor.Name + " " + actor.Surname,
+                            id = actor.Id
+                        }).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult CreateFilm(FilmCreationViewModel model)
+        public ActionResult CreateFilm(NewFilm model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return View(model);
 
             return RedirectToAction("Index", "Home");
         }
     }
-    
+
 }
