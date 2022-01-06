@@ -3,6 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using PagedList;
+using YMovies.MovieDbService.DatabaseContext;
+using YMovies.MovieDbService.Repositories.Repository;
+using YMovies.Web.Services.Service;
 using YMovies.Web.TempModels;
 using YMovies.Web.ViewModels;
 
@@ -300,6 +303,7 @@ namespace YMovies.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(int? page, string action)
         {
+            
             var pageSize = 10;
             var pageNumber = page ?? 1;
             List<MoviesInfo> moviesInfos = new List<MoviesInfo>();

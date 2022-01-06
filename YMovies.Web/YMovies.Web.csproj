@@ -189,6 +189,12 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Dtos\CastWebDto.cs" />
+    <Compile Include="Dtos\CountryWebDto.cs" />
+    <Compile Include="Dtos\GenreWebDto.cs" />
+    <Compile Include="Dtos\MovieWebDto.cs" />
+    <Compile Include="Dtos\SeasonWebDto.cs" />
+    <Compile Include="Dtos\SeriesWebDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -204,6 +210,13 @@
     <Compile Include="Models\ManageViewModels\IndexViewModel.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IService\IService.cs" />
+    <Compile Include="Services\Service\CastWebService.cs" />
+    <Compile Include="Services\Service\CountryWebService.cs" />
+    <Compile Include="Services\Service\GenreWebService.cs" />
+    <Compile Include="Services\Service\MovieWebService.cs" />
+    <Compile Include="Services\Service\SeasonWebService.cs" />
+    <Compile Include="Services\Service\SeriesWebService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TempModels\MoviesInfo.cs" />
     <Compile Include="ViewModels\MovieGenreViewModel.cs" />
@@ -318,6 +331,7 @@
     <Content Include="Views\Movies\Details.cshtml" />
     <Content Include="Views\Admin\Find.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Movies\Partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
