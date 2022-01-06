@@ -16,27 +16,27 @@ namespace YMovies.Web.Services.Service
             new MapperConfiguration(cfg => cfg.CreateMap<Season, SeasonWebDto>());
 
         private readonly Mapper _mapper = new Mapper(Config);
-         IEnumerable<SeasonWebDto> Items => _mapper.Map<IEnumerable<Season>, IEnumerable<SeasonWebDto>>(_repository.Items);
+        public IEnumerable<SeasonWebDto> Items => _mapper.Map<IEnumerable<Season>, IEnumerable<SeasonWebDto>>(_repository.Items);
 
-         SeasonWebDto GetItem(int id)
+        public SeasonWebDto GetItem(int id)
         {
             var season = _repository.GetItem(id);
             return _mapper.Map<Season, SeasonWebDto>(season);
         }
 
-         void AddItem(SeasonWebDto item)
+        public void AddItem(SeasonWebDto item)
         {
             var season = _mapper.Map<SeasonWebDto, Season>(item);
             _repository.AddItem(season);
         }
 
-         void UpdateItem(SeasonWebDto item)
+        public void UpdateItem(SeasonWebDto item)
         {
             var season = _mapper.Map<SeasonWebDto, Season>(item);
             _repository.UpdateItem(season);
         }
 
-         void DeleteItem(SeasonWebDto item)
+        public void DeleteItem(SeasonWebDto item)
         {
             var season = _mapper.Map<SeasonWebDto, Season>(item);
             _repository.DeleteItem(season.SeasonId);

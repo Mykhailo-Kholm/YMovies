@@ -16,26 +16,26 @@ namespace YMovies.Web.Services.Service
             .ForMember("Type", opt => opt.MapFrom(m => m.Type.Name)));
         private readonly Mapper _mapper = new Mapper(Config);
 
-         IEnumerable<MovieWebDto> Items => _mapper.Map<IEnumerable<Movie>, IEnumerable<MovieWebDto>>(_repository.Items);
-         MovieWebDto GetItem(int id)
+        public IEnumerable<MovieWebDto> Items => _mapper.Map<IEnumerable<Movie>, IEnumerable<MovieWebDto>>(_repository.Items);
+        public MovieWebDto GetItem(int id)
         {
             var movie = _repository.GetItem(id);
             return _mapper.Map<Movie, MovieWebDto>(movie);
         }
 
-         void AddItem(MovieWebDto item)
+        public void AddItem(MovieWebDto item)
         {
             var movie = _mapper.Map<MovieWebDto, Movie>(item);
             _repository.AddItem(movie);
         }
 
-         void UpdateItem(MovieWebDto item)
+        public void UpdateItem(MovieWebDto item)
         {
             var movie = _mapper.Map<MovieWebDto, Movie>(item);
             _repository.UpdateItem(movie);
         }
 
-         void DeleteItem(MovieWebDto item)
+        public void DeleteItem(MovieWebDto item)
         {
             var movie = _mapper.Map<MovieWebDto, Movie>(item);
             _repository.DeleteItem(movie.MovieId);

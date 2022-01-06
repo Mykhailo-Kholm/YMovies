@@ -1,6 +1,6 @@
 ﻿namespace YMovies.Web.DTOs
 {
-    class SeasonWebDto
+    public class SeasonWebDto
     {
         public int SeasonId { get; set; }
         public string Name { get; set; }

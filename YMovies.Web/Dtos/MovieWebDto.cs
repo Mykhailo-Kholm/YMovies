@@ -2,7 +2,7 @@
 
 namespace YMovies.Web.DTOs
 {
-    class MovieWebDto
+    public class MovieWebDto
     {
         public int MovieId { get; set; }
         public string ImdbId { get; set; }

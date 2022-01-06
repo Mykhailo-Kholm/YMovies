@@ -303,7 +303,9 @@ namespace YMovies.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(int? page, string action)
         {
-            
+            MoviesContext context = new MoviesContext();
+            MovieRepository repository = new MovieRepository(context);
+            MovieWebService movieWebService = new MovieWebService(repository);
             var pageSize = 10;
             var pageNumber = page ?? 1;
             List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
@@ -312,7 +314,7 @@ namespace YMovies.Web.Controllers
                 string prev = Request.UrlReferrer.ToString();
             }
 
-            foreach (var movie in movies)
+            foreach (var movie in movieWebService.Items)
             {
                 moviesInfos.Add
                 (

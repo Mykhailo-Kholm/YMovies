@@ -1,6 +1,6 @@
 ﻿namespace YMovies.Web.DTOs
 {
-    class CountryWebDto
+    public class CountryWebDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
