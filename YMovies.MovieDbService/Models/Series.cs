@@ -17,11 +17,13 @@ namespace YMovies.MovieDbService.Models
         public decimal Budget { get; set; }
         public string BoxOffice { get; set; }
         public decimal ImdbRating { get; set; }
+        public decimal Rating { get; set; }
+        public int NumberOfLikes { get; set; }
+        public int NumberOfDislikes { get; set; }
 
         public Type Type { get; set; }
 
         public ICollection<Season> Seasons { get; set; }
-        public virtual Statistic Statistic { get; set; }
         public virtual ICollection<Cast> Cast { get; set; }
         public virtual ICollection<Country> Countries { get; set; }
         public virtual ICollection<Genre> Genres { get; set; }
