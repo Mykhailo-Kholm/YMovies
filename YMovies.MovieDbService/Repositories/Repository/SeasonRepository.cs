@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 
 namespace YMovies.MovieDbService.Repositories.Repository
 {
-    class SeasonRepository:IRepository<Season>
+    public class SeasonRepository : IRepository<Season>
     {
         private readonly MoviesContext _context;
-        public SeasonRepository(MoviesContext context)=>_context = context;
+        public SeasonRepository(MoviesContext context) => _context = context;
         public IEnumerable<Season> Items => _context.Seasons;
 
         public Season GetItem(int id)

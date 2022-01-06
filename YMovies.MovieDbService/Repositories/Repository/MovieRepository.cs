@@ -8,7 +8,7 @@ using YMovies.MovieDbService.Repositories.IRepository;
 
 namespace YMovies.MovieDbService.Repositories.Repository
 {
-    class MovieRepository:IRepository<Movie>
+    public class MovieRepository : IRepository<Movie>
     {
         private readonly MoviesContext _context;
         public MovieRepository(MoviesContext context) => _context = context;
@@ -17,6 +17,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
             .Include(m=>m.Genres)
             .Include(m=>m.Cast)
             .Include(m=>m.Statistic);
+        
         public Movie GetItem(int id)
         {
             var movie = _context.Movies.FirstOrDefault(m => m.MovieId == id);

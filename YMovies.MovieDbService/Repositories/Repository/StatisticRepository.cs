@@ -7,7 +7,7 @@ using YMovies.MovieDbService.Repositories.IRepository;
 
 namespace YMovies.MovieDbService.Repositories.Repository
 {
-    class StatisticRepository:IRepository<Statistic>
+    public class StatisticRepository:IRepository<Statistic>
     {
         private readonly MoviesContext _context;
         public StatisticRepository(MoviesContext context) => _context = context;
