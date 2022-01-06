@@ -1,88 +1,91 @@
-﻿@model YMovies.Web.ViewModels.FilmCreationViewModel
+﻿@model YMovies.Web.ViewModels.NewFilm
 
 @{
     ViewBag.Title = "View";
 }
 
-<h2>View</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    <h4>Create Film</h4>
+                    <hr />
 
-<div class="form-horizontal">
-    <h4>Create Film</h4>
-    <hr />
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Title, new { @class = "form-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-    <div class="mb-3">
-        @Html.LabelFor(m => m.Movie.Title, new { @class = "form-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Movie.Title, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Movie.Title, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Plot, new { @class = "form-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Plot, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Plot, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-    <div class="mb-3">
-        @Html.LabelFor(m => m.Movie.Plot, new { @class = "form-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Movie.Plot, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Movie.Plot, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.PosterUrl, new { @class = "form-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.PosterUrl, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.PosterUrl, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-    <div class="mb-3">
-        @Html.LabelFor(m => m.Movie.PosterUrl, new { @class = "form-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Movie.PosterUrl, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Movie.PosterUrl, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Year, new { @class = "form-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Year, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-    <div class="mb-3">
-        @Html.LabelFor(m => m.Movie.Year, new { @class = "form-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Movie.Year, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Movie.Year, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.ImdbRating, new { @class = "form-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.ImdbRating, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ImdbRating, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-    <div class="mb-3">
-        @Html.LabelFor(m => m.Movie.ImdbRating, new { @class = "form-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Movie.ImdbRating, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Movie.ImdbRating, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Budget, new { @class = "form-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Budget, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Budget, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-    <div class="mb-3">
-        @Html.LabelFor(m => m.Movie.Budget, new { @class = "form-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Movie.Budget, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Movie.Budget, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.BoxOffice, new { @class = "form-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.BoxOffice, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.BoxOffice, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-    <div class="mb-3">
-        @Html.LabelFor(m => m.Movie.BoxOffice, new { @class = "form-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Movie.BoxOffice, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Movie.BoxOffice, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    
-    <div class="mb-3">
-        @Html.LabelFor(m => m.Casts, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.Casts, Model.Casts as SelectList, new { htmlAttributes = new { @class = "form-select" } })
-            @Html.ValidationMessageFor(m => m.Casts, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Cast, new { @class = "form-label" })
+                        <div class="col-md-10">
+                            <input type="text" value="" class="form-control" id="cast">
+                            @Html.ValidationMessageFor(m => m.Cast, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-    <div class="mb-3">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-primary" />
+                    <div class="mb-3">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
-}
-
