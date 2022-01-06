@@ -10,7 +10,6 @@ namespace YMovies.MovieDbService.Models
 
         public int CurrentSeriesId { get; set; }
         public Series CurrentSeries { get; set; }
-
         public virtual ICollection<User> UsersLiked { get; set; }
         public virtual ICollection<User> UsersWatched { get; set; }
     }

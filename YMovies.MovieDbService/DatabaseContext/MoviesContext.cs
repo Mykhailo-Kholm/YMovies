@@ -10,9 +10,9 @@ namespace YMovies.MovieDbService.DatabaseContext
         public DbSet<Cast> Cast { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Genre> Genres { get; set; }
-        public DbSet<Statistic> Statistics { get; set; }
         public DbSet<Series> Series { get; set; }
         public DbSet<Season> Seasons { get; set; }
+        public DbSet<Type> Types { get; set; }
         public MoviesContext() : base("name=MoviesDb")
         {
         }
@@ -77,12 +77,6 @@ namespace YMovies.MovieDbService.DatabaseContext
                 .HasMany<Season>(sr => sr.Seasons)
                 .WithRequired(s => s.CurrentSeries)
                 .HasForeignKey<int>(s => s.CurrentSeriesId);
-            modelBuilder.Entity<Movie>()
-                .HasOptional(m => m.Statistic)
-                .WithRequired(st => st.Movie);
-            modelBuilder.Entity<Series>()
-                .HasOptional(s => s.Statistic)
-                .WithRequired(st => st.Series);
 
             modelBuilder.Entity<User>()
                 .HasMany<Movie>(u => u.LikedMovies)
@@ -120,13 +114,6 @@ namespace YMovies.MovieDbService.DatabaseContext
                     su.MapRightKey("SeasonRefId");
                     su.ToTable("WatchedSeason");
                 });
-            modelBuilder.Entity<Movie>()
-                .HasRequired(m => m.Type)
-                .WithRequiredPrincipal(t => t.Movie);
-            modelBuilder.Entity<Series>()
-                .HasRequired(s => s.Type)
-                .WithRequiredPrincipal(t => t.Series);
-
         }
     }
 }

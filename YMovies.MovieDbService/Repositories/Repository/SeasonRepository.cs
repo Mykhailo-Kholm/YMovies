@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
@@ -39,6 +36,21 @@ namespace YMovies.MovieDbService.Repositories.Repository
             var season = _context.Seasons.FirstOrDefault(s => s.SeasonId == id);
             if (season == null) return;
             _context.Seasons.Remove(season);
+            _context.SaveChanges();
+        }
+
+        public void AddSeason(int seriesId)
+        {
+            var series = _context.Series.FirstOrDefault(s => s.SeriesId == seriesId);
+            if (series == null) return;
+            var season = new Season()
+            {
+                Name = "Season" + (series.Seasons.Count + 1),
+                CurrentSeries = series,
+                CurrentSeriesId = seriesId
+            };
+            _context.Seasons.Add(season);
+            series.Seasons.Add(_context.Seasons.FirstOrDefault(x => x.SeasonId==season.SeasonId));
             _context.SaveChanges();
         }
     }
