@@ -8,7 +8,6 @@ using YMovies.Identity.Managers;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.Web.Models.AdminViewModels;
-using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Controllers
 {

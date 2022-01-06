@@ -10,7 +10,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
     public class SeasonRepository:IRepository<Season>
     {
         private readonly MoviesContext _context;
-        public SeasonRepository(MoviesContext context)=>_context = context;
+        public SeasonRepository(MoviesContext context) => _context = context;
         public IEnumerable<Season> Items => _context.Seasons;
 
         public Season GetItem(int id)

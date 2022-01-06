@@ -1,6 +1,6 @@
 ﻿namespace YMovies.MovieDbService.DTOs
 {
-    public class GenresDto
+    public class CountryDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
