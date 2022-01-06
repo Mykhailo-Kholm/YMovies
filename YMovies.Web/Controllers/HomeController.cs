@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using YMovies.MovieDbService.DatabaseContext;
-using YMovies.MovieDbService.Models;
 using YMovies.Web.IMDB;
 using YMovies.Web.ViewModels;
-using YMovies.MovieDbService.Repositories.Repository;
 
 namespace YMovies.Web.Controllers
 {

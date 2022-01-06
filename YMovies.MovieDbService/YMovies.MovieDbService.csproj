@@ -55,6 +55,7 @@
     <Compile Include="DTOs\MovieDto.cs" />
     <Compile Include="DTOs\SeasonDto.cs" />
     <Compile Include="DTOs\SeriesDto.cs" />
+    <Compile Include="DTOs\TypeDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Migrations\202201051352531_Init.cs" />
     <Compile Include="Migrations\202201051352531_Init.designer.cs">
@@ -83,6 +84,7 @@
     <Compile Include="Repositories\Repository\MovieRepository.cs" />
     <Compile Include="Repositories\Repository\SeasonRepository.cs" />
     <Compile Include="Repositories\Repository\SeriesRepository.cs" />
+    <Compile Include="Repositories\Repository\TypeRepository.cs" />
     <Compile Include="Repositories\Repository\UserRepository.cs" />
     <Compile Include="Services\IService\IService.cs" />
     <Compile Include="Services\Service\CastService.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="SearchModel\SearchingModel.cs" />
     <Compile Include="Services\Service\SeasonService.cs" />
     <Compile Include="Services\Service\SeriesService.cs" />
+    <Compile Include="Services\Service\TypeService.cs" />
     <Compile Include="Services\Service\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
