@@ -195,6 +195,7 @@
     <Compile Include="Dtos\MovieWebDto.cs" />
     <Compile Include="Dtos\SeasonWebDto.cs" />
     <Compile Include="Dtos\SeriesWebDto.cs" />
+    <Compile Include="Dtos\UserWebDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -217,6 +218,7 @@
     <Compile Include="Services\Service\MovieWebService.cs" />
     <Compile Include="Services\Service\SeasonWebService.cs" />
     <Compile Include="Services\Service\SeriesWebService.cs" />
+    <Compile Include="Services\Service\UserWebService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TempModels\MoviesInfo.cs" />
     <Compile Include="ViewModels\MovieGenreViewModel.cs" />
