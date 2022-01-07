@@ -9,6 +9,7 @@ using YMovies.MovieDbService.Services.IService;
 namespace YMovies.MovieDbService.Services.Service
 {
     public class CastService : IService<CastDto>
+
     {
         private readonly IRepository<Cast> _repository;
         public CastService(CastRepository repository) => _repository = repository;

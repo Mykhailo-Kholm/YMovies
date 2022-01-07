@@ -8,6 +8,7 @@ using YMovies.MovieDbService.Repositories.IRepository;
 namespace YMovies.MovieDbService.Repositories.Repository
 {
     public class UserRepository : IRepository<User>
+
     {
         private readonly MoviesContext _context;
         public UserRepository(MoviesContext context) => _context = context;
