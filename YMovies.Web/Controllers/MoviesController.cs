@@ -323,6 +323,8 @@ namespace YMovies.Web.Controllers
             MovieWebService movieWebService = new MovieWebService(movieRepository);
             CountryRepository countryRepository = new CountryRepository(context);
             CountryWebService countryWebService = new CountryWebService(countryRepository);
+            //TypeRepository typeRepository = new TypeRepository(context);
+            //TypeWebService typeWebService = new TypeWebService(typeRepository);
             var pageSize = 10;
             var pageNumber = page ?? 1;
             List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
@@ -338,7 +340,7 @@ namespace YMovies.Web.Controllers
                         ImdbRating = movie.ImdbRating, Genres = movie.Genres}
                 );
             }
-            var countryMovieViewModel = new CountryMovieViewModel()
+            var countryMovieViewModel = new MovieViewModel()
             {
                 MoviePageList = moviesInfos.ToPagedList(pageNumber, pageSize),
                 Countries = countryWebService.Items,

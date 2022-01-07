@@ -14,7 +14,8 @@ namespace YMovies.Web.App_Start
             CreateMap<ApplicationUser, RegisterViewModel>().ReverseMap();
             CreateMap<ApplicationUser, IndexViewModel>().ReverseMap();
             CreateMap<ApplicationUser, UserDto>().ReverseMap();
-            CreateMap<Movie, MovieWebDto>().ReverseMap();
+            CreateMap<Type, TypeWebDto>().ReverseMap();
+            CreateMap<Movie, MovieWebDto>().ForMember(prt=>prt.Type, opt => opt.MapFrom(m => m.Type.Name)).ReverseMap();
             CreateMap<Cast, CastWebDto>().ReverseMap();
             CreateMap<Country, CountryWebDto>().ReverseMap();
             CreateMap<Genre, GenreWebDto>().ReverseMap();

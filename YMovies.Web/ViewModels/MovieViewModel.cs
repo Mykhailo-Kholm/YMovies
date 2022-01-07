@@ -6,7 +6,7 @@ using YMovies.Web.TempModels;
 
 namespace YMovies.Web.ViewModels
 {
-    public class CountryMovieViewModel
+    public class MovieViewModel
     {
         public IPagedList<MoviesInfo> MoviePageList { get; set; }
         public List<MoviesInfo> MoviesInfo { get; set; }

@@ -195,6 +195,7 @@
     <Compile Include="Dtos\MovieWebDto.cs" />
     <Compile Include="Dtos\SeasonWebDto.cs" />
     <Compile Include="Dtos\SeriesWebDto.cs" />
+    <Compile Include="Dtos\TypeWebDto.cs" />
     <Compile Include="Dtos\UserWebDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -218,6 +219,7 @@
     <Compile Include="Services\Service\MovieWebService.cs" />
     <Compile Include="Services\Service\SeasonWebService.cs" />
     <Compile Include="Services\Service\SeriesWebService.cs" />
+    <Compile Include="Services\Service\TypeWebService.cs" />
     <Compile Include="Services\Service\UserWebService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TempModels\MoviesInfo.cs" />
@@ -225,7 +227,7 @@
     <Compile Include="ViewModels\MovieModel.cs" />
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Utilites\AutoMap.cs" />
-    <Compile Include="ViewModels\CountryMovieViewModel.cs" />
+    <Compile Include="ViewModels\MovieViewModel.cs" />
     <Compile Include="ViewModels\TopImdbViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -385,6 +387,8 @@
     <Content Include="Views\Shared\_UserPartial.cshtml" />
     <Content Include="Views\Movies\Partial.cshtml" />
     <Content Include="Views\Movies\TopByIMDb.cshtml" />
+    <Content Include="Views\Movies\MostWatched.cshtml" />
+    <Content Include="Views\Movies\MostLiked.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,7 +7,7 @@ using Type = YMovies.MovieDbService.Models.Type;
 
 namespace YMovies.MovieDbService.Repositories.Repository
 {
-    class TypeRepository:IRepository<Models.Type>
+    public class TypeRepository:IRepository<Models.Type>
     {
         private readonly MoviesContext _context;
         public TypeRepository(MoviesContext context) => _context = context;
