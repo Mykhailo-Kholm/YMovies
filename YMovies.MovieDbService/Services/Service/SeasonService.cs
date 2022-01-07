@@ -8,7 +8,7 @@ using YMovies.MovieDbService.Services.IService;
 
 namespace YMovies.MovieDbService.Services.Service
 {
-    class SeasonService:IService<SeasonDto>
+    public class SeasonService:IService<SeasonDto>
     {
         private readonly IRepository<Season> _repository;
         public SeasonService(SeasonRepository repository) => _repository = repository;

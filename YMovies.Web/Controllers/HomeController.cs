@@ -14,7 +14,7 @@ namespace YMovies.Web.Controllers
         {
             ISeed dbseed = new DBSeed();
 
-            dbseed.AddMovieByImbdId("tt0133093");
+            await dbseed.AddMediaByExpression("batman");
             return RedirectToAction("Index", "Movies");
             
         }

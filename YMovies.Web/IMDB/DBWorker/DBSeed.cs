@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using YMovies.MovieDbService.DatabaseContext;
@@ -25,7 +27,7 @@ namespace YMovies.Web.IMDB.DBWorker
             _movieRepository = new MovieRepository(_context);
             aPIworkerIMDB = new APIworkerIMDB();
         }
-        public async void AddMovieByImbdId(string imdbId)
+        public async Task AddMovieByImbdId(string imdbId)
         {
             if(_context.Movies.Any(m => m.ImdbId == imdbId))
             {
@@ -34,13 +36,35 @@ namespace YMovies.Web.IMDB.DBWorker
 
             var media = await aPIworkerIMDB.MovieOrSeriesInfo(imdbId);
 
-            if(media.Type is null)
+            if(media.Type == null || media.TvEpisodeInfo != null)
             {
                 return;
             }
 
-
             _movieRepository.AddItem(MapMovieToDtoFromImdb(media));
+            
+        }
+
+        public async Task AddMediaByExpression(string expression)
+        {
+            var movies = await aPIworkerIMDB.SearchMovieAsync(expression);
+            var series = await aPIworkerIMDB.SearchSeriesAsync(expression);
+
+            if (movies.Count != 0)
+            {
+                foreach (var movie in movies)
+                {
+                    await AddMovieByImbdId(movie.Id);
+                }
+            }
+
+            if (series.Count != 0)
+            {
+                foreach (var serie in series)
+                {
+                    await AddMovieByImbdId(serie.Id);
+                }
+            }
         }
         private Movie MapMovieToDtoFromImdb(TitleData imdbModel)
         {
@@ -65,37 +89,67 @@ namespace YMovies.Web.IMDB.DBWorker
 
             movie.Type.Name = imdbModel.Type;
 
-            foreach(var actor in imdbModel.ActorList)
+            movie.Budget = GetDecimal(imdbModel.BoxOffice.Budget);
+
+            movie.ImdbRating = GetDecimal(imdbModel.IMDbRating);
+
+            if (imdbModel.ActorList.Count != 0)
             {
-                movie.Cast.Add(new Cast
+                foreach (var actor in imdbModel.ActorList)
                 {
-                    Name = actor.Name,
-                    PictureUrl = actor.Image
-                });
+                    movie.Cast.Add(new Cast
+                    {
+                        Name = actor.Name,
+                        PictureUrl = actor.Image
+                    });
+                }
             }
 
-            foreach(var country in imdbModel.CountryList)
+            if (imdbModel.CountryList.Count != 0)
             {
-                movie.Countries.Add(new Country
+                foreach (var country in imdbModel.CountryList)
                 {
-                    Name = country.Value
-                });
+                    movie.Countries.Add(new Country
+                    {
+                        Name = country.Value
+                    });
+                }
             }
 
-            foreach (var genre in imdbModel.GenreList)
+            if (imdbModel.GenreList.Count != 0)
             {
-                movie.Genres.Add(new Genre
+                foreach (var genre in imdbModel.GenreList)
                 {
-                    Name = genre.Value
-                });
+                    movie.Genres.Add(new Genre
+                    {
+                        Name = genre.Value
+                    });
+                }
             }
 
             return movie;
         }
 
-        private SeriesDto MapSeriesToDtoFromImdb(TitleData imdbModel)
+        private decimal GetDecimal(string budget)
         {
-            return null;
+
+            if (string.IsNullOrEmpty(budget))
+            {
+                return 0m;
+            }
+
+            string pattern = @"\d";
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (Match m in Regex.Matches(budget, pattern))
+            {
+                sb.Append(m);
+            }
+            string number = sb.ToString();
+            decimal n = Convert.ToDecimal(number);
+
+            return n;
         }
     }
 }

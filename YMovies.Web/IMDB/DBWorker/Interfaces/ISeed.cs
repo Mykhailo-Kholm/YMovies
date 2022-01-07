@@ -8,6 +8,7 @@ namespace YMovies.Web.IMDB.DBWorker
 {
     interface ISeed
     {
-        void AddMovieByImbdId(string imdbId);
+        Task AddMovieByImbdId(string imdbId);
+        Task AddMediaByExpression(string expression);
     }
 }
