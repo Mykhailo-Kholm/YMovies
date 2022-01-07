@@ -8,7 +8,7 @@ using YMovies.MovieDbService.Services.IService;
 
 namespace YMovies.MovieDbService.Services.Service
 {
-    class GenreService:IService<GenreDto>
+    public class GenreService:IService<GenreDto>
     {
         private readonly IRepository<Genre> _repository;
         public GenreService(GenreRepository repository) => _repository = repository;

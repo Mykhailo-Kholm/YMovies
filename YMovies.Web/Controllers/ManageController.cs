@@ -14,10 +14,6 @@ namespace YMovies.Web.Controllers
     [Authorize]
     public class ManageController : Controller
     {
-        public ManageController()
-        {
-        }
-
         public ApplicationSignInManager SignInManager
         {
             get

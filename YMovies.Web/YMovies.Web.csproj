@@ -213,7 +213,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Api\ActorsController.cs" />
-    <Compile Include="Models\FilmCreationViewModels\FilmCreationViewModel.cs" />
+    <Compile Include="Controllers\Api\CountriesController.cs" />
+    <Compile Include="Controllers\Api\GenresController.cs" />
     <Compile Include="Models\FilmCreationViewModels\NewFilm.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -236,6 +237,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="TempModels\MoviesInfo.cs" />
     <Compile Include="Utilites\NinjectDependencyResolver.cs" />
+    <Compile Include="ViewModels\CastViewModel.cs" />
     <Compile Include="ViewModels\MovieGenreViewModel.cs" />
     <Compile Include="ViewModels\MovieModel.cs" />
     <Compile Include="TempModels\Cast.cs" />
@@ -409,6 +411,7 @@
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Shared\_UserPartial.cshtml" />
     <Content Include="Views\Admin\FilmCreation.cshtml" />
+    <Content Include="Scripts\typeahead.filmcreation.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,38 +8,38 @@ using YMovies.MovieDbService.Services.IService;
 
 namespace YMovies.MovieDbService.Services.Service
 {
-    class CountryService:IService<CountryDto>
+    public class CountryService:IService<GenresDto>
     {
         private readonly IRepository<Country> _repository;
         public CountryService(CountryRepository repository) => _repository = repository;
 
         private static readonly MapperConfiguration Config =
-            new MapperConfiguration(cfg => cfg.CreateMap<Country, CountryDto>());
+            new MapperConfiguration(cfg => cfg.CreateMap<Country, GenresDto>());
 
         private readonly Mapper _mapper = new Mapper(Config);
-        public IEnumerable<CountryDto> Items => _mapper.Map<IEnumerable<Country>, IEnumerable<CountryDto>>(_repository.Items);
+        public IEnumerable<GenresDto> Items => _mapper.Map<IEnumerable<Country>, IEnumerable<GenresDto>>(_repository.Items);
 
-        public CountryDto GetItem(int id)
+        public GenresDto GetItem(int id)
         {
             var country = _repository.GetItem(id);
-            return _mapper.Map<Country, CountryDto>(country);
+            return _mapper.Map<Country, GenresDto>(country);
         }
 
-        public void AddItem(CountryDto item)
+        public void AddItem(GenresDto item)
         {
-            var country = _mapper.Map<CountryDto, Country>(item);
+            var country = _mapper.Map<GenresDto, Country>(item);
             _repository.AddItem(country);
         }
 
-        public void UpdateItem(CountryDto item)
+        public void UpdateItem(GenresDto item)
         {
-            var country = _mapper.Map<CountryDto, Country>(item);
+            var country = _mapper.Map<GenresDto, Country>(item);
             _repository.UpdateItem(country);
         }
 
-        public void DeleteItem(CountryDto item)
+        public void DeleteItem(GenresDto item)
         {
-            var country = _mapper.Map<CountryDto, Country>(item);
+            var country = _mapper.Map<GenresDto, Country>(item);
             _repository.DeleteItem(country.Id);
         }
     }

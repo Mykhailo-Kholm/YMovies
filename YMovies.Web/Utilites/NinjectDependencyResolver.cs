@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using YMovies.MovieDbService.DatabaseContext;
+using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
-
+using YMovies.MovieDbService.Services.IService;
+using YMovies.MovieDbService.Services.Service;
 
 namespace Ymovies.Web.Utilities
 {
@@ -43,7 +45,14 @@ namespace Ymovies.Web.Utilities
                                 .WithConstructorArgument("context", context);
 
             kernel.Bind(typeof(IRepository<Country>)).To(typeof(CountryRepository))
-                                .WithConstructorArgument("context", context);           
+                                .WithConstructorArgument("context", context);
+
+            kernel.Bind(typeof(IService<GenresDto>)).To(typeof(CountryService))
+                .WithConstructorArgument("repository", new CountryRepository(context));
+
+            kernel.Bind(typeof(IService<CastDto>)).To(typeof(CastService))
+               .WithConstructorArgument("repository", new CastRepository(context));
+
         }
     }
 }
