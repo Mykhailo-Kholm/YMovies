@@ -50,7 +50,7 @@ namespace YMovies.Web.IMDB.DBWorker
             var movies = await aPIworkerIMDB.SearchMovieAsync(expression);
             var series = await aPIworkerIMDB.SearchSeriesAsync(expression);
 
-            if (movies.Count != 0)
+            if (movies != null)
             {
                 foreach (var movie in movies)
                 {
@@ -58,7 +58,7 @@ namespace YMovies.Web.IMDB.DBWorker
                 }
             }
 
-            if (series.Count != 0)
+            if (series != null)
             {
                 foreach (var serie in series)
                 {
