@@ -4,6 +4,7 @@ using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
 using YMovies.Web.DTOs;
+using YMovies.Web.Utilities;
 
 namespace YMovies.Web.Services.Service
 {
@@ -12,33 +13,33 @@ namespace YMovies.Web.Services.Service
         private readonly IRepository<Country> _repository;
         public CountryWebService(CountryRepository repository) => _repository = repository;
 
-        private static readonly MapperConfiguration Config =
-            new MapperConfiguration(cfg => cfg.CreateMap<Country, CountryWebDto>());
+        //private static readonly MapperConfiguration Config =
+        //    new MapperConfiguration(cfg => cfg.CreateMap<Country, CountryWebDto>());
 
-        private readonly Mapper _mapper = new Mapper(Config);
-        public IEnumerable<CountryWebDto> Items => _mapper.Map<IEnumerable<Country>, IEnumerable<CountryWebDto>>(_repository.Items);
+        //private readonly Mapper _mapper = new Mapper(Config);
+        public IEnumerable<CountryWebDto> Items => AutoMap.Mapper.Map<IEnumerable<Country>, IEnumerable<CountryWebDto>>(_repository.Items);
 
         public CountryWebDto GetItem(int id)
         {
             var country = _repository.GetItem(id);
-            return _mapper.Map<Country, CountryWebDto>(country);
+            return AutoMap.Mapper.Map<Country, CountryWebDto>(country);
         }
 
         public void AddItem(CountryWebDto item)
         {
-            var country = _mapper.Map<CountryWebDto, Country>(item);
+            var country = AutoMap.Mapper.Map<CountryWebDto, Country>(item);
             _repository.AddItem(country);
         }
 
         public void UpdateItem(CountryWebDto item)
         {
-            var country = _mapper.Map<CountryWebDto, Country>(item);
+            var country = AutoMap.Mapper.Map<CountryWebDto, Country>(item);
             _repository.UpdateItem(country);
         }
 
         public void DeleteItem(CountryWebDto item)
         {
-            var country = _mapper.Map<CountryWebDto, Country>(item);
+            var country = AutoMap.Mapper.Map<CountryWebDto, Country>(item);
             _repository.DeleteItem(country.Id);
         }
     }

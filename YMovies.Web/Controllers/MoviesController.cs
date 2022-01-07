@@ -306,6 +306,7 @@ namespace YMovies.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(int? page, string action)
         {
+
             MovieRepository movieRepository = new MovieRepository(context);
             MovieWebService movieWebService = new MovieWebService(movieRepository);
             CountryRepository countryRepository = new CountryRepository(context);
@@ -317,12 +318,12 @@ namespace YMovies.Web.Controllers
             {
                 string prev = Request.UrlReferrer.ToString();
             }
-
-            foreach (var movie in movieWebService.Items)
+            foreach (var movie in movieWebService.Items.ToList())
             {
                 moviesInfos.Add
                 (
-                    new MoviesInfo(){Id = movie.MovieId, ImdbRating = movie.ImdbRating, Genres = movie.Genres}
+                    new MoviesInfo(){Id = movie.MovieId, Title = movie.Title, PosterUrl = movie.PosterUrl,
+                        ImdbRating = movie.ImdbRating, Genres = movie.Genres}
                 );
             }
             var countryMovieViewModel = new CountryMovieViewModel()
