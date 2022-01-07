@@ -12,11 +12,7 @@ namespace YMovies.Web.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            ISeed dbseed = new DBSeed();
-
-            await dbseed.AddMediaByExpression("batman");
             return RedirectToAction("Index", "Movies");
-            
         }
 
         public ActionResult About()

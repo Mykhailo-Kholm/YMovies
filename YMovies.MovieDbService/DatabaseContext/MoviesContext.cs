@@ -12,6 +12,7 @@ namespace YMovies.MovieDbService.DatabaseContext
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Series> Series { get; set; }
         public DbSet<Season> Seasons { get; set; }
+        public DbSet<Type> Types { get; set; }
         public MoviesContext() : base("name=MoviesDb")
         {
         }
