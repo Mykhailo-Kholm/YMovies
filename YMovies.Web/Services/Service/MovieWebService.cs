@@ -13,7 +13,6 @@ namespace YMovies.Web.Services.Service
     {
         private readonly IRepository<Movie> _repository;
         public MovieWebService(MovieRepository repository) => _repository = repository;
-
         //static readonly MapperConfiguration Config = new MapperConfiguration(cfg => cfg.CreateMap<Movie, MovieWebDto>()
         //    .ForMember("Type", opt => opt.MapFrom(m => m.Type.Name)));
         //private readonly Mapper _mapper = new Mapper(Config);
