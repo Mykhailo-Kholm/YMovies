@@ -25,20 +25,20 @@ namespace YMovies.Web.ViewModels
 
         //[Required(ErrorMessage = "This field cannot be empty")]
         //public string Plot { get; set; }
-        
+
         //[Required(ErrorMessage = "This field cannot be empty")]
         //public decimal Budget { get; set; }
-        
+
         //[Required(ErrorMessage = "This field cannot be empty")]
         //public string BoxOffice { get; set; }
-        
+
         //[Required]
         //[RegularExpression("[0-9],[0-9]")]
         //public decimal ImdbRating { get; set; }
-        
+
         [Required(ErrorMessage = "This field cannot be empty")]
         public ICollection<CastViewModel> Cast { get; set; }
-        
+
         [Required(ErrorMessage = "This field cannot be empty")]
         public ICollection<GenresDto> Country { get; set; }
 

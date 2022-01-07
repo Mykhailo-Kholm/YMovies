@@ -13,7 +13,7 @@ namespace YMovies.MovieDbService.DatabaseContext
         public DbSet<Series> Series { get; set; }
         public DbSet<Season> Seasons { get; set; }
         public DbSet<Type> Types { get; set; }
-        public MoviesContext() : base("name=MoviesDb")
+        public MoviesContext() : base("name=DefaultConnection")
         {
         }
         
