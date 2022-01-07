@@ -193,8 +193,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IMDB\APIworkerIMDB.cs" />
-    <Compile Include="IMDB\DBWorker\DBSeed.cs" />
-    <Compile Include="IMDB\DBWorker\Interfaces\ISeed.cs" />
     <Compile Include="Models\AccountViewModels\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\AccountViewModels\LoginViewModel.cs" />
     <Compile Include="Models\AccountViewModels\RegisterViewModel.cs" />

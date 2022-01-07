@@ -3,6 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using PagedList;
+using YMovies.MovieDbService.DatabaseContext;
+using YMovies.MovieDbService.Repositories.Repository;
+using YMovies.Web.DTOs;
+using YMovies.Web.Services.Service;
 using YMovies.Web.TempModels;
 using YMovies.Web.ViewModels;
 
@@ -10,257 +14,259 @@ namespace YMovies.Web.Controllers
 {
     public class MoviesController : Controller
     {
-        public static List<Country> countries = new List<Country>()
-        {
-            new Country()
-            {
-                Id = 1,
-                Name = "US"
-            },
-            new Country()
-            {
-                Id = 2,
-                Name = "Germany"
-            },
-            new Country()
-            {
-                Id = 3,
-                Name = "Ukraine"
-            }
-        };
+        MoviesContext context = new MoviesContext();
 
-        public static List<Genre> Genres = new List<Genre>()
-        {
-            new Genre()
-            {
-                Id = 1,
-                Name = "Genre1"
-            },
-            new Genre()
-            {
-                Id = 2,
-                Name = "Genre2"
-            },
-            new Genre()
-            {
-                Id = 3,
-                Name = "Genre3"
-            }
-        };
+        //public static List<Country> countries = new List<Country>()
+        //{
+        //    new Country()
+        //    {
+        //        Id = 1,
+        //        Name = "US"
+        //    },
+        //    new Country()
+        //    {
+        //        Id = 2,
+        //        Name = "Germany"
+        //    },
+        //    new Country()
+        //    {
+        //        Id = 3,
+        //        Name = "Ukraine"
+        //    }
+        //};
 
-        public static List<Cast> Casts = new List<Cast>()
-        {
-            new Cast()
-            {
-                Id = 1,
-                Name = "First",
-                Surname = "Actor"
-            },
-            new Cast()
-            {
-                Id = 2,
-                Name = "Second",
-                Surname = "Actor"
-            },
-            new Cast()
-            {
-                Id = 3,
-                Name = "Third",
-                Surname = "Actor"
-            }
-        };
+        //public static List<Genre> Genres = new List<Genre>()
+        //{
+        //    new Genre()
+        //    {
+        //        Id = 1,
+        //        Name = "Genre1"
+        //    },
+        //    new Genre()
+        //    {
+        //        Id = 2,
+        //        Name = "Genre2"
+        //    },
+        //    new Genre()
+        //    {
+        //        Id = 3,
+        //        Name = "Genre3"
+        //    }
+        //};
 
-        public static List<Movie> movies = new List<Movie>()
-        {
-            new Movie()
-            {
-                MovieId = 1,
-                Title = "Movie one",
-                ImdbRating = 3,
-                Year = "2021",
-                UsersRating = 1,
-                Plot = "descriptionOne",
-                Genres = new List<Genre>()
-                {
-                    Genres[0],
-                    Genres[2],
-                },
-                Type = "Movie",
-                Countries = new List<Country>()
-                {
-                    countries[0],
+        //public static List<Cast> Casts = new List<Cast>()
+        //{
+        //    new Cast()
+        //    {
+        //        Id = 1,
+        //        Name = "First",
+        //        Surname = "Actor"
+        //    },
+        //    new Cast()
+        //    {
+        //        Id = 2,
+        //        Name = "Second",
+        //        Surname = "Actor"
+        //    },
+        //    new Cast()
+        //    {
+        //        Id = 3,
+        //        Name = "Third",
+        //        Surname = "Actor"
+        //    }
+        //};
 
-                },
+        //public static List<Movie> movies = new List<Movie>()
+        //{
+        //    new Movie()
+        //    {
+        //        MovieId = 1,
+        //        Title = "Movie one",
+        //        ImdbRating = 3,
+        //        Year = "2021",
+        //        UsersRating = 1,
+        //        Plot = "descriptionOne",
+        //        Genres = new List<Genre>()
+        //        {
+        //            Genres[0],
+        //            Genres[2],
+        //        },
+        //        Type = "Movie",
+        //        Countries = new List<Country>()
+        //        {
+        //            countries[0],
 
-                Cast = new List<Cast>()
-                {
-                    Casts[0]
-                },
-                Budget = 100
-            },
-            new Movie()
-            {
-                MovieId = 2,
-                Title = "Movie one",
-                ImdbRating = 3,
-                Year = "2021",
-                UsersRating = 1,
-                Plot = "descriptionOne",
-                Genres = new List<Genre>()
-                {
-                    Genres[1],
+        //        },
 
-                },
-                Type = "Movie",
-                Countries = new List<Country>()
-                {
-                    countries[0],
-                    countries[1]
+        //        Cast = new List<Cast>()
+        //        {
+        //            Casts[0]
+        //        },
+        //        Budget = 100
+        //    },
+        //    new Movie()
+        //    {
+        //        MovieId = 2,
+        //        Title = "Movie one",
+        //        ImdbRating = 3,
+        //        Year = "2021",
+        //        UsersRating = 1,
+        //        Plot = "descriptionOne",
+        //        Genres = new List<Genre>()
+        //        {
+        //            Genres[1],
 
-                },
+        //        },
+        //        Type = "Movie",
+        //        Countries = new List<Country>()
+        //        {
+        //            countries[0],
+        //            countries[1]
 
-                Cast = new List<Cast>()
-                {
-                    Casts[1]
-                },
-                Budget = 100
-            },
-            new Movie()
-            {
-                MovieId = 3,
-                Title = "Movie one",
-                ImdbRating = 3,
-                Year = "2021",
-                UsersRating = 1,
-                Plot = "descriptionOne",
-                Genres = new List<Genre>()
-                {
-                    Genres[0],
-                    Genres[1],
-                },
-                Type = "Movie",
-                Countries = new List<Country>()
-                {
-                    countries[0],
-                    countries[1],
-                    countries[2]
+        //        },
 
-                },
-                Cast = new List<Cast>()
-                {
-                    Casts[1],
-                    Casts[2]
-                },
-                Budget = 100
-            },
-            new Movie()
-            {
-                MovieId = 4,
-                Title = "Movie two",
-                ImdbRating = 2,
-                Year = "1998",
-                UsersRating = 12,
-                Plot = "desc2",
-                Genres = new List<Genre>()
-                {
-                    Genres[0],
+        //        Cast = new List<Cast>()
+        //        {
+        //            Casts[1]
+        //        },
+        //        Budget = 100
+        //    },
+        //    new Movie()
+        //    {
+        //        MovieId = 3,
+        //        Title = "Movie one",
+        //        ImdbRating = 3,
+        //        Year = "2021",
+        //        UsersRating = 1,
+        //        Plot = "descriptionOne",
+        //        Genres = new List<Genre>()
+        //        {
+        //            Genres[0],
+        //            Genres[1],
+        //        },
+        //        Type = "Movie",
+        //        Countries = new List<Country>()
+        //        {
+        //            countries[0],
+        //            countries[1],
+        //            countries[2]
 
-                },
-                Type = "Serial",
-                Countries = new List<Country>()
-                {
-                    countries[0],
-                    countries[1]
+        //        },
+        //        Cast = new List<Cast>()
+        //        {
+        //            Casts[1],
+        //            Casts[2]
+        //        },
+        //        Budget = 100
+        //    },
+        //    new Movie()
+        //    {
+        //        MovieId = 4,
+        //        Title = "Movie two",
+        //        ImdbRating = 2,
+        //        Year = "1998",
+        //        UsersRating = 12,
+        //        Plot = "desc2",
+        //        Genres = new List<Genre>()
+        //        {
+        //            Genres[0],
 
-                },
-                Cast = new List<Cast>()
-                {
-                    Casts[0],
-                    Casts[2]
-                },
-                Budget = 120
-            },
-            new Movie()
-            {
-                MovieId = 5,
-                Title = "Movie one",
-                ImdbRating = 3,
-                Year = "2021",
-                UsersRating = 1,
-                Plot = "descriptionOne",
-                Genres = new List<Genre>()
-                {
-                    Genres[0],
+        //        },
+        //        Type = "Serial",
+        //        Countries = new List<Country>()
+        //        {
+        //            countries[0],
+        //            countries[1]
 
-                },
-                Type = "Movie",
-                Countries = new List<Country>()
-                {
-                    countries[0],
-                    countries[1]
+        //        },
+        //        Cast = new List<Cast>()
+        //        {
+        //            Casts[0],
+        //            Casts[2]
+        //        },
+        //        Budget = 120
+        //    },
+        //    new Movie()
+        //    {
+        //        MovieId = 5,
+        //        Title = "Movie one",
+        //        ImdbRating = 3,
+        //        Year = "2021",
+        //        UsersRating = 1,
+        //        Plot = "descriptionOne",
+        //        Genres = new List<Genre>()
+        //        {
+        //            Genres[0],
 
-                },
-                Cast = new List<Cast>()
-                {
-                    Casts[1],
-                    Casts[2]
-                },
-                Budget = 100
-            },
-            new Movie()
-            {
-                MovieId = 6,
-                Title = "Movie one",
-                ImdbRating = 3,
-                Year = "2021",
-                UsersRating = 1,
-                Plot = "descriptionOne",
-                Genres = new List<Genre>()
-                {
-                    Genres[0],
+        //        },
+        //        Type = "Movie",
+        //        Countries = new List<Country>()
+        //        {
+        //            countries[0],
+        //            countries[1]
 
-                },
-                Type = "Movie",
-                Countries = new List<Country>()
-                {
-                    countries[0],
-                    countries[1]
+        //        },
+        //        Cast = new List<Cast>()
+        //        {
+        //            Casts[1],
+        //            Casts[2]
+        //        },
+        //        Budget = 100
+        //    },
+        //    new Movie()
+        //    {
+        //        MovieId = 6,
+        //        Title = "Movie one",
+        //        ImdbRating = 3,
+        //        Year = "2021",
+        //        UsersRating = 1,
+        //        Plot = "descriptionOne",
+        //        Genres = new List<Genre>()
+        //        {
+        //            Genres[0],
 
-                },
-                Cast = new List<Cast>()
-                {
-                    Casts[1],
-                    Casts[2]
-                },
-                Budget = 100
-            },
-            new Movie()
-            {
-                MovieId = 7,
-                Title = "Movie two",
-                ImdbRating = 2,
-                Year = "1998",
-                UsersRating = 12,
-                Plot = "desc2",
-                Genres = new List<Genre>()
-                {
-                    Genres[0],
+        //        },
+        //        Type = "Movie",
+        //        Countries = new List<Country>()
+        //        {
+        //            countries[0],
+        //            countries[1]
 
-                },
-                Type = "Serial",
-                Countries = new List<Country>()
-                {
-                    countries[1]
+        //        },
+        //        Cast = new List<Cast>()
+        //        {
+        //            Casts[1],
+        //            Casts[2]
+        //        },
+        //        Budget = 100
+        //    },
+        //    new Movie()
+        //    {
+        //        MovieId = 7,
+        //        Title = "Movie two",
+        //        ImdbRating = 2,
+        //        Year = "1998",
+        //        UsersRating = 12,
+        //        Plot = "desc2",
+        //        Genres = new List<Genre>()
+        //        {
+        //            Genres[0],
 
-                },
-                Cast = new List<Cast>()
-                {
-                    Casts[1],
-                    Casts[2]
-                },
-                Budget = 120
-            }
-        };
+        //        },
+        //        Type = "Serial",
+        //        Countries = new List<Country>()
+        //        {
+        //            countries[1]
+
+        //        },
+        //        Cast = new List<Cast>()
+        //        {
+        //            Casts[1],
+        //            Casts[2]
+        //        },
+        //        Budget = 120
+        //    }
+        //};
 
         public async Task<ActionResult> Like(int id)
         {
@@ -300,6 +306,11 @@ namespace YMovies.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(int? page, string action)
         {
+
+            MovieRepository movieRepository = new MovieRepository(context);
+            MovieWebService movieWebService = new MovieWebService(movieRepository);
+            CountryRepository countryRepository = new CountryRepository(context);
+            CountryWebService countryWebService = new CountryWebService(countryRepository);
             var pageSize = 10;
             var pageNumber = page ?? 1;
             List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
@@ -307,18 +318,18 @@ namespace YMovies.Web.Controllers
             {
                 string prev = Request.UrlReferrer.ToString();
             }
-
-            foreach (var movie in movies)
+            foreach (var movie in movieWebService.Items.ToList())
             {
                 moviesInfos.Add
                 (
-new MoviesInfo(){Id = movie.MovieId, ImdbRating = movie.ImdbRating, Genres = movie.Genres}
+                    new MoviesInfo(){Id = movie.MovieId, Title = movie.Title, PosterUrl = movie.PosterUrl,
+                        ImdbRating = movie.ImdbRating, Genres = movie.Genres}
                 );
             }
             var countryMovieViewModel = new CountryMovieViewModel()
             {
                 MoviePageList = moviesInfos.ToPagedList(pageNumber, pageSize),
-                Countries = countries,
+                Countries = countryWebService.Items,
                 MoviesInfo = moviesInfos
             };
             if (Session["Movies"] != null)
@@ -335,22 +346,26 @@ new MoviesInfo(){Id = movie.MovieId, ImdbRating = movie.ImdbRating, Genres = mov
 
         public async Task<ActionResult> Details(int id)
         {
-            Movie movie = movies.FirstOrDefault(m => m.MovieId == id);
+            MovieRepository repository = new MovieRepository(context);
+            MovieWebService movieWebService = new MovieWebService(repository);
+            MovieWebDto movie = movieWebService.GetItem(id);
             return View(movie);
         }
 
         public ActionResult Partial()
         {
-            return PartialView(countries);
+            CountryRepository countryRepository = new CountryRepository(context);
+            CountryWebService countryWebService = new CountryWebService(countryRepository);
+            return PartialView(countryWebService.Items);
         }
 
         public async Task<ActionResult> FilterInclude(string action, int countryId)
         {
 
-            List<Movie> newMovies = new List<Movie>();
+            List<MovieWebDto> newMovies = new List<MovieWebDto>();
             if (Session["Movies"] != null)
             {
-                newMovies  = Session["Movies"] as List<Movie>;
+                newMovies  = Session["Movies"] as List<MovieWebDto>;
             }
 
             //newMovies = movies.Movies.Where(p => countries.Any(p2 => countryId == p.Id)).ToList();
@@ -371,10 +386,10 @@ new MoviesInfo(){Id = movie.MovieId, ImdbRating = movie.ImdbRating, Genres = mov
         public async Task<ActionResult> FilterExclude(int countryId)
         {
 
-            List<Movie> newMovies = new List<Movie>();
+            List<MovieWebDto> newMovies = new List<MovieWebDto>();
             if (Session["Movies"] != null)
             {
-                newMovies = Session["Movies"] as List<Movie>;
+                newMovies = Session["Movies"] as List<MovieWebDto>;
             }
 
             //newMovies = movies.Movies.Where(p => countries.Any(p2 => countryId == p.Id)).ToList();

@@ -8,36 +8,37 @@
     <tr>
         @foreach (var item in Model.MoviesInfo)
         {
-<td>
-    <div>
-        <div align="center">
-            @item.Title
-        </div>
-        <div>
-            <a href="@Url.Action("Details", "Movies", new { id = item.Id})">
-                <img src="@Url.Content("~/Content/Images/film.png")" class="postr" height=" 250" width="243" />
-            </a>
-        </div>
-        <div align="center">
-            <span>ImdbRating: @item.ImdbRating</span>
-        </div>
-        <div align="center">
-            <span>ImdbRating:</span>
-            @foreach (var genre in item.Genres)
+        <td>
+            <div>
+                <div align="center">
+                    @item.Title
+                </div>
+                <div>
+                    <a href="@Url.Action("Details", "Movies", new {id = item.Id})">
+                        <img src="@Html.Raw(item.PosterUrl)" alt="a description of the image" height=" 250" width="200">
+
+                        @*<img src="@Url.Content("~/Content/Images/film.png")" class="postr" height=" 250" width="243" />**@
+                    </a>
+                </div>
+                <div align="center">
+                    <span>ImdbRating: @item.ImdbRating</span>
+                </div>
+                <div align="center">
+                    <span>Genres:</span>
+                    @foreach (var genre in item.Genres)
+                    {
+                        <span>@genre.Name</span>}
+
+                </div>
+            </div>
+        </td>
+            if (counter % 5 == 0)
             {
-                <span>@genre.Name</span>
+                @:</tr>
+                @:<tr>
             }
-
-        </div>
-    </div>
-
-</td> if (counter % 5 == 0)
-                {
-@:</tr>
-@:<tr>
-}
-counter++;
-}
+            counter++;
+        }
     </tr>
 </table>
 
