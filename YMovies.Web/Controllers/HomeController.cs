@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using YMovies.Web.IMDB;
+using YMovies.Web.IMDB.DBWorker;
 using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            ISeed dbseed = new DBSeed();
+
+            await dbseed.AddMediaByExpression("batman");
             return RedirectToAction("Index", "Movies");
+            
         }
 
         public ActionResult About()

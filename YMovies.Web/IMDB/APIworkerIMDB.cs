@@ -25,7 +25,26 @@ namespace YMovies.Web.IMDB
             var data = await apiLib.Top250MoviesAsync();
             return data.Items;
         }
-
+        /// <summary>
+        /// список фильмов по заданому expression
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns>Task&lt;List&lt;SearchResult&gt;&gt;</returns>
+        public async Task<List<SearchResult>> SearchMovieAsync(string expression)
+        {
+            var data = await apiLib.SearchMovieAsync(expression);
+            return data.Results;
+        }
+        /// <summary>
+        /// список Сериалов по заданому expression
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns>Task&lt;List&lt;SearchResult&gt;&gt;</returns>
+        public async Task<List<SearchResult>> SearchSeriesAsync(string expression)
+        {
+            var data = await apiLib.SearchSeriesAsync(expression);
+            return data.Results;
+        }
         /// <summary>
         /// Возвращает до 100 фильмов по умолчанию или по заданым параметрам(title, genre, releaseFrom, releaseTo, certificate, sort, group)
         /// </summary>
