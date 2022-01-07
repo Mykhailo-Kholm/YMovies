@@ -98,10 +98,9 @@ namespace YMovies.Web.Controllers
         public ActionResult CreateFilm(NewFilm model)
         {
             if (!ModelState.IsValid)
-                return View(model);
+                return View("FilmCreation", model);
 
             return RedirectToAction("Index", "Home");
         }
     }
-
 }
