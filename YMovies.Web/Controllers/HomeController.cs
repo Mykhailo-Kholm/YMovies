@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using YMovies.MovieDbService.DatabaseContext;
-using YMovies.MovieDbService.Models;
 using YMovies.Web.IMDB;
 using YMovies.Web.ViewModels;
-using YMovies.MovieDbService.Repositories.Repository;
 
 namespace YMovies.Web.Controllers
 {
@@ -14,7 +11,7 @@ namespace YMovies.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Movies");
         }
 
         public ActionResult About()
@@ -23,14 +20,7 @@ namespace YMovies.Web.Controllers
 
             return View();
         }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
+     
         public async Task<ActionResult> Mock(string id)
         {
             APIworkerIMDB imdb = new APIworkerIMDB();
