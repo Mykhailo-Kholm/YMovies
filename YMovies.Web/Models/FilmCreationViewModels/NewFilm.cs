@@ -40,8 +40,8 @@ namespace YMovies.Web.ViewModels
         public ICollection<CastViewModel> Cast { get; set; }
         
         [Required(ErrorMessage = "This field cannot be empty")]
-        public ICollection<CountryDto> Countries { get; set; }
-        
+        public ICollection<GenresDto> Country { get; set; }
+
         [Required(ErrorMessage = "This field cannot be empty")]
         public ICollection<GenreDto> Genre { get; set; }
     }

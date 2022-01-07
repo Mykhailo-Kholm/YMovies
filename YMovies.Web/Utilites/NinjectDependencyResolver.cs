@@ -9,7 +9,6 @@ using YMovies.MovieDbService.Repositories.Repository;
 using YMovies.MovieDbService.Services.IService;
 using YMovies.MovieDbService.Services.Service;
 
-
 namespace Ymovies.Web.Utilities
 {
     public class NinjectDependencyResolver : IDependencyResolver
