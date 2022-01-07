@@ -226,6 +226,7 @@
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Utilites\AutoMap.cs" />
     <Compile Include="ViewModels\CountryMovieViewModel.cs" />
+    <Compile Include="ViewModels\TopImdbViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -383,7 +384,7 @@
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Shared\_UserPartial.cshtml" />
     <Content Include="Views\Movies\Partial.cshtml" />
-    <Content Include="Views\Movies\TopImdb.cshtml" />
+    <Content Include="Views\Movies\TopByIMDb.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using IMDbApiLib.Models;
 using PagedList;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.Repositories.Repository;
 using YMovies.Web.DTOs;
+using YMovies.Web.IMDB;
 using YMovies.Web.Services.Service;
 using YMovies.Web.TempModels;
 using YMovies.Web.ViewModels;
@@ -292,9 +294,19 @@ namespace YMovies.Web.Controllers
 
         }
 
-        public async Task<ActionResult> TopByIMDb()
+        public async Task<ActionResult> TopByIMDb(int? page)
         {
-            return RedirectToAction("Index");
+            APIworkerIMDB imdb = new APIworkerIMDB();
+            var films = await imdb.GetTop250MoviesAsync();
+            var pageSize = 50;
+            int pageNumber = (page ?? 1);
+            var topImdbViewModel = new TopImdbViewModel()
+            {
+                MoviePageList = films.ToPagedList(pageNumber, pageSize),
+                Movies = films,
+            };
+            return View(topImdbViewModel);
+
         }
 
         public async Task<ActionResult> Search()

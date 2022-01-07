@@ -1,7 +1,6 @@
 ﻿@{ ViewBag.Title = "Home Page"; }
 @model YMovies.Web.ViewModels.CountryMovieViewModel
 @using PagedList.Mvc;
-@using YMovies.Web.TempModels
 @Html.Partial("Partial", Model.Countries)
 <table>
     @{ var counter = 1; }
