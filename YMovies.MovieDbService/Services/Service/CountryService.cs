@@ -8,7 +8,7 @@ using YMovies.MovieDbService.Services.IService;
 
 namespace YMovies.MovieDbService.Services.Service
 {
-    class CountryService:IService<CountryDto>
+    public class CountryService:IService<CountryDto>
     {
         private readonly IRepository<Country> _repository;
         public CountryService(CountryRepository repository) => _repository = repository;

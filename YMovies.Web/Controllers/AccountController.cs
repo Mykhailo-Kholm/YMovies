@@ -4,41 +4,39 @@ using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using YMovies.Identity.Managers;
-using YMovies.Identity.Models;
+using Ymovies.Identity.BLL.DTO;
+using Ymovies.Identity.BLL.Interfaces;
+using YMovies.MovieDbService.DTOs;
+using YMovies.MovieDbService.Models;
+using YMovies.MovieDbService.Services.IService;
+using YMovies.MovieDbService.Services.Service;
 using YMovies.Web.Models;
 using YMovies.Web.Utilities;
 
 namespace YMovies.Web.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
-    {   
-        public AccountController()
+    {
+        
+        public AccountController()        
         {
-        }
-      
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
+            _userService = new UserService(IdentityUserService);
         }
 
-        public ApplicationUserManager UserManager
+        private IService<UserDto> _userService;
+
+        public IIdentityUserService IdentityUserService
         {
             get
             {
-                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return HttpContext.GetOwinContext().GetUserManager<IIdentityUserService>();
             }
         }
-
-        public ApplicationRoleManager RoleManager
+        private IAuthenticationManager AuthenticationManager
         {
             get
             {
-                return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+                return HttpContext.GetOwinContext().Authentication;
             }
         }
 
@@ -54,20 +52,23 @@ namespace YMovies.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
+                var userDto = new UserDTO { Email = model.Email, Password = model.Password };
+                var claims = await IdentityUserService.AuthenticateAsync(userDto);
+                if (claims == null)
+                    ModelState.AddModelError("", "Incorrect login or password");
+                else
+                {
+                    AuthenticationManager.SignOut();
+                    AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = false,
+                    }, claims);
+                    return RedirectToAction("Index", "Home");
+                }
             }
-
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
+            return View("Login", model);
         }
 
         [AllowAnonymous]
@@ -83,18 +84,15 @@ namespace YMovies.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = AutoMap.Mapper.Map<RegisterViewModel, ApplicationUser>(model);
-                user.UserName = model.Email;
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    await UserManager.AddToRoleAsync(user.Id, RoleCreator.GetUser().Name);
+                var userDto = AutoMap.Mapper.Map<RegisterViewModel, UserDTO>(model);                
+                userDto.Role = "user";                
+                var operationDetails = await IdentityUserService.CreateAsync(userDto);
+                
+                if (operationDetails.Succedeed)
                     return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
+                else
+                    ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
             }
-
             return View(model);
         }
 
@@ -111,87 +109,38 @@ namespace YMovies.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null)
+                var user = await IdentityUserService.GetUserByEmailAsync(model.Email);
+                if (user != null)
                 {
-                    return View("ForgotPasswordConfirmation");
+                    return View("ResetPassword");
                 }
             }
             return View(model);
         }
 
-        [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
-        {
-            return code == null ? View("Error") : View();
-        }
-
         [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
+                var user = await IdentityUserService.GetUserByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    var resultDetails = await IdentityUserService.ResetPasswordAsync(model.Email, model.Password);
+                    if (!resultDetails.Succedeed)
+                        ModelState.AddModelError("", resultDetails.Message);
+                    return RedirectToAction("Home", "Index");
+                }
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
-            {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            AddErrors(result);
-            return View();
+            return View(model);
         }
-
-        [AllowAnonymous]
-        public ActionResult ResetPasswordConfirmation()
-        {
-            return View();
-        }
-
+                       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
-        }
-        
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
-
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            return RedirectToAction("Index", "Home");
-        }
+        }             
     }
 }

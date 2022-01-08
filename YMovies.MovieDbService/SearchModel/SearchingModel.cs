@@ -9,6 +9,5 @@
         public string Year { get; set; }
         public string Countries { get; set; }
         public string Type { get; set; }
-
     }
 }
