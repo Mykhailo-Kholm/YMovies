@@ -29,14 +29,27 @@ namespace YMovies.Web.Controllers
 
         public async Task<ActionResult> Like(int id)
         {
-            return RedirectToAction("Details", id);
+            MovieWebDto movie = movieWebService.GetItem(id);
+            MovieWebDto newmovie = new MovieWebDto()
+            {
+                MovieId = movie.MovieId,
 
+                NumberOfDislikes = ++movie.NumberOfLikes
+            };
+            movieWebService.UpdateItem(newmovie);
+            //likedmovies table
+            return RedirectToAction("Details", id);
         }
 
         public async Task<ActionResult> DisLike(int id)
         {
+            MovieWebDto movie = movieWebService.GetItem(id);
+            MovieWebDto newmovie = new MovieWebDto()
+            {
+                NumberOfDislikes = --movie.NumberOfLikes
+            };
+            movieWebService.UpdateItem(newmovie);
             return RedirectToAction("Details", id);
-
         }
 
         public async Task<ActionResult> MostLiked(int? page)
@@ -196,7 +209,7 @@ namespace YMovies.Web.Controllers
                 newMovies  = Session["Movies"] as List<MovieWebDto>;
             }
 
-            //newMovies = movies.Movies.Where(p => countries.Any(p2 => countryId == p.Id)).ToList();
+            var updatedmovies = newMovies.Select(m=>m.Countries.Where(p=>p.Id==countryId));
             //foreach (var m in movies)
             //{
             //    foreach (var c in m.Countries)
@@ -206,7 +219,7 @@ namespace YMovies.Web.Controllers
             //    }
             //}
 
-            Session["Movies"] = newMovies;
+            Session["Movies"] = updatedmovies;
             //List<Movie> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
             return RedirectToAction("Index");
         }

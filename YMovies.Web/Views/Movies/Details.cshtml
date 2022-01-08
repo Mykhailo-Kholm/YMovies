@@ -71,8 +71,8 @@
 {
     <div>
         <span>
-            @Html.ActionLink("Like", "Like", "Movies",Model.MovieId, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Dislike", "DisLike", "Movies", Model.MovieId, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Like", "Like", "Movies", new {id = Model.MovieId}, new {@class = "btn btn-primary"})
+            @Html.ActionLink("Dislike", "DisLike", "Movies", new {id = Model.MovieId}, new {@class = "btn btn-primary"})
         </span>
     </div>
     <div>

@@ -7,6 +7,14 @@
 <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
     @foreach (var country in Model)
     {
+        @*using (Html.BeginForm("FilterInclude", "Movies",new { countryId = country.Id }))
+        {
+            @Html.EditorForModel()
+        <br />
+        @Html.HiddenFor(c => country.Id)
+        <input type="submit" name="submit" value=@country.Name />
+        <input type="submit" name="submit" value="FilterExclude" />
+        }*@
         @Html.HiddenFor(c => country.Id)
         @Html.ActionLink(country.Name, "FilterInclude", "Movies", new { countryId = country.Id }, new { @class = "btn btn-primary " })
         @Html.ActionLink("Exclude", "FilterExclude", "Movies", country.Id, new { @class = "btn btn-primary" })
