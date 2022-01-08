@@ -8,21 +8,21 @@ using YMovies.MovieDbService.Repositories.IRepository;
 
 namespace YMovies.MovieDbService.Repositories.Repository
 {
-    public class MovieRepository:IRepository<Movie>
+    public class MovieRepository:IRepository<Media>
     {
         private readonly MoviesContext _context;
         public MovieRepository(MoviesContext context) => _context = context;
-        public IEnumerable<Movie> Items => _context.Movies
+        public IEnumerable<Media> Items => _context.Medias
             .Include(m=> m.Countries)
             .Include(m=>m.Genres)
             .Include(m=>m.Cast).Include((m=>m.Type));
-        public Movie GetItem(int id)
+        public Media GetItem(int id)
         {
-            var movie = _context.Movies.FirstOrDefault(m => m.MovieId == id);
+            var movie = _context.Medias.FirstOrDefault(m => m.MediaId == id);
             return movie;
         }
 
-        public void AddItem(Movie item)
+        public void AddItem(Media item)
         {
             var cast = new List<Cast>();
             var genres = new List<Genre>();
@@ -60,21 +60,21 @@ namespace YMovies.MovieDbService.Repositories.Repository
             item.Cast = cast;
             item.Genres = genres;
             item.Countries = countries;
-            _context.Movies.AddOrUpdate(item);
+            _context.Medias.AddOrUpdate(item);
             _context.SaveChanges();
         }
 
-        public void UpdateItem(Movie item)
+        public void UpdateItem(Media item)
         {
-            _context.Movies.AddOrUpdate(item);
+            _context.Medias.AddOrUpdate(item);
             _context.SaveChanges();
         }
 
         public void DeleteItem(int id)
         {
-            var movie = _context.Movies.FirstOrDefault(m => m.MovieId == id);
+            var movie = _context.Medias.FirstOrDefault(m => m.MediaId == id);
             if (movie == null) return;
-            _context.Movies.Remove(movie);
+            _context.Medias.Remove(movie);
             _context.SaveChanges();
         }
     }

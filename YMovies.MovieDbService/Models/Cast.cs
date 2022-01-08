@@ -13,7 +13,6 @@ namespace YMovies.MovieDbService.Models
         public string Surname { get; set; }
         public string PictureUrl { get; set; }
 
-        public virtual ICollection<Movie> Movies { get; set; }
-        public virtual ICollection<Series> Series { get; set; }
+        public virtual ICollection<Media> Medias { get; set; }
     }
 }

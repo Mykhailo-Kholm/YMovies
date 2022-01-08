@@ -38,7 +38,7 @@ namespace Ymovies.Web.Utilities
             var context = new MoviesContext();
             IServiceCreator serviceCreator = new ServiceCreator();
 
-            kernel.Bind(typeof(IRepository<Movie>)).To(typeof(MovieRepository))
+            kernel.Bind(typeof(IRepository<Media>)).To(typeof(MovieRepository))
                                 .WithConstructorArgument("context", context);
 
             kernel.Bind(typeof(IRepository<Genre>)).To(typeof(GenreRepository))

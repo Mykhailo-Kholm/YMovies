@@ -19,7 +19,7 @@ namespace YMovies.Web.IMDB.DBWorker
     public class DBSeed : ISeed
     {
         private readonly MoviesContext _context;
-        private readonly IRepository<Movie> _movieRepository;
+        private readonly IRepository<Media> _movieRepository;
         private readonly APIworkerIMDB aPIworkerIMDB;
         public DBSeed()
         {
@@ -29,7 +29,7 @@ namespace YMovies.Web.IMDB.DBWorker
         }
         public async Task AddMovieByImbdId(string imdbId)
         {
-            if(_context.Movies.Any(m => m.ImdbId == imdbId))
+            if(_context.Medias.Any(m => m.ImdbId == imdbId))
             {
                 return;
             }
@@ -66,34 +66,41 @@ namespace YMovies.Web.IMDB.DBWorker
                 }
             }
         }
-        private Movie MapMovieToDtoFromImdb(TitleData imdbModel)
+        private Media MapMovieToDtoFromImdb(TitleData imdbModel)
         {
-            var movie = new Movie
+            var movie = new Media
             {
                 ImdbId = imdbModel.Id,
                 Title = imdbModel.Title,
                 PosterUrl = imdbModel.Image,
                 Year = imdbModel.Year,
                 Plot = imdbModel.Plot,
-                //Budget = 0m,
-                BoxOffice = imdbModel.Companies,
-                //ImdbRating = Decimal.Parse(imdbModel.IMDbRating),
-                //Type = imdbModel.Type,
+                Companies = imdbModel.Companies,
+                WeekFees = imdbModel.BoxOffice.OpeningWeekendUSA,
+                GlobalFees = imdbModel.BoxOffice.CumulativeWorldwideGross,
                 Type = new MovieDbService.Models.Type(),
                 Cast = new List<Cast>(),
                 Genres = new List<Genre>(),
                 Countries = new List<Country>(),
                 UsersLiked = new List<User>(),
-                UsersWatched = new List<User>()
+                UsersWatched = new List<User>(),
+                Seasons = new List<Season>()
             };
 
             movie.Type.Name = imdbModel.Type;
+            if (imdbModel.TvSeriesInfo != null)
+            {
+                foreach (var imdbSeason in imdbModel.TvSeriesInfo.Seasons)
+                {
+                    movie.Seasons.Add(new Season(){Name = imdbSeason});
+                }
+            };
 
             movie.Budget = GetDecimal(imdbModel.BoxOffice.Budget);
 
             movie.ImdbRating = GetDecimal(imdbModel.IMDbRating);
 
-            if (imdbModel.ActorList.Count != 0)
+            if (imdbModel.ActorList != null)
             {
                 foreach (var actor in imdbModel.ActorList)
                 {
@@ -105,7 +112,7 @@ namespace YMovies.Web.IMDB.DBWorker
                 }
             }
 
-            if (imdbModel.CountryList.Count != 0)
+            if (imdbModel.CountryList != null)
             {
                 foreach (var country in imdbModel.CountryList)
                 {
@@ -116,7 +123,7 @@ namespace YMovies.Web.IMDB.DBWorker
                 }
             }
 
-            if (imdbModel.GenreList.Count != 0)
+            if (imdbModel.GenreList != null)
             {
                 foreach (var genre in imdbModel.GenreList)
                 {

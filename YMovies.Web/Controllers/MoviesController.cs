@@ -193,7 +193,7 @@ namespace YMovies.Web.Controllers
             //}
 
             Session["Movies"] = updatedmovies;
-            //List<Movie> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
+            //List<Media> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
             return RedirectToAction("Index");
         }
 
@@ -220,7 +220,7 @@ namespace YMovies.Web.Controllers
             //}
 
             Session["Movies"] = newMovies;
-            //List<Movie> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
+            //List<Media> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
             return RedirectToAction("Index");
         }
     }

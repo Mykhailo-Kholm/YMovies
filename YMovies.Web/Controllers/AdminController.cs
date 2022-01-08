@@ -9,11 +9,11 @@ namespace YMovies.Web.Controllers
 
     public class AdminController : Controller
     {
-        readonly IRepository<Movie> _moviesRepo;
+        readonly IRepository<Media> _moviesRepo;
         readonly IRepository<Cast> _castsRepo;
         readonly IRepository<Genre> _genresRepo;
 
-        public AdminController(IRepository<Movie> moviesRepo, IRepository<Cast> castsRepo, IRepository<Genre> genresRepo)
+        public AdminController(IRepository<Media> moviesRepo, IRepository<Cast> castsRepo, IRepository<Genre> genresRepo)
         {
             _moviesRepo = moviesRepo;
             _castsRepo = castsRepo;

@@ -10,6 +10,7 @@ using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Services.IService;
 using YMovies.MovieDbService.Services.Service;
 using YMovies.Web.IMDB;
+using YMovies.Web.IMDB.DBWorker;
 using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Controllers
@@ -20,7 +21,9 @@ namespace YMovies.Web.Controllers
         {
             _userService = new UserService(IdentityUserService);
             var temp = _userService.GetAllUsersFromIdentity().ToList();
-            
+
+            //ISeed dbseed = new DBSeed();
+            //await dbseed.AddMovieByImbdId("tt10872600");
             return RedirectToAction("Index", "Movies");
         }
         private UserService _userService;

@@ -52,23 +52,25 @@
     <Compile Include="DTOs\CastDto.cs" />
     <Compile Include="DTOs\CountryDto.cs" />
     <Compile Include="DTOs\GenreDto.cs" />
-    <Compile Include="DTOs\MovieDto.cs" />
+    <Compile Include="DTOs\MediaDto.cs" />
     <Compile Include="DTOs\SeasonDto.cs" />
-    <Compile Include="DTOs\SeriesDto.cs" />
     <Compile Include="DTOs\StatisticDto.cs" />
     <Compile Include="DTOs\TypeDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
-    <Compile Include="Migrations\202201051352531_Init.cs" />
-    <Compile Include="Migrations\202201051352531_Init.designer.cs">
-      <DependentUpon>202201051352531_Init.cs</DependentUpon>
+    <Compile Include="Migrations\202201081705507_Init.cs" />
+    <Compile Include="Migrations\202201081705507_Init.designer.cs">
+      <DependentUpon>202201081705507_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201081743272_ReInit.cs" />
+    <Compile Include="Migrations\202201081743272_ReInit.designer.cs">
+      <DependentUpon>202201081743272_ReInit.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cast.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Genre.cs" />
-    <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\Media.cs" />
     <Compile Include="Models\Season.cs" />
-    <Compile Include="Models\Series.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="DatabaseContext\MoviesContext.cs" />
@@ -84,7 +86,6 @@
     <Compile Include="Repositories\Repository\GenreRepository.cs" />
     <Compile Include="Repositories\Repository\MovieRepository.cs" />
     <Compile Include="Repositories\Repository\SeasonRepository.cs" />
-    <Compile Include="Repositories\Repository\SeriesRepository.cs" />
     <Compile Include="Repositories\Repository\TypeRepository.cs" />
     <Compile Include="Repositories\Repository\UserRepository.cs" />
     <Compile Include="Services\IService\IService.cs" />
@@ -94,7 +95,6 @@
     <Compile Include="Services\Service\MovieService.cs" />
     <Compile Include="SearchModel\SearchingModel.cs" />
     <Compile Include="Services\Service\SeasonService.cs" />
-    <Compile Include="Services\Service\SeriesService.cs" />
     <Compile Include="Services\Service\TypeService.cs" />
     <Compile Include="Services\Service\UserService.cs" />
   </ItemGroup>
@@ -107,15 +107,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202201051352531_Init.resx">
-      <DependentUpon>202201051352531_Init.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Ymovies.IdentityBLL\Ymovies.Identity.BLL.csproj">
       <Project>{4ca98478-aa78-4da7-8f14-456ff0a29860}</Project>
       <Name>Ymovies.Identity.BLL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202201081705507_Init.resx">
+      <DependentUpon>202201081705507_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201081743272_ReInit.resx">
+      <DependentUpon>202201081743272_ReInit.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

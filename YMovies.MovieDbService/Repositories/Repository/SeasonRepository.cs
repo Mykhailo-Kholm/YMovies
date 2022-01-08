@@ -41,7 +41,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public void AddSeason(int seriesId)
         {
-            var series = _context.Series.FirstOrDefault(s => s.SeriesId == seriesId);
+            var series = _context.Medias.FirstOrDefault(s => s.MediaId == seriesId);
             if (series == null) return;
             var season = new Season()
             {
