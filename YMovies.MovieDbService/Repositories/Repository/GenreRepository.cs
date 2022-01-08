@@ -7,7 +7,8 @@ using YMovies.MovieDbService.Repositories.IRepository;
 
 namespace YMovies.MovieDbService.Repositories.Repository
 {
-    public class GenreRepository: IRepository<Genre>
+    public class GenreRepository : IRepository<Genre>
+
     {
         private readonly MoviesContext _context;
         public GenreRepository(MoviesContext context) => _context = context;

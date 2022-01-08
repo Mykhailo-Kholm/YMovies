@@ -1,6 +1,6 @@
 ﻿namespace YMovies.MovieDbService.DTOs
 {
-    class CastDto
+    public class CastDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

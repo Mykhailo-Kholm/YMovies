@@ -7,10 +7,10 @@ using YMovies.MovieDbService.Repositories.IRepository;
 
 namespace YMovies.MovieDbService.Repositories.Repository
 {
-    public class CastRepository:IRepository<Cast>
+    public class CastRepository : IRepository<Cast>
     {
         private readonly MoviesContext _context;
-        public CastRepository(MoviesContext context)=> _context = context;
+        public CastRepository(MoviesContext context) => _context = context;
         public IEnumerable<Cast> Items => _context.Cast;
 
         public Cast GetItem(int id)

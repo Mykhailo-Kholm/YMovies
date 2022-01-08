@@ -2,7 +2,7 @@
 
 namespace YMovies.MovieDbService.DTOs
 {
-    class SeriesDto
+    public class SeriesDto
     {
         public int SeriesId { get; set; }
         public string ImdbId { get; set; }
@@ -17,7 +17,7 @@ namespace YMovies.MovieDbService.DTOs
         public int NumberOfLikes { get; set; }
         public int NumberOfDislikes { get; set; }
         public string Type { get; set; }
-        public  ICollection<SeasonDto> Seasons { get; set; }
+        public ICollection<SeasonDto> Seasons { get; set; }
         public ICollection<CastDto> Cast { get; set; }
         public ICollection<CountryDto> Countries { get; set; }
         public ICollection<GenreDto> Genres { get; set; }

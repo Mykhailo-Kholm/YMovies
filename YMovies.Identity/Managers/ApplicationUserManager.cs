@@ -3,9 +3,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using System;
-using YMovies.Identity.Models;
+using YMovies.Identity.DAL.Models;
 
-namespace YMovies.Identity.Managers
+namespace YMovies.Identity.DAL.Managers
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {

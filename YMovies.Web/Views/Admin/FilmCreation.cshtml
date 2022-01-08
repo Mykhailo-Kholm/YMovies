@@ -1,0 +1,236 @@
+﻿@model YMovies.Web.ViewModels.NewFilm
+
+@{
+    ViewBag.Title = "View";
+}
+<link rel="stylesheet" href="~/Content/typeahead.css" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            @using (Html.BeginForm("CreateFilm", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Create Film</h4>
+                    <hr />
+
+                    @*<div class="mb-3">
+                                                @Html.LabelFor(m => m.Title, new { @class = "form-label" })
+                            <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                                            <div class="mb-3">
+                                                @Html.LabelFor(m => m.Plot, new { @class = "form-label" })
+                            <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.Plot, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.Plot, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                                            <div class="mb-3">
+                                                @Html.LabelFor(m => m.PosterUrl, new { @class = "form-label" })
+                            <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.PosterUrl, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.PosterUrl, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                                            <div class="mb-3">
+                                                @Html.LabelFor(m => m.Year, new { @class = "form-label" })
+                            <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.Year, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                                            <div class="mb-3">
+                                                @Html.LabelFor(m => m.ImdbRating, new { @class = "form-label" })
+                            <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.ImdbRating, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.ImdbRating, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                                            <div class="mb-3">
+                                                @Html.LabelFor(m => m.Budget, new { @class = "form-label" })
+                            <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.Budget, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.Budget, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                                            <div class="mb-3">
+                                                @Html.LabelFor(m => m.BoxOffice, new { @class = "form-label" })
+                            <div class="col-md-10">
+                                                    @Html.TextBoxFor(m => m.BoxOffice, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(m => m.BoxOffice, "", new { @class = "text-danger" })
+                            </div>
+                                            </div>*@
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Cast, new { @class = "form-label" })
+                        <div class="col-md-10">
+                            <input type="text" value="" class="form-control" id="actor">
+                            @Html.ValidationMessageFor(m => m.Cast, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <ul id="actors" class="list-group">
+                        @if (Model.Cast != null)
+                        {
+                            for (int i = 0; i < Model.Cast.Count; i++)
+                            {
+                                <input type="hidden" id="Cast[@i]" name="Cast[@i].id" value=@Model.Cast.ElementAt(i).Id />
+                                <input type="text" id="Cast[@i]" name="Cast[@i].id" value=@Model.Cast.ElementAt(i).Name />
+                            }
+                        }
+                    </ul>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Country, new { @class = "form-label" })
+                        <div class="col-md-10">
+                            <input type="text" value="" class="form-control" id="coundActorsryInput">
+                            @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <ul id="countries" class="list-group">
+                    </ul>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Genre, new { @class = "form-label" })
+                        <div class="col-md-10">
+                            <input type="text" value="" class="form-control" id="genreInput">
+                            @Html.ValidationMessageFor(m => m.Genre, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <ul id="genres" class="list-group">
+                    </ul>
+
+                    <div class="mb-3">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/typeahead.bundle.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var i = 0;
+            var countActors = 0;
+            var cast = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/actors?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#actor').typeahead({
+                minLength: 2,
+                highLight: true,
+            }, {
+                name: 'cast',
+                display: 'name',
+                source: cast
+            }).on("typeahead:select", function (e, actor) {
+
+                countActors = $("#actors").children().length / 2;
+                console.log(countActors);
+
+                $("#actors").append(
+                    '<input type="hidden" id="CastID[' + countActors + ']" name="Cast[' + countActors + '].id" value=""/>' +
+                    '<input type="text" id=Cast[' + countActors + '] name="Cast[' + countActors + '].name" value=""/>');
+
+                var inputName = document.getElementById('Cast[' + countActors + ']')
+                var inputID = document.getElementById('CastID[' + countActors + ']')
+                inputName.value = actor.name
+                inputID.value = actor.id
+                $("#actor").typeahead('val', '');
+            });
+
+            var j = 0;
+            var coundActorsry = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/coundActorsries?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#coundActorsryInput').typeahead({
+                minLength: 2,
+                highLight: true,
+            }, {
+                name: 'coundActorsry',
+                display: 'name',
+                source: coundActorsry
+            }).on("typeahead:select", function (e, coundActorsry) {
+
+                console.log(j)
+                $("#coundActorsries").append(
+                    '<input type="hidden" id="coundActorsyID[' + j + ']" name="coundActorsry[' + j + '].id" value=""/>' +
+                    '<input type="text" id="coundActorsry[' + j + ']" name="coundActorsry[' + j + '].name" value=""/>');
+
+                var coundActorsryName = document.getElementById("coundActorsry[" + j + "]");
+                var coundActorsryID = document.getElementById('coundActorsryID[' + j + ']');
+
+                coundActorsryName.value = coundActorsry.name;
+                coundActorsryID.value = coundActorsry.id;
+                $("#coundActorsryInput").typeahead('val', '');
+                j++;
+            });
+
+            var genrescoundActors = 0;
+            var genre = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/genres?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#genreInput').typeahead({
+                minLength: 2,
+                highLight: true,
+            }, {
+                name: 'gerne',
+                display: 'name',
+                source: genre
+            }).on("typeahead:select", function (e, coundActorsry) {
+
+                $("#genres").append(
+                    '<input type="hidden" id="GenreID[' + genrescoundActors + ']" name="Genre[' + genrescoundActors + '].id" value=""/>' +
+                    '<input type="text" id="Genre[' + genrescoundActors + ']" name="Genre[' + genrescoundActors + '].name" value=""/>');
+
+                var coundActorsryName = document.getElementById("Genre[" + genrescoundActors + "]");
+                var coundActorsryID = document.getElementById('GenreID[' + genrescoundActors + ']');
+
+                coundActorsryName.value = coundActorsry.name;
+                coundActorsryID.value = coundActorsry.id;
+                $("#genreInput").typeahead('val', '');
+                genrescoundActors++;
+            });
+        });
+
+
+
+    </script>
+}

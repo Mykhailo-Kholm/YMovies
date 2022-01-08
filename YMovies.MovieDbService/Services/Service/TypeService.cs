@@ -10,7 +10,7 @@ using Type = YMovies.MovieDbService.Models.Type;
 
 namespace YMovies.MovieDbService.Services.Service
 {
-    class TypeService:IService<TypeDto>
+    public class TypeService:IService<TypeDto>
     {
         private readonly IRepository<Type> _repository;
         public TypeService(TypeRepository repository) => _repository = repository;

@@ -55,6 +55,7 @@
     <Compile Include="DTOs\MovieDto.cs" />
     <Compile Include="DTOs\SeasonDto.cs" />
     <Compile Include="DTOs\SeriesDto.cs" />
+    <Compile Include="DTOs\StatisticDto.cs" />
     <Compile Include="DTOs\TypeDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Migrations\202201051352531_Init.cs" />
@@ -109,6 +110,12 @@
     <EmbeddedResource Include="Migrations\202201051352531_Init.resx">
       <DependentUpon>202201051352531_Init.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ymovies.IdentityBLL\Ymovies.Identity.BLL.csproj">
+      <Project>{4ca98478-aa78-4da7-8f14-456ff0a29860}</Project>
+      <Name>Ymovies.Identity.BLL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

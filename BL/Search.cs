@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BL
@@ -18,16 +14,16 @@ namespace BL
         /// <param name="expression"></param>
         /// <returns>Task&lt;ICollection&lt;T&gt;&gt;</returns>
         public async Task<ICollection<T>> SearchBy(
-            ICollection<T> collection, 
-            string genre = null, 
-            string year = null, 
+            ICollection<T> collection,
+            string genre = null,
+            string year = null,
             string country = null,
             string type = null
             )
         {
             List<T> tempCollection = new List<T>();
 
-            int requiredNumbOfFilters = GetNumbOfRequiredFilters(genre,year,country,type);
+            int requiredNumbOfFilters = GetNumbOfRequiredFilters(genre, year, country, type);
             int passedNumbOfFilters = 0;
 
             foreach (var film in collection)
@@ -74,7 +70,7 @@ namespace BL
                 }
                 catch (NullReferenceException e)
                 {
-                    return tempCollection = new List<T>(); 
+                    return tempCollection = new List<T>();
                 }
 
                 passedNumbOfFilters = 0;

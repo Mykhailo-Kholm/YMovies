@@ -1,8 +1,8 @@
 ﻿namespace YMovies.MovieDbService.DTOs
 {
-    class TypeDto
+    public class TypeDto
     {
-        public int Id { set; get; }
-        public string Name { get; set; }
+        int Id { get; set; }
+        string Name { get; set; }
     }
 }
