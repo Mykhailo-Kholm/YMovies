@@ -6,6 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using Ymovies.Identity.BLL.DTO;
 using Ymovies.Identity.BLL.Interfaces;
+using YMovies.MovieDbService.DTOs;
+using YMovies.MovieDbService.Models;
+using YMovies.MovieDbService.Services.IService;
+using YMovies.MovieDbService.Services.Service;
 using YMovies.Web.Models;
 using YMovies.Web.Utilities;
 
@@ -13,15 +17,19 @@ namespace YMovies.Web.Controllers
 {
     public class AccountController : Controller
     {
-        public AccountController()
+        
+        public AccountController()        
         {
+            _userService = new UserService(IdentityUserService);
         }
 
-        public IUserService UserService
+        private IService<UserDto> _userService;
+
+        public IIdentityUserService IdentityUserService
         {
             get
             {
-                return HttpContext.GetOwinContext().GetUserManager<IUserService>();
+                return HttpContext.GetOwinContext().GetUserManager<IIdentityUserService>();
             }
         }
         private IAuthenticationManager AuthenticationManager
@@ -47,7 +55,7 @@ namespace YMovies.Web.Controllers
             if (ModelState.IsValid)
             {
                 var userDto = new UserDTO { Email = model.Email, Password = model.Password };
-                var claims = await UserService.AuthenticateAsync(userDto);
+                var claims = await IdentityUserService.AuthenticateAsync(userDto);
                 if (claims == null)
                     ModelState.AddModelError("", "Incorrect login or password");
                 else
@@ -78,7 +86,7 @@ namespace YMovies.Web.Controllers
             {
                 var userDto = AutoMap.Mapper.Map<RegisterViewModel, UserDTO>(model);                
                 userDto.Role = "user";                
-                var operationDetails = await UserService.CreateAsync(userDto);
+                var operationDetails = await IdentityUserService.CreateAsync(userDto);
                 
                 if (operationDetails.Succedeed)
                     return RedirectToAction("Index", "Home");
@@ -101,7 +109,7 @@ namespace YMovies.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserService.GetUserByEmailAsync(model.Email);
+                var user = await IdentityUserService.GetUserByEmailAsync(model.Email);
                 if (user != null)
                 {
                     return View("ResetPassword");
@@ -115,10 +123,10 @@ namespace YMovies.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserService.GetUserByEmailAsync(model.Email);
+                var user = await IdentityUserService.GetUserByEmailAsync(model.Email);
                 if (user != null)
                 {
-                    var resultDetails = await UserService.ResetPasswordAsync(model.Email, model.Password);
+                    var resultDetails = await IdentityUserService.ResetPasswordAsync(model.Email, model.Password);
                     if (!resultDetails.Succedeed)
                         ModelState.AddModelError("", resultDetails.Message);
                     return RedirectToAction("Home", "Index");

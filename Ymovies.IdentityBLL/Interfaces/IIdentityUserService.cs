@@ -7,11 +7,12 @@ using Ymovies.Identity.BLL.Infrastructure;
 
 namespace Ymovies.Identity.BLL.Interfaces
 {
-    public interface IUserService : IDisposable
+    public interface IIdentityUserService : IDisposable
     {
         Task<OperationDetails> CreateAsync(UserDTO userDTO);
         Task<ClaimsIdentity> AuthenticateAsync(UserDTO userDTO);        
         Task<UserDTO> GetUserByEmailAsync(string userEmal);
+        IEnumerable<UserDTO> GetAllUsers();
         Task<OperationDetails> ResetPasswordAsync(string userEmail, string newPassword);
         Task SetInitialDataAsync(UserDTO userDTO, List<string> roles);
     }

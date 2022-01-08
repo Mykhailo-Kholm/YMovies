@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using Ymovies.Identity.BLL.DTO;
 using Ymovies.Identity.BLL.Infrastructure;
@@ -13,14 +12,14 @@ using YMovies.Identity.DAL.Models;
 
 namespace Ymovies.Identity.BLL.Services
 {
-    public class UserService : IUserService
+    public class IdentityUserService : IIdentityUserService
     {
-        public UserService(IUnitOfWork unitOfWork)
+        public IdentityUserService(IUnitOfWork unitOfWork)
         {
             DataBase = unitOfWork;
         }
 
-        private IUnitOfWork DataBase;        
+        private IUnitOfWork DataBase;
         private bool disposedValue;
 
         public async Task<ClaimsIdentity> AuthenticateAsync(UserDTO userDTO)
@@ -38,7 +37,8 @@ namespace Ymovies.Identity.BLL.Services
             var user = await DataBase.ApplicationUserManager.FindByEmailAsync(userDTO.Email);
             if (user == null)
             {
-                user = new ApplicationUser {
+                user = new ApplicationUser
+                {
                     Email = userDTO.Email,
                     UserName = userDTO.UserName,
                     Name = userDTO.Name,
@@ -48,12 +48,51 @@ namespace Ymovies.Identity.BLL.Services
                 if (result.Errors.Count() > 0)
                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
 
-                await DataBase.ApplicationUserManager.AddToRoleAsync(user.Id, userDTO.Role);                
+                await DataBase.ApplicationUserManager.AddToRoleAsync(user.Id, userDTO.Role);
                 await DataBase.SaveAsync();
                 return new OperationDetails(true, "", "");
             }
             else
                 return new OperationDetails(false, "User with this login is already existst", "Email");
+        }
+
+        public IEnumerable<UserDTO> GetAllUsers()
+        {
+            return DataBase.ApplicationUserManager
+                .Users
+                .Select(user =>
+                new UserDTO
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Name = user.Name,
+                    SecondName = user.SecondName
+                });
+        }
+
+        public async Task<UserDTO> GetUserByEmailAsync(string userEmal)
+        {
+            var user = await DataBase.ApplicationUserManager
+                .FindByEmailAsync(userEmal);
+            return new UserDTO
+            {
+                Email = userEmal,
+                UserName = user.UserName,
+                Name = user.Name,
+                SecondName = user.SecondName,
+            };
+        }
+
+        public async Task<OperationDetails> ResetPasswordAsync(string userEmail, string newPassword)
+        {
+            var user = await DataBase.ApplicationUserManager
+                .FindByEmailAsync(userEmail);
+            if (user == null)
+                return new OperationDetails(false, "User with this login doesn't exists", "");
+            await DataBase.ApplicationUserManager.RemovePasswordAsync(user.Id);
+            await DataBase.ApplicationUserManager.AddPasswordAsync(user.Id, newPassword);
+            await DataBase.SaveAsync();
+            return new OperationDetails(true, "", "");
         }
 
         public async Task SetInitialDataAsync(UserDTO adminDto, List<string> roles)
@@ -68,31 +107,6 @@ namespace Ymovies.Identity.BLL.Services
                 }
             }
             await CreateAsync(adminDto);
-        }
-
-        public async Task<UserDTO> GetUserByEmailAsync(string userEmal)
-        {
-            var user = await DataBase.ApplicationUserManager
-                .FindByEmailAsync(userEmal);
-            return new UserDTO
-            {
-                Email = userEmal,
-                UserName = user.UserName,
-                Name = user.Name,
-                SecondName = user.SecondName,
-            };                
-        }
-
-        public async Task<OperationDetails> ResetPasswordAsync(string userEmail, string newPassword)
-        {
-            var user = await DataBase.ApplicationUserManager
-                .FindByEmailAsync(userEmail);
-            if (user == null)
-                return new OperationDetails(false, "User with this login doesn't exists", "");
-            await DataBase.ApplicationUserManager.RemovePasswordAsync(user.Id);
-            await DataBase.ApplicationUserManager.AddPasswordAsync(user.Id, newPassword);
-            await DataBase.SaveAsync();
-            return new OperationDetails(true, "", "");
         }
 
         public void Dispose()
@@ -110,6 +124,8 @@ namespace Ymovies.Identity.BLL.Services
                 }
                 disposedValue = true;
             }
-        }              
+        }
+
+
     }
 }

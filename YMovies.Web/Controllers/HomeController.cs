@@ -1,7 +1,14 @@
 ﻿using IMDbApiLib.Models;
+using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using Ymovies.Identity.BLL.Interfaces;
+using YMovies.MovieDbService.DTOs;
+using YMovies.MovieDbService.Services.IService;
+using YMovies.MovieDbService.Services.Service;
 using YMovies.Web.IMDB;
 using YMovies.Web.ViewModels;
 
@@ -11,9 +18,20 @@ namespace YMovies.Web.Controllers
     {
         public async Task<ActionResult> Index()
         {
+            _userService = new UserService(IdentityUserService);
+            var temp = _userService.GetAllUsersFromIdentity().ToList();
+            
             return RedirectToAction("Index", "Movies");
         }
+        private UserService _userService;
 
+        public IIdentityUserService IdentityUserService
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<IIdentityUserService>();
+            }
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
