@@ -47,7 +47,7 @@ namespace Ymovies.Web.Utilities
             kernel.Bind(typeof(IRepository<Country>)).To(typeof(CountryRepository))
                                 .WithConstructorArgument("context", context);
            
-            kernel.Bind(typeof(IService<GenresDto>)).To(typeof(CountryService))
+            kernel.Bind(typeof(IService<CountryDto>)).To(typeof(CountryService))
                 .WithConstructorArgument("repository", new CountryRepository(context));
 
             kernel.Bind(typeof(IService<CastDto>)).To(typeof(CastService))

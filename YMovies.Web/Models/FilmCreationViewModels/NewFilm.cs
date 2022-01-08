@@ -14,10 +14,7 @@ namespace YMovies.Web.ViewModels
         
         //[Required(ErrorMessage = "This field cannot be empty")]
         //[DataType(DataType.ImageUrl, ErrorMessage = "This url isn't correct")]
-        //public string PosterUrl { get; set; }
-        [Required(ErrorMessage = "This field cannot be empty")]
-        [DataType(DataType.ImageUrl, ErrorMessage = "This url isn't correct")]
-        public string PosterUrl { get; set; }
+        //public string PosterUrl { get; set; }        
         
         //[Required(ErrorMessage = "This field cannot be empty")]
         //[RegularExpression("(19[5-9][0-9])|(20|[0-1][0-9]|2[0-2])", ErrorMessage = "Year isn't correct")]
@@ -40,7 +37,7 @@ namespace YMovies.Web.ViewModels
         public ICollection<CastViewModel> Cast { get; set; }
 
         [Required(ErrorMessage = "This field cannot be empty")]
-        public ICollection<GenresDto> Country { get; set; }
+        public ICollection<CountryDto> Country { get; set; }
 
         [Required(ErrorMessage = "This field cannot be empty")]
         public ICollection<GenreDto> Genre { get; set; }

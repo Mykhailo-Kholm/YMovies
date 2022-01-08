@@ -1,43 +1,43 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using YMovies.MovieDbService.DTOs;
-using YMovies.MovieDbService.Services.IService;
+using YMovies.Web.DTOs;
+using YMovies.Web.Services.IService;
 
 namespace YMovies.Web.Controllers.Api
 {
     public class GenresController : ApiController
     {
-        private IService<GenresDto> _genresService;
+        private IService<GenreWebDto> _genresService;
         public GenresController()
         {
         }
 
-        public GenresController(IService<GenresDto> genresService)
+        public GenresController(IService<GenreWebDto> genresService)
         {
             _genresService = genresService;
         }
 
-        IEnumerable<GenresDto> tempData = new List<GenresDto>
+        IEnumerable<GenreWebDto> tempData = new List<GenreWebDto>
         {
-            new GenresDto
+            new GenreWebDto
             {
                 Id = 1,
                 Name = "Detecti"
             },
-            new GenresDto
+            new GenreWebDto
             {
                 Id = 2,
                 Name = "Genr2"
             },
-            new GenresDto
+            new GenreWebDto
             {
                 Id = 3,
                 Name = "Thriller"
             },
         };
 
-        public IEnumerable<GenresDto> GetGenres(string query = null)
+        public IEnumerable<GenreWebDto> GetGenres(string query = null)
         {
             //var resultList = _countriesService.Items.AsQueryable();
             var resultList = tempData;
