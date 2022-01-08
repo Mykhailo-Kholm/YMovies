@@ -14,7 +14,7 @@ namespace YMovies.Web.App_Start
         IServiceCreator serviceCreator = new ServiceCreator();
         public void Configuration(IAppBuilder app)
         {
-            app.CreatePerOwinContext<IUserService>(CreateUserService);
+            app.CreatePerOwinContext<IIdentityUserService>(CreateUserService);
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
@@ -23,7 +23,7 @@ namespace YMovies.Web.App_Start
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
         }
 
-        private IUserService CreateUserService()
+        private IIdentityUserService CreateUserService()
         {
             return serviceCreator.CreateUserService("IdentityDb");
         }

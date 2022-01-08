@@ -5,7 +5,7 @@ namespace Ymovies.Identity.BLL.Services
 {
     public class ServiceCreator : IServiceCreator
     {
-        public IUserService CreateUserService(string connection)
-            => new UserService(new IdentityUnitOfWork(connection));
+        public IIdentityUserService CreateUserService(string connection)
+            => new IdentityUserService(new IdentityUnitOfWork(connection));
     }
 }
