@@ -13,11 +13,11 @@
                     </div>
                     <div>
                         <a href="@Url.Action("Details", "Movies", new {id = film.Id})">
-                            <img src="@Html.Raw(film.Image)" alt="a description of the image" height=" 250" width="200">
+                            <img src="@Html.Raw(film.PosterUrl)" alt="a description of the image" height=" 250" width="200">
                         </a>
                     </div>
                     <div align="center">
-                        <span>ImdbRating: @film.IMDbRating</span>
+                        <span>ImdbRating: @film.ImdbRating</span>
                     </div>
                 </div>
             </td>

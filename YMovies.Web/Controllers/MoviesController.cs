@@ -39,31 +39,100 @@ namespace YMovies.Web.Controllers
 
         }
 
-        public async Task<ActionResult> MostLiked()
+        public async Task<ActionResult> MostLiked(int? page)
         {
-            return RedirectToAction("Index");
-
+            var pageSize = 50;
+            int pageNumber = (page ?? 1);
+            var films = movieWebService.Items.OrderByDescending(m => m.NumberOfLikes).Take(100);
+            List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
+            foreach (var movie in films)
+            {
+                moviesInfos.Add
+                (
+                    new MoviesInfo()
+                    {
+                        Id = movie.MovieId,
+                        Title = movie.Title,
+                        PosterUrl = movie.PosterUrl,
+                        ImdbRating = movie.ImdbRating,
+                    }
+                );
+            }
+            var topImdbViewModel = new TopImdbViewModel()
+            {
+                MoviePageList = moviesInfos.ToPagedList(pageNumber, pageSize),
+                Movies = moviesInfos,
+            };
+            return View("TopByIMDb",topImdbViewModel);
         }
 
-        public async Task<ActionResult> MostWatched()
-        {
-            return RedirectToAction("Index");
-
-        }
+        //public async Task<ActionResult> MostWatched(int? page)
+        //{
+        //    var pageSize = 50;
+        //    int pageNumber = (page ?? 1);
+        //    var films = movieWebService.Items.OrderByDescending(m => m.NumberOfLikes).Take(100);
+        //    Top250DataDetail movies = new Top250DataDetail()
+        //    {
+        //     I   
+        //    }
+        //    var topImdbViewModel = new TopImdbViewModel()
+        //    {
+        //        MoviePageList = films.ToPagedList(pageNumber, pageSize),
+        //        Movies = films,
+        //    };
+        //    return View(topImdbViewModel);
+        //}
 
         public async Task<ActionResult> TopByIMDb(int? page)
         {
-            APIworkerIMDB imdb = new APIworkerIMDB();
-            var films = await imdb.GetTop250MoviesAsync();
             var pageSize = 50;
             int pageNumber = (page ?? 1);
-            var topImdbViewModel = new TopImdbViewModel()
+            TopImdbViewModel topImdbViewModel;
+            List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
+            var movies = movieWebService.Items.OrderByDescending(m => m.ImdbRating).Take(250).ToList();
+            if (movies.Count() == 0)
             {
-                MoviePageList = films.ToPagedList(pageNumber, pageSize),
-                Movies = films,
+                APIworkerIMDB imdb = new APIworkerIMDB();
+                var films = await imdb.GetTop250MoviesAsync();
+                foreach (var movie in films)
+                {
+                    moviesInfos.Add
+                    (
+                        new MoviesInfo()
+                        {
+                            ImdbId = movie.Id,
+                            Title = movie.Title,
+                            PosterUrl = movie.Image,
+                            //ImdbRating = movie.IMDbRating,
+                        }
+                    );
+                }
+                topImdbViewModel = new TopImdbViewModel()
+                {
+                    MoviePageList = moviesInfos.ToPagedList(pageNumber, pageSize),
+                    Movies = moviesInfos,
+                };
+                return View(topImdbViewModel);
+            }
+            foreach (var movie in movies)
+            {
+                moviesInfos.Add
+                (
+                    new MoviesInfo()
+                    {
+                        Id = movie.MovieId,
+                        Title = movie.Title,
+                        PosterUrl = movie.PosterUrl,
+                        ImdbRating = movie.ImdbRating,
+                    }
+                );
+            }
+            topImdbViewModel = new TopImdbViewModel()
+            {
+                MoviePageList = moviesInfos.ToPagedList(pageNumber, pageSize),
+                Movies = moviesInfos,
             };
             return View(topImdbViewModel);
-
         }
 
         public async Task<ActionResult> Search()
@@ -116,11 +185,6 @@ namespace YMovies.Web.Controllers
         {
             MovieWebDto movie = movieWebService.GetItem(id);
             return View(movie);
-        }
-
-        public ActionResult Partial()
-        {
-            return PartialView(countryWebService.Items);
         }
 
         public async Task<ActionResult> FilterInclude(string action, int countryId)

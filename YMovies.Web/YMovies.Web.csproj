@@ -386,12 +386,11 @@
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Shared\_UserPartial.cshtml" />
     <Content Include="Views\Movies\TopByIMDb.cshtml" />
-    <Content Include="Views\Movies\MostWatched.cshtml" />
-    <Content Include="Views\Movies\MostLiked.cshtml" />
     <Content Include="Views\Movies\_YearsPartial.cshtml" />
     <Content Include="Views\Movies\_GenresPartial.cshtml" />
     <Content Include="Views\Movies\_CountriesPartial.cshtml" />
     <Content Include="Views\Movies\_TypesPartial.cshtml" />
+    <Content Include="Views\Movies\TopMovieDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
