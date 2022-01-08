@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using IMDbApiLib.Models;
+using Microsoft.Ajax.Utilities;
 using PagedList;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.Repositories.Repository;
@@ -16,259 +17,15 @@ namespace YMovies.Web.Controllers
 {
     public class MoviesController : Controller
     {
-        MoviesContext context = new MoviesContext();
-
-        //public static List<Country> countries = new List<Country>()
-        //{
-        //    new Country()
-        //    {
-        //        Id = 1,
-        //        Name = "US"
-        //    },
-        //    new Country()
-        //    {
-        //        Id = 2,
-        //        Name = "Germany"
-        //    },
-        //    new Country()
-        //    {
-        //        Id = 3,
-        //        Name = "Ukraine"
-        //    }
-        //};
-
-        //public static List<Genre> Genres = new List<Genre>()
-        //{
-        //    new Genre()
-        //    {
-        //        Id = 1,
-        //        Name = "Genre1"
-        //    },
-        //    new Genre()
-        //    {
-        //        Id = 2,
-        //        Name = "Genre2"
-        //    },
-        //    new Genre()
-        //    {
-        //        Id = 3,
-        //        Name = "Genre3"
-        //    }
-        //};
-
-        //public static List<Cast> Casts = new List<Cast>()
-        //{
-        //    new Cast()
-        //    {
-        //        Id = 1,
-        //        Name = "First",
-        //        Surname = "Actor"
-        //    },
-        //    new Cast()
-        //    {
-        //        Id = 2,
-        //        Name = "Second",
-        //        Surname = "Actor"
-        //    },
-        //    new Cast()
-        //    {
-        //        Id = 3,
-        //        Name = "Third",
-        //        Surname = "Actor"
-        //    }
-        //};
-
-        //public static List<Movie> movies = new List<Movie>()
-        //{
-        //    new Movie()
-        //    {
-        //        MovieId = 1,
-        //        Title = "Movie one",
-        //        ImdbRating = 3,
-        //        Year = "2021",
-        //        UsersRating = 1,
-        //        Plot = "descriptionOne",
-        //        Genres = new List<Genre>()
-        //        {
-        //            Genres[0],
-        //            Genres[2],
-        //        },
-        //        Type = "Movie",
-        //        Countries = new List<Country>()
-        //        {
-        //            countries[0],
-
-        //        },
-
-        //        Cast = new List<Cast>()
-        //        {
-        //            Casts[0]
-        //        },
-        //        Budget = 100
-        //    },
-        //    new Movie()
-        //    {
-        //        MovieId = 2,
-        //        Title = "Movie one",
-        //        ImdbRating = 3,
-        //        Year = "2021",
-        //        UsersRating = 1,
-        //        Plot = "descriptionOne",
-        //        Genres = new List<Genre>()
-        //        {
-        //            Genres[1],
-
-        //        },
-        //        Type = "Movie",
-        //        Countries = new List<Country>()
-        //        {
-        //            countries[0],
-        //            countries[1]
-
-        //        },
-
-        //        Cast = new List<Cast>()
-        //        {
-        //            Casts[1]
-        //        },
-        //        Budget = 100
-        //    },
-        //    new Movie()
-        //    {
-        //        MovieId = 3,
-        //        Title = "Movie one",
-        //        ImdbRating = 3,
-        //        Year = "2021",
-        //        UsersRating = 1,
-        //        Plot = "descriptionOne",
-        //        Genres = new List<Genre>()
-        //        {
-        //            Genres[0],
-        //            Genres[1],
-        //        },
-        //        Type = "Movie",
-        //        Countries = new List<Country>()
-        //        {
-        //            countries[0],
-        //            countries[1],
-        //            countries[2]
-
-        //        },
-        //        Cast = new List<Cast>()
-        //        {
-        //            Casts[1],
-        //            Casts[2]
-        //        },
-        //        Budget = 100
-        //    },
-        //    new Movie()
-        //    {
-        //        MovieId = 4,
-        //        Title = "Movie two",
-        //        ImdbRating = 2,
-        //        Year = "1998",
-        //        UsersRating = 12,
-        //        Plot = "desc2",
-        //        Genres = new List<Genre>()
-        //        {
-        //            Genres[0],
-
-        //        },
-        //        Type = "Serial",
-        //        Countries = new List<Country>()
-        //        {
-        //            countries[0],
-        //            countries[1]
-
-        //        },
-        //        Cast = new List<Cast>()
-        //        {
-        //            Casts[0],
-        //            Casts[2]
-        //        },
-        //        Budget = 120
-        //    },
-        //    new Movie()
-        //    {
-        //        MovieId = 5,
-        //        Title = "Movie one",
-        //        ImdbRating = 3,
-        //        Year = "2021",
-        //        UsersRating = 1,
-        //        Plot = "descriptionOne",
-        //        Genres = new List<Genre>()
-        //        {
-        //            Genres[0],
-
-        //        },
-        //        Type = "Movie",
-        //        Countries = new List<Country>()
-        //        {
-        //            countries[0],
-        //            countries[1]
-
-        //        },
-        //        Cast = new List<Cast>()
-        //        {
-        //            Casts[1],
-        //            Casts[2]
-        //        },
-        //        Budget = 100
-        //    },
-        //    new Movie()
-        //    {
-        //        MovieId = 6,
-        //        Title = "Movie one",
-        //        ImdbRating = 3,
-        //        Year = "2021",
-        //        UsersRating = 1,
-        //        Plot = "descriptionOne",
-        //        Genres = new List<Genre>()
-        //        {
-        //            Genres[0],
-
-        //        },
-        //        Type = "Movie",
-        //        Countries = new List<Country>()
-        //        {
-        //            countries[0],
-        //            countries[1]
-
-        //        },
-        //        Cast = new List<Cast>()
-        //        {
-        //            Casts[1],
-        //            Casts[2]
-        //        },
-        //        Budget = 100
-        //    },
-        //    new Movie()
-        //    {
-        //        MovieId = 7,
-        //        Title = "Movie two",
-        //        ImdbRating = 2,
-        //        Year = "1998",
-        //        UsersRating = 12,
-        //        Plot = "desc2",
-        //        Genres = new List<Genre>()
-        //        {
-        //            Genres[0],
-
-        //        },
-        //        Type = "Serial",
-        //        Countries = new List<Country>()
-        //        {
-        //            countries[1]
-
-        //        },
-        //        Cast = new List<Cast>()
-        //        {
-        //            Casts[1],
-        //            Casts[2]
-        //        },
-        //        Budget = 120
-        //    }
-        //};
+        public static MoviesContext context = new MoviesContext();
+        static MovieRepository movieRepository = new MovieRepository(context);
+        MovieWebService movieWebService = new MovieWebService(movieRepository);
+        static CountryRepository countryRepository = new CountryRepository(context);
+        CountryWebService countryWebService = new CountryWebService(countryRepository);
+        private static GenreRepository genreRepository = new GenreRepository(context);
+        private GenreWebService genreWebService = new GenreWebService(genreRepository);
+        static TypeRepository typeRepository = new TypeRepository(context);
+        TypeWebService typeWebService = new TypeWebService(typeRepository);
 
         public async Task<ActionResult> Like(int id)
         {
@@ -318,13 +75,7 @@ namespace YMovies.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(int? page, string action)
         {
-
-            MovieRepository movieRepository = new MovieRepository(context);
-            MovieWebService movieWebService = new MovieWebService(movieRepository);
-            CountryRepository countryRepository = new CountryRepository(context);
-            CountryWebService countryWebService = new CountryWebService(countryRepository);
-            //TypeRepository typeRepository = new TypeRepository(context);
-            //TypeWebService typeWebService = new TypeWebService(typeRepository);
+       
             var pageSize = 10;
             var pageNumber = page ?? 1;
             List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
@@ -340,36 +91,35 @@ namespace YMovies.Web.Controllers
                         ImdbRating = movie.ImdbRating, Genres = movie.Genres}
                 );
             }
-            var countryMovieViewModel = new MovieViewModel()
+            var movieViewModel = new MovieViewModel()
             {
                 MoviePageList = moviesInfos.ToPagedList(pageNumber, pageSize),
                 Countries = countryWebService.Items,
+                Genres = genreWebService.Items,
+                Types = typeWebService.Items.DistinctBy(t=>t.Name),
+                Years = movieWebService.Items.OrderBy(m=>m.Year).Select(m=>m.Year).Distinct().ToList(),
                 MoviesInfo = moviesInfos
             };
             if (Session["Movies"] != null)
             {
-                countryMovieViewModel.MoviesInfo = Session["Movies"] as List<MoviesInfo>;
+                movieViewModel.MoviesInfo = Session["Movies"] as List<MoviesInfo>;
             }
             else
             {
-                countryMovieViewModel.MoviesInfo = moviesInfos;
+                movieViewModel.MoviesInfo = moviesInfos;
             }
             //Session["Countries"] = countries;
-            return View(countryMovieViewModel);
+            return View(movieViewModel);
         }
 
         public async Task<ActionResult> Details(int id)
         {
-            MovieRepository repository = new MovieRepository(context);
-            MovieWebService movieWebService = new MovieWebService(repository);
             MovieWebDto movie = movieWebService.GetItem(id);
             return View(movie);
         }
 
         public ActionResult Partial()
         {
-            CountryRepository countryRepository = new CountryRepository(context);
-            CountryWebService countryWebService = new CountryWebService(countryRepository);
             return PartialView(countryWebService.Items);
         }
 

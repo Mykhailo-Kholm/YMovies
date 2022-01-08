@@ -1,5 +1,4 @@
-﻿
-namespace YMovies.Web.Dtos
+﻿namespace YMovies.Web.Dtos
 {
     public class TypeWebDto
     {
