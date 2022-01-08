@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IdentityContext.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Managers\ApplicationRoleManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Managers\ApplicationSignInManager.cs" />
@@ -91,7 +92,7 @@
     <Compile Include="Migrations\202112281715594_ChangeSeed.designer.cs">
       <DependentUpon>202112281715594_ChangeSeed.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\RoleCreator.cs" />
+    <Compile Include="Repositories\IdentityUnitOfWork.cs" />
     <Compile Include="Migrations\202112231323074_InitialCreate.cs" />
     <Compile Include="Migrations\202112231323074_InitialCreate.designer.cs">
       <DependentUpon>202112231323074_InitialCreate.cs</DependentUpon>
@@ -116,7 +117,6 @@
     <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Utilities\DbInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -146,6 +146,9 @@
     <EmbeddedResource Include="Migrations\202112281715594_ChangeSeed.resx">
       <DependentUpon>202112281715594_ChangeSeed.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utilities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

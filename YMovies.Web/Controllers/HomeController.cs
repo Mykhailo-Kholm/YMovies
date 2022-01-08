@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using YMovies.Web.IMDB;
-using YMovies.Web.IMDB.DBWorker;
 using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Controllers

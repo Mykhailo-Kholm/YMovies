@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace YMovies.Identity.Models
+namespace YMovies.Identity.DAL.Models
 {
     public class ApplicationRole : IdentityRole
     {

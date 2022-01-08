@@ -30,20 +30,15 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+                        <input type="submit" value="Log in" class="btn btn-primary" />
                     </div>
                 </div>
                 <p>
                     @Html.ActionLink("Register as a new user", "Register")
-                </p>               
+                </p>
+                <p>
+                    @Html.ActionLink("Forgort password", "ForgotPassword")
+                </p>
             }
         </section>
     </div>   

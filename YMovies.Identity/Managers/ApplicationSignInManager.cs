@@ -3,9 +3,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using YMovies.Identity.Models;
+using YMovies.Identity.DAL.Models;
 
-namespace YMovies.Identity.Managers
+namespace YMovies.Identity.DAL.Managers
 {
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {
