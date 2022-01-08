@@ -56,7 +56,7 @@ namespace YMovies.Web.Controllers
         {
             var pageSize = 50;
             int pageNumber = (page ?? 1);
-            var films = movieWebService.Items.OrderByDescending(m => m.NumberOfLikes).Take(100);
+            var films = movieWebService.Items.OrderByDescending(m => m.NumberOfLikes);
             var topImdbViewModel = new TopImdbViewModel()
             {
                 MoviePageList = convertor.ConvertToMoviesInfo(films).ToPagedList(pageNumber, pageSize),

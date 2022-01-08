@@ -8,12 +8,10 @@ namespace YMovies.Web.Services.Service
     public class ModelsConvertor
     {
         private List<MoviesInfo> _moviesInfos;
-        public ModelsConvertor()
-        {
-            _moviesInfos = new List<MoviesInfo>();
-        }
+
         public List<MoviesInfo> ConvertToMoviesInfo(List<Top250DataDetail> films)
         {
+            _moviesInfos = new List<MoviesInfo>();
             foreach (var movie in films)
             {
                 _moviesInfos.Add
@@ -32,6 +30,7 @@ namespace YMovies.Web.Services.Service
 
         public List<MoviesInfo> ConvertToMoviesInfo(IEnumerable<MovieWebDto> movies)
         {
+            _moviesInfos = new List<MoviesInfo>();
             foreach (var movie in movies)
             {
                 _moviesInfos.Add
