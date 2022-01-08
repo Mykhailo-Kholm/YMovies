@@ -221,7 +221,10 @@
     <Compile Include="Dtos\MovieWebDto.cs" />
     <Compile Include="Dtos\SeasonWebDto.cs" />
     <Compile Include="Dtos\SeriesWebDto.cs" />
+    <Compile Include="Dtos\TypeWebDto.cs" />
     <Compile Include="Dtos\UserWebDto.cs" />
+    <Compile Include="IMDB\DBWorker\DBSeed.cs" />
+    <Compile Include="IMDB\DBWorker\Interfaces\ISeed.cs" />
     <Compile Include="Models\FilmCreationViewModels\NewFilm.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -245,9 +248,11 @@
     <Compile Include="Services\Service\CastWebService.cs" />
     <Compile Include="Services\Service\CountryWebService.cs" />
     <Compile Include="Services\Service\GenreWebService.cs" />
+    <Compile Include="Services\Service\ModelsConvertor.cs" />
     <Compile Include="Services\Service\MovieWebService.cs" />
     <Compile Include="Services\Service\SeasonWebService.cs" />
     <Compile Include="Services\Service\SeriesWebService.cs" />
+    <Compile Include="Services\Service\TypeWebService.cs" />
     <Compile Include="Services\Service\UserWebService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TempModels\MoviesInfo.cs" />
@@ -257,7 +262,8 @@
     <Compile Include="ViewModels\MovieModel.cs" />
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Utilites\AutoMap.cs" />
-    <Compile Include="ViewModels\CountryMovieViewModel.cs" />
+    <Compile Include="ViewModels\MovieViewModel.cs" />
+    <Compile Include="ViewModels\TopImdbViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -423,6 +429,12 @@
     <Content Include="Views\Admin\FilmCreation.cshtml" />
     <Content Include="Scripts\typeahead.filmcreation.js" />
     <Content Include="Views\Movies\Partial.cshtml" />
+    <Content Include="Views\Movies\_CountriesPartial.cshtml" />
+    <Content Include="Views\Movies\_GenresPartial.cshtml" />
+    <Content Include="Views\Movies\_TypesPartial.cshtml" />
+    <Content Include="Views\Movies\_YearsPartial.cshtml" />
+    <Content Include="Views\Movies\TopByIMDb.cshtml" />
+    <Content Include="Views\Movies\TopMovieDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Ymovies.Identity.BLL.DTO;
 using YMovies.MovieDbService.Models;
+using YMovies.Web.Dtos;
 using YMovies.Web.DTOs;
 using YMovies.Web.Models;
 

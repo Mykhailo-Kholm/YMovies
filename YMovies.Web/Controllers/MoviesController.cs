@@ -6,6 +6,7 @@ using Microsoft.Ajax.Utilities;
 using PagedList;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.Repositories.Repository;
+using YMovies.Web.Dtos;
 using YMovies.Web.DTOs;
 using YMovies.Web.IMDB;
 using YMovies.Web.Services.Service;
@@ -145,6 +146,30 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> Details(int id)
         {
             MovieWebDto movie = movieWebService.GetItem(id);
+            return View(movie);
+        }
+
+        public async Task<ActionResult> TopMovieDetails(int filmid, string imdbId)
+        {
+            MovieWebDto movie;
+            if (filmid != 0)
+            {
+                movie = movieWebService.GetItem(filmid);
+                return View(movie);
+            }
+            else
+            {
+                APIworkerIMDB imdb = new APIworkerIMDB();
+                var films = await imdb.MovieOrSeriesInfo(imdbId);
+
+                movie = new MovieWebDto()
+                {
+                    Title = films.Title,
+                    Year = films.Year,
+                    PosterUrl = films.Image,
+                    Plot = films.Plot
+                };
+            }
             return View(movie);
         }
 
