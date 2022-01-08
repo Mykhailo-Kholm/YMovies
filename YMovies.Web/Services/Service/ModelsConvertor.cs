@@ -7,12 +7,16 @@ namespace YMovies.Web.Services.Service
 {
     public class ModelsConvertor
     {
+        private List<MoviesInfo> _moviesInfos;
+        public ModelsConvertor()
+        {
+            _moviesInfos = new List<MoviesInfo>();
+        }
         public List<MoviesInfo> ConvertToMoviesInfo(List<Top250DataDetail> films)
         {
-            List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
             foreach (var movie in films)
             {
-                moviesInfos.Add
+                _moviesInfos.Add
                 (
                     new MoviesInfo()
                     {
@@ -23,15 +27,14 @@ namespace YMovies.Web.Services.Service
                     }
                 );
             }
-            return moviesInfos;
+            return _moviesInfos;
         }
 
         public List<MoviesInfo> ConvertToMoviesInfo(IEnumerable<MovieWebDto> movies)
         {
-            List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
             foreach (var movie in movies)
             {
-                moviesInfos.Add
+                _moviesInfos.Add
                 (
                     new MoviesInfo()
                     {
@@ -42,7 +45,7 @@ namespace YMovies.Web.Services.Service
                     }
                 );
             }
-            return moviesInfos;
+            return _moviesInfos;
         }
     }
 }
