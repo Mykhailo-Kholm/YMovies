@@ -10,7 +10,6 @@ namespace YMovies.MovieDbService.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<Movie> Movies { get; set; }
-        public virtual ICollection<Series> Series { get; set; }
+        public virtual ICollection<Media> Medias { get; set; }
     }
 }

@@ -76,12 +76,12 @@ namespace YMovies.Web.Controllers
         //    }
         //};
 
-        //public static List<Movie> movies = new List<Movie>()
+        //public static List<Media> movies = new List<Media>()
         //{
-        //    new Movie()
+        //    new Media()
         //    {
         //        MovieId = 1,
-        //        Title = "Movie one",
+        //        Title = "Media one",
         //        ImdbRating = 3,
         //        Year = "2021",
         //        UsersRating = 1,
@@ -91,7 +91,7 @@ namespace YMovies.Web.Controllers
         //            Genres[0],
         //            Genres[2],
         //        },
-        //        Type = "Movie",
+        //        Type = "Media",
         //        Countries = new List<Country>()
         //        {
         //            countries[0],
@@ -104,10 +104,10 @@ namespace YMovies.Web.Controllers
         //        },
         //        Budget = 100
         //    },
-        //    new Movie()
+        //    new Media()
         //    {
         //        MovieId = 2,
-        //        Title = "Movie one",
+        //        Title = "Media one",
         //        ImdbRating = 3,
         //        Year = "2021",
         //        UsersRating = 1,
@@ -117,7 +117,7 @@ namespace YMovies.Web.Controllers
         //            Genres[1],
 
         //        },
-        //        Type = "Movie",
+        //        Type = "Media",
         //        Countries = new List<Country>()
         //        {
         //            countries[0],
@@ -131,10 +131,10 @@ namespace YMovies.Web.Controllers
         //        },
         //        Budget = 100
         //    },
-        //    new Movie()
+        //    new Media()
         //    {
         //        MovieId = 3,
-        //        Title = "Movie one",
+        //        Title = "Media one",
         //        ImdbRating = 3,
         //        Year = "2021",
         //        UsersRating = 1,
@@ -144,7 +144,7 @@ namespace YMovies.Web.Controllers
         //            Genres[0],
         //            Genres[1],
         //        },
-        //        Type = "Movie",
+        //        Type = "Media",
         //        Countries = new List<Country>()
         //        {
         //            countries[0],
@@ -159,10 +159,10 @@ namespace YMovies.Web.Controllers
         //        },
         //        Budget = 100
         //    },
-        //    new Movie()
+        //    new Media()
         //    {
         //        MovieId = 4,
-        //        Title = "Movie two",
+        //        Title = "Media two",
         //        ImdbRating = 2,
         //        Year = "1998",
         //        UsersRating = 12,
@@ -186,10 +186,10 @@ namespace YMovies.Web.Controllers
         //        },
         //        Budget = 120
         //    },
-        //    new Movie()
+        //    new Media()
         //    {
         //        MovieId = 5,
-        //        Title = "Movie one",
+        //        Title = "Media one",
         //        ImdbRating = 3,
         //        Year = "2021",
         //        UsersRating = 1,
@@ -199,7 +199,7 @@ namespace YMovies.Web.Controllers
         //            Genres[0],
 
         //        },
-        //        Type = "Movie",
+        //        Type = "Media",
         //        Countries = new List<Country>()
         //        {
         //            countries[0],
@@ -213,10 +213,10 @@ namespace YMovies.Web.Controllers
         //        },
         //        Budget = 100
         //    },
-        //    new Movie()
+        //    new Media()
         //    {
         //        MovieId = 6,
-        //        Title = "Movie one",
+        //        Title = "Media one",
         //        ImdbRating = 3,
         //        Year = "2021",
         //        UsersRating = 1,
@@ -226,7 +226,7 @@ namespace YMovies.Web.Controllers
         //            Genres[0],
 
         //        },
-        //        Type = "Movie",
+        //        Type = "Media",
         //        Countries = new List<Country>()
         //        {
         //            countries[0],
@@ -240,10 +240,10 @@ namespace YMovies.Web.Controllers
         //        },
         //        Budget = 100
         //    },
-        //    new Movie()
+        //    new Media()
         //    {
         //        MovieId = 7,
-        //        Title = "Movie two",
+        //        Title = "Media two",
         //        ImdbRating = 2,
         //        Year = "1998",
         //        UsersRating = 12,
@@ -379,7 +379,7 @@ namespace YMovies.Web.Controllers
             //}
 
             Session["Movies"] = newMovies;
-            //List<Movie> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
+            //List<Media> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
             return RedirectToAction("Index");
         }
 
@@ -406,7 +406,7 @@ namespace YMovies.Web.Controllers
             //}
 
             Session["Movies"] = newMovies;
-            //List<Movie> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
+            //List<Media> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
             return RedirectToAction("Index");
         }
     }

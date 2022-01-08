@@ -13,12 +13,12 @@ namespace YMovies.Web.App_Start
             CreateMap<RegisterViewModel, UserDTO>().
                 ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
                 .ReverseMap();
-            CreateMap<Movie, MovieWebDto>().ReverseMap();
+            CreateMap<Media, MovieWebDto>().ReverseMap();
             CreateMap<Cast, CastWebDto>().ReverseMap();
             CreateMap<Country, CountryWebDto>().ReverseMap();
             CreateMap<Genre, GenreWebDto>().ReverseMap();
             CreateMap<Season, SeasonWebDto>().ReverseMap();
-            CreateMap<Series, SeriesWebDto>().ReverseMap();
+            CreateMap<Media, SeriesWebDto>().ReverseMap();
         }
     }
 }

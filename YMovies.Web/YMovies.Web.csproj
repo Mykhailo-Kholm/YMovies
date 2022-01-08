@@ -222,6 +222,8 @@
     <Compile Include="Dtos\SeasonWebDto.cs" />
     <Compile Include="Dtos\SeriesWebDto.cs" />
     <Compile Include="Dtos\UserWebDto.cs" />
+    <Compile Include="IMDB\DBWorker\DBSeed.cs" />
+    <Compile Include="IMDB\DBWorker\Interfaces\ISeed.cs" />
     <Compile Include="Models\FilmCreationViewModels\NewFilm.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
