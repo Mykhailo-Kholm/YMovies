@@ -1,25 +1,23 @@
-﻿@model YMovies.Web.Models.AdminViewModels.FindModel
+﻿@model YMovies.Web.Models.AdminViewModels.FindUserViewModel
 @{
     ViewBag.Title = "ManageUsers";
 }
 
-<h2>Manage Users</h2>
-
 @using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Enter useremail to start editing his role</h4>
+    <h4>Enter user email to find him and edit his role</h4>
     <hr />
     <div class="form-group">
         @Html.LabelFor(m => Model.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, "example@gmail.com", new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Email, null, new { @class = "form-control", @placeholder="example@gmail.com"})
             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-10">
-            <input type="submit" class="btn btn-default" value="Find" />
+            <input type="submit" class="btn btn-primary" value="Find" />
         </div>
     </div>
 }

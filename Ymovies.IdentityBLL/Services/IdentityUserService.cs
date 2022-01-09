@@ -44,12 +44,15 @@ namespace Ymovies.Identity.BLL.Services
                     Name = userDTO.Name,
                     SecondName = userDTO.SecondName
                 };
+                
                 var result = await DataBase.ApplicationUserManager.CreateAsync(user, userDTO.Password);
                 if (result.Errors.Count() > 0)
                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
-
-                await DataBase.ApplicationUserManager.AddToRoleAsync(user.Id, userDTO.Role);
-                await DataBase.SaveAsync();
+                
+                foreach (var role in userDTO.Roles)
+                    await DataBase.ApplicationUserManager.AddToRoleAsync(user.Id, role);                
+                
+                await DataBase.SaveAsync();                
                 return new OperationDetails(true, "", "");
             }
             else
@@ -74,12 +77,15 @@ namespace Ymovies.Identity.BLL.Services
         {
             var user = await DataBase.ApplicationUserManager
                 .FindByEmailAsync(userEmal);
+            if (user == null)
+                return null;
             return new UserDTO
             {
                 Email = userEmal,
                 UserName = user.UserName,
                 Name = user.Name,
                 SecondName = user.SecondName,
+                Roles = DataBase.ApplicationUserManager.GetRoles(user.Id).ToList()
             };
         }
 
@@ -93,6 +99,22 @@ namespace Ymovies.Identity.BLL.Services
             await DataBase.ApplicationUserManager.AddPasswordAsync(user.Id, newPassword);
             await DataBase.SaveAsync();
             return new OperationDetails(true, "", "");
+        }
+
+        public async Task<OperationDetails> GiveAdminRightsByEmail(string userEmail)
+        {
+            var user = await DataBase.ApplicationUserManager
+                .FindByEmailAsync(userEmail);
+            if (user == null)
+                return new OperationDetails(false, "User with this login doesn't exists", "");
+            IdentityResult result;
+            if (DataBase.ApplicationUserManager.GetRoles(user.Id).Contains("admin"))
+                result = await DataBase.ApplicationUserManager.RemoveFromRoleAsync(user.Id, "admin");
+            else
+                result = await DataBase.ApplicationUserManager.AddToRoleAsync(user.Id, "admin");
+            if (result.Succeeded)
+                return null;
+            return new OperationDetails(false, result.Errors.First(), "");
         }
 
         public async Task SetInitialDataAsync(UserDTO adminDto, List<string> roles)
@@ -125,7 +147,6 @@ namespace Ymovies.Identity.BLL.Services
                 disposedValue = true;
             }
         }
-
 
     }
 }

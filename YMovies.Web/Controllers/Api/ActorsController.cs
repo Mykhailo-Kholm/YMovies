@@ -4,6 +4,7 @@ using System.Web.Http;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Services.IService;
+using YMovies.Web.Utilities;
 using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Controllers.Api
@@ -21,21 +22,21 @@ namespace YMovies.Web.Controllers.Api
             this._actorsService = actorsService;
         }
 
-        private List<Cast> _casts = new List<Cast>()
+        private List<CastDto> _casts = new List<CastDto>()
         {
-            new Cast()
+            new CastDto()
             {
                 Id = 1,
                 Name = "First",
                 Surname = "Actor"
             },
-            new Cast()
+            new CastDto()
             {
                 Id = 2,
                 Name = "Second",
                 Surname = "Actor"
             },
-            new Cast()
+            new CastDto()
             {
                 Id = 3,
                 Name = "Third",
@@ -45,23 +46,13 @@ namespace YMovies.Web.Controllers.Api
 
         public IEnumerable<CastViewModel> GetActors(string query = null)
         {
-
-            //var temp = _actorsService.Items.AsEnumerable();l
+            //var temp = _actorsService.Items.AsEnumerable();
             var temp = _casts;
 
             if (!string.IsNullOrWhiteSpace(query))
                 temp = temp.Where(t => t.Name.Contains(query)).ToList();
             
-            var listOfCasts = new List<CastViewModel>();
-            
-            foreach (var cast in temp)
-            {
-                listOfCasts.Add(new CastViewModel
-                {
-                    Id = cast.Id,
-                    Name = cast.Name + " " + cast.Surname
-                });
-            }
+            var listOfCasts = AutoMap.Mapper.Map<List<CastDto>, List<CastViewModel>>(temp);
             return listOfCasts;
         }
     }

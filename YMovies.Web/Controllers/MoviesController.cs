@@ -18,6 +18,259 @@ namespace YMovies.Web.Controllers
 {
     public class MoviesController : Controller
     {
+        MoviesContext context = new MoviesContext();
+
+        //public static List<Country> countries = new List<Country>()
+        //{
+        //    new Country()
+        //    {
+        //        Id = 1,
+        //        Name = "US"
+        //    },
+        //    new Country()
+        //    {
+        //        Id = 2,
+        //        Name = "Germany"
+        //    },
+        //    new Country()
+        //    {
+        //        Id = 3,
+        //        Name = "Ukraine"
+        //    }
+        //};
+
+        //public static List<Genre> Genres = new List<Genre>()
+        //{
+        //    new Genre()
+        //    {
+        //        Id = 1,
+        //        Name = "Genre1"
+        //    },
+        //    new Genre()
+        //    {
+        //        Id = 2,
+        //        Name = "Genre2"
+        //    },
+        //    new Genre()
+        //    {
+        //        Id = 3,
+        //        Name = "Genre3"
+        //    }
+        //};
+
+        //public static List<Cast> Casts = new List<Cast>()
+        //{
+        //    new Cast()
+        //    {
+        //        Id = 1,
+        //        Name = "First",
+        //        Surname = "Actor"
+        //    },
+        //    new Cast()
+        //    {
+        //        Id = 2,
+        //        Name = "Second",
+        //        Surname = "Actor"
+        //    },
+        //    new Cast()
+        //    {
+        //        Id = 3,
+        //        Name = "Third",
+        //        Surname = "Actor"
+        //    }
+        //};
+
+        //public static List<Media> movies = new List<Media>()
+        //{
+        //    new Media()
+        //    {
+        //        MovieId = 1,
+        //        Title = "Media one",
+        //        ImdbRating = 3,
+        //        Year = "2021",
+        //        UsersRating = 1,
+        //        Plot = "descriptionOne",
+        //        Genres = new List<Genre>()
+        //        {
+        //            Genres[0],
+        //            Genres[2],
+        //        },
+        //        Type = "Media",
+        //        Countries = new List<Country>()
+        //        {
+        //            countries[0],
+
+        //        },
+
+        //        Cast = new List<Cast>()
+        //        {
+        //            Casts[0]
+        //        },
+        //        Budget = 100
+        //    },
+        //    new Media()
+        //    {
+        //        MovieId = 2,
+        //        Title = "Media one",
+        //        ImdbRating = 3,
+        //        Year = "2021",
+        //        UsersRating = 1,
+        //        Plot = "descriptionOne",
+        //        Genres = new List<Genre>()
+        //        {
+        //            Genres[1],
+
+        //        },
+        //        Type = "Media",
+        //        Countries = new List<Country>()
+        //        {
+        //            countries[0],
+        //            countries[1]
+
+        //        },
+
+        //        Cast = new List<Cast>()
+        //        {
+        //            Casts[1]
+        //        },
+        //        Budget = 100
+        //    },
+        //    new Media()
+        //    {
+        //        MovieId = 3,
+        //        Title = "Media one",
+        //        ImdbRating = 3,
+        //        Year = "2021",
+        //        UsersRating = 1,
+        //        Plot = "descriptionOne",
+        //        Genres = new List<Genre>()
+        //        {
+        //            Genres[0],
+        //            Genres[1],
+        //        },
+        //        Type = "Media",
+        //        Countries = new List<Country>()
+        //        {
+        //            countries[0],
+        //            countries[1],
+        //            countries[2]
+
+        //        },
+        //        Cast = new List<Cast>()
+        //        {
+        //            Casts[1],
+        //            Casts[2]
+        //        },
+        //        Budget = 100
+        //    },
+        //    new Media()
+        //    {
+        //        MovieId = 4,
+        //        Title = "Media two",
+        //        ImdbRating = 2,
+        //        Year = "1998",
+        //        UsersRating = 12,
+        //        Plot = "desc2",
+        //        Genres = new List<Genre>()
+        //        {
+        //            Genres[0],
+
+        //        },
+        //        Type = "Serial",
+        //        Countries = new List<Country>()
+        //        {
+        //            countries[0],
+        //            countries[1]
+
+        //        },
+        //        Cast = new List<Cast>()
+        //        {
+        //            Casts[0],
+        //            Casts[2]
+        //        },
+        //        Budget = 120
+        //    },
+        //    new Media()
+        //    {
+        //        MovieId = 5,
+        //        Title = "Media one",
+        //        ImdbRating = 3,
+        //        Year = "2021",
+        //        UsersRating = 1,
+        //        Plot = "descriptionOne",
+        //        Genres = new List<Genre>()
+        //        {
+        //            Genres[0],
+
+        //        },
+        //        Type = "Media",
+        //        Countries = new List<Country>()
+        //        {
+        //            countries[0],
+        //            countries[1]
+
+        //        },
+        //        Cast = new List<Cast>()
+        //        {
+        //            Casts[1],
+        //            Casts[2]
+        //        },
+        //        Budget = 100
+        //    },
+        //    new Media()
+        //    {
+        //        MovieId = 6,
+        //        Title = "Media one",
+        //        ImdbRating = 3,
+        //        Year = "2021",
+        //        UsersRating = 1,
+        //        Plot = "descriptionOne",
+        //        Genres = new List<Genre>()
+        //        {
+        //            Genres[0],
+
+        //        },
+        //        Type = "Media",
+        //        Countries = new List<Country>()
+        //        {
+        //            countries[0],
+        //            countries[1]
+
+        //        },
+        //        Cast = new List<Cast>()
+        //        {
+        //            Casts[1],
+        //            Casts[2]
+        //        },
+        //        Budget = 100
+        //    },
+        //    new Media()
+        //    {
+        //        MovieId = 7,
+        //        Title = "Media two",
+        //        ImdbRating = 2,
+        //        Year = "1998",
+        //        UsersRating = 12,
+        //        Plot = "desc2",
+        //        Genres = new List<Genre>()
+        //        {
+        //            Genres[0],
+
+        //        },
+        //        Type = "Serial",
+        //        Countries = new List<Country>()
+        //        {
+        //            countries[1]
+
+        //        },
+        //        Cast = new List<Cast>()
+        //        {
+        //            Casts[1],
+        //            Casts[2]
+        //        },
+        //        Budget = 120
+        //    }
+        //};
         public static MoviesContext context = new MoviesContext();
         static MovieRepository movieRepository = new MovieRepository(context);
         MovieWebService movieWebService = new MovieWebService(movieRepository);
