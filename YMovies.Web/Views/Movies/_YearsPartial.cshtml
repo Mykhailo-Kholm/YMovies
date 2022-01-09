@@ -1,0 +1,14 @@
+﻿@model List<string>
+
+<h3 class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all">
+    <span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>
+    Years
+</h3>
+<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+    @foreach (var year in Model)
+    {
+        @*@Html.HiddenFor(c => year)*@
+        @Html.ActionLink(year, "FilterInclude", "Movies", new { _year = year }, new { @class = "btn btn-primary " })
+        @Html.ActionLink("Exclude", "FilterExclude", "Movies", year, new { @class = "btn btn-primary" })
+    }
+</div>

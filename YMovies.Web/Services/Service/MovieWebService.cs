@@ -4,6 +4,7 @@ using AutoMapper;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
+using YMovies.Web.Dtos;
 using YMovies.Web.DTOs;
 using YMovies.Web.Utilities;
 
@@ -13,14 +14,21 @@ namespace YMovies.Web.Services.Service
     {
         private readonly IRepository<Media> _repository;
         public MovieWebService(MovieRepository repository) => _repository = repository;
-        //static readonly MapperConfiguration Config = new MapperConfiguration(cfg => cfg.CreateMap<Media, MovieWebDto>()
-        //    .ForMember("Type", opt => opt.MapFrom(m => m.Type.Name)));
-        //private readonly Mapper _mapper = new Mapper(Config);
-        public IEnumerable<MovieWebDto> Items => AutoMap.Mapper.Map<IEnumerable<Media>, IEnumerable<MovieWebDto>>(_repository.Items);
+
+        private static readonly MapperConfiguration Config = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<Type, TypeWebDto>();
+            cfg.CreateMap<Cast, CastWebDto>();
+            cfg.CreateMap<Country, CountryWebDto>();
+            cfg.CreateMap<Genre, GenreWebDto>();
+            cfg.CreateMap<Media, MovieWebDto>();
+        });
+        private readonly Mapper _mapper = new Mapper(Config);
+        public IEnumerable<MovieWebDto> Items => _mapper.Map<IEnumerable<Media>, IEnumerable<MovieWebDto>>(_repository.Items);
         public MovieWebDto GetItem(int id)
         {
             var movie = _repository.GetItem(id);
-            return AutoMap.Mapper.Map<Media, MovieWebDto>(movie);
+            return _mapper.Map<Media, MovieWebDto>(movie);
         }
 
         public void AddItem(MovieWebDto item)

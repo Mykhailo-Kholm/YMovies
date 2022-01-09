@@ -2,10 +2,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using PagedList;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.Repositories.Repository;
+using YMovies.Web.Dtos;
 using YMovies.Web.DTOs;
+using YMovies.Web.IMDB;
 using YMovies.Web.Services.Service;
 using YMovies.Web.TempModels;
 using YMovies.Web.ViewModels;
@@ -267,34 +270,85 @@ namespace YMovies.Web.Controllers
         //        Budget = 120
         //    }
         //};
+        public static MoviesContext context = new MoviesContext();
+        static MovieRepository movieRepository = new MovieRepository(context);
+        MovieWebService movieWebService = new MovieWebService(movieRepository);
+        static CountryRepository countryRepository = new CountryRepository(context);
+        CountryWebService countryWebService = new CountryWebService(countryRepository);
+        private static GenreRepository genreRepository = new GenreRepository(context);
+        private GenreWebService genreWebService = new GenreWebService(genreRepository);
+        static TypeRepository typeRepository = new TypeRepository(context);
+        TypeWebService typeWebService = new TypeWebService(typeRepository);
+        private ModelsConvertor convertor = new ModelsConvertor();
 
         public async Task<ActionResult> Like(int id)
         {
-            return RedirectToAction("Details", id);
+            MovieWebDto movie = movieWebService.GetItem(id);
+            MovieWebDto newmovie = new MovieWebDto()
+            {
+                MovieId = movie.MovieId,
 
+                NumberOfDislikes = ++movie.NumberOfLikes
+            };
+            movieWebService.UpdateItem(newmovie);
+            //likedmovies table
+            return RedirectToAction("Details", id);
         }
 
         public async Task<ActionResult> DisLike(int id)
         {
+            MovieWebDto movie = movieWebService.GetItem(id);
+            MovieWebDto newmovie = new MovieWebDto()
+            {
+                NumberOfDislikes = --movie.NumberOfLikes
+            };
+            movieWebService.UpdateItem(newmovie);
             return RedirectToAction("Details", id);
-
         }
 
-        public async Task<ActionResult> MostLiked()
+        public async Task<ActionResult> MostLiked(int? page)
         {
-            return RedirectToAction("Index");
-
+            var pageSize = 50;
+            int pageNumber = (page ?? 1);
+            var films = movieWebService.Items.OrderByDescending(m => m.NumberOfLikes);
+            var topImdbViewModel = new TopImdbViewModel()
+            {
+                MoviePageList = convertor.ConvertToMoviesInfo(films).ToPagedList(pageNumber, pageSize),
+                Movies = convertor.ConvertToMoviesInfo(films),
+            };
+            return View("TopByIMDb",topImdbViewModel);
         }
 
-        public async Task<ActionResult> MostWatched()
+        public async Task<ActionResult> MostWatched(int? page)
         {
-            return RedirectToAction("Index");
-
+            //var pageSize = 50;
+            //int pageNumber = (page ?? 1);
+            return View("TopByIMDb");
         }
 
-        public async Task<ActionResult> TopByIMDb()
+        public async Task<ActionResult> TopByIMDb(int? page)
         {
-            return RedirectToAction("Index");
+            var pageSize = 50;
+            int pageNumber = (page ?? 1);
+            TopImdbViewModel topImdbViewModel;
+            List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
+            var movies = movieWebService.Items.OrderByDescending(m => m.ImdbRating).Take(250).ToList();
+            if (movies.Count() == 0)
+            {
+                APIworkerIMDB imdb = new APIworkerIMDB();
+                var films = await imdb.GetTop250MoviesAsync();
+                moviesInfos = convertor.ConvertToMoviesInfo(films);
+            }
+            else
+            {
+                moviesInfos = convertor.ConvertToMoviesInfo(movies);
+            }
+            topImdbViewModel = new TopImdbViewModel()
+            {
+                MoviePageList = moviesInfos.ToPagedList(pageNumber, pageSize),
+                Movies = moviesInfos,
+            };
+            return View(topImdbViewModel);
         }
 
         public async Task<ActionResult> Search()
@@ -302,15 +356,10 @@ namespace YMovies.Web.Controllers
             return RedirectToAction("Index");
         }
 
-
         [HttpGet]
         public async Task<ActionResult> Index(int? page, string action)
         {
-
-            MovieRepository movieRepository = new MovieRepository(context);
-            MovieWebService movieWebService = new MovieWebService(movieRepository);
-            CountryRepository countryRepository = new CountryRepository(context);
-            CountryWebService countryWebService = new CountryWebService(countryRepository);
+       
             var pageSize = 10;
             var pageNumber = page ?? 1;
             List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
@@ -326,37 +375,55 @@ namespace YMovies.Web.Controllers
                         ImdbRating = movie.ImdbRating, Genres = movie.Genres}
                 );
             }
-            var countryMovieViewModel = new CountryMovieViewModel()
+            var movieViewModel = new MovieViewModel()
             {
                 MoviePageList = moviesInfos.ToPagedList(pageNumber, pageSize),
                 Countries = countryWebService.Items,
+                Genres = genreWebService.Items,
+                Types = typeWebService.Items.DistinctBy(t=>t.Name),
+                Years = movieWebService.Items.OrderBy(m=>m.Year).Select(m=>m.Year).Distinct().ToList(),
                 MoviesInfo = moviesInfos
             };
             if (Session["Movies"] != null)
             {
-                countryMovieViewModel.MoviesInfo = Session["Movies"] as List<MoviesInfo>;
+                movieViewModel.MoviesInfo = Session["Movies"] as List<MoviesInfo>;
             }
             else
             {
-                countryMovieViewModel.MoviesInfo = moviesInfos;
+                movieViewModel.MoviesInfo = moviesInfos;
             }
             //Session["Countries"] = countries;
-            return View(countryMovieViewModel);
+            return View(movieViewModel);
         }
 
         public async Task<ActionResult> Details(int id)
         {
-            MovieRepository repository = new MovieRepository(context);
-            MovieWebService movieWebService = new MovieWebService(repository);
             MovieWebDto movie = movieWebService.GetItem(id);
             return View(movie);
         }
 
-        public ActionResult Partial()
+        public async Task<ActionResult> TopMovieDetails(int filmid, string imdbId)
         {
-            CountryRepository countryRepository = new CountryRepository(context);
-            CountryWebService countryWebService = new CountryWebService(countryRepository);
-            return PartialView(countryWebService.Items);
+            MovieWebDto movie;
+            if (filmid != 0)
+            {
+                movie = movieWebService.GetItem(filmid);
+                return View(movie);
+            }
+            else
+            {
+                APIworkerIMDB imdb = new APIworkerIMDB();
+                var films = await imdb.MovieOrSeriesInfo(imdbId);
+
+                movie = new MovieWebDto()
+                {
+                    Title = films.Title,
+                    Year = films.Year,
+                    PosterUrl = films.Image,
+                    Plot = films.Plot
+                };
+            }
+            return View(movie);
         }
 
         public async Task<ActionResult> FilterInclude(string action, int countryId)
@@ -368,7 +435,7 @@ namespace YMovies.Web.Controllers
                 newMovies  = Session["Movies"] as List<MovieWebDto>;
             }
 
-            //newMovies = movies.Movies.Where(p => countries.Any(p2 => countryId == p.Id)).ToList();
+            var updatedmovies = newMovies.Select(m=>m.Countries.Where(p=>p.Id==countryId));
             //foreach (var m in movies)
             //{
             //    foreach (var c in m.Countries)
@@ -378,8 +445,8 @@ namespace YMovies.Web.Controllers
             //    }
             //}
 
-            Session["Movies"] = newMovies;
-            //List<Media> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
+            Session["Movies"] = updatedmovies;
+            //List<Movie> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
             return RedirectToAction("Index");
         }
 

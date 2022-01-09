@@ -1,4 +1,4 @@
-﻿using System.Data.Entity;
+using System.Data.Entity;
 using YMovies.MovieDbService.Models;
 
 namespace YMovies.MovieDbService.DatabaseContext
