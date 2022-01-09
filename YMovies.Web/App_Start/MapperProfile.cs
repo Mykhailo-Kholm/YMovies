@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Ymovies.Identity.BLL.DTO;
 using YMovies.MovieDbService.Models;
 using YMovies.Web.Dtos;
@@ -12,7 +12,7 @@ namespace YMovies.Web.App_Start
         public MapperProfile()
         {
             CreateMap<Type, TypeWebDto>().ReverseMap();
-            CreateMap<Movie, MovieWebDto>().ForMember(prt=>prt.Type, opt => opt.MapFrom(m => m.Type.Name)).ReverseMap();
+            CreateMap<Media, MovieWebDto>().ForMember(prt=>prt.Type, opt => opt.MapFrom(m => m.Type.Name)).ReverseMap();
             CreateMap<RegisterViewModel, UserDTO>().
                 ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
                 .ReverseMap();
@@ -20,7 +20,7 @@ namespace YMovies.Web.App_Start
             CreateMap<Country, CountryWebDto>().ReverseMap();
             CreateMap<Genre, GenreWebDto>().ReverseMap();
             CreateMap<Season, SeasonWebDto>().ReverseMap();
-            CreateMap<Series, SeriesWebDto>().ReverseMap();
+            CreateMap<Media, SeriesWebDto>().ReverseMap();
         }
     }
 }

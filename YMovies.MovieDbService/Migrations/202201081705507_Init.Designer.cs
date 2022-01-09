@@ -13,7 +13,7 @@ namespace YMovies.MovieDbService.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202201051352531_Init"; }
+            get { return "202201081705507_Init"; }
         }
         
         string IMigrationMetadata.Source

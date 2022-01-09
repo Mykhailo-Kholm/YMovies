@@ -1,4 +1,4 @@
-﻿using System.Data.Entity;
+using System.Data.Entity;
 using YMovies.MovieDbService.Models;
 
 namespace YMovies.MovieDbService.DatabaseContext
@@ -6,86 +6,85 @@ namespace YMovies.MovieDbService.DatabaseContext
     public class MoviesContext:DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Media> Medias { get; set; }
         public DbSet<Cast> Cast { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Genre> Genres { get; set; }
-        public DbSet<Series> Series { get; set; }
         public DbSet<Season> Seasons { get; set; }
         public DbSet<Type> Types { get; set; }
-        public MoviesContext() : base("name=MoviesDb")
+        public MoviesContext() : base("name=DefaultConnection")
         {
         }
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Movie>()
+            modelBuilder.Entity<Media>()
                 .HasMany<Cast>(m => m.Cast)
-                .WithMany(c => c.Movies)
+                .WithMany(c => c.Medias)
                 .Map(mc =>
                 {
-                    mc.MapLeftKey("MovieRefId");
+                    mc.MapLeftKey("MediaRefId");
                     mc.MapRightKey("CastRefId");
-                    mc.ToTable("MovieCast");
+                    mc.ToTable("MediaCast");
                 });
-            modelBuilder.Entity<Movie>()
+            modelBuilder.Entity<Media>()
                 .HasMany<Country>(m => m.Countries)
-                .WithMany(c => c.Movies)
+                .WithMany(c => c.Medias)
                 .Map(mc =>
                 {
-                    mc.MapLeftKey("MovieRefId");
+                    mc.MapLeftKey("MediaRefId");
                     mc.MapRightKey("CountryRefId");
-                    mc.ToTable("MovieCountry");
+                    mc.ToTable("MediaCountry");
                 });
-            modelBuilder.Entity<Movie>()
+            modelBuilder.Entity<Media>()
                 .HasMany<Genre>(m => m.Genres)
-                .WithMany(c => c.Movies)
+                .WithMany(c => c.Medias)
                 .Map(mc =>
                 {
-                    mc.MapLeftKey("MovieRefId");
+                    mc.MapLeftKey("MediaRefId");
                     mc.MapRightKey("GenreRefId");
-                    mc.ToTable("MovieGenre");
+                    mc.ToTable("MediaGenre");
                 });
-            modelBuilder.Entity<Series>()
-                .HasMany<Cast>(m => m.Cast)
-                .WithMany(c => c.Series)
-                .Map(mc =>
-                {
-                    mc.MapLeftKey("SeriesRefId");
-                    mc.MapRightKey("CastRefId");
-                    mc.ToTable("SeriesCast");
-                });
-            modelBuilder.Entity<Series>()
-                .HasMany<Country>(m => m.Countries)
-                .WithMany(c => c.Series)
-                .Map(mc =>
-                {
-                    mc.MapLeftKey("SeriesRefId");
-                    mc.MapRightKey("CountryRefId");
-                    mc.ToTable("SeriesCountry");
-                });
-            modelBuilder.Entity<Series>()
-                .HasMany<Genre>(m => m.Genres)
-                .WithMany(c => c.Series)
-                .Map(mc =>
-                {
-                    mc.MapLeftKey("SeriesRefId");
-                    mc.MapRightKey("GenreRefId");
-                    mc.ToTable("SeriesGenre");
-                });
-            modelBuilder.Entity<Series>()
+            //modelBuilder.Entity<Media>()
+            //    .HasMany<Cast>(m => m.Cast)
+            //    .WithMany(c => c.Medias)
+            //    .Map(mc =>
+            //    {
+            //        mc.MapLeftKey("SeriesRefId");
+            //        mc.MapRightKey("CastRefId");
+            //        mc.ToTable("SeriesCast");
+            //    });
+            //modelBuilder.Entity<Media>()
+            //    .HasMany<Country>(m => m.Countries)
+            //    .WithMany(c => c.Medias)
+            //    .Map(mc =>
+            //    {
+            //        mc.MapLeftKey("SeriesRefId");
+            //        mc.MapRightKey("CountryRefId");
+            //        mc.ToTable("SeriesCountry");
+            //    });
+            //modelBuilder.Entity<Media>()
+            //    .HasMany<Genre>(m => m.Genres)
+            //    .WithMany(c => c.Medias)
+            //    .Map(mc =>
+            //    {
+            //        mc.MapLeftKey("SeriesRefId");
+            //        mc.MapRightKey("GenreRefId");
+            //        mc.ToTable("SeriesGenre");
+            //    });
+            modelBuilder.Entity<Media>()
                 .HasMany<Season>(sr => sr.Seasons)
                 .WithRequired(s => s.CurrentSeries)
                 .HasForeignKey<int>(s => s.CurrentSeriesId);
 
             modelBuilder.Entity<User>()
-                .HasMany<Movie>(u => u.LikedMovies)
+                .HasMany<Media>(u => u.LikedMedias)
                 .WithMany(m => m.UsersLiked)
                 .Map(mu =>
                 {
                     mu.MapLeftKey("UserRefId");
-                    mu.MapRightKey("MovieRefId");
-                    mu.ToTable("LikedMovie");
+                    mu.MapRightKey("MediaRefId");
+                    mu.ToTable("LikedMedia");
                 });
             modelBuilder.Entity<User>()
                 .HasMany<Season>(u => u.LikedSeasons)
@@ -97,13 +96,13 @@ namespace YMovies.MovieDbService.DatabaseContext
                     su.ToTable("LikedSeason");
                 });
             modelBuilder.Entity<User>()
-                .HasMany<Movie>(u => u.WatchedMovies)
+                .HasMany<Media>(u => u.WatchedMedias)
                 .WithMany(m => m.UsersWatched)
                 .Map(mu =>
                 {
                     mu.MapLeftKey("UserRefId");
-                    mu.MapRightKey("MovieRefId");
-                    mu.ToTable("WatchedMovie");
+                    mu.MapRightKey("MediaRefId");
+                    mu.ToTable("WatchedMedia");
                 });
             modelBuilder.Entity<User>()
                 .HasMany<Season>(u => u.WatchedSeasons)
