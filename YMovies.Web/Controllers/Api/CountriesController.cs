@@ -11,15 +11,16 @@ namespace YMovies.Web.Controllers.Api
 {
     public class CountriesController : ApiController
     {
-        private IService<CountryDto> _countriesService;
-        public CountriesController()
-        {
-        }
-
         public CountriesController(IService<CountryDto> countriesService)
         {
             this._countriesService = countriesService;
         }
+
+        public CountriesController()
+        {
+        }
+
+        private IService<CountryDto> _countriesService;
 
         IEnumerable<CountryDto> tempData = new List<CountryDto>
         {

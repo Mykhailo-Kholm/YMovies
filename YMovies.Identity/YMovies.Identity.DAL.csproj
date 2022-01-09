@@ -79,7 +79,6 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Managers\ApplicationRoleManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
-    <Compile Include="Managers\ApplicationSignInManager.cs" />
     <Compile Include="Migrations\202112281459037_EmptyOne.cs" />
     <Compile Include="Migrations\202112281459037_EmptyOne.designer.cs">
       <DependentUpon>202112281459037_EmptyOne.cs</DependentUpon>

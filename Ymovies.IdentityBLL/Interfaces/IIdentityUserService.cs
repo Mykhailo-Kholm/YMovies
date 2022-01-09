@@ -14,6 +14,7 @@ namespace Ymovies.Identity.BLL.Interfaces
         Task<UserDTO> GetUserByEmailAsync(string userEmal);
         IEnumerable<UserDTO> GetAllUsers();
         Task<OperationDetails> ResetPasswordAsync(string userEmail, string newPassword);
+        Task<OperationDetails> GiveAdminRightsByEmail(string userEmail);
         Task SetInitialDataAsync(UserDTO userDTO, List<string> roles);
     }
 }
