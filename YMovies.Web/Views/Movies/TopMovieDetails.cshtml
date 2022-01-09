@@ -21,9 +21,9 @@
         Genres:
         @foreach (var genre in Model.Genres)
         {
-        <span> @genre.Name</span>
-    }
-</span>
+            <span> @genre.Name</span>
+        }
+    </span>
 </div>
 <div>
     <span>
@@ -36,21 +36,22 @@
         Countries:
         @foreach (var country in Model.Countries)
         {
-        <span>
-            @country.Name </span>
-    }
-</span>
+            <span>
+                @country.Name
+            </span>
+        }
+    </span>
 </div>
 <div>
     <span>
         Cast:
         @foreach (var cast in Model.Cast)
         {
-        <span>
-            @cast.Name @cast.Surname
+            <span>
+                @cast.Name @cast.Surname
+            </span>
+        }
     </span>
-            }
-        </span>
 </div>
 <div>
     <span>
