@@ -78,7 +78,37 @@
     @Html.Partial("_YearsPartial", Model.Years)
     @Html.Partial("_TypesPartial", Model.Types)
 </div>
-    <table>
+
+
+<link href="~/Content/MainPage.css" rel="stylesheet" />
+
+@foreach (var film in Model.MoviesInfo)
+{
+                
+    <div class="movie-card">
+        <div class="movie-header theDarkTower">
+            <a href="@Url.Action("Details", "Movies", new {id = film.Id})">
+                <img src="@Html.Raw(film.PosterUrl)" class="movie-header theDarkTower">
+            </a>
+        </div><!--movie-header-->
+        <div class="movie-content">
+            <div class="movie-content-header">
+                <a href="#">
+                    <h3 class="movie-title">@film.Title
+                    </h3>
+                </a>
+            </div>
+            <div class="movie-info">
+                <div class="info-section">
+                    <label>IMDb Rating</label>
+                    <span>@film.ImdbRating</span>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@*<table>
         @{ var counter = 1; }
         <tr>
             @foreach (var item in Model.MoviesInfo)
@@ -113,8 +143,8 @@
 counter++;
 }
         </tr>
-    </table>
+    </table>*@
 
-    Page @(Model.MoviePageList.PageCount < Model.MoviePageList.PageNumber ? 0 : Model.MoviePageList.PageNumber) of @Model.MoviePageList.PageCount
+    @*Page @(Model.MoviePageList.PageCount < Model.MoviePageList.PageNumber ? 0 : Model.MoviePageList.PageNumber) of @Model.MoviePageList.PageCount
     @Html.PagedListPager(Model.MoviePageList, page => Url.Action("Index",
-            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@

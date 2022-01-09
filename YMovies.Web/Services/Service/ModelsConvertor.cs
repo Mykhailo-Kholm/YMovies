@@ -8,10 +8,13 @@ namespace YMovies.Web.Services.Service
     public class ModelsConvertor
     {
         private List<MoviesInfo> _moviesInfos;
+        private TypesConverter _typesConvertor;
+
 
         public List<MoviesInfo> ConvertToMoviesInfo(List<Top250DataDetail> films)
         {
             _moviesInfos = new List<MoviesInfo>();
+            _typesConvertor = new TypesConverter();
             foreach (var movie in films)
             {
                 _moviesInfos.Add
@@ -21,14 +24,14 @@ namespace YMovies.Web.Services.Service
                         ImdbId = movie.Id,
                         Title = movie.Title,
                         PosterUrl = movie.Image,
-                        //ImdbRating = movie.IMDbRating,
+                        ImdbRating = _typesConvertor.StringToDecimal(movie.IMDbRating)
                     }
                 );
             }
             return _moviesInfos;
         }
 
-        public List<MoviesInfo> ConvertToMoviesInfo(IEnumerable<MovieWebDto> movies)
+        public List<MoviesInfo> ConvertToMoviesInfo(IEnumerable<MediaWebDto> movies)
         {
             _moviesInfos = new List<MoviesInfo>();
             foreach (var movie in movies)
@@ -37,7 +40,7 @@ namespace YMovies.Web.Services.Service
                 (
                     new MoviesInfo()
                     {
-                        Id = movie.MovieId,
+                        Id = movie.MediaId,
                         Title = movie.Title,
                         PosterUrl = movie.PosterUrl,
                         ImdbRating = movie.ImdbRating,

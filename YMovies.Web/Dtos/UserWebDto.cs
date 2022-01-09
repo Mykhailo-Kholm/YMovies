@@ -7,9 +7,9 @@ namespace YMovies.Web.Dtos
     {
         public int Id { get; set; }
         public string FullName { get; set; }
-        public ICollection<MovieWebDto> LikedMovies { get; set; }
+        public ICollection<MediaWebDto> LikedMovies { get; set; }
         public ICollection<SeasonWebDto> LikedSeasons { get; set; }
-        public ICollection<MovieWebDto> WatchedMovies { get; set; }
+        public ICollection<MediaWebDto> WatchedMovies { get; set; }
         public ICollection<SeasonWebDto> WatchedSeasons { get; set; }
     }
 }

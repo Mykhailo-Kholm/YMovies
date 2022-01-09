@@ -21,31 +21,31 @@ namespace YMovies.Web.Services.Service
             cfg.CreateMap<Cast, CastWebDto>();
             cfg.CreateMap<Country, CountryWebDto>();
             cfg.CreateMap<Genre, GenreWebDto>();
-            cfg.CreateMap<Movie, MovieWebDto>();
+            cfg.CreateMap<Media, MediaWebDto>();
         });
         private readonly Mapper _mapper = new Mapper(Config);
-        public IEnumerable<MovieWebDto> Items => _mapper.Map<IEnumerable<Movie>, IEnumerable<MovieWebDto>>(_repository.Items);
-        public MovieWebDto GetItem(int id)
+        public IEnumerable<MediaWebDto> Items => _mapper.Map<IEnumerable<Media>, IEnumerable<MediaWebDto>>(_repository.Items);
+        public MediaWebDto GetItem(int id)
         {
             var movie = _repository.GetItem(id);
-            return AutoMap.Mapper.Map<Media, MovieWebDto>(movie);
+            return AutoMap.Mapper.Map<Media, MediaWebDto>(movie);
         }
 
-        public void AddItem(MovieWebDto item)
+        public void AddItem(MediaWebDto item)
         {
-            var movie = AutoMap.Mapper.Map<MovieWebDto, Media>(item);
+            var movie = AutoMap.Mapper.Map<MediaWebDto, Media>(item);
             _repository.AddItem(movie);
         }
 
-        public void UpdateItem(MovieWebDto item)
+        public void UpdateItem(MediaWebDto item)
         {
-            var movie = AutoMap.Mapper.Map<MovieWebDto, Media>(item);
+            var movie = AutoMap.Mapper.Map<MediaWebDto, Media>(item);
             _repository.UpdateItem(movie);
         }
 
-        public void DeleteItem(MovieWebDto item)
+        public void DeleteItem(MediaWebDto item)
         {
-            var movie = AutoMap.Mapper.Map<MovieWebDto, Media>(item);
+            var movie = AutoMap.Mapper.Map<MediaWebDto, Media>(item);
             _repository.DeleteItem(movie.MediaId);
         }
     }

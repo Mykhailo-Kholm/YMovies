@@ -27,13 +27,14 @@ namespace YMovies.Web.Controllers
         static TypeRepository typeRepository = new TypeRepository(context);
         TypeWebService typeWebService = new TypeWebService(typeRepository);
         private ModelsConvertor convertor = new ModelsConvertor();
+        private TypesConverter typesConvertor = new TypesConverter();
 
         public async Task<ActionResult> Like(int id)
         {
-            MovieWebDto movie = movieWebService.GetItem(id);
-            MovieWebDto newmovie = new MovieWebDto()
+            MediaWebDto movie = movieWebService.GetItem(id);
+            MediaWebDto newmovie = new MediaWebDto()
             {
-                MovieId = movie.MovieId,
+                MediaId = movie.MediaId,
 
                 NumberOfDislikes = ++movie.NumberOfLikes
             };
@@ -44,8 +45,8 @@ namespace YMovies.Web.Controllers
 
         public async Task<ActionResult> DisLike(int id)
         {
-            MovieWebDto movie = movieWebService.GetItem(id);
-            MovieWebDto newmovie = new MovieWebDto()
+            MediaWebDto movie = movieWebService.GetItem(id);
+            MediaWebDto newmovie = new MediaWebDto()
             {
                 NumberOfDislikes = --movie.NumberOfLikes
             };
@@ -118,7 +119,7 @@ namespace YMovies.Web.Controllers
             {
                 moviesInfos.Add
                 (
-                    new MoviesInfo(){Id = movie.MovieId, Title = movie.Title, PosterUrl = movie.PosterUrl,
+                    new MoviesInfo(){Id = movie.MediaId, Title = movie.Title, PosterUrl = movie.PosterUrl,
                         ImdbRating = movie.ImdbRating, Genres = movie.Genres}
                 );
             }
@@ -145,41 +146,41 @@ namespace YMovies.Web.Controllers
 
         public async Task<ActionResult> Details(int id)
         {
-            MovieWebDto movie = movieWebService.GetItem(id);
+            MediaWebDto movie = movieWebService.GetItem(id);
             return View(movie);
         }
 
         public async Task<ActionResult> TopMovieDetails(int filmid, string imdbId)
         {
-            MovieWebDto movie;
+            MediaWebDto movie;
             if (filmid != 0)
             {
                 movie = movieWebService.GetItem(filmid);
-                return View(movie);
             }
             else
             {
                 APIworkerIMDB imdb = new APIworkerIMDB();
                 var films = await imdb.MovieOrSeriesInfo(imdbId);
 
-                movie = new MovieWebDto()
+                movie = new MediaWebDto()
                 {
                     Title = films.Title,
                     Year = films.Year,
                     PosterUrl = films.Image,
-                    Plot = films.Plot
+                    Plot = films.Plot,
+                    ImdbRating = typesConvertor.StringToDecimal(films.IMDbRating)
                 };
             }
-            return View(movie);
+            return View("TopMovieDetails",movie);
         }
 
         public async Task<ActionResult> FilterInclude(string action, int countryId)
         {
 
-            List<MovieWebDto> newMovies = new List<MovieWebDto>();
+            List<MediaWebDto> newMovies = new List<MediaWebDto>();
             if (Session["Movies"] != null)
             {
-                newMovies  = Session["Movies"] as List<MovieWebDto>;
+                newMovies  = Session["Movies"] as List<MediaWebDto>;
             }
 
             var updatedmovies = newMovies.Select(m=>m.Countries.Where(p=>p.Id==countryId));
@@ -200,10 +201,10 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> FilterExclude(int countryId)
         {
 
-            List<MovieWebDto> newMovies = new List<MovieWebDto>();
+            List<MediaWebDto> newMovies = new List<MediaWebDto>();
             if (Session["Movies"] != null)
             {
-                newMovies = Session["Movies"] as List<MovieWebDto>;
+                newMovies = Session["Movies"] as List<MediaWebDto>;
             }
 
             //newMovies = movies.Movies.Where(p => countries.Any(p2 => countryId == p.Id)).ToList();
