@@ -7,6 +7,7 @@
 <script type='text/javascript' src="//code.jquery.com/jquery-1.8.2.js"></script>
 
 <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css">
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 <style type="text/css">
     /* body {
@@ -80,7 +81,7 @@
 </div>
 <link href="~/Content/MainPage.css" rel="stylesheet" />
 
-@foreach (var film in Model.MoviesInfo)
+@foreach (var film in ViewBag.OnePageOfMovies)
 {
 
 <div class="movie-card">
@@ -94,14 +95,17 @@
             <a href="#">
                 <h3 class="movie-title">
                     @film.Title
-            </h3>
-        </a>
-    </div>
-    <div class="movie-info">
-        <div class="info-section">
-            <label>IMDb Rating</label>
-            <span>@film.ImdbRating</span>
+                </h3>
+            </a>
+        </div>
+        <div class="movie-info">
+            <div class="info-section">
+                <label>IMDb Rating</label>
+                <span>@film.ImdbRating</span>
+            </div>
         </div>
     </div>
-</div>
 </div>}
+Page @(ViewBag.OnePageOfMovies.PageCount < ViewBag.OnePageOfMovies.PageNumber ? 0 : ViewBag.OnePageOfMovies.PageNumber) of @ViewBag.OnePageOfMovies.PageCount
+@Html.PagedListPager(Model.MoviePageList, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

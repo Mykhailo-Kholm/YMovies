@@ -109,7 +109,7 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> Index(int? page, string action)
         {
 
-            var pageSize = 8;
+            var pageSize = 7;
             var pageNumber = page ?? 1;
             List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
             if (Request.UrlReferrer != null)
@@ -136,8 +136,9 @@ namespace YMovies.Web.Controllers
                 Genres = genreWebService.Items,
                 Types = typeWebService.Items.DistinctBy(t => t.Name),
                 Years = movieWebService.Items.OrderBy(m => m.Year).Select(m => m.Year).Distinct().ToList(),
-                MoviesInfo = moviesInfos
-            };
+                MoviesInfo = moviesInfos,
+                MoviePageList = moviesInfos.ToPagedList(pageNumber, pageSize)
+        };
             if (Session["Movies"] != null)
             {
                 movieViewModel.MoviesInfo = Session["Movies"] as List<MoviesInfo>;
