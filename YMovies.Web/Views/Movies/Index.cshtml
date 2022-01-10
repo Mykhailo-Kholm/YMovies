@@ -7,6 +7,7 @@
 <script type='text/javascript' src="//code.jquery.com/jquery-1.8.2.js"></script>
 
 <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css">
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 <style type="text/css">
     /* body {
@@ -78,43 +79,33 @@
     @Html.Partial("_YearsPartial", Model.Years)
     @Html.Partial("_TypesPartial", Model.Types)
 </div>
-    <table>
-        @{ var counter = 1; }
-        <tr>
-            @foreach (var item in Model.MoviesInfo)
-            {
-<td>
-    <div>
-        <div align="center">
-            @item.Title
-        </div>
-        <div>
-            <a href="@Url.Action("Details", "Movies", new {id = item.Id})">
-                <img src="@Html.Raw(item.PosterUrl)" alt="a description of the image" height=" 250" width="200">
+<link href="~/Content/MainPage.css" rel="stylesheet" />
+
+@foreach (var film in ViewBag.OnePageOfMovies)
+{
+
+<div class="movie-card">
+    <div class="movie-header theDarkTower">
+        <a href="@Url.Action("Details", "Movies", new {filmid = film.Id, imdbid=film.ImdbId})">
+            <img src="@Html.Raw(film.PosterUrl)" class="movie-header theDarkTower">
+        </a>
+    </div><!--movie-header-->
+    <div class="movie-content">
+        <div class="movie-content-header">
+            <a href="#">
+                <h3 class="movie-title">
+                    @film.Title
+                </h3>
             </a>
         </div>
-        <div align="center">
-            <span>ImdbRating: @item.ImdbRating</span>
-        </div>
-        <div align="center">
-            <span>Genres:</span>
-            @foreach (var genre in item.Genres)
-            {
-<span>@genre.Name</span>}
-
+        <div class="movie-info">
+            <div class="info-section">
+                <label>IMDb Rating</label>
+                <span>@film.ImdbRating</span>
+            </div>
         </div>
     </div>
-</td>
- if (counter % 5 == 0)
-{
-@:</tr>
-@:<tr>
-}
-counter++;
-}
-        </tr>
-    </table>
-
-    Page @(Model.MoviePageList.PageCount < Model.MoviePageList.PageNumber ? 0 : Model.MoviePageList.PageNumber) of @Model.MoviePageList.PageCount
-    @Html.PagedListPager(Model.MoviePageList, page => Url.Action("Index",
-            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>}
+Page @(ViewBag.OnePageOfMovies.PageCount < ViewBag.OnePageOfMovies.PageNumber ? 0 : ViewBag.OnePageOfMovies.PageNumber) of @ViewBag.OnePageOfMovies.PageCount
+@Html.PagedListPager(Model.MoviePageList, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

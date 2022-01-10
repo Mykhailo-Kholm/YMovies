@@ -20,7 +20,6 @@ namespace YMovies.Web.App_Start
             CreateMap<Country, CountryWebDto>().ReverseMap();
             CreateMap<Genre, GenreWebDto>().ReverseMap();
             CreateMap<Season, SeasonWebDto>().ReverseMap();
-            CreateMap<Media, SeriesWebDto>().ReverseMap();
         }
     }
 }
