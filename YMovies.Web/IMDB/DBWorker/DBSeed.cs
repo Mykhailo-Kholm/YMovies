@@ -30,7 +30,7 @@ namespace YMovies.Web.IMDB.DBWorker
                 return;
             }
 
-            var media = await aPIworkerIMDB.MovieOrSeriesInfo(imdbId);
+            var media = await aPIworkerIMDB.MovieOrSeriesInfoAsync(imdbId);
 
             if(media.Type == null || media.TvEpisodeInfo != null)
             {
@@ -150,6 +150,10 @@ namespace YMovies.Web.IMDB.DBWorker
                 sb.Append(m);
             }
             string number = sb.ToString();
+            if (number.Length == 1)
+            {
+                number += "0";
+            }
             decimal n = Convert.ToDecimal(number);
 
             return n;

@@ -28,19 +28,24 @@ namespace YMovies.MovieDbService.Repositories.Repository
             return movie;
         }
 
-        public Media GetMostPopular()
+        public List<Media> GetMostLiked()
         {
-            throw new System.NotImplementedException();
+            var mediaList = _context.Medias.OrderByDescending(gp => gp.NumberOfLikes)
+                                                                                    .Take(100)
+                                                                                    .ToList();
+            return mediaList;
         }
 
-        public Media GetMediaByTitle(string title)
+        public List<Media> GetMediaByTitle(string title)
         {
-            throw new System.NotImplementedException();
+            var mediaList = _context.Medias.Where(t => t.Title.ToLower().Contains(title.ToLower())).ToList();
+            return mediaList;
         }
 
-        public Media GetMediaByParams(string genre, string country, string year, string type)
+        public List<Media> GetMediaByParams(string genre, string country, string year, string type)
         {
-            throw new System.NotImplementedException();
+            var mediaList = _context.Medias.Where((g, y) => g.Genres.Contains(new Genre() { Name = genre }));
+            return null;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TODO
         }
 
         public void AddItem(Media item)
@@ -105,6 +110,12 @@ namespace YMovies.MovieDbService.Repositories.Repository
             if (movie == null) return;
             _context.Medias.Remove(movie);
             _context.SaveChanges();
+        }
+
+        public List<Media> GetOneHundredMediaRandom()
+        {
+            var media = _context.Medias.OrderBy(r => System.Guid.NewGuid()).Take(100).ToList();
+            return media;
         }
     }
 }
