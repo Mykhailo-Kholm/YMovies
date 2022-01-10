@@ -17,7 +17,6 @@ namespace YMovies.Web.Controllers
 {
     public class MoviesController : Controller
     {
-
         //public static List<Country> countries = new List<Country>()
         //{
         //    new Country()
