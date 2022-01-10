@@ -64,6 +64,10 @@
     <Compile Include="Migrations\202201081743272_ReInit.designer.cs">
       <DependentUpon>202201081743272_ReInit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201102128474_ChangeIdTypeUser.cs" />
+    <Compile Include="Migrations\202201102128474_ChangeIdTypeUser.designer.cs">
+      <DependentUpon>202201102128474_ChangeIdTypeUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cast.cs" />
     <Compile Include="Models\Country.cs" />
@@ -122,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201081743272_ReInit.resx">
       <DependentUpon>202201081743272_ReInit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201102128474_ChangeIdTypeUser.resx">
+      <DependentUpon>202201102128474_ChangeIdTypeUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
