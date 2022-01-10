@@ -14,7 +14,7 @@ namespace YMovies.MovieDbService.Services.Service
         public CountryService(CountryRepository repository) => _repository = repository;
 
         private static readonly MapperConfiguration Config =
-            new MapperConfiguration(cfg => cfg.CreateMap<Country, CountryDto>());
+            new MapperConfiguration(cfg => cfg.CreateMap<Country, CountryDto>().ReverseMap());
 
         private readonly Mapper _mapper = new Mapper(Config);
         public IEnumerable<CountryDto> Items => _mapper.Map<IEnumerable<Country>, IEnumerable<CountryDto>>(_repository.Items);
