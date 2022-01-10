@@ -23,7 +23,9 @@ namespace YMovies.Web.Controllers
             var temp = _userService.GetAllUsersFromIdentity().ToList();
 
             //ISeed dbseed = new DBSeed();
+            //await dbseed.AddMovieByImbdId("tt2699128");
             //await dbseed.AddMediaByExpression("car");
+            //await dbseed.AddMovieByImbdId("tt0468569");
             return RedirectToAction("Index", "Movies");
         }
         private UserService _userService;
@@ -46,7 +48,7 @@ namespace YMovies.Web.Controllers
         {
             APIworkerIMDB imdb = new APIworkerIMDB();
 
-            ViewData["MovieReport"] = await imdb.ReportForMovie(id);
+            ViewData["MovieReport"] = await imdb.ReportForMovieAsync(id);
 
             return View("MockFilm");
         }

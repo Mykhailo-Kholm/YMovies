@@ -413,7 +413,7 @@ namespace YMovies.Web.Controllers
             else
             {
                 APIworkerIMDB imdb = new APIworkerIMDB();
-                var films = await imdb.MovieOrSeriesInfo(imdbId);
+                var films = await imdb.MovieOrSeriesInfoAsync(imdbId);
 
                 movie = new MovieWebDto()
                 {
