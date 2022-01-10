@@ -1,38 +1,38 @@
 ﻿@model YMovies.Web.ViewModels.TopImdbViewModel
+@using PagedList
 @using PagedList.Mvc;
 
-<table>
-    @{ var counter = 1; }
-    <tr>
-        @foreach (var film in Model.Movies)
-        {
-            <td>
-                <div>
-                    <div align="center">
-                        @film.Title
-                    </div>
-                    <div>
-                        <a href="@Url.Action("TopMovieDetails", "Movies", new { filmid = film.Id, imdbid=film.ImdbId})">
-                            <img src="@Html.Raw(film.PosterUrl)" alt="a description of the image" height=" 250" width="200">
-                        </a>
-</div>
-                    <div align="center">
-                        <span>ImdbRating: @film.ImdbRating</span>
-                    </div>
-                </div>
-            </td>
-            if (counter % 5 == 0)
-            {
-            @:</tr>
-                @:<tr>
-            }
-            counter++;
-        }
-    </tr>
-</table>
 
-Page @(Model.MoviePageList.PageCount < Model.MoviePageList.PageNumber ? 0 : Model.MoviePageList.PageNumber) of @Model.MoviePageList.PageCount
+<link href="~/Content/MainPage.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@foreach (var film in ViewBag.OnePageOfMovies)
+{
+                
+    <div class="movie-card">
+        <div class="movie-header theDarkTower">
+            <a href="@Url.Action("TopMovieDetails", "Movies", new { filmid = film.Id, imdbid=film.ImdbId})">
+                <img src="@Html.Raw(film.PosterUrl)" class="movie-header theDarkTower">
+            </a>
+        </div><!--movie-header-->
+        <div class="movie-content">
+            <div class="movie-content-header">
+                <a href="#">
+                    <h3 class="movie-title">@film.Title
+                    </h3>
+                </a>
+            </div>
+            <div class="movie-info">
+                <div class="info-section">
+                    <label>IMDb Rating</label>
+                    <span>@film.ImdbRating</span>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+Page @(ViewBag.OnePageOfMovies.PageCount < ViewBag.OnePageOfMovies.PageNumber ? 0 : ViewBag.OnePageOfMovies.PageNumber) of @ViewBag.OnePageOfMovies.PageCount
 @Html.PagedListPager(Model.MoviePageList, page => Url.Action("TopByIMDb",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-
-

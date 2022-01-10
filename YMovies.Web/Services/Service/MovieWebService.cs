@@ -19,12 +19,16 @@ namespace YMovies.Web.Services.Service
         {
             cfg.CreateMap<Type, TypeWebDto>();
             cfg.CreateMap<Cast, CastWebDto>();
+            cfg.CreateMap<Season, SeasonWebDto>();
             cfg.CreateMap<Country, CountryWebDto>();
             cfg.CreateMap<Genre, GenreWebDto>();
             cfg.CreateMap<Media, MovieWebDto>();
         });
+        //static readonly MapperConfiguration Config = new MapperConfiguration(cfg => cfg.CreateMap<Media, MovieWebDto>()
+        //    .ForMember("Type", opt => opt.MapFrom(m => m.Type.Name)));
         private readonly Mapper _mapper = new Mapper(Config);
         public IEnumerable<MovieWebDto> Items => _mapper.Map<IEnumerable<Media>, IEnumerable<MovieWebDto>>(_repository.Items);
+
         public MovieWebDto GetItem(int id)
         {
             var movie = _repository.GetItem(id);

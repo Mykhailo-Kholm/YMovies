@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
@@ -220,7 +220,6 @@
     <Compile Include="Dtos\GenreWebDto.cs" />
     <Compile Include="Dtos\MovieWebDto.cs" />
     <Compile Include="Dtos\SeasonWebDto.cs" />
-    <Compile Include="Dtos\SeriesWebDto.cs" />
     <Compile Include="Dtos\TypeWebDto.cs" />
     <Compile Include="Dtos\UserWebDto.cs" />
     <Compile Include="IMDB\DBWorker\DBSeed.cs" />
@@ -251,7 +250,6 @@
     <Compile Include="Services\Service\ModelsConvertor.cs" />
     <Compile Include="Services\Service\MovieWebService.cs" />
     <Compile Include="Services\Service\SeasonWebService.cs" />
-    <Compile Include="Services\Service\SeriesWebService.cs" />
     <Compile Include="Services\Service\TypeWebService.cs" />
     <Compile Include="Services\Service\UserWebService.cs" />
     <Compile Include="Startup.cs" />
@@ -282,6 +280,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\MainPage.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Profiles.css" />
     <Content Include="Content\typeahead.css" />
@@ -428,7 +427,6 @@
     <Content Include="Views\Shared\_UserPartial.cshtml" />
     <Content Include="Views\Admin\FilmCreation.cshtml" />
     <Content Include="Scripts\typeahead.filmcreation.js" />
-    <Content Include="Views\Movies\Partial.cshtml" />
     <Content Include="Views\Movies\_CountriesPartial.cshtml" />
     <Content Include="Views\Movies\_GenresPartial.cshtml" />
     <Content Include="Views\Movies\_TypesPartial.cshtml" />
