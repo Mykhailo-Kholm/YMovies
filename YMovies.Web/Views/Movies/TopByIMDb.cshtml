@@ -5,7 +5,7 @@
 <link href="~/Content/MainPage.css" rel="stylesheet" />
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-@foreach (var film in ViewBag.OnePageOfMovies)
+@foreach (var film in ViewBag.OnePageOfTopMovies)
 {
                 
     <div class="movie-card">
@@ -32,6 +32,6 @@
 }
 
 
-Page @(ViewBag.OnePageOfMovies.PageCount < ViewBag.OnePageOfMovies.PageNumber ? 0 : ViewBag.OnePageOfMovies.PageNumber) of @ViewBag.OnePageOfMovies.PageCount
+Page @(ViewBag.OnePageOfTopMovies.PageCount < ViewBag.OnePageOfTopMovies.PageNumber ? 0 : ViewBag.OnePageOfTopMovies.PageNumber) of @ViewBag.OnePageOfTopMovies.PageCount
 @Html.PagedListPager(Model.MoviePageList, page => Url.Action("TopByIMDb",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

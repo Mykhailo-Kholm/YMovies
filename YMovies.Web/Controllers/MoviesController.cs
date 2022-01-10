@@ -96,7 +96,7 @@ namespace YMovies.Web.Controllers
                 Movies = moviesInfos,
             };
             var onePageOfMovies = moviesInfos.ToPagedList(pageNumber, pageSize);
-            ViewBag.OnePageOfMovies = onePageOfMovies;
+            ViewBag.OnePageOfTopMovies = onePageOfMovies;
             return View(topImdbViewModel);
         }
 
