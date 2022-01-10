@@ -35,6 +35,7 @@ namespace YMovies.Web.Controllers
                 return HttpContext.GetOwinContext().GetUserManager<IIdentityUserService>();
             }
         }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

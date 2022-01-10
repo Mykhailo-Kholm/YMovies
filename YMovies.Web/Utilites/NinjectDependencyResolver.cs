@@ -49,12 +49,18 @@ namespace Ymovies.Web.Utilities
 
             kernel.Bind(typeof(IRepository<Country>)).To(typeof(CountryRepository))
                                 .WithConstructorArgument("context", context);
-           
+
+            kernel.Bind(typeof(IService<TypeDto>)).To(typeof(TypeService))
+                .WithConstructorArgument("repository", new TypeRepository(context));
+
             kernel.Bind(typeof(IService<CountryDto>)).To(typeof(CountryService))
                 .WithConstructorArgument("repository", new CountryRepository(context));
 
             kernel.Bind(typeof(IService<CastDto>)).To(typeof(CastService))
                .WithConstructorArgument("repository", new CastRepository(context));
+
+            kernel.Bind(typeof(IService<MediaDto>)).To(typeof(MovieService))
+               .WithConstructorArgument("repository", new MovieRepository(context));
         }
     }
 }
