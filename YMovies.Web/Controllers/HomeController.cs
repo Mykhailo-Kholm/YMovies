@@ -23,8 +23,6 @@ namespace YMovies.Web.Controllers
             var temp = _userService.GetAllUsersFromIdentity().ToList();
 
             //ISeed dbseed = new DBSeed();
-            //await dbseed.AddMovieByImbdId("tt2699128");
-            //await dbseed.AddMediaByExpression("car");
             //await dbseed.AddMovieByImbdId("tt0468569");
             return RedirectToAction("Index", "Movies");
         }
