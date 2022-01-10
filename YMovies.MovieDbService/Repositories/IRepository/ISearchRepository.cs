@@ -2,7 +2,7 @@
 
 namespace YMovies.MovieDbService.Repositories.IRepository
 {
-    interface ISearchRepository:IRepository<Media>
+    public interface ISearchRepository:IRepository<Media>
     {
         Media GetItem(string id);
         Media GetMostPopular();

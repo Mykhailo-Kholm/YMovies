@@ -1,15 +1,11 @@
-﻿using System;
+﻿using IMDbApiLib.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
 using YMovies.MovieDbService.DatabaseContext;
-using YMovies.MovieDbService.Services.IService;
-using YMovies.MovieDbService.DTOs;
-using YMovies.MovieDbService.Services.Service;
-using IMDbApiLib.Models;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
@@ -19,7 +15,7 @@ namespace YMovies.Web.IMDB.DBWorker
     public class DBSeed : ISeed
     {
         private readonly MoviesContext _context;
-        private readonly IRepository<Media> _movieRepository;
+        private readonly ISearchRepository _movieRepository;
         private readonly APIworkerIMDB aPIworkerIMDB;
         public DBSeed()
         {
