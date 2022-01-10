@@ -73,10 +73,10 @@ namespace Ymovies.Identity.BLL.Services
                 });
         }
 
-        public async Task<UserDTO> GetUserByEmailAsync(string userEmal)
+        public UserDTO GetUserByEmail(string userEmal)
         {
-            var user = await DataBase.ApplicationUserManager
-                .FindByEmailAsync(userEmal);
+            var user = DataBase.ApplicationUserManager
+                .FindByEmail(userEmal);
             if (user == null)
                 return null;
             return new UserDTO
@@ -101,7 +101,7 @@ namespace Ymovies.Identity.BLL.Services
             return new OperationDetails(true, "", "");
         }
 
-        public async Task<OperationDetails> GiveAdminRightsByEmail(string userEmail)
+        public async Task<OperationDetails> ChangeUserAdminRightsByEmail(string userEmail)
         {
             var user = await DataBase.ApplicationUserManager
                 .FindByEmailAsync(userEmail);

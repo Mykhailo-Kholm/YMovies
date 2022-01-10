@@ -14,9 +14,9 @@ namespace YMovies.MovieDbService.Services.Service
         public MovieService(MovieRepository repository) => _repository = repository;
 
         static readonly MapperConfiguration Config = new MapperConfiguration(cfg => cfg.CreateMap<Media, MediaDto>()
-            .ForMember("Type", opt => opt.MapFrom(m => m.Type.Name)));
+            .ForMember("Type", opt => opt.MapFrom(m => m.Type.Name)).ReverseMap());
+        
         private readonly Mapper _mapper = new Mapper(Config);
-
         public IEnumerable<MediaDto> Items => _mapper.Map<IEnumerable<Media>, IEnumerable<MediaDto>>(_repository.Items);
         public MediaDto GetItem(int id)
         {

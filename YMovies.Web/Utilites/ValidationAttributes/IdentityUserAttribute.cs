@@ -18,7 +18,7 @@ namespace YMovies.Web.Utilites.ValidationAttributes
         {
             if (value == null)
                 return false;
-            return userService.GetUserByEmailAsync(value.ToString()) != null ? true : false;
+            return userService.GetUserByEmail(value.ToString()) == null ? false : true;
         }
     }
 }

@@ -7,10 +7,8 @@ namespace YMovies.Web.ViewModels
 {
     public class NewFilmViewModel
     {
-        public int MovieId { get; set; }
+        public int MovieId { get; set; }        
         
-        public string ImdbId { get; set; }
-
         [Required(ErrorMessage = "This field cannot be empty")]
         public string Title { get; set; }
 
@@ -32,16 +30,20 @@ namespace YMovies.Web.ViewModels
         public string BoxOffice { get; set; }
 
         [Required]
-        [RegularExpression("[0-9],[0-9]")]
+        [RegularExpression("[0-9](,[0-9])?", ErrorMessage = "This value isn't correct, should be in format 0,0")]
+        [Display(Name = "Rating on Imdb")]
         public decimal ImdbRating { get; set; }
 
+        [Required(ErrorMessage = "This field cannot be empty")]
+        public string Type { get; set; }
+        
         [Cast(ErrorMessage = "This field cannot be empty")]
         public ICollection<CastViewModel> Cast { get; set; }
 
         [Country(ErrorMessage = "This field cannot be empty")]
         public ICollection<CountryDto> Country { get; set; }
 
-        [Country(ErrorMessage = "This field cannot be empty")]
+        [Genres(ErrorMessage = "This field cannot be empty")]
         public ICollection<GenreDto> Genre { get; set; }
     }
 }
