@@ -24,7 +24,9 @@ namespace YMovies.Web.App_Start
             CreateMap<CastDto, CastViewModel>().
                 ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name + " " + src.Surname));
             CreateMap<NewFilmViewModel, MediaDto>()
-                .ForMember(dest => dest.Cast, opt => opt.Ignore());
+                .ForMember(dest => dest.Cast, opt => opt.Ignore())
+                .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genre))
+                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Country));
             CreateMap<UserDTO, ManageUserRightsViewModel>().
                 ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name + " " + src.SecondName));
             CreateMap<Cast, CastWebDto>().ReverseMap();

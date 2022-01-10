@@ -21,30 +21,10 @@ namespace YMovies.Web.Controllers.Api
         }
 
         private IService<CountryDto> _countriesService;
-
-        IEnumerable<CountryDto> tempData = new List<CountryDto>
-        {
-            new CountryDto
-            {
-                Id = 1,
-                Name = "Ukraine"
-            },
-            new CountryDto
-            {
-                Id = 2,
-                Name = "Poland"
-            },
-            new CountryDto
-            {
-                Id = 3,
-                Name = "United Kindom"
-            },
-        };
-
+       
         public IEnumerable<CountryDto> GetCountries(string query = null)
         {
-            //var resultList = _countriesService.Items.AsQueryable();
-            var resultList = tempData;
+            var resultList = _countriesService.Items.AsQueryable();
                             
             if (!string.IsNullOrWhiteSpace(query))
                 resultList = resultList.Where(r => r.Name.Contains(query));

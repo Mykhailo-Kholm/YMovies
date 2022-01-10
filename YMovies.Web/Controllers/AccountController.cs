@@ -108,11 +108,11 @@ namespace YMovies.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public ActionResult ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await IdentityUserService.GetUserByEmailAsync(model.Email);
+                var user = IdentityUserService.GetUserByEmail(model.Email);
                 if (user != null)
                 {
                     return View("ResetPassword");
@@ -126,7 +126,7 @@ namespace YMovies.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await IdentityUserService.GetUserByEmailAsync(model.Email);
+                var user = IdentityUserService.GetUserByEmail(model.Email);
                 if (user != null)
                 {
                     var resultDetails = await IdentityUserService.ResetPasswordAsync(model.Email, model.Password);

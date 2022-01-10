@@ -19,30 +19,10 @@ namespace YMovies.Web.Controllers.Api
         }
         
         private IService<GenreDto> _genresService;
-
-        IEnumerable<GenreDto> tempData = new List<GenreDto>
-        {
-            new GenreDto
-            {
-                Id = 1,
-                Name = "Detecti"
-            },
-            new GenreDto
-            {
-                Id = 2,
-                Name = "Genr2"
-            },
-            new GenreDto
-            {
-                Id = 3,
-                Name = "Thriller"
-            },
-        };
-
+        
         public IEnumerable<GenreDto> GetGenres(string query = null)
         {
-            //var resultList = _countriesService.Items.AsQueryable();
-            var resultList = tempData;
+            var resultList = _genresService.Items.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(query))
                 resultList = resultList.Where(r => r.Name.Contains(query));

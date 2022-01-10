@@ -18,7 +18,7 @@
 
                     <div class="mb-3">
                         @Html.LabelFor(m => m.Title, new { @class = "form-label" })
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
                         </div>
@@ -26,15 +26,15 @@
 
                     <div class="mb-3">
                         @Html.LabelFor(m => m.Plot, new { @class = "form-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Plot, new { @class = "form-control" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(m => m.Plot, new { @class = "form-control", @rows = "3" })
                             @Html.ValidationMessageFor(m => m.Plot, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="mb-3">
                         @Html.LabelFor(m => m.PosterUrl, new { @class = "form-label" })
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             @Html.TextBoxFor(m => m.PosterUrl, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.PosterUrl, "", new { @class = "text-danger" })
                         </div>
@@ -42,7 +42,7 @@
 
                     <div class="mb-3">
                         @Html.LabelFor(m => m.Year, new { @class = "form-label" })
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.Year, "", new { @class = "text-danger" })
                         </div>
@@ -50,7 +50,7 @@
 
                     <div class="mb-3">
                         @Html.LabelFor(m => m.ImdbRating, new { @class = "form-label" })
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             @Html.TextBoxFor(m => m.ImdbRating, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.ImdbRating, "", new { @class = "text-danger" })
                         </div>
@@ -58,7 +58,7 @@
 
                     <div class="mb-3">
                         @Html.LabelFor(m => m.Budget, new { @class = "form-label" })
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             @Html.TextBoxFor(m => m.Budget, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.Budget, "", new { @class = "text-danger" })
                         </div>
@@ -66,43 +66,52 @@
 
                     <div class="mb-3">
                         @Html.LabelFor(m => m.BoxOffice, new { @class = "form-label" })
-                        <div class="col-md-4">
+                        <div class="col-md-8">
                             @Html.TextBoxFor(m => m.BoxOffice, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.BoxOffice, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="mb-3">
+                        @Html.LabelFor(m => m.Type, new { @class = "form-label" })
+                        <div class="col-md-8">
+                            <div class="dropdown">
+                                @Html.DropDownListFor(m => m.Type, new SelectList(ViewBag.Types, "Name", "Name"), "Select type of media", new { @class = "form-control"})
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
                         @Html.LabelFor(m => m.Cast, new { @class = "form-label" })
-                        <div class="col-md-10">
-                            <input type="text" value="" class="form-control" id="actor">
+                        <div class="col-md-8">
+                            <div class="tt-container">
+                                <input type="text" value="" class="form-control" id="actor">
+                            </div>
                             @Html.ValidationMessageFor(m => m.Cast, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <div class="col-md-4">
-                            <ul id="actors" class="list-group">
-                                @if (Model.Cast != null)
-                                {
-                                    for (int i = 0; i < Model.Cast.Count; i++)
-                                    {
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="Cast[@i]" name="Cast[@i].id" value="@Model.Cast.ElementAt(i).Id"
-                                                   checked="checked" />
-                                            <label class="form-check-label" for="Cast[@i]">@Model.Cast.ElementAt(i).Name</label>
-                                            <input type="hidden" name="Cast[@i].name" value="@Model.Cast.ElementAt(i).Name" />
-                                        </div>
-                                    }
-                                }
-                            </ul>
-                        </div>
-                    </div>
+                    <ul id="actors" class="list-group">
+                        @if (Model.Cast != null)
+                        {
+                            for (int i = 0; i < Model.Cast.Count; i++)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="Cast[@i]" name="Cast[@i].id" value="@Model.Cast.ElementAt(i).Id"
+                                           checked="checked" />
+                                    <label class="form-check-label" for="Cast[@i]">@Model.Cast.ElementAt(i).Name</label>
+                                    <input type="hidden" name="Cast[@i].name" value="@Model.Cast.ElementAt(i).Name" />
+                                </div>
+                            }
+                        }
+                    </ul>
 
                     <div class="mb-3">
                         @Html.LabelFor(m => m.Country, new { @class = "form-label" })
-                        <div class="col-md-10">
-                            <input type="text" value="" class="form-control" id="countryInput">
+                        <div class="col-md-8">
+                            <div class="tt-container">
+                                <input type="text" value="" class="form-control" id="countryInput">
+                            </div>
                             @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -124,8 +133,10 @@
 
                     <div class="mb-3">
                         @Html.LabelFor(m => m.Genre, new { @class = "form-label" })
-                        <div class="col-md-10">
-                            <input type="text" value="" class="form-control" id="genreInput">
+                        <div class="col-md-8">
+                            <div class="tt-container">
+                                <input type="text" value="" class="form-control" id="genreInput">
+                            </div>
                             @Html.ValidationMessageFor(m => m.Genre, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -138,8 +149,8 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="Genre[@i]" name="Genre[@i].id" value="@Model.Genre.ElementAt(i).Id"
                                            checked="checked" />
-                                    <label class="form-check-label" for="Country[@i]">@Model.Genre.ElementAt(i).Name</label>
-                                    <input type="hidden" name="Country[@i].name" value="@Model.Genre.ElementAt(i).Name" />
+                                    <label class="form-check-label" for="Genre[@i]">@Model.Genre.ElementAt(i).Name</label>
+                                    <input type="hidden" name="Genre[@i].name" value="@Model.Genre.ElementAt(i).Name" />
                                 </div>
                             }
                         }
@@ -183,21 +194,20 @@
             }).on("typeahead:select", function (e, actor) {
 
                 countActors = $("#actors").children().length;
-                console.log(countActors);
 
                 $("#actors").append('<div class="form-check">' +
                     '<input class="form-check-input" type="checkbox" id="Cast[' + countActors + ']" name="Cast[' + countActors + '].id" value="" />'
                     + '<label class="form-check-label" id="CastLabel[' + countActors + ']"></label>'
-                    + '<input type="hidden" id="CastName[' + countActors + ']" name="Cast[' + countActors + '].name" value=""/>' +
-                    + '</div>'
+                    + '<input type="hidden" id="CastName[' + countActors + ']" name="Cast[' + countActors + '].name" value="" /></div>'
                 );
 
-                var inputID = document.getElementById('Cast[' + countActors + ']')
-                var inputName = document.getElementById('CastName[' + countActors + ']')
-                var label = document.getElementById('CastLabel[' + countActors + ']')
-                inputID.value = actor.id
-                inputName.value = actor.name
-                label.innerHTML = actor.name
+                var inputID = document.getElementById('Cast[' + countActors + ']');
+                var inputName = document.getElementById('CastName[' + countActors + ']');
+                var label = document.getElementById('CastLabel[' + countActors + ']');
+                inputID.value = actor.id;
+                inputName.value = actor.name;
+                label.innerHTML = actor.name;
+                $(".form-check").text = "";
                 $("#actor").typeahead('val', '');
             });
 
@@ -218,15 +228,14 @@
                 name: 'countries',
                 display: 'name',
                 source: countries
-            }).on("typeahead:select", function (e, coundActorsry) {
+            }).on("typeahead:select", function (e, countries) {
 
                 j = $("#countries").children().length;
 
-                $("#countries").append(('<div class="form-check">' +
+                $("#countries").append('<div class="form-check">' +
                     '<input class="form-check-input" type="checkbox" id="Country[' + j + ']" name="Country[' + j + '].id" value="" />'
                     + '<label class="form-check-label" id="CountryLabel[' + j + ']"></label>'
-                    + '<input type="hidden" id="CountryInput[' + j + ']" name="Country[' + j + '].name" value=""/>' +
-                    + '</div>'
+                    + '<input type="hidden" id="CountryInput[' + j + ']" name="Country[' + j + '].name" value=""/></div>'
                 );
 
                 var inputID = document.getElementById('Country[' + j + ']')
@@ -255,14 +264,13 @@
                 name: 'gerne',
                 display: 'name',
                 source: genre
-            }).on("typeahead:select", function (e, coundActorsry) {
+            }).on("typeahead:select", function (e, genre) {
 
                 genresCount = $("#genres").children().length;
                 $("#genres").append('<div class="form-check">' +
                     '<input class="form-check-input" type="checkbox" id="Genre[' + genresCount + ']" name="Genre[' + genresCount + '].id" value="" />'
                     + '<label class="form-check-label" id="GenreLabel[' + genresCount + ']"></label>'
-                    + '<input type="hidden" id="GenreInput[' + genresCount + ']" name="Genre[' + genresCount + '].name" value=""/>' +
-                    + '</div>'
+                    + '<input type="hidden" id="GenreInput[' + genresCount + ']" name="Genre[' + genresCount + '].name" value=""/></div>'
                 );
 
                 var inputID = document.getElementById('Genre[' + genresCount + ']')

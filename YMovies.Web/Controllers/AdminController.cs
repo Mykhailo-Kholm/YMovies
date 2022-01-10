@@ -20,13 +20,13 @@ namespace YMovies.Web.Controllers
     {
         readonly IService<MediaDto> _moviesService;
         readonly IService<CastDto> _castsService;
-        readonly IService<GenreDto> _genresService;
+        readonly IService<TypeDto> _typesService;
 
-        public AdminController(IService<MediaDto> moviesService, IService<CastDto> castsService, IService<GenreDto> genresService)
+        public AdminController(IService<MediaDto> moviesService, IService<CastDto> castsService, IService<TypeDto> typesService)
         {
             _moviesService = moviesService;
             _castsService = castsService;
-            _genresService = genresService;
+            _typesService = typesService;
         }
 
         public IIdentityUserService UserManager
@@ -43,31 +43,28 @@ namespace YMovies.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(FindUserViewModel findModel)
+        public ActionResult Edit(FindUserViewModel findModel)
         {
             if (!ModelState.IsValid)
                 return View("Find", findModel);
-            var user = await UserManager.GetUserByEmailAsync(findModel.Email);
+            var user = UserManager.GetUserByEmail(findModel.Email);
             var model = AutoMap.Mapper.Map<UserDTO, ManageUserRightsViewModel>(user);
             return View(model);
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult> ConfirmEdit(string userId, string roles)
-        //{
-        //    var user = await UserManager.FindByIdAsync(userId);
-        //    var userRole = user.Roles.First();
-        //    var role = await RoleManager.FindByIdAsync(userRole.RoleId);
+        [HttpPost]
+        public async Task<ActionResult> ConfirmEdit(string email, bool? adminRights)
+        {            
+            if (adminRights.Value)
+                await UserManager.ChangeUserAdminRightsByEmail(email);
 
-        //    await UserManager.RemoveFromRoleAsync(userId, role.Name);
-        //    await UserManager.AddToRoleAsync(userId, roles);
-
-        //    return RedirectToAction("Index", "Home", null);
-        //}
-
+            return RedirectToAction("Index", "Home", null);
+        }
+        
         [HttpGet]
         public ActionResult CreateFilm()
         {
+            ViewBag.Types = _typesService.Items.ToList();
             return View("FilmCreation", new NewFilmViewModel());
         }
 
@@ -75,7 +72,10 @@ namespace YMovies.Web.Controllers
         public ActionResult CreateFilm(NewFilmViewModel model)
         {
             if (!ModelState.IsValid)
+            {
+                ViewBag.Types = _typesService.Items.ToList();
                 return View("FilmCreation", model);
+            }
 
             UpdateFields(model);
             var mediaDto = AutoMap.Mapper.Map<MediaDto>(model);
@@ -85,7 +85,7 @@ namespace YMovies.Web.Controllers
         }
 
         private ICollection<CastDto> GetAllActors(ICollection<CastViewModel> castsModel)
-            => castsModel.Select(m => _castsService.GetItem(m.Id)).ToList();
+            => castsModel.Select(m => _castsService.GetItem(m.Id)).ToList() ?? null;
 
         private void UpdateFields(NewFilmViewModel model)
         {
