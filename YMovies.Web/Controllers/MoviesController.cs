@@ -2,13 +2,16 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using IMDbApiLib.Models;
 using Microsoft.Ajax.Utilities;
 using PagedList;
 using YMovies.MovieDbService.DatabaseContext;
+using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.Repository;
 using YMovies.Web.Dtos;
 using YMovies.Web.DTOs;
 using YMovies.Web.IMDB;
+using YMovies.Web.IMDB.DBWorker;
 using YMovies.Web.Services.Service;
 using YMovies.Web.TempModels;
 using YMovies.Web.ViewModels;
@@ -146,9 +149,28 @@ namespace YMovies.Web.Controllers
             return View(movieViewModel);
         }
 
-        public async Task<ActionResult> Details(int id)
+        public async Task<ActionResult> Details(int filmid, string imdbId)
         {
-            MediaWebDto movie = movieWebService.GetItem(id);
+            MediaWebDto movie;
+            if (filmid != 0)
+            {
+                movie = movieWebService.GetItem(filmid);
+            }
+            else
+            {
+                APIworkerIMDB imdb = new APIworkerIMDB();
+                var films = await imdb.MovieOrSeriesInfo(imdbId);
+                DBSeed dbSeed = new DBSeed();
+                movie = dbSeed.MapMovieTWebDtotoDtoFromImdb(films);
+                //movie = new MediaWebDto()
+                //{
+                //    Title = films.Title,
+                //    Year = films.Year,
+                //    PosterUrl = films.Image,
+                //    Plot = films.Plot,
+                //    ImdbRating = typesConvertor.StringToDecimal(films.IMDbRating)
+                //};
+            }
             return View(movie);
         }
 
@@ -163,15 +185,16 @@ namespace YMovies.Web.Controllers
             {
                 APIworkerIMDB imdb = new APIworkerIMDB();
                 var films = await imdb.MovieOrSeriesInfo(imdbId);
-
-                movie = new MediaWebDto()
-                {
-                    Title = films.Title,
-                    Year = films.Year,
-                    PosterUrl = films.Image,
-                    Plot = films.Plot,
-                    ImdbRating = typesConvertor.StringToDecimal(films.IMDbRating)
-                };
+                DBSeed dbSeed = new DBSeed();
+                movie = dbSeed.MapMovieTWebDtotoDtoFromImdb(films);
+                //movie = new MediaWebDto()
+                //{
+                //    Title = films.Title,
+                //    Year = films.Year,
+                //    PosterUrl = films.Image,
+                //    Plot = films.Plot,
+                //    ImdbRating = typesConvertor.StringToDecimal(films.IMDbRating)
+                //};
             }
             return View("TopMovieDetails",movie);
         }

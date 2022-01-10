@@ -15,7 +15,42 @@
         Year: @Model.Year
     </span>
 </div>
+<div>
+    <span>
+        Genres:
+        @foreach (var genre in Model.Genres)
+        {
+            <span> @genre.Name</span>
+        }
+    </span>
+</div>
+<div>
+    <span>
+        Type: @Model.Type.Name
 
+    </span>
+</div>
+<div>
+    <span>
+        Countries:
+        @foreach (var country in Model.Countries)
+        {
+            <span>
+                @country.Name </span>
+        }
+    </span>
+</div>
+<div>
+    <span>
+        Cast:
+        @foreach (var cast in Model.Cast)
+        {
+            <span>
+                @cast.Name @cast.Surname
+            </span>
+        }
+    </span>
+</div>
 <div>
     <span>
         Plot: @Model.Plot
