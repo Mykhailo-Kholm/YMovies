@@ -129,5 +129,28 @@ namespace YMovies.Web.IMDB
             var data = await apiLib.YouTubeTrailerAsync(id);
             return "https://www.youtube.com/embed/" + data.VideoId;
         }
+        /// <summary>
+        /// Получает самые популярные фильмы
+        /// </summary>
+        /// <returns>Task&lt;List&lt;MostPopularDataDetail&gt;&gt;</returns>
+        public async Task<List<MostPopularDataDetail>> GetMostWatchedAsync()
+        {
+            var data = await apiLib.MostPopularMoviesAsync();
+            return data.Items;
+        }
+        /// <summary>
+        /// получить 100 фильмов текущего года
+        /// </summary>
+        /// <returns>Task&lt;List&lt;AdvancedSearchResult&gt;&gt;</returns>
+        public async Task<List<AdvancedSearchResult>> GetNewFilmsAsync()
+        {
+            var data = await apiLib.AdvancedSearchAsync(
+                new AdvancedSearchInput()
+                {
+                    Count = AdvancedSearchCount.Hundred,
+                    ReleaseDateFrom = DateTime.Today.Year.ToString()
+                });
+            return data.Results;
+        }
     }
 }
