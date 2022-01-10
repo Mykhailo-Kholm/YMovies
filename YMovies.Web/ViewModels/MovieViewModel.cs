@@ -9,7 +9,6 @@ namespace YMovies.Web.ViewModels
 {
     public class MovieViewModel
     {
-        public IPagedList<MoviesInfo> MoviePageList { get; set; }
         public List<MoviesInfo> MoviesInfo { get; set; }
         public IEnumerable<CountryWebDto> Countries { get; set; }
         public IEnumerable<GenreWebDto> Genres { get; set; }

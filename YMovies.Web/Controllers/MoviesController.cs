@@ -61,7 +61,7 @@ namespace YMovies.Web.Controllers
             var films = movieWebService.Items.OrderByDescending(m => m.NumberOfLikes);
             var topImdbViewModel = new TopImdbViewModel()
             {
-                MoviePageList = convertor.ConvertToMoviesInfo(films).ToPagedList(pageNumber, pageSize),
+                //MoviePageList = convertor.ConvertToMoviesInfo(films).ToPagedList(pageNumber, pageSize),
                 Movies = convertor.ConvertToMoviesInfo(films),
             };
             return View("TopByIMDb",topImdbViewModel);
@@ -76,9 +76,8 @@ namespace YMovies.Web.Controllers
 
         public async Task<ActionResult> TopByIMDb(int? page)
         {
-            var pageSize = 50;
+            var pageSize = 8;
             int pageNumber = (page ?? 1);
-            TopImdbViewModel topImdbViewModel;
             List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
             var movies = movieWebService.Items.OrderByDescending(m => m.ImdbRating).Take(250).ToList();
             if (movies.Count() == 0)
@@ -91,11 +90,13 @@ namespace YMovies.Web.Controllers
             {
                 moviesInfos = convertor.ConvertToMoviesInfo(movies);
             }
-            topImdbViewModel = new TopImdbViewModel()
+            var topImdbViewModel = new TopImdbViewModel()
             {
                 MoviePageList = moviesInfos.ToPagedList(pageNumber, pageSize),
                 Movies = moviesInfos,
             };
+            var onePageOfMovies = moviesInfos.ToPagedList(pageNumber, pageSize);
+            ViewBag.OnePageOfMovies = onePageOfMovies;
             return View(topImdbViewModel);
         }
 
@@ -108,7 +109,7 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> Index(int? page, string action)
         {
        
-            var pageSize = 10;
+            var pageSize = 8;
             var pageNumber = page ?? 1;
             List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
             if (Request.UrlReferrer != null)
@@ -125,7 +126,6 @@ namespace YMovies.Web.Controllers
             }
             var movieViewModel = new MovieViewModel()
             {
-                MoviePageList = moviesInfos.ToPagedList(pageNumber, pageSize),
                 Countries = countryWebService.Items,
                 Genres = genreWebService.Items,
                 Types = typeWebService.Items.DistinctBy(t=>t.Name),
@@ -140,6 +140,8 @@ namespace YMovies.Web.Controllers
             {
                 movieViewModel.MoviesInfo = moviesInfos;
             }
+            var onePageOfMovies = moviesInfos.ToPagedList(pageNumber, pageSize);
+            ViewBag.OnePageOfMovies = onePageOfMovies;
             //Session["Countries"] = countries;
             return View(movieViewModel);
         }

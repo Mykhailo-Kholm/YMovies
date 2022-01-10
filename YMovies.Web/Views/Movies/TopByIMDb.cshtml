@@ -1,10 +1,12 @@
 ﻿@model YMovies.Web.ViewModels.TopImdbViewModel
+@using PagedList
 @using PagedList.Mvc;
 
 
 <link href="~/Content/MainPage.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-@foreach (var film in Model.Movies)
+@foreach (var film in ViewBag.OnePageOfMovies)
 {
                 
     <div class="movie-card">
@@ -31,8 +33,8 @@
 }
 
 
-@*Page @(Model.MoviePageList.PageCount < Model.MoviePageList.PageNumber ? 0 : Model.MoviePageList.PageNumber) of @Model.MoviePageList.PageCount
+Page @(ViewBag.OnePageOfMovies.PageCount < ViewBag.OnePageOfMovies.PageNumber ? 0 : ViewBag.OnePageOfMovies.PageNumber) of @ViewBag.OnePageOfMovies.PageCount
 @Html.PagedListPager(Model.MoviePageList, page => Url.Action("TopByIMDb",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
 
