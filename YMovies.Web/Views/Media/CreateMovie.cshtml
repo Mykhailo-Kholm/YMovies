@@ -1,16 +1,14 @@
 ﻿@model YMovies.Web.ViewModels.NewFilmViewModel
 
-@{
-    ViewBag.Title = "View";
-}
+@{ ViewBag.Title = "View"; }
 <link rel="stylesheet" href="~/Content/typeahead.css" />
 
 <div class="container">
     <div class="row">
         <div class="col-6">
-            @using (Html.BeginForm("CreateFilm", "Admin", FormMethod.Post))
+            @using (Html.BeginForm("CreateFilm", "Media", FormMethod.Post))
             {
-                @Html.AntiForgeryToken()
+@Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
                     <h4>Create Film</h4>
@@ -65,10 +63,26 @@
                     </div>
 
                     <div class="mb-3">
-                        @Html.LabelFor(m => m.BoxOffice, new { @class = "form-label" })
+                        @Html.LabelFor(m => m.Companies, new { @class = "form-label" })
                         <div class="col-md-8">
-                            @Html.TextBoxFor(m => m.BoxOffice, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.BoxOffice, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(m => m.Companies, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Companies, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.WeekFees, new { @class = "form-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.WeekFees, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.WeekFees, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.GlobalFees, new { @class = "form-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.GlobalFees, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.GlobalFees, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -96,13 +110,12 @@
                         {
                             for (int i = 0; i < Model.Cast.Count; i++)
                             {
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="Cast[@i]" name="Cast[@i].id" value="@Model.Cast.ElementAt(i).Id"
-                                           checked="checked" />
-                                    <label class="form-check-label" for="Cast[@i]">@Model.Cast.ElementAt(i).Name</label>
-                                    <input type="hidden" name="Cast[@i].name" value="@Model.Cast.ElementAt(i).Name" />
-                                </div>
-                            }
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="Cast[@i]" name="Cast[@i].id" value="@Model.Cast.ElementAt(i).Id"
+                   checked="checked" />
+            <label class="form-check-label" for="Cast[@i]">@Model.Cast.ElementAt(i).Name</label>
+            <input type="hidden" name="Cast[@i].name" value="@Model.Cast.ElementAt(i).Name" />
+        </div>}
                         }
                     </ul>
 
@@ -121,13 +134,12 @@
                         {
                             for (int i = 0; i < Model.Country.Count; i++)
                             {
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="Country[@i]" name="Country[@i].id" value="@Model.Country.ElementAt(i).Id"
-                                           checked="checked" />
-                                    <label class="form-check-label" for="Country[@i]">@Model.Country.ElementAt(i).Name</label>
-                                    <input type="hidden" name="Country[@i].name" value="@Model.Country.ElementAt(i).Name" />
-                                </div>
-                            }
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="Country[@i]" name="Country[@i].id" value="@Model.Country.ElementAt(i).Id"
+                   checked="checked" />
+            <label class="form-check-label" for="Country[@i]">@Model.Country.ElementAt(i).Name</label>
+            <input type="hidden" name="Country[@i].name" value="@Model.Country.ElementAt(i).Name" />
+        </div>}
                         }
                     </ul>
 
@@ -146,13 +158,12 @@
                         {
                             for (int i = 0; i < Model.Genre.Count; i++)
                             {
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="Genre[@i]" name="Genre[@i].id" value="@Model.Genre.ElementAt(i).Id"
-                                           checked="checked" />
-                                    <label class="form-check-label" for="Genre[@i]">@Model.Genre.ElementAt(i).Name</label>
-                                    <input type="hidden" name="Genre[@i].name" value="@Model.Genre.ElementAt(i).Name" />
-                                </div>
-                            }
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="Genre[@i]" name="Genre[@i].id" value="@Model.Genre.ElementAt(i).Id"
+                   checked="checked" />
+            <label class="form-check-label" for="Genre[@i]">@Model.Genre.ElementAt(i).Name</label>
+            <input type="hidden" name="Genre[@i].name" value="@Model.Genre.ElementAt(i).Name" />
+        </div>}
                         }
                     </ul>
 
@@ -161,8 +172,7 @@
                             <input type="submit" value="Create" class="btn btn-primary" />
                         </div>
                     </div>
-                </div>
-            }
+                </div>}
         </div>
     </div>
 </div>
@@ -179,7 +189,7 @@
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 remote: {
-                    url: '/cast/actors?query=%QUERY',
+                    url: '/cast/casts?query=%QUERY',
                     wildcard: '%QUERY'
                 }
             });
@@ -216,7 +226,7 @@
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 remote: {
-                    url: '/api/countries?query=%QUERY',
+                    url: '/country/countries?query=%QUERY',
                     wildcard: '%QUERY'
                 }
             });
@@ -252,7 +262,7 @@
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 remote: {
-                    url: '/api/genres?query=%QUERY',
+                    url: '/genre/genres?query=%QUERY',
                     wildcard: '%QUERY'
                 }
             });

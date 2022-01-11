@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Services.IService;
@@ -36,7 +34,8 @@ namespace YMovies.Web.Controllers.EntitiesContollers
 
         public ActionResult Create()
         {
-            return View();
+            ViewBag.Types = _typesService.Items;
+            return View("CreateMovie", new NewFilmViewModel());
         }
 
         [HttpPost]
@@ -44,27 +43,41 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Types = _typesService.Items.ToList();
-                return View("CreateFilm", model);
+                ViewBag.Types = _typesService.Items;
+                return View("CreateMovie", model);
             }
 
             UpdateFields(model);
-            var mediaDto = AutoMap.Mapper.Map<MediaDto>(model);
-            mediaDto.Cast = GetAllActors(model.Cast);
+            var mediaDto = Convert(model);
             _moviesService.AddItem(mediaDto);
             return RedirectToAction("Index", "Home");
         }
-                
-        public ActionResult Edit(int id)
+
+        public ActionResult Edit(int? id)
         {
-            
-            return View();
+            if (id == null)
+                return HttpNotFound();
+            var movie = _moviesService.GetItem(id.Value);
+            if (movie.Type.Name.Equals("TVSeries"))
+                return View();
+            var model = AutoMap.Mapper.Map<NewFilmViewModel>(movie);
+            return View("EditFilm", model);
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult EditMovies(NewFilmViewModel model)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Types = _typesService.Items.ToList();
+                return View("CreateFilm", model);
+            }
+            UpdateFields(model);
+            var mediaDto = AutoMap.Mapper.Map<MediaDto>(model);
+            mediaDto.Cast = GetAllActors(model.Cast);
+            _moviesService.UpdateItem(mediaDto);
+            return RedirectToAction("Index", "Home");
+
         }
 
         public ActionResult Delete(int id)
@@ -73,19 +86,46 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         }
 
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int? id)
         {
-           
+            if (id == null)
+                return HttpNotFound();
+            var movie = _moviesService.GetItem(id.Value);
+            _moviesService.DeleteItem(movie);
+            return RedirectToAction("Index", "Home");
         }
 
         private ICollection<CastDto> GetAllActors(ICollection<CastViewModel> castsModel)
             => castsModel.Select(m => _castsService.GetItem(m.Id)).ToList() ?? null;
+        
+        private TypeDto GetType(string name) 
+            => _typesService.Items.Where(t => t.Name == name).FirstOrDefault();
+
+
+        private MediaDto Convert(NewFilmViewModel model) =>
+            new MediaDto
+            {
+                Title = model.Title,
+                Plot = model.Plot,
+                PosterUrl = model.PosterUrl,
+                ImdbRating = model.ImdbRating,
+                WeekFees = model.WeekFees,
+                Year = model.Year,
+                GlobalFees = model.GlobalFees,
+                Companies = model.Companies,
+                Budget = model.Budget,
+                Type = GetType(model.Type),
+                Cast = GetAllActors(model.Cast),
+                Countries = model.Country,
+                Genres = model.Genre,
+            };
 
         private void UpdateFields(NewFilmViewModel model)
         {
             model.Cast = UpdateFields(model.Cast);
             model.Country = UpdateFields(model.Country);
             model.Genre = UpdateFields(model.Genre);
+
         }
 
         private ICollection<CastViewModel> UpdateFields(ICollection<CastViewModel> cast) =>
