@@ -71,7 +71,7 @@ namespace YMovies.Web.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = moviesDtos.Count()
+                    TotalItems = films.Count()
                 }
             };
             return View("MostLiked", movieViewModel);
@@ -96,7 +96,7 @@ namespace YMovies.Web.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = moviesDtos.Count
+                    TotalItems = films.Count
                 }
             };
             return View("MostWatched", movieViewModel);
@@ -127,7 +127,7 @@ namespace YMovies.Web.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = moviesDtos.Count
+                    TotalItems = topmovies.Count
                 }
             };
             return View(movieViewModel);
