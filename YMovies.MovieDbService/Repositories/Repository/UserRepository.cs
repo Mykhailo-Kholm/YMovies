@@ -18,6 +18,11 @@ namespace YMovies.MovieDbService.Repositories.Repository
             var user = _context.Users.FirstOrDefault(u => u.Id == id);
             return user;
         }
+        public User GetItem(string id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.IdentityId == id);
+            return user;
+        }
 
         public void AddItem(User item)
         {

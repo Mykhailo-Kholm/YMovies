@@ -7,22 +7,27 @@ namespace YMovies.MovieDbService.Services.Service
 {
     public class LikesService
     {
-        private readonly IRepository<Media> _mediaRepository;
-        private readonly IRepository<User> _userRepository;
+        private readonly MovieRepository _mediaRepository;
+        private readonly UserRepository _userRepository;
 
         public LikesService(MoviesContext context)
         {
             _mediaRepository = new MovieRepository(context);
             _userRepository = new UserRepository(context);
         }
-        public void LikedMediaByUser(int userId, int mediaId)
+        public bool LikedMediaByUser(string userId, int mediaId)
         {
             var user = _userRepository.GetItem(userId);
             var media = _mediaRepository.GetItem(mediaId);
-            user.LikedMedias.Add(media);
-            _userRepository.UpdateItem(user);
+            if (!user.LikedMedias.Contains(media))
+            {
+                user.LikedMedias.Add(media);
+                _userRepository.UpdateItem(user);
+                LikeMedia(mediaId);
+                return true;
+            }
+            return false;
         }
-
         public void LikeMedia(int id)
         {
             var media = _mediaRepository.GetItem(id);
