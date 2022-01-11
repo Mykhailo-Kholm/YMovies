@@ -231,6 +231,7 @@
     <Compile Include="Dtos\UserWebDto.cs" />
     <Compile Include="IMDB\DBWorker\DBSeed.cs" />
     <Compile Include="IMDB\DBWorker\Interfaces\ISeed.cs" />
+    <Compile Include="Models\EntityViewModels\CastsViewModel.cs" />
     <Compile Include="Models\FilmCreationViewModels\NewFilmViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
@@ -261,7 +262,7 @@
     <Compile Include="ViewModels\MovieGenreViewModel.cs" />
     <Compile Include="ViewModels\MovieModel.cs" />
     <Compile Include="Dtos\UserDto.cs" />
-    <Compile Include="Utilites\AutoMap.cs" />
+    <Compile Include="Utilites\AutoMapperWeb.cs" />
     <Compile Include="Models\IndexPageViewModels\MovieViewModel.cs" />
     <Compile Include="ViewModels\TopImdbViewModel.cs" />
   </ItemGroup>

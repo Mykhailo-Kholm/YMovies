@@ -59,7 +59,7 @@ namespace YMovies.Web.Controllers
                 .Take(pageSize)
                 .ToList();
 
-            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+            var movies = AutoMapperWeb.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
 
             var movieViewModel = new MovieViewModel()
             {
@@ -79,7 +79,7 @@ namespace YMovies.Web.Controllers
             APIworkerIMDB imdb = new APIworkerIMDB();
             var films = await imdb.GetMostWatchedMovies();
 
-            var movies = AutoMap.Mapper.Map<IEnumerable<MostPopularDataDetail>, List<IndexMediaViewModel>>(films);
+            var movies = AutoMapperWeb.Mapper.Map<IEnumerable<MostPopularDataDetail>, List<IndexMediaViewModel>>(films);
             movies = movies
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -106,7 +106,7 @@ namespace YMovies.Web.Controllers
             {
                 APIworkerIMDB imdb = new APIworkerIMDB();
                 var films = await imdb.GetTop250MoviesAsync();
-                topmovies = AutoMap.Mapper.Map<IEnumerable<Top250DataDetail>, List<MediaDto>>(films);
+                topmovies = AutoMapperWeb.Mapper.Map<IEnumerable<Top250DataDetail>, List<MediaDto>>(films);
             }
 
             var moviesDtos = topmovies
@@ -114,7 +114,7 @@ namespace YMovies.Web.Controllers
                 .Take(pageSize)
                 .ToList();
 
-            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+            var movies = AutoMapperWeb.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
 
             var movieViewModel = new MovieViewModel()
             {
@@ -136,7 +136,7 @@ namespace YMovies.Web.Controllers
                 .Take(pageSize)
                 .ToList();
 
-            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+            var movies = AutoMapperWeb.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
 
             var movieViewModel = new MovieViewModel()
             {
@@ -161,7 +161,7 @@ namespace YMovies.Web.Controllers
                 .Take(pageSize)
                 .ToList();
 
-            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+            var movies = AutoMapperWeb.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
 
             var movieViewModel = new MovieViewModel()
             {

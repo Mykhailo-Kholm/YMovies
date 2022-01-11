@@ -14,19 +14,7 @@ namespace YMovies.MovieDbService.Services.Service
     {
         private readonly IRepository<Media> _repository;
         public MovieService(MovieRepository repository) => _repository = repository;
-        private static readonly MapperConfiguration Config = new MapperConfiguration(cfg =>
-        {
-            cfg.CreateMap<Type, TypeDto>();
-            cfg.CreateMap<Cast, CastDto>();
-            cfg.CreateMap<Season, SeasonDto>();
-            cfg.CreateMap<Country, CountryDto>();
-            cfg.CreateMap<Genre, GenreDto>();
-            cfg.CreateMap<Media, MediaDto>();
-        });
-        //static readonly MapperConfiguration Config = new MapperConfiguration(cfg => cfg.CreateMap<Media, MediaDto>()
-        //    .ForMember("Type", opt => opt.MapFrom(m => m.Type.Name)).ReverseMap());
-        private readonly Mapper _mapper = new Mapper(Config);
-
+        
         private IEnumerable<MediaDto> data;
 
         public IEnumerable<MediaDto> Items
@@ -34,7 +22,7 @@ namespace YMovies.MovieDbService.Services.Service
             get
             {
                 if (data == null)
-                    data = _mapper.Map<IEnumerable<Media>, IEnumerable<MediaDto>>(_repository.Items);
+                    data = AutoMap.Mapper.Map<IEnumerable<Media>, List<MediaDto>>(_repository.Items);
                 return data;
             }
         }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using YMovies.MovieDbService.Models;
 
 namespace YMovies.MovieDbService.DTOs
 {
