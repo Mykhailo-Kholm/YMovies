@@ -9,6 +9,7 @@ using Ymovies.Identity.BLL.Interfaces;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Services.IService;
 using YMovies.Web.Models.AdminViewModels;
+using YMovies.Web.Utilites;
 using YMovies.Web.Utilities;
 using YMovies.Web.ViewModels;
 
@@ -17,16 +18,7 @@ namespace YMovies.Web.Controllers
 
     public class AdminController : Controller
     {
-        readonly IService<MediaDto> _moviesService;
-        readonly IService<CastDto> _castsService;
-        readonly IService<TypeDto> _typesService;
-
-        public AdminController(IService<MediaDto> moviesService, IService<CastDto> castsService, IService<TypeDto> typesService)
-        {
-            _moviesService = moviesService;
-            _castsService = castsService;
-            _typesService = typesService;
-        }
+       
 
         public IIdentityUserService UserManager
         {
@@ -34,6 +26,16 @@ namespace YMovies.Web.Controllers
             {
                 return HttpContext.GetOwinContext().GetUserManager<IIdentityUserService>();
             }
+        }
+        
+        [HttpGet]
+        public string Users(string query = null)
+        {
+            var userDto = UserManager.GetAllUsers();
+            var viewModels = AutoMap.Mapper.Map<IEnumerable<UserDTO>, List<FindUserViewModel>>(userDto);
+            if (!string.IsNullOrWhiteSpace(query))
+                viewModels = viewModels.Where(u => u.Email.Contains(query)).ToList();
+            return TypeConverter.ToJson(viewModels);
         }
 
         public ActionResult Find()
@@ -67,37 +69,6 @@ namespace YMovies.Web.Controllers
             return View("FilmCreation", new NewFilmViewModel());
         }
 
-        [HttpPost]
-        public ActionResult CreateFilm(NewFilmViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.Types = _typesService.Items.ToList();
-                return View("FilmCreation", model);
-            }
 
-            UpdateFields(model);
-            var mediaDto = AutoMap.Mapper.Map<MediaDto>(model);
-            mediaDto.Cast = GetAllActors(model.Cast);
-            _moviesService.AddItem(mediaDto);
-            return RedirectToAction("Index", "Home");
-        }
-
-        private ICollection<CastDto> GetAllActors(ICollection<CastViewModel> castsModel)
-            => castsModel.Select(m => _castsService.GetItem(m.Id)).ToList() ?? null;
-
-        private void UpdateFields(NewFilmViewModel model)
-        {
-            model.Cast = UpdateFields(model.Cast);
-            model.Country = UpdateFields(model.Country);
-            model.Genre = UpdateFields(model.Genre);
-        }
-
-        private ICollection<CastViewModel> UpdateFields(ICollection<CastViewModel> cast) =>
-                 cast != null ? cast.Where(c => c.Id != 0).ToList() : null;
-        private ICollection<GenreDto> UpdateFields(ICollection<GenreDto> genres) =>
-                    genres != null ? genres.Where(c => c.Id != 0).ToList() : null;
-        private ICollection<CountryDto> UpdateFields(ICollection<CountryDto> countries) =>
-                    countries != null ? countries.Where(c => c.Id != 0).ToList() : null;
     }
 }

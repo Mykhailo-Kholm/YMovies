@@ -41,6 +41,8 @@ namespace YMovies.Web.App_Start
                 .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Country));
             CreateMap<UserDTO, ManageUserRightsViewModel>().
                 ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name + " " + src.SecondName));
+            CreateMap<UserDTO, FindUserViewModel>()
+                .ReverseMap();
             CreateMap<MediaDto, IndexMediaViewModel>()
                 .ReverseMap();
         }
