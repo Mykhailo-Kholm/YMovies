@@ -6,11 +6,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using YMovies.MovieDbService.DatabaseContext;
+using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
 using YMovies.Web.Dtos;
 using YMovies.Web.DTOs;
+using UserDto = YMovies.MovieDbService.DTOs.UserDto;
 
 namespace YMovies.Web.IMDB.DBWorker
 {
@@ -134,77 +136,75 @@ namespace YMovies.Web.IMDB.DBWorker
             return movie;
         }
 
-        //public MediaDto MapMovieTWebDtotoDtoFromImdb(TitleData imdbModel)
-        //{
-        //    var movie = new MediaDto
-        //    {
-        //        ImdbId = imdbModel.Id,
-        //        Title = imdbModel.Title,
-        //        PosterUrl = imdbModel.Image,
-        //        Year = imdbModel.Year,
-        //        Plot = imdbModel.Plot,
-        //        Companies = imdbModel.Companies,
-        //        WeekFees = imdbModel.BoxOffice.OpeningWeekendUSA,
-        //        GlobalFees = imdbModel.BoxOffice.CumulativeWorldwideGross,
-        //        Type = new YMovies.Web.Dtos.TypeWebDto(),
-        //        Cast = new List<CastWebDto>(),
-        //        Genres = new List<GenreWebDto>(),
-        //        Countries = new List<CountryWebDto>(),
-        //        UsersLiked = new List<UserWebDto>(),
-        //        UsersWatched = new List<UserWebDto>(),
-        //        Seasons = new List<SeasonWebDto>()
-        //    };
+        public MediaDto MapMovieDtoToDtoFromImdb(TitleData imdbModel)
+        {
+            var movie = new MediaDto
+            {
+                ImdbId = imdbModel.Id,
+                Title = imdbModel.Title,
+                PosterUrl = imdbModel.Image,
+                Year = imdbModel.Year,
+                Plot = imdbModel.Plot,
+                Companies = imdbModel.Companies,
+                WeekFees = imdbModel.BoxOffice.OpeningWeekendUSA,
+                GlobalFees = imdbModel.BoxOffice.CumulativeWorldwideGross,
+                Type = new TypeDto(),
+                Cast = new List<CastDto>(),
+                Genres = new List<GenreDto>(),
+                Countries = new List<CountryDto>(),
+                UsersLiked = new List<UserDto>(),
+                UsersWatched = new List<UserDto>(),
+                Seasons = new List<SeasonDto>()
+            };
 
-        //    movie.Type.Name = imdbModel.Type;
-        //    if (imdbModel.TvSeriesInfo != null)
-        //    {
-        //        foreach (var imdbSeason in imdbModel.TvSeriesInfo.Seasons)
-        //        {
-        //            movie.Seasons.Add(new SeasonWebDto() { Name = imdbSeason });
-        //        }
-        //    };
+            movie.Type.Name = imdbModel.Type;
+            if (imdbModel.TvSeriesInfo != null)
+            {
+                foreach (var imdbSeason in imdbModel.TvSeriesInfo.Seasons)
+                {
+                    movie.Seasons.Add(new SeasonDto() { Name = imdbSeason });
+                }
+            };
 
-        //    movie.Budget = GetDecimal(imdbModel.BoxOffice.Budget);
+            movie.Budget = GetDecimal(imdbModel.BoxOffice.Budget);
 
-        //    movie.ImdbRating = GetDecimal(imdbModel.IMDbRating);
+            movie.ImdbRating = GetDecimal(imdbModel.IMDbRating);
 
-        //    if (imdbModel.ActorList != null)
-        //    {
-        //        foreach (var actor in imdbModel.ActorList)
-        //        {
-        //            movie.Cast.Add(new CastDto()
-        //            {
-        //                Name = actor.Name,
-        //                PictureUrl = actor.Image
-        //            });
-        //        }
-        //    }
+            if (imdbModel.StarList != null)
+            {
+                foreach (var star in imdbModel.StarList)
+                {
+                    movie.Cast.Add(new CastDto()
+                    {
+                        Name = star.Name
+                    });
+                }
+            }
 
-        //    if (imdbModel.CountryList != null)
-        //    {
-        //        foreach (var country in imdbModel.CountryList)
-        //        {
-        //            movie.Countries.Add(new CountryDto()
-        //            {
-        //                Name = country.Value
-        //            });
-        //        }
-        //    }
+            if (imdbModel.CountryList != null)
+            {
+                foreach (var country in imdbModel.CountryList)
+                {
+                    movie.Countries.Add(new CountryDto()
+                    {
+                        Name = country.Value
+                    });
+                }
+            }
 
-        //    if (imdbModel.GenreList != null)
-        //    {
-        //        foreach (var genre in imdbModel.GenreList)
-        //        {
-        //            movie.Genres.Add(new GenreDto()
-        //            {
-        //                Name = genre.Value
-        //            });
-        //        }
-        //    }
+            if (imdbModel.GenreList != null)
+            {
+                foreach (var genre in imdbModel.GenreList)
+                {
+                    movie.Genres.Add(new GenreDto()
+                    {
+                        Name = genre.Value
+                    });
+                }
+            }
 
-        //    return movie;
-        //}
-
+            return movie;
+        }
 
         private decimal GetDecimal(string budget)
         {

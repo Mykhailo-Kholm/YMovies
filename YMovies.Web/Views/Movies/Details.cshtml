@@ -1,5 +1,5 @@
 ﻿@using Microsoft.Ajax.Utilities
-@model YMovies.Web.DTOs.MovieWebDto
+@model YMovies.MovieDbService.DTOs.MediaDto
 
 @{
     ViewBag.Title = "MovieDetails";
@@ -47,7 +47,7 @@
         @foreach (var cast in Model.Cast)
         {
         <span>
-            @cast.Name @cast.Surname
+            @cast.Name
     </span>
             }
         </span>

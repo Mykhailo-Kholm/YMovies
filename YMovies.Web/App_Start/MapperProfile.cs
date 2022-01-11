@@ -15,6 +15,7 @@ namespace YMovies.Web.App_Start
     {
         public MapperProfile()
         {
+            MovieDbService.Utilities.AutoMap.RegisterMapping();
             CreateMap<Type, TypeWebDto>().ReverseMap();
             CreateMap<Media, MovieWebDto>()
                 .ForMember(prt=>prt.Type, opt => opt.MapFrom(m => m.Type.Name))
@@ -23,7 +24,7 @@ namespace YMovies.Web.App_Start
                 ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
                 .ReverseMap();
             CreateMap<CastDto, CastViewModel>().
-                ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name + " " + src.Surname));
+                ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name + " "));
             CreateMap<NewFilmViewModel, MediaDto>()
                 .ForMember(dest => dest.Cast, opt => opt.Ignore())
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genre))

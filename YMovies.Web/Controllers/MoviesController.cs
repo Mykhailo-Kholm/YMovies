@@ -109,20 +109,16 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> Index(int page = 1)
         {
             //var moviesInfos = new List<IndexMediaViewModel>();
-            var stopWatch = new Stopwatch();
-            stopWatch.Start();
             var moviesDtos = _movieService.Items
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-            stopWatch.Stop();
-            var result = stopWatch.Elapsed;
 
-            //var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
 
             var movieViewModel = new MovieViewModel()
             {
-                Movies = new List<IndexMediaViewModel>(),
+                Movies = movies,
                 Pagination = new PaginationInfo
                 {
                     CurrentPage = page,
@@ -143,30 +139,22 @@ namespace YMovies.Web.Controllers
             return View(movieViewModel);
         }
 
-        //public async Task<ActionResult> Details(int filmid, string imdbId)
-        //{
-        //    MediaDto movie;
-        //    if (filmid != 0)
-        //    {
-        //        movie = _movieService.GetItem(filmid);
-        //    }
-        //    else
-        //    {
-        //        APIworkerIMDB imdb = new APIworkerIMDB();
-        //        var films = await imdb.MovieOrSeriesInfo(imdbId);
-        //        //DBSeed dbSeed = new DBSeed();
-        //        //movie = dbSeed.MapMovieTWebDtotoDtoFromImdb(films);
-        //        //movie = new MediaWebDto()
-        //        //{
-        //        //    Title = films.Title,
-        //        //    Year = films.Year,
-        //        //    PosterUrl = films.Image,
-        //        //    Plot = films.Plot,
-        //        //    ImdbRating = typesConvertor.StringToDecimal(films.IMDbRating)
-        //        //};
-        //    }
-        //    return View(movie);
-        //}
+        public async Task<ActionResult> Details(int filmid, string imdbId)
+        {
+            MediaDto movie;
+            if (filmid != 0)
+            {
+                movie = _movieService.GetItem(filmid);
+            }
+            else
+            {
+                APIworkerIMDB imdb = new APIworkerIMDB();
+                var film = await imdb.MovieOrSeriesInfoAsync(imdbId);
+                DBSeed dbSeed = new DBSeed();
+                movie = dbSeed.MapMovieDtoToDtoFromImdb(film);
+            }
+            return View(movie);
+        }
 
         public async Task<ActionResult> TopMovieDetails(int filmid, string imdbId)
         {
@@ -178,7 +166,7 @@ namespace YMovies.Web.Controllers
             else
             {
                 APIworkerIMDB imdb = new APIworkerIMDB();
-                var films = await imdb.MovieOrSeriesInfo(imdbId);
+                var films = await imdb.MovieOrSeriesInfoAsync(imdbId);
                 DBSeed dbSeed = new DBSeed();
                 movie = new MediaDto();
                 //movie = dbSeed.MapMovieTWebDtotoDtoFromImdb(films);
