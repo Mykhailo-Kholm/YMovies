@@ -1,18 +1,17 @@
-﻿using System.Collections.Generic;
-using IMDbApiLib.Models;
+﻿using IMDbApiLib.Models;
+using System.Collections.Generic;
 using YMovies.MovieDbService.DTOs;
-using YMovies.Web.DTOs;
-using YMovies.Web.Models.MoviesInfoViewModel;
-using YMovies.Web.TempModels;
 
 namespace YMovies.Web.Services.Service
 {
     public class ModelsConvertor
     {
         private List<MediaDto> _moviesInfos;
+        private TypesConvertor _convertor;
 
         public List<MediaDto> ConvertToMoviesInfo(List<Top250DataDetail> films)
         {
+            _convertor = new TypesConvertor();
             _moviesInfos = new List<MediaDto>();
             foreach (var movie in films)
             {
@@ -23,7 +22,7 @@ namespace YMovies.Web.Services.Service
                         ImdbId = movie.Id,
                         Title = movie.Title,
                         PosterUrl = movie.Image,
-                        //ImdbRating = movie.IMDbRating,
+                        ImdbRating = _convertor.ConvertTDecimal(movie.IMDbRating)
                     }
                 );
             }
@@ -32,6 +31,7 @@ namespace YMovies.Web.Services.Service
 
         public List<MediaDto> ConvertToMediaDtos(List<MostPopularDataDetail> films)
         {
+            _convertor = new TypesConvertor();
             _moviesInfos = new List<MediaDto>();
             foreach (var movie in films)
             {
@@ -42,7 +42,7 @@ namespace YMovies.Web.Services.Service
                         ImdbId = movie.Id,
                         Title = movie.Title,
                         PosterUrl = movie.Image,
-                        //ImdbRating = movie.IMDbRating,
+                        ImdbRating = _convertor.ConvertTDecimal(movie.IMDbRating)
                     }
                 );
             }

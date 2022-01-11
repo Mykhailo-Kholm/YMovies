@@ -254,6 +254,7 @@
     <Compile Include="Services\Service\ModelsConvertor.cs" />
     <Compile Include="Services\Service\MovieWebService.cs" />
     <Compile Include="Services\Service\SeasonWebService.cs" />
+    <Compile Include="Services\Service\TypesConvertor.cs" />
     <Compile Include="Services\Service\TypeWebService.cs" />
     <Compile Include="Services\Service\UserWebService.cs" />
     <Compile Include="Utilites\Pagination\PaginationInfo.cs" />
@@ -448,6 +449,8 @@
     <Content Include="Views\Cast\Details.cshtml" />
     <Content Include="Views\Cast\Edit.cshtml" />
     <Content Include="Views\Cast\Index.cshtml" />
+    <Content Include="Views\Movies\MostWatched.cshtml" />
+    <Content Include="Views\Movies\MostLiked.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
