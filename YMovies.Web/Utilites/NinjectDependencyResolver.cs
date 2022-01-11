@@ -1,12 +1,8 @@
 ﻿using Ninject;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Ymovies.Identity.BLL.Interfaces;
-using Ymovies.Identity.BLL.Services;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.DTOs;
-using YMovies.MovieDbService.Models;
-using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
 using YMovies.MovieDbService.Services.IService;
 using YMovies.MovieDbService.Services.Service;
@@ -36,7 +32,7 @@ namespace Ymovies.Web.Utilities
         private void AddBindings()
         {
             var context = new MoviesContext();
-            
+
             kernel.Bind(typeof(IService<TypeDto>)).To(typeof(TypeService))
                 .WithConstructorArgument("repository", new TypeRepository(context));
 
@@ -46,7 +42,7 @@ namespace Ymovies.Web.Utilities
             kernel.Bind(typeof(IService<CastDto>)).To(typeof(CastService))
                .WithConstructorArgument("repository", new CastRepository(context));
 
-            kernel.Bind(typeof(IService<MediaDto>)).To(typeof(MovieService))
+            kernel.Bind(typeof(IService<MediaDto>)).To(typeof(MovieService)).InSingletonScope()
                .WithConstructorArgument("repository", new MovieRepository(context));
         }
     }

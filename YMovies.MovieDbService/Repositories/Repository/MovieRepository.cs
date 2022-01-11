@@ -21,6 +21,10 @@ namespace YMovies.MovieDbService.Repositories.Repository
         public Media GetItem(int id)
         {
             var movie = _context.Medias.FirstOrDefault(m => m.MediaId == id);
+
+            var list = Items.ToList();
+
+            
             return movie;
         }
 

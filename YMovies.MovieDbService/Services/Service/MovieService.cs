@@ -27,14 +27,14 @@ namespace YMovies.MovieDbService.Services.Service
 
         private readonly Mapper _mapper = new Mapper(Config);
 
-        private List<MediaDto> data;
+        private IEnumerable<MediaDto> data;
 
         public IEnumerable<MediaDto> Items
         {
             get
             {
                 if (data == null)
-                    data = _mapper.Map<IEnumerable<Media>, IEnumerable<MediaDto>>(_repository.Items).ToList();
+                    data = _mapper.Map<IEnumerable<Media>, IEnumerable<MediaDto>>(_repository.Items);
                 return data;
             }
         }
