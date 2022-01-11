@@ -54,18 +54,28 @@ namespace YMovies.Web.Controllers
             return RedirectToAction("Details", id);
         }
 
-        //public async Task<ActionResult> MostLiked(int? page)
-        //{
-        //    var pageSize = 50;
-        //    int pageNumber = (page ?? 1);
-        //    var films = _movieService.Items.OrderByDescending(m => m.NumberOfLikes);
-        //    var topImdbViewModel = new TopImdbViewModel()
-        //    {
-        //        //MoviePageList = convertor.ConvertToMoviesInfo(films).ToPagedList(pageNumber, pageSize),
-        //        Movies = _convertor.ConvertToMoviesInfo(films),
-        //    };
-        //    return View("TopByIMDb", topImdbViewModel);
-        //}
+        public async Task<ActionResult> MostLiked(int page = 1)
+        {
+            var films = _movieService.Items.OrderByDescending(m => m.NumberOfLikes);
+            var moviesDtos = films
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+
+            var movieViewModel = new MovieViewModel()
+            {
+                Movies = movies,
+                Pagination = new PaginationInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = 10
+                }
+            };
+            return View("TopByIMDb", movieViewModel);
+        }
 
         public async Task<ActionResult> MostWatched(int? page)
         {
@@ -173,16 +183,7 @@ namespace YMovies.Web.Controllers
                 APIworkerIMDB imdb = new APIworkerIMDB();
                 var films = await imdb.MovieOrSeriesInfoAsync(imdbId);
                 DBSeed dbSeed = new DBSeed();
-                movie = new MediaDto();
                 movie = dbSeed.MapMovieDtoToDtoFromImdb(films);
-                //movie = new MediaWebDto()
-                //{
-                //    Title = films.Title,
-                //    Year = films.Year,
-                //    PosterUrl = films.Image,
-                //    Plot = films.Plot,
-                //    ImdbRating = typesConvertor.StringToDecimal(films.IMDbRating)
-                //};
             }
             return View("TopMovieDetails", movie);
         }
