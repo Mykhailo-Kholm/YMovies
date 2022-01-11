@@ -76,8 +76,6 @@ namespace YMovies.Web.Controllers
 
         public async Task<ActionResult> TopByIMDb(int page = 1)
         {
-            
-            //List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
             var topmovies = _movieService.Items.OrderByDescending(m => m.ImdbRating).Take(250).ToList();
           
             if (topmovies.Count() == 0)
@@ -86,15 +84,11 @@ namespace YMovies.Web.Controllers
                 var films = await imdb.GetTop250MoviesAsync();
                 topmovies = _convertor.ConvertToMoviesInfo(films);
             }
-            else
-            {
-                //moviesInfos = _convertor.ConvertToMoviesInfo(movies);
-            }
+
             var moviesDtos = topmovies
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-
 
             var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
 
@@ -180,7 +174,7 @@ namespace YMovies.Web.Controllers
                 var films = await imdb.MovieOrSeriesInfoAsync(imdbId);
                 DBSeed dbSeed = new DBSeed();
                 movie = new MediaDto();
-                //movie = dbSeed.MapMovieTWebDtotoDtoFromImdb(films);
+                movie = dbSeed.MapMovieDtoToDtoFromImdb(films);
                 //movie = new MediaWebDto()
                 //{
                 //    Title = films.Title,
