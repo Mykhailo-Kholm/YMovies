@@ -231,7 +231,11 @@
     <Compile Include="Dtos\UserWebDto.cs" />
     <Compile Include="IMDB\DBWorker\DBSeed.cs" />
     <Compile Include="IMDB\DBWorker\Interfaces\ISeed.cs" />
+    <Compile Include="Models\AboutUs\AboutUsModel.cs" />
+    <Compile Include="Models\AboutUs\AboutUsViewModel.cs" />
+    <Compile Include="Models\AboutUs\FindAboutUsModel.cs" />
     <Compile Include="Models\EntityViewModels\CastsViewModel.cs" />
+
     <Compile Include="Models\FilmCreationViewModels\NewFilmViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
@@ -366,6 +370,7 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Json\aboutus.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="obj\Debug\YMovies.Web.csproj.FileListAbsolute.txt" />
     <Content Include="bin\roslyn\csc.exe" />
@@ -458,6 +463,8 @@
     <Content Include="Views\Movies\Search.cshtml" />
     <Content Include="Views\Media\CreateMovie.cshtml" />
     <Content Include="Views\Media\EditMovies.cshtml" />
+    <Content Include="Views\Admin\EditAboutUs.cshtml" />
+    <Content Include="Views\Admin\FindAboutUS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
