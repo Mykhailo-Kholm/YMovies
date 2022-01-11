@@ -21,9 +21,9 @@ namespace YMovies.MovieDbService.Utilities
                 .ForMember(d => d.Countries, opt => opt.MapFrom(m => m.Countries))
                 .ForMember(d => d.Genres, opt => opt.MapFrom(m => m.Genres))
                 .ForMember(d => d.Seasons, opt => opt.MapFrom(m => m.Seasons))
-                .ForMember(d => d.Type, opt => opt.MapFrom(m => m.Type.Name))
+                .ForMember(d => d.Type, opt => opt.MapFrom(m => m.Type))
                 .ReverseMap();
-
+            
             CreateMap<UserDTO, UserDto>()
                 .ForMember(d => d.Id, opt => opt.MapFrom(m => m.Id))
                 .ForMember(d => d.FullName, opt => opt.MapFrom(m => m.Name + m.SecondName))

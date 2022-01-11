@@ -16,6 +16,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
 
         private IService<CountryDto> _countryService;
 
+        [HttpGet]
         public string Countries(string query = null)
         {
             var countries = _countryService.Items;
