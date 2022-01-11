@@ -455,7 +455,8 @@
     <Content Include="Views\Type\Edit.cshtml" />
     <Content Include="Views\Type\Index.cshtml" />
     <Content Include="Views\Movies\Search.cshtml" />
-    <Content Include="Views\Media\CreateFilm.cshtml" />
+    <Content Include="Views\Media\CreateMovie.cshtml" />
+    <Content Include="Views\Media\EditMovies.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

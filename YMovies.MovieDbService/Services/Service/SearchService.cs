@@ -10,6 +10,7 @@ namespace YMovies.MovieDbService.Services.Service
     {
         private readonly ISearchRepository _repository;
         public SearchService(ISearchRepository repository) => _repository = repository;
+        
         private static readonly MapperConfiguration Config = new MapperConfiguration(cfg =>
         {
             cfg.CreateMap<Models.Type, TypeDto>();

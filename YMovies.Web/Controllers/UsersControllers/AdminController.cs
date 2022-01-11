@@ -60,15 +60,6 @@ namespace YMovies.Web.Controllers
                 await UserManager.ChangeUserAdminRightsByEmail(email);
 
             return RedirectToAction("Index", "Home", null);
-        }
-
-        [HttpGet]
-        public ActionResult CreateFilm()
-        {
-            ViewBag.Types = _typesService.Items.ToList();
-            return View("FilmCreation", new NewFilmViewModel());
-        }
-
-
+        }   
     }
 }

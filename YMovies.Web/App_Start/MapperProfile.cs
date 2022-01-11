@@ -3,7 +3,6 @@ using IMDbApiLib.Models;
 using Ymovies.Identity.BLL.DTO;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Models;
-using YMovies.Web.Dtos;
 using YMovies.Web.DTOs;
 using YMovies.Web.Models;
 using YMovies.Web.Models.AdminViewModels;
@@ -36,7 +35,16 @@ namespace YMovies.Web.App_Start
                 .ReverseMap();
             CreateMap<CastDto, CastViewModel>().ReverseMap();
             CreateMap<NewFilmViewModel, MediaDto>()
+                .ForMember(dest => dest.MediaId, opt => opt.Ignore())
+                .ForMember(dest => dest.ImdbId, opt => opt.Ignore())
                 .ForMember(dest => dest.Cast, opt => opt.Ignore())
+                .ForMember(dest => dest.Cast, opt => opt.Ignore())
+                .ForMember(dest => dest.Type, opt => opt.Ignore())
+                .ForMember(dest => dest.NumberOfDislikes, opt => opt.Ignore())
+                .ForMember(dest => dest.NumberOfLikes, opt => opt.Ignore())
+                .ForMember(dest => dest.Seasons, opt => opt.Ignore())
+                .ForMember(dest => dest.UsersLiked, opt => opt.Ignore())
+                .ForMember(dest => dest.UsersWatched, opt => opt.Ignore())
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genre))
                 .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Country));
             CreateMap<UserDTO, ManageUserRightsViewModel>().
