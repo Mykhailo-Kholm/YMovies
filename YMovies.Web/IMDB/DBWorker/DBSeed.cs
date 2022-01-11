@@ -96,14 +96,13 @@ namespace YMovies.Web.IMDB.DBWorker
 
             movie.ImdbRating = GetDecimal(imdbModel.IMDbRating);
 
-            if (imdbModel.ActorList != null)
+            if (imdbModel.StarList != null)
             {
-                foreach (var actor in imdbModel.ActorList)
+                foreach (var star in imdbModel.StarList)
                 {
                     movie.Cast.Add(new Cast
                     {
-                        Name = actor.Name,
-                        PictureUrl = actor.Image
+                        Name = star.Name
                     });
                 }
             }

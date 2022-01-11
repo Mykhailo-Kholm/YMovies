@@ -212,7 +212,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\Api\ActorsController.cs" />
     <Compile Include="Controllers\Api\CountriesController.cs" />
     <Compile Include="Controllers\Api\GenresController.cs" />
     <Compile Include="Dtos\CastWebDto.cs" />

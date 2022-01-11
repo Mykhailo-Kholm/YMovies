@@ -42,16 +42,17 @@ namespace YMovies.MovieDbService.Repositories.Repository
             return mediaList;
         }
 
-        public List<Media> GetMediaByParams(string genre, string country, string year, string type)
+        public List<Media> GetMediaByParams(string genre = null, string country = null, string year = null, string type = null)
         {
             var mediaList = _context.Medias.ToList();
+
             if (!string.IsNullOrEmpty(genre))
             {
-               // mediaList = mediaList.Select(m=>m.Genres.Where(g=>g.Name.Equals(genre)));
+               mediaList = mediaList.Where(m => m.Genres.Any(g => g.Name.ToLower().Equals(genre.ToLower()))).ToList();
             }
             if (!string.IsNullOrEmpty(country))
             {
-                //mediaList = mediaList.Where();
+                mediaList = mediaList.Where(m => m.Countries.Any(c=>c.Name.ToLower().Equals(country.ToLower()))).ToList();
             }
             if (!string.IsNullOrEmpty(year))
             {
@@ -62,7 +63,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
                 mediaList = mediaList.Where(t => t.Type.Name.ToLower().Contains(type.ToLower())).ToList();
             }
 
-            return null;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TODO
+            return mediaList;
         }
 
         public void AddItem(Media item)
@@ -80,13 +81,13 @@ namespace YMovies.MovieDbService.Repositories.Repository
             }
             foreach (var actor in item.Cast)
             {
-                if (!_context.Cast.Any(i => i.Name==actor.Name && i.Surname==actor.Surname))
+                if (!_context.Cast.Any(i => i.Name==actor.Name))
                 {
                     _context.Cast.Add(actor);
                     cast.Add(actor);
                     continue;
                 }
-                cast.Add(_context.Cast.First(i => i.Name==actor.Name && i.Surname == actor.Surname));
+                cast.Add(_context.Cast.First(i => i.Name==actor.Name));
             }
             foreach (var genre in item.Genres)
             {
