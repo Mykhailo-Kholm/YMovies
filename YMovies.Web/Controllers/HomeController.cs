@@ -15,9 +15,7 @@ namespace YMovies.Web.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            //_userService = new UserService(IdentityUserService);
-            //_userService.GetAllUsersFromIdentity();
-
+            _userService = new UserService(IdentityUserService);
             //ISeed dbseed = new DBSeed();
             //await dbseed.AddMovieByImbdId("tt0468569");
             return RedirectToAction("Index", "Movies");
@@ -31,13 +29,14 @@ namespace YMovies.Web.Controllers
                 return HttpContext.GetOwinContext().GetUserManager<IIdentityUserService>();
             }
         }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
-     
+
         public async Task<ActionResult> Mock(string id)
         {
             APIworkerIMDB imdb = new APIworkerIMDB();

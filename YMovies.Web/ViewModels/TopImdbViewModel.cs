@@ -1,9 +1,5 @@
-﻿using System;
+﻿using PagedList;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using IMDbApiLib.Models;
-using PagedList;
 using YMovies.Web.TempModels;
 
 namespace YMovies.Web.ViewModels

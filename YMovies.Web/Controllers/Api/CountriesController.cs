@@ -11,39 +11,20 @@ namespace YMovies.Web.Controllers.Api
 {
     public class CountriesController : ApiController
     {
-        private IService<CountryDto> _countriesService;
-        public CountriesController()
-        {
-        }
-
         public CountriesController(IService<CountryDto> countriesService)
         {
             this._countriesService = countriesService;
         }
 
-        IEnumerable<CountryDto> tempData = new List<CountryDto>
+        public CountriesController()
         {
-            new CountryDto
-            {
-                Id = 1,
-                Name = "Ukraine"
-            },
-            new CountryDto
-            {
-                Id = 2,
-                Name = "Poland"
-            },
-            new CountryDto
-            {
-                Id = 3,
-                Name = "United Kindom"
-            },
-        };
+        }
 
+        private IService<CountryDto> _countriesService;
+       
         public IEnumerable<CountryDto> GetCountries(string query = null)
         {
-            //var resultList = _countriesService.Items.AsQueryable();
-            var resultList = tempData;
+            var resultList = _countriesService.Items.AsQueryable();
                             
             if (!string.IsNullOrWhiteSpace(query))
                 resultList = resultList.Where(r => r.Name.Contains(query));

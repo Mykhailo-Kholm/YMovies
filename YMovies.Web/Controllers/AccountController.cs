@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -85,9 +86,11 @@ namespace YMovies.Web.Controllers
             if (ModelState.IsValid)
             {
                 var userDto = AutoMap.Mapper.Map<RegisterViewModel, UserDTO>(model);                
-                userDto.Role = "user";                
-                var operationDetails = await IdentityUserService.CreateAsync(userDto);
-                
+                userDto.Roles = new List<string>
+                {
+                    "user"
+                };                
+                var operationDetails = await IdentityUserService.CreateAsync(userDto);                
                 if (operationDetails.Succedeed)
                     return RedirectToAction("Index", "Home");
                 else
@@ -105,11 +108,11 @@ namespace YMovies.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public ActionResult ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await IdentityUserService.GetUserByEmailAsync(model.Email);
+                var user = IdentityUserService.GetUserByEmail(model.Email);
                 if (user != null)
                 {
                     return View("ResetPassword");
@@ -123,7 +126,7 @@ namespace YMovies.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await IdentityUserService.GetUserByEmailAsync(model.Email);
+                var user = IdentityUserService.GetUserByEmail(model.Email);
                 if (user != null)
                 {
                     var resultDetails = await IdentityUserService.ResetPasswordAsync(model.Email, model.Password);

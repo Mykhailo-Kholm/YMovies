@@ -1,0 +1,15 @@
+﻿@model IEnumerable<YMovies.MovieDbService.DTOs.GenreDto>
+
+<h3 class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all">
+    <span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>
+    Genres
+</h3>
+<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+    @foreach (var genre in Model)
+    {
+        @Html.HiddenFor(c => genre.Id)
+        @Html.ActionLink(genre.Name, "FilterInclude", "Movies", new { genreId = genre.Id }, new { @class = "btn btn-primary " })
+        @Html.ActionLink("Exclude", "FilterExclude", "Movies", genre.Id, new { @class = "btn btn-primary" })
+    }
+</div>
+

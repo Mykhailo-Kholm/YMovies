@@ -394,3 +394,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 .idea/
 *.sln.iml
+YMovies.Web/App_Readme/readme.txt

@@ -5,8 +5,12 @@
         public int SeasonId { get; set; }
         public string Name { get; set; }
         public int NumberOfEpisodes { get; set; }
+        public int NumberOfLikes { get; set; }
+        public int NumberOfDislikes { get; set; }
 
         public int CurrentSeriesId { get; set; }
-        public SeriesWebDto CurrentSeries { get; set; }
+        public MovieWebDto CurrentSeries { get; set; }
+        //public virtual ICollection<UserWebDto> UsersLiked { get; set; }
+        //public virtual ICollection<UserWebDto> UsersWatched { get; set; }
     }
 }

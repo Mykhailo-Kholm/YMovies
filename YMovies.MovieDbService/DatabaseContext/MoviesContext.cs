@@ -49,7 +49,6 @@ namespace YMovies.MovieDbService.DatabaseContext
                 .HasMany<Season>(sr => sr.Seasons)
                 .WithRequired(s => s.CurrentSeries)
                 .HasForeignKey<int>(s => s.CurrentSeriesId);
-
             modelBuilder.Entity<User>()
                 .HasMany<Media>(u => u.LikedMedias)
                 .WithMany(m => m.UsersLiked)

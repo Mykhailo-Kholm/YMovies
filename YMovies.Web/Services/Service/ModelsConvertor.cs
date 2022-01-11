@@ -37,7 +37,7 @@ namespace YMovies.Web.Services.Service
                 (
                     new MoviesInfo()
                     {
-                        Id = movie.MovieId,
+                        Id = movie.MediaId,
                         Title = movie.Title,
                         PosterUrl = movie.PosterUrl,
                         ImdbRating = movie.ImdbRating,

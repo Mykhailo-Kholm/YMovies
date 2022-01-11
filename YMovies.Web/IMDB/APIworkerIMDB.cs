@@ -129,11 +129,12 @@ namespace YMovies.Web.IMDB
             var data = await apiLib.YouTubeTrailerAsync(id);
             return "https://www.youtube.com/embed/" + data.VideoId;
         }
+
         /// <summary>
-        /// Получает самые популярные фильмы
+        /// Возвращает список самых просматриваемых фильмов(imdb)
         /// </summary>
         /// <returns>Task&lt;List&lt;MostPopularDataDetail&gt;&gt;</returns>
-        public async Task<List<MostPopularDataDetail>> GetMostWatchedAsync()
+        public async Task<List<MostPopularDataDetail>> GetMostWatchedMovies()
         {
             var data = await apiLib.MostPopularMoviesAsync();
             return data.Items;

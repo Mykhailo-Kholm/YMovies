@@ -5,6 +5,9 @@ using YMovies.MovieDbService.Models;
 using YMovies.Web.Dtos;
 using YMovies.Web.DTOs;
 using YMovies.Web.Models;
+using YMovies.Web.Models.AdminViewModels;
+using YMovies.Web.Models.MoviesInfoViewModel;
+using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.App_Start
 {
@@ -13,30 +16,26 @@ namespace YMovies.Web.App_Start
         public MapperProfile()
         {
             CreateMap<Type, TypeWebDto>().ReverseMap();
-            CreateMap<Media, MovieWebDto>().ForMember(prt=>prt.Type, opt => opt.MapFrom(m => m.Type.Name)).ReverseMap();
+            CreateMap<Media, MovieWebDto>()
+                .ForMember(prt=>prt.Type, opt => opt.MapFrom(m => m.Type.Name))
+                .ReverseMap();
             CreateMap<RegisterViewModel, UserDTO>().
                 ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
+                .ReverseMap();
+            CreateMap<CastDto, CastViewModel>().
+                ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name + " " + src.Surname));
+            CreateMap<NewFilmViewModel, MediaDto>()
+                .ForMember(dest => dest.Cast, opt => opt.Ignore())
+                .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genre))
+                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Country));
+            CreateMap<UserDTO, ManageUserRightsViewModel>().
+                ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name + " " + src.SecondName));
+            CreateMap<MediaDto, IndexMediaViewModel>()
                 .ReverseMap();
             CreateMap<Cast, CastWebDto>().ReverseMap();
             CreateMap<Country, CountryWebDto>().ReverseMap();
             CreateMap<Genre, GenreWebDto>().ReverseMap();
             CreateMap<Season, SeasonWebDto>().ReverseMap();
-            CreateMap<Media, SeriesWebDto>().ReverseMap();
-
-            CreateMap<Cast, CastDto>().ReverseMap();
-            CreateMap<Country, CountryDto>().ReverseMap();
-            CreateMap<Genre, GenreDto>().ReverseMap();
-            CreateMap<Season, SeasonDto>()
-                .ForMember(d => d.CurrentSeries, opt => opt.MapFrom(m => m.CurrentSeries))
-                .ReverseMap();
-            CreateMap<Type, TypeDto>().ReverseMap();
-            CreateMap<Media, MediaDto>()
-                .ForMember(d => d.Cast, opt => opt.MapFrom(m => m.Cast))
-                .ForMember(d => d.Countries, opt => opt.MapFrom(m => m.Countries))
-                .ForMember(d => d.Genres, opt => opt.MapFrom(m => m.Genres))
-                .ForMember(d => d.Seasons, opt => opt.MapFrom(m => m.Seasons))
-                .ForMember(d => d.Type, opt => opt.MapFrom(m => m.Type.Name))
-                .ReverseMap();
         }
     }
 }

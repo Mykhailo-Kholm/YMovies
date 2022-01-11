@@ -9,6 +9,8 @@ using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
+using YMovies.Web.Dtos;
+using YMovies.Web.DTOs;
 
 namespace YMovies.Web.IMDB.DBWorker
 {
@@ -131,6 +133,78 @@ namespace YMovies.Web.IMDB.DBWorker
 
             return movie;
         }
+
+        //public MediaDto MapMovieTWebDtotoDtoFromImdb(TitleData imdbModel)
+        //{
+        //    var movie = new MediaDto
+        //    {
+        //        ImdbId = imdbModel.Id,
+        //        Title = imdbModel.Title,
+        //        PosterUrl = imdbModel.Image,
+        //        Year = imdbModel.Year,
+        //        Plot = imdbModel.Plot,
+        //        Companies = imdbModel.Companies,
+        //        WeekFees = imdbModel.BoxOffice.OpeningWeekendUSA,
+        //        GlobalFees = imdbModel.BoxOffice.CumulativeWorldwideGross,
+        //        Type = new YMovies.Web.Dtos.TypeWebDto(),
+        //        Cast = new List<CastWebDto>(),
+        //        Genres = new List<GenreWebDto>(),
+        //        Countries = new List<CountryWebDto>(),
+        //        UsersLiked = new List<UserWebDto>(),
+        //        UsersWatched = new List<UserWebDto>(),
+        //        Seasons = new List<SeasonWebDto>()
+        //    };
+
+        //    movie.Type.Name = imdbModel.Type;
+        //    if (imdbModel.TvSeriesInfo != null)
+        //    {
+        //        foreach (var imdbSeason in imdbModel.TvSeriesInfo.Seasons)
+        //        {
+        //            movie.Seasons.Add(new SeasonWebDto() { Name = imdbSeason });
+        //        }
+        //    };
+
+        //    movie.Budget = GetDecimal(imdbModel.BoxOffice.Budget);
+
+        //    movie.ImdbRating = GetDecimal(imdbModel.IMDbRating);
+
+        //    if (imdbModel.ActorList != null)
+        //    {
+        //        foreach (var actor in imdbModel.ActorList)
+        //        {
+        //            movie.Cast.Add(new CastDto()
+        //            {
+        //                Name = actor.Name,
+        //                PictureUrl = actor.Image
+        //            });
+        //        }
+        //    }
+
+        //    if (imdbModel.CountryList != null)
+        //    {
+        //        foreach (var country in imdbModel.CountryList)
+        //        {
+        //            movie.Countries.Add(new CountryDto()
+        //            {
+        //                Name = country.Value
+        //            });
+        //        }
+        //    }
+
+        //    if (imdbModel.GenreList != null)
+        //    {
+        //        foreach (var genre in imdbModel.GenreList)
+        //        {
+        //            movie.Genres.Add(new GenreDto()
+        //            {
+        //                Name = genre.Value
+        //            });
+        //        }
+        //    }
+
+        //    return movie;
+        //}
+
 
         private decimal GetDecimal(string budget)
         {
