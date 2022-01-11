@@ -74,30 +74,41 @@ namespace YMovies.Web.Controllers
             return View("TopByIMDb");
         }
 
-        public async Task<ActionResult> TopByIMDb(int? page)
+        public async Task<ActionResult> TopByIMDb(int page = 1)
         {
-            var pageSize = 8;
-            int pageNumber = (page ?? 1);
-            List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
-            var movies = _movieService.Items.OrderByDescending(m => m.ImdbRating).Take(250).ToList();
-            if (movies.Count() == 0)
+            
+            //List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
+            var topmovies = _movieService.Items.OrderByDescending(m => m.ImdbRating).Take(250).ToList();
+          
+            if (topmovies.Count() == 0)
             {
                 APIworkerIMDB imdb = new APIworkerIMDB();
                 var films = await imdb.GetTop250MoviesAsync();
-                moviesInfos = _convertor.ConvertToMoviesInfo(films);
+                topmovies = _convertor.ConvertToMoviesInfo(films);
             }
             else
             {
                 //moviesInfos = _convertor.ConvertToMoviesInfo(movies);
             }
-            var topImdbViewModel = new TopImdbViewModel()
+            var moviesDtos = topmovies
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+
+            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+
+            var movieViewModel = new MovieViewModel()
             {
-                MoviePageList = moviesInfos.ToPagedList(pageNumber, pageSize),
-                Movies = moviesInfos,
+                Movies = movies,
+                Pagination = new PaginationInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = 10
+                }
             };
-            var onePageOfMovies = moviesInfos.ToPagedList(pageNumber, pageSize);
-            ViewBag.OnePageOfTopMovies = onePageOfMovies;
-            return View(topImdbViewModel);
+            return View(movieViewModel);
         }
 
         public async Task<ActionResult> Search()
