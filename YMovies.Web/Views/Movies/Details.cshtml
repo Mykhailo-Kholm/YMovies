@@ -20,8 +20,6 @@
                             <img src="@Html.Raw(Model.PosterUrl)" alt="a description of the image" height="300" width="250">
                             <div class="mt-3">
                                 <h4>@Model.Title</h4>
-                                @*<p class="text-secondary mb-1">Info one</p>
-                                    <p class="text-muted font-size-sm">Info two</p>*@
 
                                 @if (User.Identity.IsAuthenticated)
                                 {
@@ -32,14 +30,11 @@
                                     <div>
                                         @if (User.IsInRole("admin"))
                                         {
-                                            @Html.ActionLink("Edit", "Like", "Movies", new {@class = "btn btn-primary"})
-                                            @Html.ActionLink("Delete", "DisLike", "Movies", new {@class = "btn btn-primary"})
+                                            @Html.ActionLink("Edit", "Edit", "Media", new { @id = Model.MediaId}, new {@class = "btn btn-primary"})
+                                            @Html.ActionLink("Delete", "Delete", "Media", new { @id = Model.MediaId}, new {@class = "btn btn-primary"})
                                         }
                                     </div>
                                 }
-                                @*<button class="btn btn-primary">Like</button>
-                                    <button class="btn btn-outline-primary">Dislike</button>
-                                    <button class="btn btn-outline-primary">Mark as watched</button>*@
                             </div>
                         </div>
                     </div>
