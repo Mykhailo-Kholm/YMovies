@@ -214,7 +214,6 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\EntitiesContollers\CastController.cs" />
     <Compile Include="Controllers\EntitiesContollers\CountryController.cs" />
     <Compile Include="Controllers\EntitiesContollers\GenreController.cs" />
