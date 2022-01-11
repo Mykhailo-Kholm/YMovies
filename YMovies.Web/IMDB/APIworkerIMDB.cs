@@ -116,7 +116,7 @@ namespace YMovies.Web.IMDB
         /// <returns>Task&lt;TitleData&gt;</returns>
         public async Task<TitleData> MovieOrSeriesInfoAsync(string id = null)
         {
-            var data = await apiLib.TitleAsync(id,FullActor:true);
+            var data = await apiLib.TitleAsync(id);
             return data;
         }
         /// <summary>

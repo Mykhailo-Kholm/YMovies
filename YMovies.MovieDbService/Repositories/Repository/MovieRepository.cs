@@ -44,7 +44,24 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public List<Media> GetMediaByParams(string genre, string country, string year, string type)
         {
-            var mediaList = _context.Medias.Where((g, y) => g.Genres.Contains(new Genre() { Name = genre }));
+            var mediaList = _context.Medias.ToList();
+            if (!string.IsNullOrEmpty(genre))
+            {
+               // mediaList = mediaList.Select(m=>m.Genres.Where(g=>g.Name.Equals(genre)));
+            }
+            if (!string.IsNullOrEmpty(country))
+            {
+                //mediaList = mediaList.Where();
+            }
+            if (!string.IsNullOrEmpty(year))
+            {
+                mediaList = mediaList.Where(y=> y.Year.Contains(year)).ToList();
+            }
+            if (!string.IsNullOrEmpty(type))
+            {
+                mediaList = mediaList.Where(t => t.Type.Name.ToLower().Contains(type.ToLower())).ToList();
+            }
+
             return null;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TODO
         }
 
