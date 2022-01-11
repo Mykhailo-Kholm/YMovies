@@ -1,4 +1,4 @@
-using PagedList;
+using IMDbApiLib.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,7 +9,6 @@ using YMovies.MovieDbService.Services.IService;
 using YMovies.Web.IMDB;
 using YMovies.Web.IMDB.DBWorker;
 using YMovies.Web.Models.MoviesInfoViewModel;
-using YMovies.Web.Services.Service;
 using YMovies.Web.TempModels;
 using YMovies.Web.Utilites.Pagination;
 using YMovies.Web.Utilities;
@@ -22,12 +21,10 @@ namespace YMovies.Web.Controllers
         public MoviesController(IService<MediaDto> movieService)
         {
             _movieService = movieService;
-            _convertor = new ModelsConvertor();
         }
 
         private const int pageSize = 4;
         private readonly IService<MediaDto> _movieService;
-        private ModelsConvertor _convertor;
 
         public async Task<ActionResult> Like(int id)
         {
@@ -82,12 +79,11 @@ namespace YMovies.Web.Controllers
             APIworkerIMDB imdb = new APIworkerIMDB();
             var films = await imdb.GetMostWatchedMovies();
 
-            var moviesDtos = _convertor.ConvertToMediaDtos(films)
+            var movies = AutoMap.Mapper.Map<IEnumerable<MostPopularDataDetail>, List<IndexMediaViewModel>>(films);
+            movies = movies
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-
-            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
 
             var movieViewModel = new MovieViewModel()
             {
@@ -105,12 +101,12 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> TopByIMDb(int page = 1)
         {
             var topmovies = _movieService.Items.OrderByDescending(m => m.ImdbRating).Take(250).ToList();
-          
+
             if (topmovies.Count() == 0)
             {
                 APIworkerIMDB imdb = new APIworkerIMDB();
                 var films = await imdb.GetTop250MoviesAsync();
-                topmovies = _convertor.ConvertToMoviesInfo(films);
+                topmovies = AutoMap.Mapper.Map<IEnumerable<Top250DataDetail>, List<MediaDto>>(films);
             }
 
             var moviesDtos = topmovies

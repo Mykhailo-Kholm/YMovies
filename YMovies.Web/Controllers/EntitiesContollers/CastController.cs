@@ -1,12 +1,11 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Services.IService;
+using YMovies.Web.Utilites;
 using YMovies.Web.Utilities;
 using YMovies.Web.ViewModels;
 
@@ -24,21 +23,12 @@ namespace YMovies.Web.Controllers
         [HttpGet]
         public string Casts(string query = null)
         {
-            var temp = _castService.Items.ToList();
+            var actors = _castService.Items;
 
             if (!string.IsNullOrWhiteSpace(query))
-                temp = temp.Where(t => t.Name.Contains(query)).ToList();
-
-            var listOfCasts = AutoMap.Mapper.Map<List<CastDto>, List<CastViewModel>>(temp);
-
-            var json = JsonConvert.SerializeObject(
-                listOfCasts,
-                Formatting.Indented,
-                new JsonSerializerSettings
-                {
-                    ContractResolver = new CamelCasePropertyNamesContractResolver()
-                });
-            return json;
+                actors = actors.Where(t => t.Name.Contains(query)).ToList();
+         
+            return TypeConverter.ToJson(actors);
         }
 
         public async Task<ActionResult> Index()
@@ -67,14 +57,13 @@ namespace YMovies.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Surname,PictureUrl")] CastDto castDto)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name")] CastDto castDto)
         {
             if (ModelState.IsValid)
             {
                 _castService.AddItem(castDto);
                 return RedirectToAction("Index");
             }
-
             return View(castDto);
         }
 
@@ -84,7 +73,7 @@ namespace YMovies.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CastDto castDto = _castService.GetItem(id.Value);
+            var castDto = _castService.GetItem(id.Value);
             if (castDto == null)
             {
                 return HttpNotFound();
@@ -94,7 +83,7 @@ namespace YMovies.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Surname,PictureUrl")] CastDto castDto)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name")] CastDto castDto)
         {
             if (ModelState.IsValid)
             {
@@ -110,7 +99,7 @@ namespace YMovies.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CastDto castDto = _castService.GetItem(id.Value);
+            var castDto = _castService.GetItem(id.Value);
             if (castDto == null)
             {
                 return HttpNotFound();
@@ -126,6 +115,5 @@ namespace YMovies.Web.Controllers
             _castService.DeleteItem(dto);
             return RedirectToAction("Index");
         }
-
     }
 }

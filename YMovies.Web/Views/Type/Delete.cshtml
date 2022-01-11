@@ -1,4 +1,4 @@
-﻿@model YMovies.MovieDbService.DTOs.CastDto
+﻿@model YMovies.MovieDbService.DTOs.TypeDto
 
 @{
     ViewBag.Title = "Delete";
@@ -7,8 +7,9 @@
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
+
 <div>
-    <h4>CastDto</h4>
+    <h4>TypeDto</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -21,11 +22,9 @@
 
     </dl>
 
-    @using (Html.BeginForm("Delete", "Cast"))
-    {
+    @using (Html.BeginForm("Delete", "Type")) {
         @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.Id)
-        @Html.HiddenFor(m => m.Name)
+
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")

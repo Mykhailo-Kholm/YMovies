@@ -1,4 +1,3 @@
-using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -10,8 +9,7 @@ namespace YMovies.Web
     {
         protected void Application_Start()
         {
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-
+            MovieDbService.Utilities.AutoMap.RegisterMapping();
             AutoMap.RegisterMapping();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
