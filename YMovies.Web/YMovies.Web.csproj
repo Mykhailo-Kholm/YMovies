@@ -254,6 +254,7 @@
     <Compile Include="Services\Service\ModelsConvertor.cs" />
     <Compile Include="Services\Service\MovieWebService.cs" />
     <Compile Include="Services\Service\SeasonWebService.cs" />
+    <Compile Include="Services\Service\TypesConvertor.cs" />
     <Compile Include="Services\Service\TypeWebService.cs" />
     <Compile Include="Services\Service\UserWebService.cs" />
     <Compile Include="Utilites\Pagination\PaginationInfo.cs" />
