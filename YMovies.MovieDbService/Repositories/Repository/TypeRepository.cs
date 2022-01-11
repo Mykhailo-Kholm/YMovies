@@ -26,15 +26,22 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public void UpdateItem(Type item)
         {
-            _context.Types.AddOrUpdate(item);
+            var temp = _context.Types.Where(m => m.Id.Equals(item.Id)).FirstOrDefault();
+            if (temp == null)
+                _context.Types.Add(item);
+            else
+            {
+                _context.Types.Remove(temp);
+                _context.Types.Add(item);
+            }
             _context.SaveChanges();
         }
 
         public void DeleteItem(int id)
         {
-            var type = _context.Cast.FirstOrDefault(t => t.Id == id);
+            var type = _context.Types.FirstOrDefault(t => t.Id == id);
             if (type == null) return;
-            _context.Cast.Remove(type);
+            _context.Types.Remove(type);
             _context.SaveChanges();
         }
     }

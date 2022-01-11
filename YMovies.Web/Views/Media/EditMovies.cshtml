@@ -9,172 +9,173 @@
             @using (Html.BeginForm("EditMovies", "Media", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
-                <div class="form-horizontal">
-                    <h4>Create Film</h4>
-                    <hr />
+            <div class="form-horizontal">
+                <h4>Create Film</h4>
+                <hr />
+                @Html.HiddenFor(m => m.ImdbId)
+                @Html.HiddenFor(m => m.MediaId)
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Title, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Title, new { @class = "form-label" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(m => m.Title, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Plot, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(m => m.Plot, new { @class = "form-control", @rows = "3" })
+                        @Html.ValidationMessageFor(m => m.Plot, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.PosterUrl, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.PosterUrl, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.PosterUrl, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Year, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Year, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.ImdbRating, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.ImdbRating, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ImdbRating, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Budget, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.Budget, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Budget, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Companies, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.Companies, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Companies, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.WeekFees, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.WeekFees, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.WeekFees, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.GlobalFees, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.GlobalFees, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.GlobalFees, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Type, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        <div class="dropdown">
+                            @Html.DropDownListFor(m => m.Type, new SelectList(ViewBag.Types, "Name", "Name"), "Select type of media", new { @class = "form-control" })
                         </div>
                     </div>
-
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Plot, new { @class = "form-label" })
-                        <div class="col-md-8">
-                            @Html.TextAreaFor(m => m.Plot, new { @class = "form-control", @rows = "3" })
-                            @Html.ValidationMessageFor(m => m.Plot, "", new { @class = "text-danger" })
+                </div>
+                
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Cast, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        <div class="tt-container">
+                            <input type="text" value="" class="form-control" id="actor">
                         </div>
+                        @Html.ValidationMessageFor(m => m.Cast, "", new { @class = "text-danger" })
                     </div>
+                </div>
 
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.PosterUrl, new { @class = "form-label" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(m => m.PosterUrl, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.PosterUrl, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Year, new { @class = "form-label" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(m => m.Year, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Year, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.ImdbRating, new { @class = "form-label" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(m => m.ImdbRating, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.ImdbRating, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Budget, new { @class = "form-label" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(m => m.Budget, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Budget, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Companies, new { @class = "form-label" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(m => m.Companies, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Companies, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.WeekFees, new { @class = "form-label" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(m => m.WeekFees, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.WeekFees, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.GlobalFees, new { @class = "form-label" })
-                        <div class="col-md-8">
-                            @Html.EditorFor(m => m.GlobalFees, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.GlobalFees, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Type, new { @class = "form-label" })
-                        <div class="col-md-8">
-                            <div class="dropdown">
-                                @Html.DropDownListFor(m => m.Type, new SelectList(ViewBag.Types, "Name", "Name"), "Select type of media", new { @class = "form-control" })
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Cast, new { @class = "form-label" })
-                        <div class="col-md-8">
-                            <div class="tt-container">
-                                <input type="text" value="" class="form-control" id="actor">
-                            </div>
-                            @Html.ValidationMessageFor(m => m.Cast, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <ul id="actors" class="list-group">
-                        @if (Model.Cast != null)
+                <ul id="actors" class="list-group">
+                    @if (Model.Cast != null)
+                    {
+                        for (int i = 0; i < Model.Cast.Count; i++)
                         {
-                            for (int i = 0; i < Model.Cast.Count; i++)
-                            {
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="Cast[@i]" name="Cast[@i].id" value="@Model.Cast.ElementAt(i).Id"
-                   checked="checked" />
-            <label class="form-check-label" for="Cast[@i]">@Model.Cast.ElementAt(i).Name</label>
-            <input type="hidden" name="Cast[@i].name" value="@Model.Cast.ElementAt(i).Name" />
-        </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Cast[@i]" name="Cast[@i].id" value="@Model.Cast.ElementAt(i).Id"
+                       checked="checked" />
+                <label class="form-check-label" for="Cast[@i]">@Model.Cast.ElementAt(i).Name</label>
+                <input type="hidden" name="Cast[@i].name" value="@Model.Cast.ElementAt(i).Name" />
+            </div>
 }
-}
-                    </ul>
+    }
+                </ul>
 
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Country, new { @class = "form-label" })
-                        <div class="col-md-8">
-                            <div class="tt-container">
-                                <input type="text" value="" class="form-control" id="countryInput">
-                            </div>
-                            @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Country, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        <div class="tt-container">
+                            <input type="text" value="" class="form-control" id="countryInput">
                         </div>
+                        @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
                     </div>
+                </div>
 
-                    <ul id="countries" class="list-group">
-                        @if (Model.Country != null)
+                <ul id="countries" class="list-group">
+                    @if (Model.Country != null)
+                    {
+                        for (int i = 0; i < Model.Country.Count; i++)
                         {
-                            for (int i = 0; i < Model.Country.Count; i++)
-                            {
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="Country[@i]" name="Country[@i].id" value="@Model.Country.ElementAt(i).Id"
-                   checked="checked" />
-            <label class="form-check-label" for="Country[@i]">@Model.Country.ElementAt(i).Name</label>
-            <input type="hidden" name="Country[@i].name" value="@Model.Country.ElementAt(i).Name" />
-        </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Country[@i]" name="Country[@i].id" value="@Model.Country.ElementAt(i).Id"
+                       checked="checked" />
+                <label class="form-check-label" for="Country[@i]">@Model.Country.ElementAt(i).Name</label>
+                <input type="hidden" name="Country[@i].name" value="@Model.Country.ElementAt(i).Name" />
+            </div>
 }
-}
-                    </ul>
+    }
+                </ul>
 
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Genre, new { @class = "form-label" })
-                        <div class="col-md-8">
-                            <div class="tt-container">
-                                <input type="text" value="" class="form-control" id="genreInput">
-                            </div>
-                            @Html.ValidationMessageFor(m => m.Genre, "", new { @class = "text-danger" })
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Genre, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        <div class="tt-container">
+                            <input type="text" value="" class="form-control" id="genreInput">
                         </div>
+                        @Html.ValidationMessageFor(m => m.Genre, "", new { @class = "text-danger" })
                     </div>
+                </div>
 
-                    <ul id="genres" class="list-group">
-                        @if (Model.Genre != null)
+                <ul id="genres" class="list-group">
+                    @if (Model.Genre != null)
+                    {
+                        for (int i = 0; i < Model.Genre.Count; i++)
                         {
-                            for (int i = 0; i < Model.Genre.Count; i++)
-                            {
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="Genre[@i]" name="Genre[@i].id" value="@Model.Genre.ElementAt(i).Id"
-                   checked="checked" />
-            <label class="form-check-label" for="Genre[@i]">@Model.Genre.ElementAt(i).Name</label>
-            <input type="hidden" name="Genre[@i].name" value="@Model.Genre.ElementAt(i).Name" />
-        </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Genre[@i]" name="Genre[@i].id" value="@Model.Genre.ElementAt(i).Id"
+                       checked="checked" />
+                <label class="form-check-label" for="Genre[@i]">@Model.Genre.ElementAt(i).Name</label>
+                <input type="hidden" name="Genre[@i].name" value="@Model.Genre.ElementAt(i).Name" />
+            </div>
 }
-}
-                    </ul>
+    }
+                </ul>
 
-                    <div class="mb-3" style="margin-top:2px">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Create" class="btn btn-primary" />
-                        </div>
+                <div class="mb-3" style="margin-top:2px">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-primary" />
                     </div>
-                </div>}
+                </div>
+            </div>}
         </div>
     </div>
 </div>
@@ -182,7 +183,8 @@
 @section scripts {
     <script src="~/Scripts/typeahead.bundle.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script>$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
 
             var i = 0;
             var countActors = 0;
@@ -190,7 +192,7 @@
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 remote: {
-                    url: '/cast/actors?query=%QUERY',
+                    url: '/cast/casts?query=%QUERY',
                     wildcard: '%QUERY'
                 }
             });
@@ -227,7 +229,7 @@
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 remote: {
-                    url: '/api/countries?query=%QUERY',
+                    url: '/country/countries?query=%QUERY',
                     wildcard: '%QUERY'
                 }
             });
@@ -263,7 +265,7 @@
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 remote: {
-                    url: '/api/genres?query=%QUERY',
+                    url: '/genre/genres?query=%QUERY',
                     wildcard: '%QUERY'
                 }
             });
@@ -292,6 +294,7 @@
                 label.innerHTML = genre.name
                 $("#genreInput").typeahead('val', '');
             });
-        });</script>
-}
+        });
 
+    </script>
+}

@@ -63,6 +63,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             if (movie.Type.Name.Equals("TVSeries"))
                 return View();
             var model = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel> (movie);
+            ViewBag.Types = _typesService.Items.ToList();
             return View("EditMovies", model);
         }
 
@@ -72,7 +73,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             if (!ModelState.IsValid)
             {
                 ViewBag.Types = _typesService.Items.ToList();
-                return View("CreateFilm", model);
+                return View("EditMovies", model);
             }
             UpdateFields(model);
             var mediaDto = AutoMapperWeb.Mapper.Map<NewFilmViewModel, MediaDto>(model);

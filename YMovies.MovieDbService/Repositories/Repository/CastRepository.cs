@@ -27,7 +27,14 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public void UpdateItem(Cast item)
         {
-            _context.Cast.AddOrUpdate(item);
+            var temp = _context.Cast.Where(m => m.Id.Equals(item.Id)).FirstOrDefault();
+            if (temp == null)
+                _context.Cast.Add(item);
+            else
+            {
+                _context.Cast.Remove(temp);
+                _context.Cast.Add(item);
+            }
             _context.SaveChanges();
         }
 
