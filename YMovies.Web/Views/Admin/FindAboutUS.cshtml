@@ -1,0 +1,24 @@
+﻿@model YMovies.Web.Models.AboutUs.FindAboutUsModel
+@{
+    ViewBag.Title = "Manage AboutUs";
+}
+<div>
+    @using (Html.BeginForm("EditAboutUs", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Enter id from 1 to 4</h4>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(m => Model.Id, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Id, null, new { @class = "form-control", @placeholder = "1" })
+                @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" class="btn btn-primary" value="Find" />
+            </div>
+        </div>
+    }
+</div>

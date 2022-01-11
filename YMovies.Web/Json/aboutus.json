@@ -1,0 +1,40 @@
+{
+  "aboutUs": [
+    {
+      "Name": "Vladyslav",
+      "SureName": "Avramchuk",
+      "ResponsobilitiesList": [ "1) Repositories", "2) Searching", "3) Editing by admin", "4) Media DB", "5) UI" ],
+      "Position": ".Net intern consultant",
+      "GeneralInfo": "...",
+      "ImgUrl": "https://bootdey.com/img/Content/avatar/avatar7.png",
+      "LinkedInUrl": "https://www.linkedin.com/mwlite/in/vlad-avramchuk-b22a551a6"
+    },
+    {
+      "Name": "Kyrylo",
+      "SureName": "Sokyrka",
+      "ResponsobilitiesList": [ "1) Repositories", "2) Searching", "3) Editing by admin", "4) DB", "5) UI" ],
+      "Position": ".Net intern consultant",
+      "GeneralInfo": null,
+      "ImgUrl": "https://bootdey.com/img/Content/avatar/avatar2.png",
+      "LinkedInUrl": null
+    },
+    {
+      "Name": "Iryna",
+      "SureName": "Onyshkevych",
+      "ResponsobilitiesList": [ "1) Repositories", "2) Searching", "3) Editing by admin", "4) Media DB", "5) UI" ],
+      "Position": ".Net intern consultant",
+      "GeneralInfo": "",
+      "ImgUrl": "https://bootdey.com/img/Content/avatar/avatar3.png",
+      "LinkedInUrl": "https://www.linkedin.com/in/iryna-o-a341701a1"
+    },
+    {
+      "Name": "Mykhailo",
+      "SureName": "Kholmohorov",
+      "ResponsobilitiesList": [ "1) Repositories", "2) Searching", "3) Editing by admin", "4) Media DB", "5) UI" ],
+      "Position": ".Net intern consultant",
+      "GeneralInfo": "A pragmatic,\n                resourceful,\n                goal - oriented,\n                outgoing developer.\n                I am interested in challenging technical tasks that related to web development,\n                AR / VR,\n                mobile development.",
+      "ImgUrl": "https://bootdey.com/img/Content/avatar/avatar6.png",
+      "LinkedInUrl": "https://www.linkedin.com/in/mykhailo-kholmohorov-28202a1a3/"
+    }
+  ]
+}

@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using Ymovies.Identity.BLL.Interfaces;
 using YMovies.MovieDbService.Services.Service;
 using YMovies.Web.IMDB;
+using YMovies.Web.Models.AboutUs;
 using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Controllers
@@ -32,9 +34,13 @@ namespace YMovies.Web.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            string FilePath = Server.MapPath("~/Json/");
+            string fileName = "aboutus.json";
+            var str = System.IO.File.ReadAllText(FilePath + fileName);
 
-            return View();
+            AboutUsViewModel infoList = new JavaScriptSerializer().Deserialize<AboutUsViewModel>(str);
+
+            return View(infoList);
         }
 
         public async Task<ActionResult> Mock(string id)
