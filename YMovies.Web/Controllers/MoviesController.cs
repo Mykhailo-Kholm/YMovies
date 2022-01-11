@@ -215,6 +215,7 @@ namespace YMovies.Web.Controllers
                 APIworkerIMDB imdb = new APIworkerIMDB();
                 var films = await imdb.MovieOrSeriesInfoAsync(imdbId);
                 DBSeed dbSeed = new DBSeed();
+                await dbSeed.AddMovieByImbdId(imdbId);
                 movie = dbSeed.MapMovieDtoToDtoFromImdb(films);
             }
             return View("TopMovieDetails", movie);
