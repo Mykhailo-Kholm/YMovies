@@ -68,6 +68,10 @@
     <Compile Include="Migrations\202201102128474_ChangeIdTypeUser.designer.cs">
       <DependentUpon>202201102128474_ChangeIdTypeUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201111107195_ChangeCast.cs" />
+    <Compile Include="Migrations\202201111107195_ChangeCast.designer.cs">
+      <DependentUpon>202201111107195_ChangeCast.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cast.cs" />
     <Compile Include="Models\Country.cs" />
@@ -129,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201102128474_ChangeIdTypeUser.resx">
       <DependentUpon>202201102128474_ChangeIdTypeUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201111107195_ChangeCast.resx">
+      <DependentUpon>202201111107195_ChangeCast.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
