@@ -1,4 +1,5 @@
 ﻿@using Microsoft.Ajax.Utilities
+@using Microsoft.AspNet.Identity
 @model YMovies.MovieDbService.DTOs.MediaDto
 
 @{
@@ -24,10 +25,17 @@
 
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    @Html.ActionLink("Like", "Like", "Movies", new { id = Model.MediaId }, new { @class = "btn btn-primary" })
-                                    @Html.ActionLink("Dislike", "DisLike", "Movies", new { id = Model.MediaId }, new { @class = "btn btn-primary" })
-                                    @Html.ActionLink("Mark as watched", "DisLike", "Movies", new { id = Model.MediaId }, new { @class = "btn btn-primary" })
-
+                                    @Html.ActionLink("Like", "Like", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()}, new {@class = "btn btn-primary"})
+                                    @Html.ActionLink("Dislike", "DisLike", "Movies", new {id = Model.MediaId}, new {@class = "btn btn-primary"})
+                                    @Html.ActionLink("Mark as watched", "DisLike", "Movies", new {id = Model.MediaId}, new {@class = "btn btn-primary"})
+                                    <hr>
+                                    <div>
+                                        @if (User.IsInRole("admin"))
+                                        {
+                                            @Html.ActionLink("Edit", "Like", "Movies", new {@class = "btn btn-primary"})
+                                            @Html.ActionLink("Delete", "DisLike", "Movies", new {@class = "btn btn-primary"})
+                                        }
+                                    </div>
                                 }
                                 @*<button class="btn btn-primary">Like</button>
                                     <button class="btn btn-outline-primary">Dislike</button>
@@ -143,6 +151,7 @@
                             </div>
                         }
                     </div>
+                    
                     @*<hr>
                         <div class="row">
                             <div class="col-sm-12">

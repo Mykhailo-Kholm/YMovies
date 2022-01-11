@@ -454,6 +454,7 @@
     <Content Include="Views\Type\Delete.cshtml" />
     <Content Include="Views\Type\Edit.cshtml" />
     <Content Include="Views\Type\Index.cshtml" />
+    <Content Include="Views\Movies\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

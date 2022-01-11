@@ -96,10 +96,12 @@
     <Compile Include="Repositories\Repository\SeasonRepository.cs" />
     <Compile Include="Repositories\Repository\TypeRepository.cs" />
     <Compile Include="Repositories\Repository\UserRepository.cs" />
+    <Compile Include="Services\IService\ISearchService.cs" />
     <Compile Include="Services\IService\IService.cs" />
     <Compile Include="Services\Service\CastService.cs" />
     <Compile Include="Services\Service\CountryService.cs" />
     <Compile Include="Services\Service\GenreService.cs" />
+    <Compile Include="Services\Service\SearchService.cs" />
     <Compile Include="Services\Service\LikesService.cs" />
     <Compile Include="Services\Service\MovieService.cs" />
     <Compile Include="SearchModel\SearchingModel.cs" />

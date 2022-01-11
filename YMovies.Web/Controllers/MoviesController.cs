@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.DTOs;
+using YMovies.MovieDbService.Repositories.IRepository;
+using YMovies.MovieDbService.Repositories.Repository;
 using YMovies.MovieDbService.Services.IService;
+using YMovies.MovieDbService.Services.Service;
 using YMovies.Web.IMDB;
 using YMovies.Web.IMDB.DBWorker;
 using YMovies.Web.Models.MoviesInfoViewModel;
@@ -24,28 +28,26 @@ namespace YMovies.Web.Controllers
         private const int pageSize = 4;
         private readonly IService<MediaDto> _movieService;
 
+        private static MoviesContext context = new MoviesContext();
+        private LikesService service = new LikesService(context);
+        private static ISearchRepository repository = new MovieRepository(context);
+        private static SearchService searchService = new SearchService(repository);
+
         public async Task<ActionResult> Like(int id)
         {
-            MediaDto movie = _movieService.GetItem(id);
-            MediaDto newmovie = new MediaDto()
-            {
-                MediaId = movie.MediaId,
-
-                NumberOfDislikes = ++movie.NumberOfLikes
-            };
-            _movieService.UpdateItem(newmovie);
-            //likedmovies table
-            return RedirectToAction("Details", id);
+           service.LikeMedia(id);
+           return RedirectToAction("Details", id);
         }
 
         public async Task<ActionResult> DisLike(int id)
         {
-            MediaDto movie = _movieService.GetItem(id);
-            MediaDto newmovie = new MediaDto()
-            {
-                NumberOfDislikes = --movie.NumberOfLikes
-            };
-            _movieService.UpdateItem(newmovie);
+            service.DislikeMedia(id);
+            return RedirectToAction("Details", id);
+        }
+
+        public async Task<ActionResult> Watched(int id)
+        {
+            service.DislikeMedia(id);
             return RedirectToAction("Details", id);
         }
 
@@ -127,25 +129,43 @@ namespace YMovies.Web.Controllers
             return View(movieViewModel);
         }
 
-        public async Task<ActionResult> Search()
+        public async Task<ActionResult> Search(string title, int page = 1)
         {
-            return RedirectToAction("Index");
+            var moviesDtos = searchService.GetMediaByTitle(title)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+
+            var movieViewModel = new MovieViewModel()
+            {
+                Movies = movies,
+                Pagination = new PaginationInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = 10
+                }
+            };
+
+            return View(movieViewModel);
         }
 
         [HttpGet]
         public async Task<ActionResult> Index(int page = 1)
         {
             //var moviesInfos = new List<IndexMediaViewModel>();
-            //var moviesDtos = _movieService.Items
-            //    .Skip((page - 1) * pageSize)
-            //    .Take(pageSize)
-            //    .ToList();
+            var moviesDtos = _movieService.Items
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
 
-            //var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
 
             var movieViewModel = new MovieViewModel()
             {
-                Movies = new List<IndexMediaViewModel>(),
+                Movies = movies,
                 Pagination = new PaginationInfo
                 {
                     CurrentPage = page,
