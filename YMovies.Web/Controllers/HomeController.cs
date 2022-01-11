@@ -1,7 +1,6 @@
 ﻿using IMDbApiLib.Models;
 using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -18,7 +17,7 @@ namespace YMovies.Web.Controllers
         {
             _userService = new UserService(IdentityUserService);
             //ISeed dbseed = new DBSeed();
-            //await dbseed.AddMovieByImbdId("tt10872600");
+            //await dbseed.AddMovieByImbdId("tt0468569");
             return RedirectToAction("Index", "Movies");
         }
         private UserService _userService;
@@ -42,7 +41,7 @@ namespace YMovies.Web.Controllers
         {
             APIworkerIMDB imdb = new APIworkerIMDB();
 
-            ViewData["MovieReport"] = await imdb.ReportForMovie(id);
+            ViewData["MovieReport"] = await imdb.ReportForMovieAsync(id);
 
             return View("MockFilm");
         }

@@ -1,15 +1,11 @@
-﻿using System;
+﻿using IMDbApiLib.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
 using YMovies.MovieDbService.DatabaseContext;
-using YMovies.MovieDbService.Services.IService;
-using YMovies.MovieDbService.DTOs;
-using YMovies.MovieDbService.Services.Service;
-using IMDbApiLib.Models;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
@@ -21,7 +17,7 @@ namespace YMovies.Web.IMDB.DBWorker
     public class DBSeed : ISeed
     {
         private readonly MoviesContext _context;
-        private readonly IRepository<Media> _movieRepository;
+        private readonly ISearchRepository _movieRepository;
         private readonly APIworkerIMDB aPIworkerIMDB;
         public DBSeed()
         {
@@ -36,7 +32,7 @@ namespace YMovies.Web.IMDB.DBWorker
                 return;
             }
 
-            var media = await aPIworkerIMDB.MovieOrSeriesInfo(imdbId);
+            var media = await aPIworkerIMDB.MovieOrSeriesInfoAsync(imdbId);
 
             if(media.Type == null || media.TvEpisodeInfo != null)
             {
@@ -102,14 +98,13 @@ namespace YMovies.Web.IMDB.DBWorker
 
             movie.ImdbRating = GetDecimal(imdbModel.IMDbRating);
 
-            if (imdbModel.ActorList != null)
+            if (imdbModel.StarList != null)
             {
-                foreach (var actor in imdbModel.ActorList)
+                foreach (var star in imdbModel.StarList)
                 {
                     movie.Cast.Add(new Cast
                     {
-                        Name = actor.Name,
-                        PictureUrl = actor.Image
+                        Name = star.Name
                     });
                 }
             }
@@ -228,6 +223,10 @@ namespace YMovies.Web.IMDB.DBWorker
                 sb.Append(m);
             }
             string number = sb.ToString();
+            if (number.Length == 1)
+            {
+                number += "0";
+            }
             decimal n = Convert.ToDecimal(number);
 
             return n;

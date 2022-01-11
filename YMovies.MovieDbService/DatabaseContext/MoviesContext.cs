@@ -45,33 +45,6 @@ namespace YMovies.MovieDbService.DatabaseContext
                     mc.MapRightKey("GenreRefId");
                     mc.ToTable("MediaGenre");
                 });
-            //modelBuilder.Entity<Media>()
-            //    .HasMany<Cast>(m => m.Cast)
-            //    .WithMany(c => c.Medias)
-            //    .Map(mc =>
-            //    {
-            //        mc.MapLeftKey("SeriesRefId");
-            //        mc.MapRightKey("CastRefId");
-            //        mc.ToTable("SeriesCast");
-            //    });
-            //modelBuilder.Entity<Media>()
-            //    .HasMany<Country>(m => m.Countries)
-            //    .WithMany(c => c.Medias)
-            //    .Map(mc =>
-            //    {
-            //        mc.MapLeftKey("SeriesRefId");
-            //        mc.MapRightKey("CountryRefId");
-            //        mc.ToTable("SeriesCountry");
-            //    });
-            //modelBuilder.Entity<Media>()
-            //    .HasMany<Genre>(m => m.Genres)
-            //    .WithMany(c => c.Medias)
-            //    .Map(mc =>
-            //    {
-            //        mc.MapLeftKey("SeriesRefId");
-            //        mc.MapRightKey("GenreRefId");
-            //        mc.ToTable("SeriesGenre");
-            //    });
             modelBuilder.Entity<Media>()
                 .HasMany<Season>(sr => sr.Seasons)
                 .WithRequired(s => s.CurrentSeries)

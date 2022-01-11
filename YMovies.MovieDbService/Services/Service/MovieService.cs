@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
 using YMovies.MovieDbService.DTOs;
@@ -6,6 +6,7 @@ using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
 using YMovies.MovieDbService.Services.IService;
+using YMovies.MovieDbService.Utilities;
 
 namespace YMovies.MovieDbService.Services.Service
 {
@@ -24,7 +25,6 @@ namespace YMovies.MovieDbService.Services.Service
         });
         //static readonly MapperConfiguration Config = new MapperConfiguration(cfg => cfg.CreateMap<Media, MediaDto>()
         //    .ForMember("Type", opt => opt.MapFrom(m => m.Type.Name)).ReverseMap());
-
         private readonly Mapper _mapper = new Mapper(Config);
 
         private IEnumerable<MediaDto> data;
@@ -42,24 +42,24 @@ namespace YMovies.MovieDbService.Services.Service
         public MediaDto GetItem(int id)
         {
             var movie = _repository.GetItem(id);
-            return _mapper.Map<Media, MediaDto>(movie);
+            return AutoMap.Mapper.Map<Media, MediaDto>(movie);
         }
 
         public void AddItem(MediaDto item)
         {
-            var movie = _mapper.Map<MediaDto, Media>(item);
+            var movie = AutoMap.Mapper.Map<MediaDto, Media>(item);
             _repository.AddItem(movie);
         }
 
         public void UpdateItem(MediaDto item)
         {
-            var movie = _mapper.Map<MediaDto, Media>(item);
+            var movie = AutoMap.Mapper.Map<MediaDto, Media>(item);
             _repository.UpdateItem(movie);
         }
 
         public void DeleteItem(MediaDto item)
         {
-            var movie = _mapper.Map<MediaDto, Media>(item);
+            var movie = AutoMap.Mapper.Map<MediaDto, Media>(item);
             _repository.DeleteItem(movie.MediaId);
         }
     }

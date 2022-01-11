@@ -459,10 +459,6 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BL\BL.csproj">
-      <Project>{690e00f0-4fba-45c1-a6f9-ca471e65bc16}</Project>
-      <Name>BL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Ymovies.IdentityBLL\Ymovies.Identity.BLL.csproj">
       <Project>{4ca98478-aa78-4da7-8f14-456ff0a29860}</Project>
       <Name>Ymovies.Identity.BLL</Name>

@@ -21,6 +21,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public void AddItem(User item)
         {
+            if (_context.Users.Any(i => i.IdentityId == item.IdentityId)) return;
             _context.Users.Add(item);
             _context.SaveChanges();
         }
