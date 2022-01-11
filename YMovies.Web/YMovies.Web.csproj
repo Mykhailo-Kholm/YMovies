@@ -217,6 +217,7 @@
     <Compile Include="Controllers\EntitiesContollers\CastController.cs" />
     <Compile Include="Controllers\EntitiesContollers\CountryController.cs" />
     <Compile Include="Controllers\EntitiesContollers\GenreController.cs" />
+    <Compile Include="Controllers\EntitiesContollers\MediaController.cs" />
     <Compile Include="Controllers\EntitiesContollers\TypeController.cs" />
     <Compile Include="Controllers\IndexMenuController.cs" />
     <Compile Include="Controllers\UsersControllers\AccountController.cs" />
@@ -425,7 +426,6 @@
     <Content Include="Views\Admin\Find.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Shared\_UserPartial.cshtml" />
-    <Content Include="Views\Admin\FilmCreation.cshtml" />
     <Content Include="Scripts\typeahead.filmcreation.js" />
     <Content Include="Views\Movies\Partial.cshtml" />
     <Content Include="Views\IndexMenu\_CountriesPartial.cshtml" />
@@ -455,6 +455,7 @@
     <Content Include="Views\Type\Edit.cshtml" />
     <Content Include="Views\Type\Index.cshtml" />
     <Content Include="Views\Movies\Search.cshtml" />
+    <Content Include="Views\Media\CreateFilm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

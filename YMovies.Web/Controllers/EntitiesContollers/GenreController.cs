@@ -6,6 +6,7 @@ using YMovies.Web.Utilites;
 
 namespace YMovies.Web.Controllers.EntitiesContollers
 {
+    [Authorize(Roles = "admin")]
     public class GenreController : Controller
     {
         public GenreController(IService<GenreDto> genreService)

@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Services.IService;
 using YMovies.Web.Utilites;
-using YMovies.Web.Utilities;
-using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class CastController : Controller
     {
         public CastController(IService<CastDto> castService)
@@ -27,7 +25,7 @@ namespace YMovies.Web.Controllers
 
             if (!string.IsNullOrWhiteSpace(query))
                 actors = actors.Where(t => t.Name.Contains(query)).ToList();
-         
+
             return TypeConverter.ToJson(actors);
         }
 
