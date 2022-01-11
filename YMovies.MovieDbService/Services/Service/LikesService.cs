@@ -40,5 +40,11 @@ namespace YMovies.MovieDbService.Services.Service
             media.NumberOfDislikes++;
             _mediaRepository.UpdateItem(media);
         }
+        public bool IsLiked(string userId, int mediaId)
+        {
+            var user = _userRepository.GetItem(userId);
+            var media = _mediaRepository.GetItem(mediaId);
+            return user.LikedMedias.Contains(media);
+        }
     }
 }

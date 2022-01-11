@@ -2,7 +2,10 @@ using IMDbApiLib.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Repositories.IRepository;
@@ -25,6 +28,13 @@ namespace YMovies.Web.Controllers
             _movieService = movieService;
         }
 
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
         private const int pageSize = 4;
         private readonly IService<MediaDto> _movieService;
 
@@ -33,9 +43,9 @@ namespace YMovies.Web.Controllers
         private static ISearchRepository repository = new MovieRepository(context);
         private static SearchService searchService = new SearchService(repository);
 
-        public async Task<ActionResult> Like(int id)
+        public async Task<ActionResult> Like(int id, string userId)
         {
-           service.LikeMedia(id);
+           service.LikedMediaByUser(userId, id);
            return RedirectToAction("Details", id);
         }
 
@@ -200,6 +210,9 @@ namespace YMovies.Web.Controllers
                 DBSeed dbSeed = new DBSeed();
                 movie = dbSeed.MapMovieDtoToDtoFromImdb(film);
             }
+            var userId = AuthenticationManager.User.Identity.GetUserId();
+            if(userId!=null)
+                ViewBag.IsLiked = service.IsLiked(userId, filmid);
             return View(movie);
         }
 
