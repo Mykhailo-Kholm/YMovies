@@ -13,11 +13,7 @@ namespace YMovies.MovieDbService.Services.Service
     {
         private readonly IRepository<Country> _repository;
         public CountryService(CountryRepository repository) => _repository = repository;
-
-        //private static readonly MapperConfiguration Config =
-        //    new MapperConfiguration(cfg => cfg.CreateMap<Country, CountryDto>().ReverseMap());
-
-        //private readonly Mapper _mapper = new Mapper(Config);
+        
         public IEnumerable<CountryDto> Items => AutoMap.Mapper.Map<IEnumerable<Country>, IEnumerable<CountryDto>>(_repository.Items);
 
         public CountryDto GetItem(int id)
