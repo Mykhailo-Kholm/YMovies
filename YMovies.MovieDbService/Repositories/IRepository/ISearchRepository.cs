@@ -9,6 +9,6 @@ namespace YMovies.MovieDbService.Repositories.IRepository
         List<Media> GetOneHundredMediaRandom();
         List<Media> GetMostLiked();
         List<Media> GetMediaByTitle(string title);
-        List<Media> GetMediaByParams(string genre, string country, string year, string type);
+        List<Media> GetMediaByParams(string[] genre, string[] country, string year, string type);
     }
 }
