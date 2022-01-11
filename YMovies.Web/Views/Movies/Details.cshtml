@@ -1,83 +1,157 @@
 ﻿@using Microsoft.Ajax.Utilities
-@model YMovies.Web.DTOs.MovieWebDto
+@model YMovies.MovieDbService.DTOs.MediaDto
 
 @{
     ViewBag.Title = "MovieDetails";
 }
 
-<div>
-    @Model.Title
-</div>
-<div style="float:left;">
-    <img src="@Html.Raw(Model.PosterUrl)" alt="a description of the image" height=" 250" width="200">
-</div>
-<div>
-    <span>
-        Year: @Model.Year
-    </span>
-</div>
-<div>
-    <span>
-        Genres:
-        @foreach (var genre in Model.Genres)
-        {
-        <span> @genre.Name</span>
-    }
-</span>
-</div>
-<div>
-    <span>
-        Type: @Model.Type.Name
 
-    </span>
-</div>
-<div>
-    <span>
-        Countries:
-        @foreach (var country in Model.Countries)
-        {
-        <span>
-            @country.Name </span>
-    }
-</span>
-</div>
-<div>
-    <span>
-        Cast:
-        @foreach (var cast in Model.Cast)
-        {
-        <span>
-            @cast.Name @cast.Surname
-    </span>
-            }
-        </span>
-</div>
-<div>
-    <span>
-        Plot: @Model.Plot
-    </span>
-</div>
-<div>
-    <span>
-        Rating IMDb: @Model.ImdbRating
-    </span>
-</div>
-<div>
-    <span>
-        Site users rating: @Model.Rating
-    </span>
-</div>
-@*@if (User.Identity.IsAuthenticated)
-{
-    <div>
-        <span>
-            @Html.ActionLink("Like", "Like", "Movies", new {id = Model.MovieId}, new {@class = "btn btn-primary"})
-            @Html.ActionLink("Dislike", "DisLike", "Movies", new {id = Model.MovieId}, new {@class = "btn btn-primary"})
-        </span>
+<link href="~/Content/Details.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="main-body">
+
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="@Html.Raw(Model.PosterUrl)" alt="a description of the image" height="300" width="250">
+                            <div class="mt-3">
+                                <h4>@Model.Title</h4>
+                                @*<p class="text-secondary mb-1">Info one</p>
+                                    <p class="text-muted font-size-sm">Info two</p>*@
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    @Html.ActionLink("Like", "Like", "Movies", new { id = Model.MediaId }, new { @class = "btn btn-primary" })
+                                    @Html.ActionLink("Dislike", "DisLike", "Movies", new { id = Model.MediaId }, new { @class = "btn btn-primary" })
+                                    @Html.ActionLink("Mark as watched", "DisLike", "Movies", new { id = Model.MediaId }, new { @class = "btn btn-primary" })
+
+                                }
+                                @*<button class="btn btn-primary">Like</button>
+                                    <button class="btn btn-outline-primary">Dislike</button>
+                                    <button class="btn btn-outline-primary">Mark as watched</button>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">Year</h6>
+                            <span class="text-secondary">@Model.Year</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">Type</h6>
+                            @*<span class="text-secondary">@Model.Type.Name</span>*@
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">Budget</h6>
+                            <span class="text-secondary">@Model.Budget</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">Global Fees</h6>
+                            <span class="text-secondary">@Model.GlobalFees</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">Week Fees</h6>
+                            <span class="text-secondary">@Model.WeekFees</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">Companies</h6>
+                            <span class="text-secondary">@Model.Companies</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">IMDb rating</h6>
+                            <span class="text-secondary">@Model.ImdbRating</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <h6 class="mb-0">Users rating</h6>
+                            <span class="text-secondary">@Model.Rating</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Plot</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Model.Plot
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Cast</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @foreach (var cast in Model.Cast)
+                                {
+                                    <span>@cast.Name&#x3b;</span>
+
+                                }
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Countries</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @foreach (var country in Model.Countries)
+                                {
+                                    <span>@country.Name</span>
+                                }
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Genres</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @foreach (var genre in Model.Genres)
+                                {
+                                    <span>@genre.Name</span>
+                                }
+                            </div>
+                        </div>
+
+                        @if (Model.Seasons.Count != 0)
+                        {
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Seasons</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @foreach (var season in Model.Seasons)
+                                    {
+                                        <p><strong>Name:  @season.Name</strong></p>
+                                        <p>Number of episodes:  @season.NumberOfEpisodes</p>
+                                        <p>Likes:  @season.NumberOfLikes</p>
+                                        <p>Dislikes:  @season.NumberOfDislikes</p>
+
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    @*<hr>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+
     </div>
-    <div>
-        <span>
-            Mark as watched: @Html.CheckBoxFor(m => m.IsWatched)
-        </span>
-    </div>
-}*@
+</div>

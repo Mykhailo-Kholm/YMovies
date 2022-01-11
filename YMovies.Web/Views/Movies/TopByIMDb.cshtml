@@ -1,16 +1,16 @@
-﻿@model YMovies.Web.ViewModels.TopImdbViewModel
-@using PagedList.Mvc;
+﻿@model YMovies.Web.ViewModels.MovieViewModel
+@using YMovies.Web.Utilites.Pagination
 
 
 <link href="~/Content/MainPage.css" rel="stylesheet" />
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-@foreach (var film in ViewBag.OnePageOfTopMovies)
+@foreach (var film in Model.Movies)
 {
                 
     <div class="movie-card">
         <div class="movie-header theDarkTower">
-            <a href="@Url.Action("TopMovieDetails", "Movies", new { filmid = film.Id, imdbid=film.ImdbId})">
+            <a href="@Url.Action("TopMovieDetails", "Movies", new { filmid = film.MediaId, imdbid=film.ImdbId})">
                 <img src="@Html.Raw(film.PosterUrl)" class="movie-header theDarkTower">
             </a>
         </div><!--movie-header-->
@@ -31,7 +31,6 @@
     </div>
 }
 
-
-Page @(ViewBag.OnePageOfTopMovies.PageCount < ViewBag.OnePageOfTopMovies.PageNumber ? 0 : ViewBag.OnePageOfTopMovies.PageNumber) of @ViewBag.OnePageOfTopMovies.PageCount
-@Html.PagedListPager(Model.MoviePageList, page => Url.Action("TopByIMDb",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+<div>
+    @Html.PageLinks(Model.Pagination, x => Url.Action("TopByIMDb", new { page = x }))
+</div>

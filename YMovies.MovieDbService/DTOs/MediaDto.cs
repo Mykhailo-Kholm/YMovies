@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using YMovies.MovieDbService.Models;
 
 namespace YMovies.MovieDbService.DTOs
 {
@@ -18,10 +19,12 @@ namespace YMovies.MovieDbService.DTOs
         public decimal Rating { get; set; }
         public int NumberOfLikes { get; set; }
         public int NumberOfDislikes { get; set; }
-        public string Type { get; set; }
-        public ICollection<SeasonDto> Seasons { get; set; }
-        public ICollection<CastDto> Cast { get; set; }
-        public ICollection<CountryDto> Countries { get; set; }
-        public ICollection<GenreDto> Genres { get; set; }
+        public TypeDto Type { get; set; }
+        public virtual ICollection<UserDto> UsersLiked { get; set; }
+        public virtual ICollection<UserDto> UsersWatched { get; set; }
+        public virtual ICollection<SeasonDto> Seasons { get; set; }
+        public virtual ICollection<CastDto> Cast { get; set; }
+        public virtual ICollection<CountryDto> Countries { get; set; }
+        public virtual ICollection<GenreDto> Genres { get; set; }
     }
 }

@@ -54,50 +54,83 @@ namespace YMovies.Web.Controllers
             return RedirectToAction("Details", id);
         }
 
-        //public async Task<ActionResult> MostLiked(int? page)
-        //{
-        //    var pageSize = 50;
-        //    int pageNumber = (page ?? 1);
-        //    var films = _movieService.Items.OrderByDescending(m => m.NumberOfLikes);
-        //    var topImdbViewModel = new TopImdbViewModel()
-        //    {
-        //        //MoviePageList = convertor.ConvertToMoviesInfo(films).ToPagedList(pageNumber, pageSize),
-        //        Movies = _convertor.ConvertToMoviesInfo(films),
-        //    };
-        //    return View("TopByIMDb", topImdbViewModel);
-        //}
-
-        public async Task<ActionResult> MostWatched(int? page)
+        public async Task<ActionResult> MostLiked(int page = 1)
         {
-            //var pageSize = 50;
-            //int pageNumber = (page ?? 1);
-            return View("TopByIMDb");
+            var films = _movieService.Items.OrderByDescending(m => m.NumberOfLikes);
+            var moviesDtos = films
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+
+            var movieViewModel = new MovieViewModel()
+            {
+                Movies = movies,
+                Pagination = new PaginationInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = 10
+                }
+            };
+            return View("TopByIMDb", movieViewModel);
         }
 
-        public async Task<ActionResult> TopByIMDb(int? page)
+        public async Task<ActionResult> MostWatched(int page = 1)
         {
-            var pageSize = 8;
-            int pageNumber = (page ?? 1);
-            List<MoviesInfo> moviesInfos = new List<MoviesInfo>();
-            var movies = _movieService.Items.OrderByDescending(m => m.ImdbRating).Take(250).ToList();
-            if (movies.Count() == 0)
+            APIworkerIMDB imdb = new APIworkerIMDB();
+            var films = await imdb.GetMostWatchedMovies();
+
+            var moviesDtos = _convertor.ConvertToMediaDtos(films)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+
+            var movieViewModel = new MovieViewModel()
+            {
+                Movies = movies,
+                Pagination = new PaginationInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = 10
+                }
+            };
+            return View("TopByIMDb", movieViewModel);
+        }
+
+        public async Task<ActionResult> TopByIMDb(int page = 1)
+        {
+            var topmovies = _movieService.Items.OrderByDescending(m => m.ImdbRating).Take(250).ToList();
+          
+            if (topmovies.Count() == 0)
             {
                 APIworkerIMDB imdb = new APIworkerIMDB();
                 var films = await imdb.GetTop250MoviesAsync();
-                moviesInfos = _convertor.ConvertToMoviesInfo(films);
+                topmovies = _convertor.ConvertToMoviesInfo(films);
             }
-            else
+
+            var moviesDtos = topmovies
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+
+            var movieViewModel = new MovieViewModel()
             {
-                //moviesInfos = _convertor.ConvertToMoviesInfo(movies);
-            }
-            var topImdbViewModel = new TopImdbViewModel()
-            {
-                MoviePageList = moviesInfos.ToPagedList(pageNumber, pageSize),
-                Movies = moviesInfos,
+                Movies = movies,
+                Pagination = new PaginationInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = 10
+                }
             };
-            var onePageOfMovies = moviesInfos.ToPagedList(pageNumber, pageSize);
-            ViewBag.OnePageOfTopMovies = onePageOfMovies;
-            return View(topImdbViewModel);
+            return View(movieViewModel);
         }
 
         public async Task<ActionResult> Search()
@@ -109,20 +142,16 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> Index(int page = 1)
         {
             //var moviesInfos = new List<IndexMediaViewModel>();
-            var stopWatch = new Stopwatch();
-            stopWatch.Start();
             var moviesDtos = _movieService.Items
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-            stopWatch.Stop();
-            var result = stopWatch.Elapsed;
 
-            //var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
 
             var movieViewModel = new MovieViewModel()
             {
-                Movies = new List<IndexMediaViewModel>(),
+                Movies = movies,
                 Pagination = new PaginationInfo
                 {
                     CurrentPage = page,
@@ -143,30 +172,22 @@ namespace YMovies.Web.Controllers
             return View(movieViewModel);
         }
 
-        //public async Task<ActionResult> Details(int filmid, string imdbId)
-        //{
-        //    MediaDto movie;
-        //    if (filmid != 0)
-        //    {
-        //        movie = _movieService.GetItem(filmid);
-        //    }
-        //    else
-        //    {
-        //        APIworkerIMDB imdb = new APIworkerIMDB();
-        //        var films = await imdb.MovieOrSeriesInfo(imdbId);
-        //        //DBSeed dbSeed = new DBSeed();
-        //        //movie = dbSeed.MapMovieTWebDtotoDtoFromImdb(films);
-        //        //movie = new MediaWebDto()
-        //        //{
-        //        //    Title = films.Title,
-        //        //    Year = films.Year,
-        //        //    PosterUrl = films.Image,
-        //        //    Plot = films.Plot,
-        //        //    ImdbRating = typesConvertor.StringToDecimal(films.IMDbRating)
-        //        //};
-        //    }
-        //    return View(movie);
-        //}
+        public async Task<ActionResult> Details(int filmid, string imdbId)
+        {
+            MediaDto movie;
+            if (filmid != 0)
+            {
+                movie = _movieService.GetItem(filmid);
+            }
+            else
+            {
+                APIworkerIMDB imdb = new APIworkerIMDB();
+                var film = await imdb.MovieOrSeriesInfoAsync(imdbId);
+                DBSeed dbSeed = new DBSeed();
+                movie = dbSeed.MapMovieDtoToDtoFromImdb(film);
+            }
+            return View(movie);
+        }
 
         public async Task<ActionResult> TopMovieDetails(int filmid, string imdbId)
         {
@@ -178,18 +199,9 @@ namespace YMovies.Web.Controllers
             else
             {
                 APIworkerIMDB imdb = new APIworkerIMDB();
-                var films = await imdb.MovieOrSeriesInfo(imdbId);
+                var films = await imdb.MovieOrSeriesInfoAsync(imdbId);
                 DBSeed dbSeed = new DBSeed();
-                movie = new MediaDto();
-                //movie = dbSeed.MapMovieTWebDtotoDtoFromImdb(films);
-                //movie = new MediaWebDto()
-                //{
-                //    Title = films.Title,
-                //    Year = films.Year,
-                //    PosterUrl = films.Image,
-                //    Plot = films.Plot,
-                //    ImdbRating = typesConvertor.StringToDecimal(films.IMDbRating)
-                //};
+                movie = dbSeed.MapMovieDtoToDtoFromImdb(films);
             }
             return View("TopMovieDetails", movie);
         }
