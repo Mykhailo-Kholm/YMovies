@@ -8,9 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using Ymovies.Identity.BLL.DTO;
 using Ymovies.Identity.BLL.Interfaces;
-using YMovies.MovieDbService.DTOs;
-using YMovies.MovieDbService.Models;
-using YMovies.MovieDbService.Services.IService;
 using YMovies.MovieDbService.Services.Service;
 using YMovies.Web.Models;
 using YMovies.Web.Utilities;
@@ -18,13 +15,10 @@ using YMovies.Web.Utilities;
 namespace YMovies.Web.Controllers
 {
     public class AccountController : Controller
-    {        
-        public AccountController()        
+    {
+        public AccountController()
         {
-            _userService = new UserService(IdentityUserService);
         }
-
-        private UserService _userService;
 
         public IIdentityUserService IdentityUserService
         {
@@ -33,6 +27,7 @@ namespace YMovies.Web.Controllers
                 return HttpContext.GetOwinContext().GetUserManager<IIdentityUserService>();
             }
         }
+
         private IAuthenticationManager AuthenticationManager
         {
             get
@@ -66,7 +61,7 @@ namespace YMovies.Web.Controllers
                     {
                         IsPersistent = false,
                         ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
-                    }, claims) ;
+                    }, claims);
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -86,15 +81,16 @@ namespace YMovies.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userDto = AutoMap.Mapper.Map<RegisterViewModel, UserDTO>(model);                
+                var userDto = AutoMap.Mapper.Map<RegisterViewModel, UserDTO>(model);
                 userDto.Roles = new List<string>
                 {
                     "user"
-                };                
+                };
                 var operationDetails = await IdentityUserService.CreateAsync(userDto);                
                 if (operationDetails.Succedeed)
                 {
-                    _userService.AddUserToMovieDb(userDto);
+                    var userService = new UserService(IdentityUserService);
+                    userService.AddUserToMovieDb(userDto);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -141,13 +137,12 @@ namespace YMovies.Web.Controllers
             }
             return View(model);
         }
-                       
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
-        }             
+        }
     }
 }

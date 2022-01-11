@@ -17,7 +17,7 @@
     {
         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
         {
-@Html.AntiForgeryToken()
+                    @Html.AntiForgeryToken()
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -31,18 +31,32 @@
                                     @Html.ActionLink("Watched movies", "Watched", "User", null, new { @class = "dropdown-item" })
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    @Html.ActionLink("Account settings", "Index", "Manage", null, new { @class = "dropdown-item" })
-                                </li>
                                 @if (HttpContext.Current.User.IsInRole("admin"))
                                 {
-            <li>
-                @Html.ActionLink("Manage users", "Find", "Admin", null, new { @class = "dropdown-item" })
-            </li>
                                     <li>
-                                        @Html.ActionLink("Add Film", "CreateFilm", "Admin", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                        @Html.ActionLink("Manage users", "Find", "Admin", null, new { @class = "dropdown-item" })
                                     </li>
-}
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        @Html.ActionLink("Manage media", "Index", "Media", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Manage cast", "Index", "Cast", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Manage countries", "Index", "Country", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Manage genres", "Index", "Genre", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Manage types", "Index", "Type", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Manage about us", "?", "?", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                }
                                 <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
                             </ul>
                         </li>

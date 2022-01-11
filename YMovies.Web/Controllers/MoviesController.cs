@@ -136,16 +136,16 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> Index(int page = 1)
         {
             //var moviesInfos = new List<IndexMediaViewModel>();
-            var moviesDtos = _movieService.Items
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
+            //var moviesDtos = _movieService.Items
+            //    .Skip((page - 1) * pageSize)
+            //    .Take(pageSize)
+            //    .ToList();
 
-            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+            //var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
 
             var movieViewModel = new MovieViewModel()
             {
-                Movies = movies,
+                Movies = new List<IndexMediaViewModel>(),
                 Pagination = new PaginationInfo
                 {
                     CurrentPage = page,
