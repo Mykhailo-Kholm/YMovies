@@ -215,12 +215,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\Api\CountriesController.cs" />
-    <Compile Include="Controllers\Api\GenresController.cs" />
     <Compile Include="Controllers\EntitiesContollers\CastController.cs" />
+    <Compile Include="Controllers\EntitiesContollers\CountryController.cs" />
+    <Compile Include="Controllers\EntitiesContollers\GenreController.cs" />
+    <Compile Include="Controllers\EntitiesContollers\TypeController.cs" />
     <Compile Include="Controllers\IndexMenuController.cs" />
+    <Compile Include="Controllers\UsersControllers\AccountController.cs" />
+    <Compile Include="Controllers\UsersControllers\AdminController.cs" />
     <Compile Include="Dtos\CastWebDto.cs" />
     <Compile Include="Dtos\CountryWebDto.cs" />
     <Compile Include="Dtos\GenreWebDto.cs" />
@@ -247,18 +248,9 @@
     <Compile Include="Models\MoviesInfoViewModel\IndexMediaViewModel.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IService\IService.cs" />
-    <Compile Include="Services\Service\CastWebService.cs" />
-    <Compile Include="Services\Service\CountryWebService.cs" />
-    <Compile Include="Services\Service\GenreWebService.cs" />
-    <Compile Include="Services\Service\ModelsConvertor.cs" />
-    <Compile Include="Services\Service\MovieWebService.cs" />
-    <Compile Include="Services\Service\SeasonWebService.cs" />
-    <Compile Include="Services\Service\TypesConvertor.cs" />
-    <Compile Include="Services\Service\TypeWebService.cs" />
-    <Compile Include="Services\Service\UserWebService.cs" />
     <Compile Include="Utilites\Pagination\PaginationInfo.cs" />
     <Compile Include="Utilites\Pagination\PagingHelpers.cs" />
+    <Compile Include="Utilites\TypeConverter.cs" />
     <Compile Include="ViewModels\MoviesInfo.cs" />
     <Compile Include="Utilites\NinjectDependencyResolver.cs" />
     <Compile Include="Utilites\ValidationAttributes\CastAttribute.cs" />
@@ -451,6 +443,18 @@
     <Content Include="Views\Cast\Index.cshtml" />
     <Content Include="Views\Movies\MostWatched.cshtml" />
     <Content Include="Views\Movies\MostLiked.cshtml" />
+    <Content Include="Views\Country\Create.cshtml" />
+    <Content Include="Views\Country\Delete.cshtml" />
+    <Content Include="Views\Country\Edit.cshtml" />
+    <Content Include="Views\Country\Index.cshtml" />
+    <Content Include="Views\Genre\Create.cshtml" />
+    <Content Include="Views\Genre\Delete.cshtml" />
+    <Content Include="Views\Genre\Edit.cshtml" />
+    <Content Include="Views\Genre\Index.cshtml" />
+    <Content Include="Views\Type\Create.cshtml" />
+    <Content Include="Views\Type\Delete.cshtml" />
+    <Content Include="Views\Type\Edit.cshtml" />
+    <Content Include="Views\Type\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

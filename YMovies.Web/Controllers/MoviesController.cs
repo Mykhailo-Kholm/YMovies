@@ -1,6 +1,5 @@
 using IMDbApiLib.Models;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -9,7 +8,6 @@ using YMovies.MovieDbService.Services.IService;
 using YMovies.Web.IMDB;
 using YMovies.Web.IMDB.DBWorker;
 using YMovies.Web.Models.MoviesInfoViewModel;
-using YMovies.Web.TempModels;
 using YMovies.Web.Utilites.Pagination;
 using YMovies.Web.Utilities;
 using YMovies.Web.ViewModels;
