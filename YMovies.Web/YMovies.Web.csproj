@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
@@ -60,6 +60,7 @@
       <HintPath>..\packages\IMDbApiLib.1.7.1\lib\net46\IMDbApiLib.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=17.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
@@ -109,6 +110,7 @@
     <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -215,15 +217,15 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\Api\ActorsController.cs" />
     <Compile Include="Controllers\Api\CountriesController.cs" />
     <Compile Include="Controllers\Api\GenresController.cs" />
+    <Compile Include="Controllers\EntitiesContollers\CastController.cs" />
+    <Compile Include="Controllers\IndexMenuController.cs" />
     <Compile Include="Dtos\CastWebDto.cs" />
     <Compile Include="Dtos\CountryWebDto.cs" />
     <Compile Include="Dtos\GenreWebDto.cs" />
     <Compile Include="Dtos\MovieWebDto.cs" />
     <Compile Include="Dtos\SeasonWebDto.cs" />
-    <Compile Include="Dtos\SeriesWebDto.cs" />
     <Compile Include="Dtos\TypeWebDto.cs" />
     <Compile Include="Dtos\UserWebDto.cs" />
     <Compile Include="IMDB\DBWorker\DBSeed.cs" />
@@ -241,6 +243,8 @@
     <Compile Include="Models\AccountViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="Models\AdminViewModels\FindUserViewModel.cs" />
     <Compile Include="Models\AdminViewModels\ManageUserRightsViewModel.cs" />
+    <Compile Include="Models\IndexPageViewModels\MenuViewModel.cs" />
+    <Compile Include="Models\MoviesInfoViewModel\IndexMediaViewModel.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IService\IService.cs" />
@@ -250,10 +254,11 @@
     <Compile Include="Services\Service\ModelsConvertor.cs" />
     <Compile Include="Services\Service\MovieWebService.cs" />
     <Compile Include="Services\Service\SeasonWebService.cs" />
-    <Compile Include="Services\Service\SeriesWebService.cs" />
     <Compile Include="Services\Service\TypeWebService.cs" />
     <Compile Include="Services\Service\UserWebService.cs" />
-    <Compile Include="TempModels\MoviesInfo.cs" />
+    <Compile Include="Utilites\Pagination\PaginationInfo.cs" />
+    <Compile Include="Utilites\Pagination\PagingHelpers.cs" />
+    <Compile Include="ViewModels\MoviesInfo.cs" />
     <Compile Include="Utilites\NinjectDependencyResolver.cs" />
     <Compile Include="Utilites\ValidationAttributes\CastAttribute.cs" />
     <Compile Include="Utilites\ValidationAttributes\CountryAttribute.cs" />
@@ -264,7 +269,7 @@
     <Compile Include="ViewModels\MovieModel.cs" />
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Utilites\AutoMap.cs" />
-    <Compile Include="ViewModels\MovieViewModel.cs" />
+    <Compile Include="Models\IndexPageViewModels\MovieViewModel.cs" />
     <Compile Include="ViewModels\TopImdbViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -430,13 +435,18 @@
     <Content Include="Views\Admin\FilmCreation.cshtml" />
     <Content Include="Scripts\typeahead.filmcreation.js" />
     <Content Include="Views\Movies\Partial.cshtml" />
-    <Content Include="Views\Movies\_CountriesPartial.cshtml" />
-    <Content Include="Views\Movies\_GenresPartial.cshtml" />
-    <Content Include="Views\Movies\_TypesPartial.cshtml" />
-    <Content Include="Views\Movies\_YearsPartial.cshtml" />
+    <Content Include="Views\IndexMenu\_CountriesPartial.cshtml" />
+    <Content Include="Views\IndexMenu\_GenresPartial.cshtml" />
+    <Content Include="Views\IndexMenu\_TypesPartial.cshtml" />
+    <Content Include="Views\IndexMenu\_YearsPartial.cshtml" />
     <Content Include="Views\Movies\TopByIMDb.cshtml" />
     <Content Include="Views\Movies\TopMovieDetails.cshtml" />
-    <Content Include="Views\Admin\FilmCreation.cshtml" />
+    <Content Include="Views\IndexMenu\Menu.cshtml" />
+    <Content Include="Views\Cast\Create.cshtml" />
+    <Content Include="Views\Cast\Delete.cshtml" />
+    <Content Include="Views\Cast\Details.cshtml" />
+    <Content Include="Views\Cast\Edit.cshtml" />
+    <Content Include="Views\Cast\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

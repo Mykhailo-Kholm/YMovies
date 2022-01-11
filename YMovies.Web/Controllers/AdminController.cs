@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.Owin;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,13 +56,13 @@ namespace YMovies.Web.Controllers
 
         [HttpPost]
         public async Task<ActionResult> ConfirmEdit(string email, bool? adminRights)
-        {            
+        {
             if (adminRights.Value)
                 await UserManager.ChangeUserAdminRightsByEmail(email);
 
             return RedirectToAction("Index", "Home", null);
         }
-        
+       
         [HttpGet]
         public ActionResult CreateFilm()
         {

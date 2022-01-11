@@ -6,6 +6,7 @@ using YMovies.Web.Dtos;
 using YMovies.Web.DTOs;
 using YMovies.Web.Models;
 using YMovies.Web.Models.AdminViewModels;
+using YMovies.Web.Models.MoviesInfoViewModel;
 using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.App_Start
@@ -29,6 +30,8 @@ namespace YMovies.Web.App_Start
                 .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Country));
             CreateMap<UserDTO, ManageUserRightsViewModel>().
                 ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name + " " + src.SecondName));
+            CreateMap<MediaDto, IndexMediaViewModel>()
+                .ReverseMap();
             CreateMap<Cast, CastWebDto>().ReverseMap();
             CreateMap<Country, CountryWebDto>().ReverseMap();
             CreateMap<Genre, GenreWebDto>().ReverseMap();

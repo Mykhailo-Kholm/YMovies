@@ -12,10 +12,12 @@ namespace YMovies.MovieDbService.Repositories.Repository
     {
         private readonly MoviesContext _context;
         public MovieRepository(MoviesContext context) => _context = context;
+
         public IEnumerable<Media> Items => _context.Medias
-            .Include(m=> m.Countries)
-            .Include(m=>m.Genres)
-            .Include(m=>m.Cast);
+            .Include(m => m.Countries)
+            .Include(m => m.Genres)
+            .Include(m => m.Cast);
+
         public Media GetItem(int id)
         {
             var movie = _context.Medias.FirstOrDefault(m => m.MediaId == id);

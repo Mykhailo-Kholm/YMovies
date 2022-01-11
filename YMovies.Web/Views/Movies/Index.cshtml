@@ -1,111 +1,95 @@
 ﻿@{ ViewBag.Title = "Home Page"; }
 @model YMovies.Web.ViewModels.MovieViewModel
-@using PagedList.Mvc;
-
-<script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
-
-<script type='text/javascript' src="//code.jquery.com/jquery-1.8.2.js"></script>
+@using YMovies.Web.Utilites.Pagination
 
 <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css">
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/MainPage.css" rel="stylesheet" />
 
-<style type="text/css">
-    /* body {
-        font-family: "Trebuchet MS", "Helvetica", "Arial", "Verdana", "sans-serif";
-        font-size: 62.5%;
-    }*/
-
+<style type="text/css">    
     .accordion-expand-holder {
         text-align: center;
         padding: 10px;
     }
 </style>
-<script type='text/javascript'>
-    $(function () {
-        var headers = $('#accordion .accordion-header');
-        var contentAreas = $('#accordion .ui-accordion-content ').hide();
-        var expandLink = $('.accordion-expand-all');
 
-        // add the accordion functionality
-        headers.click(function () {
-            var panel = $(this).next();
-            var isOpen = panel.is(':visible');
+@Html.Action("Menu", "IndexMenu")
 
-            // open or close as necessary
-            panel[isOpen ? 'slideUp' : 'slideDown']()
-                // trigger the correct custom event
-                .trigger(isOpen ? 'hide' : 'show');
-
-            // stop the link from causing a pagescroll
-            return false;
-        });
-
-        // hook up the expand/collapse all
-        expandLink.click(function () {
-            var isAllOpen = $(this).data('isAllOpen');
-
-            contentAreas[isAllOpen ? 'hide' : 'show']()
-                .trigger(isAllOpen ? 'hide' : 'show');
-        });
-
-        // when panels open or close, check to see if they're all open
-        contentAreas.on({
-            // whenever we open a panel, check to see if they're all open
-            // if all open, swap the button to collapser
-            show: function () {
-                var isAllOpen = !contentAreas.is(':hidden');
-                if (isAllOpen) {
-                    expandLink.text('Collapse All')
-                        .data('isAllOpen', true);
-                }
-            },
-            // whenever we close a panel, check to see if they're all open
-            // if not all open, swap the button to expander
-            hide: function () {
-                var isAllOpen = !contentAreas.is(':hidden');
-                if (!isAllOpen) {
-                    expandLink.text('Expand all')
-                        .data('isAllOpen', false);
-                }
-            }
-        });
-    });
-
-</script>
-<div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
-
-    @Html.Partial("_CountriesPartial", Model.Countries)
-    @Html.Partial("_GenresPartial", Model.Genres)
-    @Html.Partial("_YearsPartial", Model.Years)
-    @Html.Partial("_TypesPartial", Model.Types)
-</div>
-<link href="~/Content/MainPage.css" rel="stylesheet" />
-
-@foreach (var film in ViewBag.OnePageOfMovies)
+@foreach (var film in Model.Movies)
 {
-
-<div class="movie-card">
-    <div class="movie-header theDarkTower">
-        <a href="@Url.Action("Details", "Movies", new {filmid = film.Id, imdbid=film.ImdbId})">
-            <img src="@Html.Raw(film.PosterUrl)" class="movie-header theDarkTower">
-        </a>
-    </div><!--movie-header-->
-    <div class="movie-content">
-        <div class="movie-content-header">
-            <a href="#">
-                <h3 class="movie-title">
-                    @film.Title
-                </h3>
+    <div class="movie-card">
+        <div class="movie-header theDarkTower">
+            <a href="@Url.Action("Details", "Movies", new {filmid = film.MediaId, imdbid = film.ImdbId})">
+                <img src="@Html.Raw(film.PosterUrl)" class="movie-header theDarkTower">
             </a>
         </div>
-        <div class="movie-info">
-            <div class="info-section">
-                <label>IMDb Rating</label>
-                <span>@film.ImdbRating</span>
+        <div class="movie-content">
+            <div class="movie-content-header">
+                <a href="#">
+                    <h3 class="movie-title">
+                        @film.Title
+                    </h3>
+                </a>
+            </div>
+            <div class="movie-info">
+                <div class="info-section">
+                    <label>IMDb Rating</label>
+                    <span>@film.ImdbRating</span>
+                </div>
             </div>
         </div>
     </div>
-</div>}
-Page @(ViewBag.OnePageOfMovies.PageCount < ViewBag.OnePageOfMovies.PageNumber ? 0 : ViewBag.OnePageOfMovies.PageNumber) of @ViewBag.OnePageOfMovies.PageCount
-@Html.PagedListPager(Model.MoviePageList, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+}
+
+<div>
+    @Html.PageLinks(Model.Pagination, x => Url.Action("Index", new { page = x }))
+</div>
+
+@section scripts {
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
+    <script type='text/javascript' src="//code.jquery.com/jquery-1.8.2.js"></script>
+    <script type='text/javascript'>
+        $(function () {
+            var headers = $('#accordion .accordion-header');
+            var contentAreas = $('#accordion .ui-accordion-content ').hide();
+            var expandLink = $('.accordion-expand-all');
+
+            headers.click(function () {
+                var panel = $(this).next();
+                var isOpen = panel.is(':visible');
+
+                panel[isOpen ? 'slideUp' : 'slideDown']()
+                    .trigger(isOpen ? 'hide' : 'show');
+
+                return false;
+            });
+
+            expandLink.click(function () {
+                var isAllOpen = $(this).data('isAllOpen');
+
+                contentAreas[isAllOpen ? 'hide' : 'show']()
+                    .trigger(isAllOpen ? 'hide' : 'show');
+            });
+
+            contentAreas.on({
+
+                show: function () {
+                    var isAllOpen = !contentAreas.is(':hidden');
+                    if (isAllOpen) {
+                        expandLink.text('Collapse All')
+                            .data('isAllOpen', true);
+                    }
+                },
+
+                hide: function () {
+                    var isAllOpen = !contentAreas.is(':hidden');
+                    if (!isAllOpen) {
+                        expandLink.text('Expand all')
+                            .data('isAllOpen', false);
+                    }
+                }
+            });
+        });
+
+    </script>
+}

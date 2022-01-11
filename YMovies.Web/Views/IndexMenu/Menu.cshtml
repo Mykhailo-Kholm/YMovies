@@ -1,0 +1,9 @@
+﻿@model YMovies.Web.Models.IndexPageViewModels.MenuViewModel
+
+<div id="accordion" class="ui-accordion ui-widget ui-helper-reset">
+
+    @Html.Partial("_CountriesPartial", Model.Countries)
+    @Html.Partial("_GenresPartial", Model.Genres)
+    @Html.Partial("_YearsPartial", Model.Years)
+    @Html.Partial("_TypesPartial", Model.Types)
+</div>
