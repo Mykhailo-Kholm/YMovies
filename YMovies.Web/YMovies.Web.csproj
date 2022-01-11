@@ -449,6 +449,8 @@
     <Content Include="Views\Cast\Details.cshtml" />
     <Content Include="Views\Cast\Edit.cshtml" />
     <Content Include="Views\Cast\Index.cshtml" />
+    <Content Include="Views\Movies\MostWatched.cshtml" />
+    <Content Include="Views\Movies\MostLiked.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -71,10 +71,10 @@ namespace YMovies.Web.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = 10
+                    TotalItems = moviesDtos.Count()
                 }
             };
-            return View("TopByIMDb", movieViewModel);
+            return View("MostLiked", movieViewModel);
         }
 
         public async Task<ActionResult> MostWatched(int page = 1)
@@ -96,10 +96,10 @@ namespace YMovies.Web.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = 10
+                    TotalItems = moviesDtos.Count
                 }
             };
-            return View("TopByIMDb", movieViewModel);
+            return View("MostWatched", movieViewModel);
         }
 
         public async Task<ActionResult> TopByIMDb(int page = 1)
@@ -127,7 +127,7 @@ namespace YMovies.Web.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = 10
+                    TotalItems = moviesDtos.Count
                 }
             };
             return View(movieViewModel);
