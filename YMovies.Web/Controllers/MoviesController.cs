@@ -77,11 +77,29 @@ namespace YMovies.Web.Controllers
             return View("TopByIMDb", movieViewModel);
         }
 
-        public async Task<ActionResult> MostWatched(int? page)
+        public async Task<ActionResult> MostWatched(int page = 1)
         {
-            //var pageSize = 50;
-            //int pageNumber = (page ?? 1);
-            return View("TopByIMDb");
+            APIworkerIMDB imdb = new APIworkerIMDB();
+            var films = await imdb.GetMostWatchedMovies();
+
+            var moviesDtos = _convertor.ConvertToMediaDtos(films)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var movies = AutoMap.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
+
+            var movieViewModel = new MovieViewModel()
+            {
+                Movies = movies,
+                Pagination = new PaginationInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = 10
+                }
+            };
+            return View("TopByIMDb", movieViewModel);
         }
 
         public async Task<ActionResult> TopByIMDb(int page = 1)

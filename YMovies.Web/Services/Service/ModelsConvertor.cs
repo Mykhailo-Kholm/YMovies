@@ -30,6 +30,25 @@ namespace YMovies.Web.Services.Service
             return _moviesInfos;
         }
 
+        public List<MediaDto> ConvertToMediaDtos(List<MostPopularDataDetail> films)
+        {
+            _moviesInfos = new List<MediaDto>();
+            foreach (var movie in films)
+            {
+                _moviesInfos.Add
+                (
+                    new MediaDto()
+                    {
+                        ImdbId = movie.Id,
+                        Title = movie.Title,
+                        PosterUrl = movie.Image,
+                        //ImdbRating = movie.IMDbRating,
+                    }
+                );
+            }
+            return _moviesInfos;
+        }
+
         //public List<MoviesInfo> ConvertToMoviesInfo(IEnumerable<MediaDto> movies)
         //{
         //    _moviesInfos = new List<MoviesInfo>();
