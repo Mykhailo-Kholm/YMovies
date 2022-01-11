@@ -8,6 +8,14 @@ using Ymovies.Identity.BLL.Interfaces;
 using YMovies.MovieDbService.Services.Service;
 using YMovies.Web.IMDB;
 using YMovies.Web.ViewModels;
+using System.IO;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+using YMovies.MovieDbService.DatabaseContext;
+using YMovies.MovieDbService.Repositories.IRepository;
+using YMovies.MovieDbService.Repositories.Repository;
+using YMovies.Web.IMDB.DBWorker;
+using YMovies.Web.Models.AboutUs;
 
 namespace YMovies.Web.Controllers
 {
@@ -17,7 +25,7 @@ namespace YMovies.Web.Controllers
         {
             _userService = new UserService(IdentityUserService);
             //ISeed dbseed = new DBSeed();
-            //await dbseed.AddMovieByImbdId("tt0468569");
+            //await dbseed.AddMediaByExpression("iron");
             return RedirectToAction("Index", "Movies");
         }
         private UserService _userService;
@@ -32,10 +40,16 @@ namespace YMovies.Web.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            string FilePath = Server.MapPath("~/Json/");
+            string fileName = "aboutus.json";
+            var str = System.IO.File.ReadAllText(FilePath+fileName);
 
-            return View();
+            AboutUsViewModel infoList = new JavaScriptSerializer().Deserialize<AboutUsViewModel>(str);
+
+            return View(infoList);
         }
+
+        
 
         public async Task<ActionResult> Mock(string id)
         {

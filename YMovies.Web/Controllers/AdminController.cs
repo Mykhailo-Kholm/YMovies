@@ -7,10 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using Ymovies.Identity.BLL.DTO;
 using Ymovies.Identity.BLL.Interfaces;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Services.IService;
+using YMovies.Web.Models.AboutUs;
 using YMovies.Web.Models.AdminViewModels;
 using YMovies.Web.Utilities;
 using YMovies.Web.ViewModels;
@@ -86,6 +88,50 @@ namespace YMovies.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public ActionResult EditAboutUs()
+        {
+            return View("FindAboutUS");
+        }
+
+        [HttpPost]
+        public ActionResult EditAboutUs(FindAboutUsModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("FindAboutUS");
+            }
+
+            Session["AboutUsId"] = model.Id-1;
+
+            string FilePath = Server.MapPath("~/Json/");
+            string fileName = "aboutus.json";
+            var str = System.IO.File.ReadAllText(FilePath + fileName);
+
+            AboutUsViewModel infoList = new JavaScriptSerializer().Deserialize<AboutUsViewModel>(str);
+
+            var aboutUS = infoList.aboutUs[model.Id-1];
+
+            return View("EditAboutUS",aboutUS);
+        }
+
+        [HttpPost]
+        public ActionResult ComfirmResult(AboutUsModel model)
+        {
+            string FilePath = Server.MapPath("~/Json/");
+            string fileName = "aboutus.json";
+            var str = System.IO.File.ReadAllText(FilePath + fileName);
+
+            AboutUsViewModel infoList = new JavaScriptSerializer().Deserialize<AboutUsViewModel>(str);
+
+            infoList.aboutUs[(int) Session["AboutUsId"]] = model;
+
+            var jsondata = new JavaScriptSerializer().Serialize(infoList);
+
+            System.IO.File.WriteAllText(FilePath+fileName,jsondata);
+
+            return RedirectToAction("Index", "Movies", null);
+        }
         private ICollection<CastDto> GetAllActors(ICollection<CastViewModel> castsModel)
             => castsModel.Select(m => _castsService.GetItem(m.Id)).ToList() ?? null;
 

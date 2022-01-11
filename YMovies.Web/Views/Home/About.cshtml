@@ -1,141 +1,40 @@
-﻿@{ ViewBag.Title = "About us"; }
+﻿@model YMovies.Web.Models.AboutUs.AboutUsViewModel
+@{ ViewBag.Title = "About us"; }
 <h1 align="center">@ViewBag.Title</h1>
 <h2 align="center">Team members</h2>
 
 <link href="~/Content/profiles.css" rel="stylesheet"/>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
 <div class="container profile-page">
     <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-12">
-            <div class="card profile-header">
-                <div class="body">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="profile-image float-md-right"> <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""> </div>
-                            <p class="social-icon m-t-5 m-b-0 col-lg-8">
-                                <a title="LinkedIn" href="https://www.linkedin.com/mwlite/in/vlad-avramchuk-b22a551a6"><i class="fa fa-linkedin"></i></a>
-                                <a title="Valtech Profile" href=""><i class="fa fa-user "></i></a>
-                            </p>
-                            <div class="col-lg-4">
-                                <button class="btn btn-primary btn-round btn-simple">Message</button>
+        
+        @foreach (var m in Model.aboutUs)
+        {
+            <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="card profile-header">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="profile-image float-md-right"> <img src="@m.ImgUrl" alt=""> </div>
+                                <p class="social-icon m-t-5 m-b-0 col-lg-8">
+                                    <a title="LinkedIn" href="@m.LinkedInUrl"><i class="fa fa-linkedin"></i></a>
+                                </p>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <h4 class="m-t-0 m-b-0"><strong>@m.Name</strong> @m.SureName</h4>
+                                <span class="job_post">@m.Position </span>
+                                <p><strong>Responsibilities:</strong> </p>
+                                @foreach (var p in m.ResponsobilitiesList)
+                                {
+                                <p>@p</p>
+                                }
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <h4 class="m-t-0 m-b-0"><strong>Vladyslav</strong> Avramchuk</h4>
-                            <span class="job_post">Back-end Developer </span>
-                            <p><strong>Responsibilities:</strong> </p>
-                            <p>1)</p>
-                            <p>2)</p>
-                            <p>3)</p>
-                            <p>4)</p>
-                            <p>5)</p>
-                            <p>6)</p>
-                        </div>
                     </div>
+                    <h4><strong>General info:</strong> @m.GeneralInfo</h4>
                 </div>
-                <h4><strong>General info:</strong> ...</h4>
-                <h4><strong>Contribution to the project:</strong> ...</h4>
             </div>
-        </div>
-
-
-        <div class="col-xl-6 col-lg-6 col-md-12">
-            <div class="card profile-header">
-                <div class="body">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="profile-image float-md-right"> <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt=""> </div>
-                            <p class="social-icon m-t-5 m-b-0 col-lg-8">
-                                <a title="LinkedIn" href="javascript:void(0);"><i class="fa fa-linkedin"></i></a>
-                                <a title="Valtech Profile" href=""><i class="fa fa-user "></i></a>
-                            </p>
-                            <div class="col-lg-4">
-                                <button class="btn btn-primary btn-round btn-simple">Message</button>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <h4 class="m-t-0 m-b-0"><strong>Kyrylo</strong> Sokyrka</h4>
-                            <span class="job_post">Back-end Developer </span>
-                            <p><strong>Responsibilities:</strong></p>
-                            <p>1)</p>
-                            <p>2)</p>
-                            <p>3)</p>
-                            <p>4)</p>
-                            <p>5)</p>
-                            <p>6)</p>
-                        </div>
-                    </div>
-                </div>
-                <h4><strong>General info:</strong> ...</h4>
-                <h4><strong>Contribution to the project:</strong> ...</h4>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-12">
-            <div class="card profile-header">
-                <div class="body">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="profile-image float-md-right"> <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""> </div>
-                            <p class="social-icon m-t-5 m-b-0 col-lg-8">
-                                <a title="LinkedIn" href="https://www.linkedin.com/in/iryna-o-a341701a1"><i class="fa fa-linkedin"></i></a>
-                                <a title="Valtech Profile" href=""><i class="fa fa-user "></i></a>
-                            </p>
-                            <div class="col-lg-4">
-                                <button class="btn btn-primary btn-round btn-simple">Message</button>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <h4 class="m-t-0 m-b-0"><strong>Iryna</strong> Onyshkevych</h4>
-                            <span class="job_post">Back-end Developer </span>
-                            <p><strong>Responsibilities:</strong></p>
-                            <p>1)</p>
-                            <p>2)</p>
-                            <p>3)</p>
-                            <p>4)</p>
-                            <p>5)</p>
-                            <p>6)</p>
-                        </div>
-                    </div>
-                </div>
-                <h4><strong>General info:</strong> ...</h4>
-                <h4><strong>Contribution to the project:</strong> ...</h4>
-            </div>
-        </div>
-
-
-        <div class="col-xl-6 col-lg-6 col-md-12">
-            <div class="card profile-header">
-                <div class="body">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="profile-image float-md-right"> <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt=""> </div>
-                            <p class="social-icon m-t-5 m-b-0 col-lg-8">
-                                <a title="LinkedIn" href="https://www.linkedin.com/in/mykhailo-kholmohorov-28202a1a3/"><i class="fa fa-linkedin"></i></a>
-                                <a title="Valtech Profile" href=""><i class="fa fa-user "></i></a>
-                            </p>
-                            <div class="col-lg-4">
-                                <button class="btn btn-primary btn-round btn-simple">Message</button>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <h4 class="m-t-0 m-b-0"><strong>Mykhailo</strong> Kholmohorov</h4>
-                            <span class="job_post">Back-end Developer </span>
-                            <p><strong>Responsibilities:</strong></p>
-                            <p>1)</p>
-                            <p>2)</p>
-                            <p>3)</p>
-                            <p>4)</p>
-                            <p>5)</p>
-                            <p>6)</p>
-                        </div>
-                    </div>
-                </div>
-                <h4><strong>General info:</strong> ...</h4>
-                <h4><strong>Contribution to the project:</strong> ...</h4>
-            </div>
-        </div>
+        }
     </div>
 </div>

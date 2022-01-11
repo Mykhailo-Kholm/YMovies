@@ -230,6 +230,9 @@
     <Compile Include="Dtos\UserWebDto.cs" />
     <Compile Include="IMDB\DBWorker\DBSeed.cs" />
     <Compile Include="IMDB\DBWorker\Interfaces\ISeed.cs" />
+    <Compile Include="Models\AboutUs\AboutUsModel.cs" />
+    <Compile Include="Models\AboutUs\AboutUsViewModel.cs" />
+    <Compile Include="Models\AboutUs\FindAboutUsModel.cs" />
     <Compile Include="Models\FilmCreationViewModels\NewFilmViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
@@ -372,6 +375,7 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Json\aboutus.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="obj\Debug\YMovies.Web.csproj.FileListAbsolute.txt" />
     <Content Include="bin\roslyn\csc.exe" />
@@ -448,6 +452,8 @@
     <Content Include="Views\Cast\Details.cshtml" />
     <Content Include="Views\Cast\Edit.cshtml" />
     <Content Include="Views\Cast\Index.cshtml" />
+    <Content Include="Views\Admin\FindAboutUS.cshtml" />
+    <Content Include="Views\Admin\EditAboutUS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
