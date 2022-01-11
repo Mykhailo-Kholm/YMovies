@@ -14,11 +14,8 @@ namespace YMovies.MovieDbService.Services.Service
         private readonly IRepository<Genre> _repository;
         public GenreService(GenreRepository repository) => _repository = repository;
 
-        //private static readonly MapperConfiguration Config =
-        //    new MapperConfiguration(cfg => cfg.CreateMap<Genre, GenreDto>());
+        public IEnumerable<GenreDto> Items => AutoMap.Mapper.Map<IEnumerable<Genre>, List<GenreDto>>(_repository.Items);
 
-        //private readonly Mapper _mapper = new Mapper(Config);
-        public IEnumerable<GenreDto> Items => AutoMap.Mapper.Map<IEnumerable<Genre>, IEnumerable<GenreDto>>(_repository.Items);
         public GenreDto GetItem(int id)
         {
             var genre = _repository.GetItem(id);

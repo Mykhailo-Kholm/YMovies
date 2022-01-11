@@ -1,4 +1,4 @@
-﻿@model YMovies.MovieDbService.DTOs.CastDto
+﻿@model YMovies.MovieDbService.DTOs.CountryDto
 
 @{
     ViewBag.Title = "Edit";
@@ -6,12 +6,12 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Country"))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>CastDto</h4>
+        <h4>CountryDto</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -23,7 +23,7 @@
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
-        
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />

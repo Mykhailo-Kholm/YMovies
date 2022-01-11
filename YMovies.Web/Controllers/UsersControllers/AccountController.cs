@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
@@ -17,14 +18,13 @@ using YMovies.Web.Utilities;
 namespace YMovies.Web.Controllers
 {
     public class AccountController : Controller
-    {
-        
+    {        
         public AccountController()        
         {
             _userService = new UserService(IdentityUserService);
         }
 
-        private IService<UserDto> _userService;
+        private UserService _userService;
 
         public IIdentityUserService IdentityUserService
         {
@@ -65,7 +65,8 @@ namespace YMovies.Web.Controllers
                     AuthenticationManager.SignIn(new AuthenticationProperties
                     {
                         IsPersistent = false,
-                    }, claims);
+                        ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+                    }, claims) ;
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -92,7 +93,10 @@ namespace YMovies.Web.Controllers
                 };                
                 var operationDetails = await IdentityUserService.CreateAsync(userDto);                
                 if (operationDetails.Succedeed)
+                {
+                    _userService.AddUserToMovieDb(userDto);
                     return RedirectToAction("Index", "Home");
+                }
                 else
                     ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
             }
