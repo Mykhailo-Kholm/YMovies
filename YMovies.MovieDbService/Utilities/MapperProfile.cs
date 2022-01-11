@@ -9,6 +9,11 @@ namespace YMovies.MovieDbService.Utilities
     {
         public MapperProfile()
         {
+            CreateMap<UserDTO, UserDto>()
+                .ForMember(d => d.Id, opt => opt.MapFrom(m => m.Id))
+                .ForMember(d => d.FullName, opt => opt.MapFrom(m => m.Name + m.SecondName))
+                .ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Cast, CastDto>().ReverseMap();
             CreateMap<Country, CountryDto>().ReverseMap();
             CreateMap<Genre, GenreDto>().ReverseMap();
@@ -22,13 +27,7 @@ namespace YMovies.MovieDbService.Utilities
                 .ForMember(d => d.Genres, opt => opt.MapFrom(m => m.Genres))
                 .ForMember(d => d.Seasons, opt => opt.MapFrom(m => m.Seasons))
                 .ForMember(d => d.Type, opt => opt.MapFrom(m => m.Type))
-                .ReverseMap();
-            
-            CreateMap<UserDTO, UserDto>()
-                .ForMember(d => d.Id, opt => opt.MapFrom(m => m.Id))
-                .ForMember(d => d.FullName, opt => opt.MapFrom(m => m.Name + m.SecondName))
-                .ReverseMap();
-            CreateMap<User, UserDto>().ReverseMap();
+                .ReverseMap();                        
         }
     }
 }

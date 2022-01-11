@@ -14,12 +14,11 @@ namespace YMovies.MovieDbService.Services.Service
     public class TypeService:IService<TypeDto>
     {
         private readonly IRepository<Type> _repository;
+        
         public TypeService(TypeRepository repository) => _repository = repository;
-        //private static  readonly MapperConfiguration Config =
-        //    new MapperConfiguration(cfg => cfg.CreateMap<Type, TypeDto>());
-
-        //private readonly Mapper _mapper = new Mapper(Config);
+        
         public IEnumerable<TypeDto> Items => AutoMap.Mapper.Map<IEnumerable<Type>, IEnumerable<TypeDto>>(_repository.Items);
+        
         public TypeDto GetItem(int id)
         {
             var type = _repository.GetItem(id);

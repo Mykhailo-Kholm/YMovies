@@ -16,6 +16,12 @@ namespace YMovies.Web.App_Start
     {
         public MapperProfile()
         {
+            CreateMap<UserDTO, ManageUserRightsViewModel>().
+                ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name + " " + src.SecondName));
+            CreateMap<UserDTO, FindUserViewModel>()
+                .ReverseMap();
+            CreateMap<MediaDto, IndexMediaViewModel>()
+                .ReverseMap();
             CreateMap<MostPopularDataDetail, IndexMediaViewModel>()
                  .ForMember(dest => dest.ImdbRating,
                      opt => opt.MapFrom(src => TypeConverter.ToDecimal(src.IMDbRating)));
@@ -35,24 +41,15 @@ namespace YMovies.Web.App_Start
                 .ReverseMap();
             CreateMap<CastDto, CastViewModel>().ReverseMap();
             CreateMap<NewFilmViewModel, MediaDto>()
-                .ForMember(dest => dest.MediaId, opt => opt.Ignore())
-                .ForMember(dest => dest.ImdbId, opt => opt.Ignore())
-                .ForMember(dest => dest.Cast, opt => opt.Ignore())
-                .ForMember(dest => dest.Cast, opt => opt.Ignore())
-                .ForMember(dest => dest.Type, opt => opt.Ignore())
                 .ForMember(dest => dest.NumberOfDislikes, opt => opt.Ignore())
+                .ForMember(dest => dest.Type, opt => opt.Ignore())
                 .ForMember(dest => dest.NumberOfLikes, opt => opt.Ignore())
                 .ForMember(dest => dest.Seasons, opt => opt.Ignore())
+                .ForMember(dest => dest.Cast, opt => opt.Ignore())
                 .ForMember(dest => dest.UsersLiked, opt => opt.Ignore())
                 .ForMember(dest => dest.UsersWatched, opt => opt.Ignore())
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genre))
-                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Country));
-            CreateMap<UserDTO, ManageUserRightsViewModel>().
-                ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name + " " + src.SecondName));
-            CreateMap<UserDTO, FindUserViewModel>()
-                .ReverseMap();
-            CreateMap<MediaDto, IndexMediaViewModel>()
-                .ReverseMap();
+                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Country));            
         }
     }
 }

@@ -21,11 +21,13 @@
 
     </dl>
 
-    @using (Html.BeginForm("Delee", "Genre")) {
+    @using (Html.BeginForm("Delee", "Genre"))
+    {
         @Html.AntiForgeryToken()
-
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Name)
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }

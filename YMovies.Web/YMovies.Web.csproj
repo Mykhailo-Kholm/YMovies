@@ -234,6 +234,8 @@
     <Compile Include="Models\AboutUs\AboutUsModel.cs" />
     <Compile Include="Models\AboutUs\AboutUsViewModel.cs" />
     <Compile Include="Models\AboutUs\FindAboutUsModel.cs" />
+    <Compile Include="Models\EntityViewModels\CastsViewModel.cs" />
+
     <Compile Include="Models\FilmCreationViewModels\NewFilmViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
@@ -264,7 +266,7 @@
     <Compile Include="ViewModels\MovieGenreViewModel.cs" />
     <Compile Include="ViewModels\MovieModel.cs" />
     <Compile Include="Dtos\UserDto.cs" />
-    <Compile Include="Utilites\AutoMap.cs" />
+    <Compile Include="Utilites\AutoMapperWeb.cs" />
     <Compile Include="Models\IndexPageViewModels\MovieViewModel.cs" />
     <Compile Include="ViewModels\TopImdbViewModel.cs" />
   </ItemGroup>

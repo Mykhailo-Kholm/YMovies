@@ -3,7 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Services.IService;
-using YMovies.MovieDbService.Utilities;
+using YMovies.Web.Utilities;
 using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Controllers.EntitiesContollers
@@ -48,7 +48,9 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             }
 
             UpdateFields(model);
-            var mediaDto = Convert(model);
+            var mediaDto = AutoMapperWeb.Mapper.Map<MediaDto>(model);
+            mediaDto.Type = GetType(model.Type);
+            mediaDto.Cast = GetAllActors(model.Cast);
             _moviesService.AddItem(mediaDto);
             return RedirectToAction("Index", "Home");
         }
@@ -60,7 +62,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             var movie = _moviesService.GetItem(id.Value);
             if (movie.Type.Name.Equals("TVSeries"))
                 return View();
-            var model = AutoMap.Mapper.Map<NewFilmViewModel>(movie);
+            var model = AutoMapperWeb.Mapper.Map<NewFilmViewModel>(movie);
             return View("EditFilm", model);
         }
 
@@ -73,7 +75,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
                 return View("CreateFilm", model);
             }
             UpdateFields(model);
-            var mediaDto = AutoMap.Mapper.Map<MediaDto>(model);
+            var mediaDto = AutoMapperWeb.Mapper.Map<MediaDto>(model);
             mediaDto.Cast = GetAllActors(model.Cast);
             _moviesService.UpdateItem(mediaDto);
             return RedirectToAction("Index", "Home");
@@ -100,32 +102,12 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         
         private TypeDto GetType(string name) 
             => _typesService.Items.Where(t => t.Name == name).FirstOrDefault();
-
-
-        private MediaDto Convert(NewFilmViewModel model) =>
-            new MediaDto
-            {
-                Title = model.Title,
-                Plot = model.Plot,
-                PosterUrl = model.PosterUrl,
-                ImdbRating = model.ImdbRating,
-                WeekFees = model.WeekFees,
-                Year = model.Year,
-                GlobalFees = model.GlobalFees,
-                Companies = model.Companies,
-                Budget = model.Budget,
-                Type = GetType(model.Type),
-                Cast = GetAllActors(model.Cast),
-                Countries = model.Country,
-                Genres = model.Genre,
-            };
-
+       
         private void UpdateFields(NewFilmViewModel model)
         {
             model.Cast = UpdateFields(model.Cast);
             model.Country = UpdateFields(model.Country);
             model.Genre = UpdateFields(model.Genre);
-
         }
 
         private ICollection<CastViewModel> UpdateFields(ICollection<CastViewModel> cast) =>

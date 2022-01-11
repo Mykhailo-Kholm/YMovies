@@ -34,7 +34,7 @@ namespace YMovies.Web.Controllers
         public string Users(string query = null)
         {
             var userDto = UserManager.GetAllUsers();
-            var viewModels = AutoMap.Mapper.Map<IEnumerable<UserDTO>, List<FindUserViewModel>>(userDto);
+            var viewModels = AutoMapperWeb.Mapper.Map<IEnumerable<UserDTO>, List<FindUserViewModel>>(userDto);
             if (!string.IsNullOrWhiteSpace(query))
                 viewModels = viewModels.Where(u => u.Email.Contains(query)).ToList();
             return TypeConverter.ToJson(viewModels);
@@ -51,7 +51,7 @@ namespace YMovies.Web.Controllers
             if (!ModelState.IsValid)
                 return View("Find", findModel);
             var user = UserManager.GetUserByEmail(findModel.Email);
-            var model = AutoMap.Mapper.Map<UserDTO, ManageUserRightsViewModel>(user);
+            var model = AutoMapperWeb.Mapper.Map<UserDTO, ManageUserRightsViewModel>(user);
             return View(model);
         }
 
