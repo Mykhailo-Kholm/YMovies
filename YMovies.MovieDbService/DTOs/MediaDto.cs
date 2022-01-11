@@ -4,7 +4,7 @@ namespace YMovies.MovieDbService.DTOs
 {
     public class MediaDto
     {
-        public int MovieId { get; set; }
+        public int MediaId { get; set; }
         public string ImdbId { get; set; }
         public string Title { get; set; }
         public string PosterUrl { get; set; }

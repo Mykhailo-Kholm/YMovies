@@ -22,7 +22,6 @@ namespace YMovies.MovieDbService.Models
         public decimal Rating { get; set; }
         public int NumberOfLikes { get; set; }
         public int NumberOfDislikes { get; set; }
-
         public Type Type { get; set; }
         public virtual ICollection<User> UsersLiked { get; set; }
         public virtual ICollection<User> UsersWatched { get; set; }

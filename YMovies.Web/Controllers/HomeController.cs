@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Ymovies.Identity.BLL.Interfaces;
-using YMovies.MovieDbService.DTOs;
-using YMovies.MovieDbService.Services.IService;
 using YMovies.MovieDbService.Services.Service;
 using YMovies.Web.IMDB;
-using YMovies.Web.IMDB.DBWorker;
 using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Controllers
@@ -20,8 +17,6 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> Index()
         {
             _userService = new UserService(IdentityUserService);
-            var temp = _userService.GetAllUsersFromIdentity().ToList();
-
             //ISeed dbseed = new DBSeed();
             //await dbseed.AddMovieByImbdId("tt10872600");
             return RedirectToAction("Index", "Movies");
@@ -42,7 +37,7 @@ namespace YMovies.Web.Controllers
 
             return View();
         }
-     
+
         public async Task<ActionResult> Mock(string id)
         {
             APIworkerIMDB imdb = new APIworkerIMDB();
