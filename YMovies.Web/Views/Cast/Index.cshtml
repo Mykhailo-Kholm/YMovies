@@ -5,7 +5,7 @@
 }
 
 <h2>Cast list</h2>
-
+<hr />
 <p>
     @Html.ActionLink("Create New", "Create", null, new {@class = "btn btn-primary"})
 </p>
@@ -16,8 +16,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-
-            <th></th>
+            <th>Actions</th>
         </tr>
         @foreach (var item in Model)
         {

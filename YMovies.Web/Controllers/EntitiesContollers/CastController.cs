@@ -17,6 +17,7 @@ namespace YMovies.Web.Controllers
         }
 
         private IService<CastDto> _castService;
+        private const int sizePage = 10;
 
         [HttpGet]
         public string Casts(string query = null)
@@ -29,9 +30,12 @@ namespace YMovies.Web.Controllers
             return TypeConverter.ToJson(actors);
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int page = 1)
         {
-            return View(_castService.Items.ToList());
+            var temp = _castService.Items.ToList();
+            
+
+            return View();
         }
 
         public async Task<ActionResult> Details(int? id)

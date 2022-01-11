@@ -18,7 +18,7 @@ namespace YMovies.Web.ViewModels
         public string PosterUrl { get; set; }
 
         [Required(ErrorMessage = "This field cannot be empty")]
-        [RegularExpression("(19[5-9][0-9])|(20|[0-1][0-9]|2[0-2])", ErrorMessage = "Year isn't correct")]
+        [RegularExpression("^[12][0-9]{3}$", ErrorMessage = "Year isn't correct")]
         public string Year { get; set; }
 
         [Required(ErrorMessage = "This field cannot be empty")]

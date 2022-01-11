@@ -81,7 +81,7 @@ namespace YMovies.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userDto = AutoMap.Mapper.Map<RegisterViewModel, UserDTO>(model);
+                var userDto = AutoMapperWeb.Mapper.Map<RegisterViewModel, UserDTO>(model);
                 userDto.Roles = new List<string>
                 {
                     "user"
