@@ -2,7 +2,10 @@ using IMDbApiLib.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Repositories.IRepository;
@@ -25,6 +28,13 @@ namespace YMovies.Web.Controllers
             _movieService = movieService;
         }
 
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
         private const int pageSize = 4;
         private readonly IService<MediaDto> _movieService;
 
@@ -33,22 +43,22 @@ namespace YMovies.Web.Controllers
         private static ISearchRepository repository = new MovieRepository(context);
         private static SearchService searchService = new SearchService(repository);
 
-        public async Task<ActionResult> Like(int id)
+        public async Task<ActionResult> Like(int id, string userId)
         {
-           service.LikeMedia(id);
-           return RedirectToAction("Details", id);
+           service.LikedMediaByUser(userId, id);
+           return RedirectToAction("Details", new { filmId = id });
         }
 
         public async Task<ActionResult> DisLike(int id)
         {
             service.DislikeMedia(id);
-            return RedirectToAction("Details", id);
+            return RedirectToAction("Details", new{filmId = id});
         }
 
         public async Task<ActionResult> Watched(int id)
         {
             service.DislikeMedia(id);
-            return RedirectToAction("Details", id);
+            return RedirectToAction("Details", new { filmId = id });
         }
 
         public async Task<ActionResult> MostLiked(int page = 1)
@@ -186,11 +196,13 @@ namespace YMovies.Web.Controllers
             return View(movieViewModel);
         }
 
-        public async Task<ActionResult> Details(int filmid, string imdbId)
+        public async Task<ActionResult> Details(int filmId, string imdbId)
         {
             MediaDto movie;
-            if (filmid != 0)
+            if (filmId != 0)
             {
+                movie = _movieService.GetItem(filmId);
+
                 APIworkerIMDB imdb = new APIworkerIMDB();
                 movie = _movieService.GetItem(filmid);
                 Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
@@ -203,6 +215,9 @@ namespace YMovies.Web.Controllers
                 Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
                 movie = dbSeed.MapMovieDtoToDtoFromImdb(film);
             }
+            var userId = AuthenticationManager.User.Identity.GetUserId();
+            if(userId!=null)
+                ViewBag.IsLiked = service.IsLiked(userId, filmId);
             return View(movie);
         }
 

@@ -23,8 +23,16 @@
 
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    @Html.ActionLink("Like", "Like", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()}, new {@class = "btn btn-primary"})
-                                    @Html.ActionLink("Dislike", "DisLike", "Movies", new {id = Model.MediaId}, new {@class = "btn btn-primary"})
+                                    if (ViewBag.IsLiked == true)
+                                    {
+                                        @Html.ActionLink("Dislike", "DisLike", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()},
+                                        new {@class = "btn btn-primary"})
+
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Like", "Like", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()}, new {@class = "btn btn-primary"})
+                                    }
                                     @Html.ActionLink("Mark as watched", "DisLike", "Movies", new {id = Model.MediaId}, new {@class = "btn btn-primary"})
                                     <hr>
                                     <div>
