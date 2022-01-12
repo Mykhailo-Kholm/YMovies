@@ -74,7 +74,6 @@ namespace YMovies.Web.Controllers
                 .ToList();
 
             var movies = AutoMapperWeb.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
-
             var movieViewModel = new MovieViewModel()
             {
                 Movies = movies,
