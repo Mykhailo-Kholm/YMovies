@@ -8,6 +8,6 @@
     @foreach (var type in Model)
     {
         @Html.HiddenFor(c => type.Id)
-        @Html.ActionLink(type.Name, "FilterType", "Movies", new { data = type.Name }, new { @class = "btn btn-primary " })
+        @Html.ActionLink(type.Name, "FilterType", "Movies", new { data = type.Name }, new { @class = "btn btn-light " })
     }
 </div>
