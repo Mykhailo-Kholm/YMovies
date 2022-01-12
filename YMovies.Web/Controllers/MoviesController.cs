@@ -42,6 +42,7 @@ namespace YMovies.Web.Controllers
         private LikesService service = new LikesService(context);
         private static ISearchRepository repository = new MovieRepository(context);
         private static SearchService searchService = new SearchService(repository);
+        private static WatchService watchService = new WatchService(context);
 
         public async Task<ActionResult> Like(int id, string userId)
         {
@@ -55,10 +56,13 @@ namespace YMovies.Web.Controllers
             return RedirectToAction("Details", new{filmId = id});
         }
 
-        public async Task<ActionResult> Watched(int id)
+        public async Task<ActionResult> Watched(int id, string userId)
         {
-            service.DislikeMedia(id);
-            return RedirectToAction("Details", new { filmId = id });
+            var isWatched = watchService.WatchedMediaByUser(userId, id);
+            if(isWatched)
+                return RedirectToAction("Details", new { filmId = id });
+            return Content("The film was watched!");
+            
         }
 
         public async Task<ActionResult> MostLiked(int page = 1)
@@ -216,8 +220,10 @@ namespace YMovies.Web.Controllers
                 movie = dbSeed.MapMovieDtoToDtoFromImdb(film);
             }
             var userId = AuthenticationManager.User.Identity.GetUserId();
-            if(userId!=null)
+            if (userId != null)
+            {
                 ViewBag.IsLiked = service.IsLiked(userId, filmId);
+            }
             return View(movie);
         }
 
