@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Services.IService;
+using YMovies.Web.Models.MediaCreationViewModels;
 using YMovies.Web.Utilities;
 using YMovies.Web.ViewModels;
 
@@ -21,18 +22,35 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         readonly IService<MediaDto> _moviesService;
         readonly IService<CastDto> _castsService;
         readonly IService<TypeDto> _typesService;
-
-        public ActionResult Index()
+       
+        public ActionResult CreateMedia()
         {
             return View();
         }
 
-        public ActionResult Details(int id)
+        public ActionResult CreateSeries()
         {
-            return View();
+            ViewBag.Types = _typesService.Items;
+            return View("CreateSeries", new NewSeriesViewModel());
+        }
+            
+        [HttpPost]
+        public ActionResult CreateSeries(NewSeriesViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Types = _typesService.Items;
+                return View("CreateSeries", model);
+            }
+            UpdateFields(model);
+            var mediaDto = AutoMapperWeb.Mapper.Map<MediaDto>(model);
+            mediaDto.Cast = GetAllActors(model.Cast);
+            mediaDto.Type = GetType(model.Type);
+            _moviesService.AddItem(mediaDto);
+            return RedirectToAction("Index", "Home");            
         }
 
-        public ActionResult Create()
+        public ActionResult CreateFilm()
         {
             ViewBag.Types = _typesService.Items;
             return View("CreateMovie", new NewFilmViewModel());
@@ -54,17 +72,37 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             _moviesService.AddItem(mediaDto);
             return RedirectToAction("Index", "Home");
         }
-
-        public ActionResult Edit(int? id)
+        
+        public ActionResult EditMovie(int? id)
         {
             if (id == null)
                 return HttpNotFound();
             var movie = _moviesService.GetItem(id.Value);
-            if (movie.Type.Name.Equals("TVSeries"))
-                return View();
-            var model = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel> (movie);
+            if (movie == null)
+                return HttpNotFound();
             ViewBag.Types = _typesService.Items.ToList();
-            return View("EditMovies", model);
+            if (movie.Seasons != null)
+            {
+                var modelSeries = AutoMapperWeb.Mapper.Map<MediaDto, NewSeriesViewModel>(movie);
+                return View("EditSeries", modelSeries);
+            }
+            var model = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel> (movie);
+            return View("EditMovie", model);
+        }
+
+        [HttpPost]
+        public ActionResult EditSeries(NewSeriesViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Types = _typesService.Items.ToList();
+                return View("EditMovie", model);
+            }
+            UpdateFields(model);
+            var mediaDto = AutoMapperWeb.Mapper.Map<NewSeriesViewModel, MediaDto>(model);
+            mediaDto.Cast = GetAllActors(model.Cast);
+            _moviesService.UpdateItem(mediaDto);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -73,7 +111,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             if (!ModelState.IsValid)
             {
                 ViewBag.Types = _typesService.Items.ToList();
-                return View("EditMovies", model);
+                return View("EditMovie", model);
             }
             UpdateFields(model);
             var mediaDto = AutoMapperWeb.Mapper.Map<NewFilmViewModel, MediaDto>(model);
@@ -88,6 +126,11 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             if(id == null)
                 return HttpNotFound();
             var dto = _moviesService.GetItem(id.Value);
+            if (dto.Seasons != null)
+            {
+                var modelsSeries = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel>(dto);
+                return View("DeleteSeries", modelsSeries);
+            }
             var model = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel>(dto);
             return View(model);
         }
@@ -107,7 +150,14 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         
         private TypeDto GetType(string name) 
             => _typesService.Items.Where(t => t.Name == name).FirstOrDefault();
-       
+
+        private void UpdateFields(NewSeriesViewModel model)
+        {
+            model.Cast = UpdateFields(model.Cast);
+            model.Countries = UpdateFields(model.Countries);
+            model.Genres = UpdateFields(model.Genres);
+        }
+
         private void UpdateFields(NewFilmViewModel model)
         {
             model.Cast = UpdateFields(model.Cast);

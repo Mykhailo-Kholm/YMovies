@@ -41,15 +41,14 @@ namespace YMovies.Web.Models.MediaCreationViewModels
         public string Companies { get; set; }
 
         [Required]
-        [RegularExpression("[0-9](,[0-9])?", ErrorMessage = "This value isn't correct, should be in format 0,0")]
+        [RegularExpression("[0-9](,[0-9][0-9])?", ErrorMessage = "This value isn't correct, should be in format 0,0")]
         [Display(Name = "Rating on Imdb")]
         public decimal ImdbRating { get; set; }
 
         [Required(ErrorMessage = "This field cannot be empty")]
         public string Type { get; set; }
 
-        [Cast(ErrorMessage = "This field cannot be empty")]
-        public ICollection<SeasonDto> Seasons { get; set; }
+        public ICollection<SeasonViewModel> Seasons { get; set; }
 
         [Cast(ErrorMessage = "This field cannot be empty")]
         public ICollection<CastViewModel> Cast { get; set; }
