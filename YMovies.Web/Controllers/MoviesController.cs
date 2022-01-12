@@ -191,13 +191,16 @@ namespace YMovies.Web.Controllers
             MediaDto movie;
             if (filmid != 0)
             {
+                APIworkerIMDB imdb = new APIworkerIMDB();
                 movie = _movieService.GetItem(filmid);
+                Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
             }
             else
             {
                 APIworkerIMDB imdb = new APIworkerIMDB();
                 var film = await imdb.MovieOrSeriesInfoAsync(imdbId);
                 DBSeed dbSeed = new DBSeed();
+                Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
                 movie = dbSeed.MapMovieDtoToDtoFromImdb(film);
             }
             return View(movie);
@@ -208,7 +211,9 @@ namespace YMovies.Web.Controllers
             MediaDto movie;
             if (filmid != 0)
             {
+                APIworkerIMDB imdb = new APIworkerIMDB();
                 movie = _movieService.GetItem(filmid);
+                Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
             }
             else
             {
@@ -216,6 +221,7 @@ namespace YMovies.Web.Controllers
                 var films = await imdb.MovieOrSeriesInfoAsync(imdbId);
                 DBSeed dbSeed = new DBSeed();
                 await dbSeed.AddMovieByImbdId(imdbId);
+                Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
                 movie = dbSeed.MapMovieDtoToDtoFromImdb(films);
             }
             return View("TopMovieDetails", movie);
