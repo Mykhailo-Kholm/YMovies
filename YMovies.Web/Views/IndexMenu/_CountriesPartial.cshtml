@@ -7,7 +7,11 @@
 <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
     @foreach (var country in Model)
     {
-        @Html.HiddenFor(c => country.Id)
-        @Html.ActionLink(country.Name, "FilterCountry", "Movies", new { data = country.Name }, new { @class = "btn btn-light " })
+        if (country.Name != null)
+        {
+            @Html.HiddenFor(c => country.Id)
+            @Html.ActionLink(country.Name, "FilterCountry", "Movies", new { data = country.Name }, new { @class = "btn btn-light " })
+        }
+
     }
 </div>

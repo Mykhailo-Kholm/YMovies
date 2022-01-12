@@ -46,6 +46,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             var mediaDto = AutoMapperWeb.Mapper.Map<MediaDto>(model);
             mediaDto.Cast = GetAllActors(model.Cast);
             mediaDto.Type = GetType(model.Type);
+            mediaDto.ImdbId = "";
             _moviesService.AddItem(mediaDto);
             return RedirectToAction("Index", "Home");            
         }
@@ -68,6 +69,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             UpdateFields(model);
             var mediaDto = AutoMapperWeb.Mapper.Map<MediaDto>(model);
             mediaDto.Type = GetType(model.Type);
+            mediaDto.ImdbId = "";
             mediaDto.Cast = GetAllActors(model.Cast);
             _moviesService.AddItem(mediaDto);
             return RedirectToAction("Index", "Home");
@@ -96,13 +98,14 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             if (!ModelState.IsValid)
             {
                 ViewBag.Types = _typesService.Items.ToList();
-                return View("EditMovie", model);
+                return View("EditSeries", model);
             }
             UpdateFields(model);
             var mediaDto = AutoMapperWeb.Mapper.Map<NewSeriesViewModel, MediaDto>(model);
             mediaDto.Type = GetType(model.Type);
             mediaDto.Cast = GetAllActors(model.Cast);
-            _moviesService.UpdateItem(mediaDto);
+            mediaDto.ImdbId = "";
+            _moviesService.AddItem(mediaDto);
             return RedirectToAction("Index", "Home");
         }
 
@@ -118,7 +121,8 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             var mediaDto = AutoMapperWeb.Mapper.Map<NewFilmViewModel, MediaDto>(model);
             mediaDto.Type = GetType(model.Type);
             mediaDto.Cast = GetAllActors(model.Cast);
-            _moviesService.UpdateItem(mediaDto);
+            mediaDto.ImdbId = "";
+            _moviesService.AddItem(mediaDto);
             return RedirectToAction("Index", "Home");
         }
 

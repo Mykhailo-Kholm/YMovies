@@ -56,9 +56,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
             if (!string.IsNullOrEmpty(genre))
             {
                 mediaList = mediaList.Where(m => m.Genres.Any(g => g.Name.ToLower().Contains(genre.ToLower()))).ToList();
-            }
-            
-
+            }            
             
             if (!string.IsNullOrEmpty(country))
             {
