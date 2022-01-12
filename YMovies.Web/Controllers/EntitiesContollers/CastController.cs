@@ -31,11 +31,8 @@ namespace YMovies.Web.Controllers
         }
 
         public async Task<ActionResult> Index(int page = 1)
-        {
-            var temp = _castService.Items.ToList();
-            
-
-            return View();
+        { 
+            return View(_castService.Items);
         }
 
         public async Task<ActionResult> Details(int? id)

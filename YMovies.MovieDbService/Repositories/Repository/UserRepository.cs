@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using YMovies.MovieDbService.DatabaseContext;
@@ -15,12 +16,15 @@ namespace YMovies.MovieDbService.Repositories.Repository
         public IEnumerable<User> Items => _context.Users;
         public User GetItem(int id)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            var user = _context.Users.Include(u => u.LikedMedias)
+                .Include(u => u.WatchedMedias).FirstOrDefault(u => u.Id == id);
             return user;
         }
         public User GetItem(string id)
         {
-            var user = _context.Users.FirstOrDefault(u => u.IdentityId == id);
+            var user = _context.Users.Include(u => u.LikedMedias)
+                .Include(u => u.WatchedMedias)
+                .FirstOrDefault(u => u.IdentityId == id);
             return user;
         }
 

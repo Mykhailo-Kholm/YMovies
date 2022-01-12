@@ -38,7 +38,7 @@
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
-                                        @Html.ActionLink("Add film", "Create", "Media", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                        @Html.ActionLink("Create media", "CreateMedia", "Media", null, new { @class = "dropdown-item", @tabindex = "-1" })
                                     </li>
                                     <li>
                                         @Html.ActionLink("Manage cast", "Index", "Cast", null, new { @class = "dropdown-item", @tabindex = "-1" })
@@ -68,7 +68,5 @@
     <li>@Html.ActionLink("Sign Up", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-outline-light " })</li>
     <li>@Html.ActionLink("Sign In", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-light" })</li>
 </ul>}
-
-
+ 
 </div>
-
