@@ -17,7 +17,6 @@ namespace YMovies.Web.Controllers
         }
 
         private IService<CastDto> _castService;
-        private const int sizePage = 10;
 
         [HttpGet]
         public string Casts(string query = null)
