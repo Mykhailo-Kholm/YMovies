@@ -62,8 +62,8 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             var movie = _moviesService.GetItem(id.Value);
             if (movie.Type.Name.Equals("TVSeries"))
                 return View();
-            var model = AutoMapperWeb.Mapper.Map<NewFilmViewModel>(movie);
-            return View("EditFilm", model);
+            var model = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel> (movie);
+            return View("EditMovies", model);
         }
 
         [HttpPost]
@@ -75,24 +75,28 @@ namespace YMovies.Web.Controllers.EntitiesContollers
                 return View("CreateFilm", model);
             }
             UpdateFields(model);
-            var mediaDto = AutoMapperWeb.Mapper.Map<MediaDto>(model);
+            var mediaDto = AutoMapperWeb.Mapper.Map<NewFilmViewModel, MediaDto>(model);
             mediaDto.Cast = GetAllActors(model.Cast);
             _moviesService.UpdateItem(mediaDto);
             return RedirectToAction("Index", "Home");
-
         }
 
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if(id == null)
+                return HttpNotFound();
+            var dto = _moviesService.GetItem(id.Value);
+            var model = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel>(dto);
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult Delete(int? id)
+        public ActionResult ConfirmDelete(int? mediaId)
         {
-            if (id == null)
+            if (mediaId == null)
                 return HttpNotFound();
-            var movie = _moviesService.GetItem(id.Value);
+            var movie = _moviesService.GetItem(mediaId.Value);
             _moviesService.DeleteItem(movie);
             return RedirectToAction("Index", "Home");
         }

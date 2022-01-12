@@ -14,10 +14,6 @@ namespace YMovies.MovieDbService.Services.Service
         private readonly IRepository<Cast> _repository;
         public CastService(CastRepository repository) => _repository = repository;
 
-        //private static readonly MapperConfiguration Config =
-        //    new MapperConfiguration(cfg => cfg.CreateMap<Cast, CastDto>());
-
-        //private readonly Mapper _mapper = new Mapper(Config);
         public IEnumerable<CastDto> Items => AutoMap.Mapper.Map<IEnumerable<Cast>, IEnumerable<CastDto>>(_repository.Items);
         public CastDto GetItem(int id)
         {

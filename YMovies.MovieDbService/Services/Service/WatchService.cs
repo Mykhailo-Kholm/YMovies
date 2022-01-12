@@ -1,6 +1,4 @@
 ﻿using YMovies.MovieDbService.DatabaseContext;
-using YMovies.MovieDbService.Models;
-using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
 
 namespace YMovies.MovieDbService.Services.Service

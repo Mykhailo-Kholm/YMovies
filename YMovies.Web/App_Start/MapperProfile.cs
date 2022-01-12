@@ -24,10 +24,19 @@ namespace YMovies.Web.App_Start
                 .ReverseMap();
             CreateMap<MostPopularDataDetail, IndexMediaViewModel>()
                  .ForMember(dest => dest.ImdbRating,
-                     opt => opt.MapFrom(src => TypeConverter.ToDecimal(src.IMDbRating)));
+                     opt => opt.MapFrom(src => TypeConverter.ToDecimal(src.IMDbRating)))
+                 .ForMember(dest => dest.ImdbId,
+                     opt => opt.MapFrom(src => src.Id))
+                 .ForMember(dest => dest.PosterUrl,
+                     opt => opt.MapFrom(src => src.Image))
+                 .ReverseMap();
             CreateMap<Top250DataDetail, IndexMediaViewModel>()
                 .ForMember(dest => dest.ImdbRating,
-                    opt => opt.MapFrom(src => TypeConverter.ToDecimal(src.IMDbRating)));
+                    opt => opt.MapFrom(src => TypeConverter.ToDecimal(src.IMDbRating)))
+                .ForMember(dest => dest.ImdbId,
+                    opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest =>dest.PosterUrl,
+                    opt=>opt.MapFrom(src => src.Image));
             CreateMap<Top250DataDetail, MediaDto>()
                .ForMember(dest => dest.ImdbRating,
                    opt => opt.MapFrom(src => TypeConverter.ToDecimal(src.IMDbRating)));
@@ -49,7 +58,12 @@ namespace YMovies.Web.App_Start
                 .ForMember(dest => dest.UsersLiked, opt => opt.Ignore())
                 .ForMember(dest => dest.UsersWatched, opt => opt.Ignore())
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genre))
-                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Country));            
+                .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Country));
+            CreateMap<MediaDto, NewFilmViewModel>()
+                .ForMember(dest => dest.Cast, opt => opt.MapFrom(src => src.Cast))
+                .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genres))
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Countries))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.Name));
         }
     }
 }

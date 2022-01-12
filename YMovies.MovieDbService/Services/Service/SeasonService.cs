@@ -13,11 +13,7 @@ namespace YMovies.MovieDbService.Services.Service
     {
         private readonly IRepository<Season> _repository;
         public SeasonService(SeasonRepository repository) => _repository = repository;
-
-        //private static readonly MapperConfiguration Config =
-        //    new MapperConfiguration(cfg => cfg.CreateMap<Season, SeasonDto>());
-
-        //private readonly Mapper _mapper = new Mapper(Config);
+       
         public IEnumerable<SeasonDto> Items => AutoMap.Mapper.Map<IEnumerable<Season>, IEnumerable<SeasonDto>>(_repository.Items);
 
         public SeasonDto GetItem(int id)

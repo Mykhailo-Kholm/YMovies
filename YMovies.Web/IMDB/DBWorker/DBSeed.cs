@@ -146,8 +146,10 @@ namespace YMovies.Web.IMDB.DBWorker
                 Year = imdbModel.Year,
                 Plot = imdbModel.Plot,
                 Companies = imdbModel.Companies,
-                WeekFees = imdbModel.BoxOffice.OpeningWeekendUSA,
-                GlobalFees = imdbModel.BoxOffice.CumulativeWorldwideGross,
+                //
+                WeekFees = "", //imdbModel.BoxOffice.OpeningWeekendUSA,
+                GlobalFees =  "",//imdbModel.BoxOffice.CumulativeWorldwideGross,
+                //
                 Type = new TypeDto(),
                 Cast = new List<CastDto>(),
                 Genres = new List<GenreDto>(),
@@ -157,6 +159,13 @@ namespace YMovies.Web.IMDB.DBWorker
                 Seasons = new List<SeasonDto>()
             };
 
+            if (imdbModel.BoxOffice != null)
+            {
+                movie.WeekFees = imdbModel.BoxOffice.OpeningWeekendUSA;
+                movie.GlobalFees = imdbModel.BoxOffice.CumulativeWorldwideGross;
+                movie.Budget = GetDecimal(imdbModel.BoxOffice.Budget);
+            }
+
             movie.Type.Name = imdbModel.Type;
             if (imdbModel.TvSeriesInfo != null)
             {
@@ -165,8 +174,6 @@ namespace YMovies.Web.IMDB.DBWorker
                     movie.Seasons.Add(new SeasonDto() { Name = imdbSeason });
                 }
             };
-
-            movie.Budget = GetDecimal(imdbModel.BoxOffice.Budget);
 
             movie.ImdbRating = GetDecimal(imdbModel.IMDbRating);
 
