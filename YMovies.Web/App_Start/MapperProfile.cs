@@ -39,7 +39,11 @@ namespace YMovies.Web.App_Start
                     opt=>opt.MapFrom(src => src.Image));
             CreateMap<Top250DataDetail, MediaDto>()
                .ForMember(dest => dest.ImdbRating,
-                   opt => opt.MapFrom(src => TypeConverter.ToDecimal(src.IMDbRating)));
+                   opt => opt.MapFrom(src => TypeConverter.ToDecimal(src.IMDbRating)))
+               .ForMember(dest => dest.ImdbId,
+                   opt => opt.MapFrom(src => src.Id))
+               .ForMember(dest => dest.PosterUrl,
+                   opt => opt.MapFrom(src => src.Image));
             CreateMap<IndexMediaViewModel, Top250DataDetail>()
                 .ReverseMap();
             CreateMap<Media, MovieWebDto>()

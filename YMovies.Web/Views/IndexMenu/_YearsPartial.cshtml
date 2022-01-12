@@ -7,8 +7,6 @@
 <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
     @foreach (var year in Model)
     {
-        @*@Html.HiddenFor(c => year)*@
-        @Html.ActionLink(year, "FilterInclude", "Movies", new { _year = year }, new { @class = "btn btn-primary " })
-        @Html.ActionLink("Exclude", "FilterExclude", "Movies", year, new { @class = "btn btn-primary" })
+        @Html.ActionLink(year, "FilterYear", "Movies", new { data = year }, new { @class = "btn btn-primary " })
     }
 </div>

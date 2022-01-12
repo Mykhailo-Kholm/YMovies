@@ -146,10 +146,8 @@ namespace YMovies.Web.IMDB.DBWorker
                 Year = imdbModel.Year,
                 Plot = imdbModel.Plot,
                 Companies = imdbModel.Companies,
-                //
-                WeekFees = "", //imdbModel.BoxOffice.OpeningWeekendUSA,
-                GlobalFees =  "",//imdbModel.BoxOffice.CumulativeWorldwideGross,
-                //
+                WeekFees = "", 
+                GlobalFees =  "",
                 Type = new TypeDto(),
                 Cast = new List<CastDto>(),
                 Genres = new List<GenreDto>(),

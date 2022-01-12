@@ -1,5 +1,6 @@
 using IMDbApiLib.Models;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -25,7 +26,7 @@ namespace YMovies.Web.Controllers
             _movieService = movieService;
         }
 
-        private const int pageSize = 4;
+        private const int pageSize = 9;
         private readonly IService<MediaDto> _movieService;
 
         private static MoviesContext context = new MoviesContext();
@@ -100,14 +101,11 @@ namespace YMovies.Web.Controllers
 
         public async Task<ActionResult> TopByIMDb(int page = 1)
         {
-            var topmovies = _movieService.Items.OrderByDescending(m => m.ImdbRating).Take(250).ToList();
 
-            if (topmovies.Count() == 0)
-            {
                 APIworkerIMDB imdb = new APIworkerIMDB();
                 var films = await imdb.GetTop250MoviesAsync();
-                topmovies = AutoMapperWeb.Mapper.Map<IEnumerable<Top250DataDetail>, List<MediaDto>>(films);
-            }
+                var topmovies = AutoMapperWeb.Mapper.Map<IEnumerable<Top250DataDetail>, List<MediaDto>>(films);
+            
 
             var moviesDtos = topmovies
                 .Skip((page - 1) * pageSize)
@@ -145,7 +143,7 @@ namespace YMovies.Web.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = 10
+                    TotalItems = movies.Count
                 }
             };
 
@@ -155,8 +153,20 @@ namespace YMovies.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(int page = 1)
         {
-            //var moviesInfos = new List<IndexMediaViewModel>();
-            var moviesDtos = _movieService.Items
+
+
+            List<MediaDto> mediadtos;
+            if (Session["Movies"] != null)
+            {
+                mediadtos = Session["Movies"] as List<MediaDto>;
+                Session["Movies"] = null;
+            }
+            else
+            {
+                mediadtos = _movieService.Items.ToList();
+            }
+
+            var moviesDtos = mediadtos
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
@@ -170,18 +180,9 @@ namespace YMovies.Web.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = 10
+                    TotalItems = mediadtos.Count
                 }
             };
-
-            if (Session["Movies"] != null)
-            {
-                movieViewModel.Movies = Session["Movies"] as List<IndexMediaViewModel>;
-            }
-            else
-            {
-                //movieViewModel.Movies = moviesInfos;
-            }
 
             return View(movieViewModel);
         }
@@ -227,30 +228,38 @@ namespace YMovies.Web.Controllers
             return View("TopMovieDetails", movie);
         }
 
-        public async Task<ActionResult> FilterInclude(string action, int countryId)
+        public async Task<ActionResult> FilterCountry(string action, string data)
         {
+            var dtList = searchService.GetMediaByParams(country: data);
+            
+            Session["Movies"] = dtList;
 
-            List<MediaDto> newMovies = new List<MediaDto>();
-            if (Session["Movies"] != null)
-            {
-                newMovies = Session["Movies"] as List<MediaDto>;
-            }
-
-            var updatedmovies = newMovies.Select(m => m.Countries.Where(p => p.Id == countryId));
-            //foreach (var m in movies)
-            //{
-            //    foreach (var c in m.Countries)
-            //    {   
-            //        if(c.Id==countryId)
-            //            newMovies.Add(m);
-            //    }
-            //}
-
-            Session["Movies"] = updatedmovies;
-            //List<Media> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
             return RedirectToAction("Index");
         }
+        public async Task<ActionResult> FilterGenre(string action, string data)
+        {
+            var dtList = searchService.GetMediaByParams(genre: data);
 
+            Session["Movies"] = dtList;
+
+            return RedirectToAction("Index");
+        }
+        public async Task<ActionResult> FilterType(string action, string data)
+        {
+            var dtList = searchService.GetMediaByParams(type: data);
+
+            Session["Movies"] = dtList;
+
+            return RedirectToAction("Index");
+        }
+        public async Task<ActionResult> FilterYear(string action, string data)
+        {
+            var dtList = searchService.GetMediaByParams(year: data);
+
+            Session["Movies"] = dtList;
+
+            return RedirectToAction("Index");
+        }
         public async Task<ActionResult> FilterExclude(int countryId)
         {
 
@@ -260,21 +269,9 @@ namespace YMovies.Web.Controllers
                 newMovies = Session["Movies"] as List<MediaDto>;
             }
 
-            //newMovies = movies.Movies.Where(p => countries.Any(p2 => countryId == p.Id)).ToList();
-            //foreach (var m in movies)
-            //{
-            //    foreach (var c in m.Countries)
-            //    {
-            //        if (c.Id != countryId)
-            //        {
-            //            newMovies.Remove(m);
-            //        }
-            //        break;
-            //    }
-            //}
 
             Session["Movies"] = newMovies;
-            //List<Media> newMovies = movies.Where(p => countries.All(p2=>p2.Id==countryId)).ToList();
+
             return RedirectToAction("Index");
         }
     }
