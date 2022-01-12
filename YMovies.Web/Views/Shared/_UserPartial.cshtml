@@ -23,13 +23,7 @@
                             <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 @HttpContext.Current.User.Identity.Name
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                <li>
-                                    @Html.ActionLink("Liked movies", "Liked", "User", null, new { @class = "dropdown-item" })
-                                </li>
-                                <li>
-                                    @Html.ActionLink("Watched movies", "Watched", "User", null, new { @class = "dropdown-item" })
-                                </li>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">                               
                                 <li><hr class="dropdown-divider"></li>
                                 @if (HttpContext.Current.User.IsInRole("admin"))
                                 {
