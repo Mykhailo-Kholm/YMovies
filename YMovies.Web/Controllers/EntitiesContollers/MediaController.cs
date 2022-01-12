@@ -100,6 +100,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             }
             UpdateFields(model);
             var mediaDto = AutoMapperWeb.Mapper.Map<NewSeriesViewModel, MediaDto>(model);
+            mediaDto.Type = GetType(model.Type);
             mediaDto.Cast = GetAllActors(model.Cast);
             _moviesService.UpdateItem(mediaDto);
             return RedirectToAction("Index", "Home");
@@ -115,6 +116,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             }
             UpdateFields(model);
             var mediaDto = AutoMapperWeb.Mapper.Map<NewFilmViewModel, MediaDto>(model);
+            mediaDto.Type = GetType(model.Type);
             mediaDto.Cast = GetAllActors(model.Cast);
             _moviesService.UpdateItem(mediaDto);
             return RedirectToAction("Index", "Home");
