@@ -39,7 +39,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             if (ModelState.IsValid)
             {
                 _countryService.AddItem(model);
-                RedirectToAction("Index", "Country");
+                return RedirectToAction("Index", "Country");
             }
             return View(model);
         }
