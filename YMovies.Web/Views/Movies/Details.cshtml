@@ -33,7 +33,7 @@
                                     {
                                         @Html.ActionLink("Like", "Like", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()}, new {@class = "btn btn-primary"})
                                     }
-                                    @Html.ActionLink("Mark as watched", "Watched", "Movies", new {id = Model.MediaId}, new {@class = "btn btn-primary"})
+                                    @Html.ActionLink("Mark as watched", "Watched", "Movies", new { id = Model.MediaId, userId = User.Identity.GetUserId() }, new {@class = "btn btn-primary"})
                                     <hr>
                                     <div>
                                         @if (User.IsInRole("admin"))
