@@ -81,6 +81,7 @@ namespace Ymovies.Identity.BLL.Services
                 return null;
             return new UserDTO
             {
+                Id = user.Id,
                 Email = userEmal,
                 UserName = user.UserName,
                 Name = user.Name,
