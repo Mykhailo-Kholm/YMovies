@@ -4,20 +4,21 @@
 
 <link href="~/Content/MainPage.css" rel="stylesheet" />
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<div>
+    @foreach (var film in Model.Movies)
+    {
 
-@foreach (var film in Model.Movies)
-{
-                
-    <div class="movie-card">
-        <div class="movie-header theDarkTower">
-            <a href="@Url.Action("TopMovieDetails", "Movies", new { filmid = film.MediaId, imdbid=film.ImdbId})">
-                <img src="@Html.Raw(film.PosterUrl)" class="movie-header theDarkTower">
-            </a>
-        </div><!--movie-header-->
-        <div class="movie-content">
-            <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">@film.Title
+        <div class="movie-card">
+            <div class="movie-header theDarkTower">
+                <a href="@Url.Action("TopMovieDetails", "Movies", new { filmid = film.MediaId, imdbid=film.ImdbId})">
+                    <img src="@Html.Raw(film.PosterUrl)" class="movie-header theDarkTower">
+                </a>
+            </div><!--movie-header-->
+            <div class="movie-content">
+                <div class="movie-content-header">
+                    <a href="#">
+                        <h3 class="movie-title">
+                            @film.Title
                     </h3>
                 </a>
             </div>
@@ -31,6 +32,7 @@
     </div>
 }
 
-<div>
-    @Html.PageLinks(Model.Pagination, x => Url.Action("TopByIMDb", new { page = x }))
+    <div>
+        @Html.PageLinks(Model.Pagination, x => Url.Action("TopByIMDb", new { page = x }))
+    </div>
 </div>

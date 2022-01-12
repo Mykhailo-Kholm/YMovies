@@ -15,6 +15,7 @@
 
 @Html.Action("Menu", "IndexMenu")
 
+<div>
 @foreach (var film in Model.Movies)
 {
     <div class="movie-card">
@@ -40,9 +41,9 @@
         </div>
     </div>
 }
-
 <div>
     @Html.PageLinks(Model.Pagination, x => Url.Action("Index", new { page = x }))
+</div>
 </div>
 
 @section scripts {
@@ -93,3 +94,4 @@
 
     </script>
 }
+

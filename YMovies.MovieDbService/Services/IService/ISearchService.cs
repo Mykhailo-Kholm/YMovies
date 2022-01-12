@@ -13,6 +13,6 @@ namespace YMovies.MovieDbService.Services.IService
         List<MediaDto> GetOneHundredMediaRandom();
         List<MediaDto> GetMostLiked();
         List<MediaDto> GetMediaByTitle(string title);
-        List<MediaDto> GetMediaByParams(string[] genre, string[] country, string year, string type);
+        List<MediaDto> GetMediaByParams(string genre, string country, string year, string type);
     }
 }

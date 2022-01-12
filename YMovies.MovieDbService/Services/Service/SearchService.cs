@@ -16,5 +16,11 @@ namespace YMovies.MovieDbService.Services.Service
             var movies = AutoMap.Mapper.Map<List<Media>, List<MediaDto>>(_repository.GetMediaByTitle(title));
             return movies;
         }
+
+        public List<MediaDto> GetMediaByParams(string genre = null, string country = null, string year = null, string type=null)
+        {
+            var movies = AutoMap.Mapper.Map<List<Media>, List<MediaDto>>(_repository.GetMediaByParams(genre, country,year,type));
+            return movies;
+        }
     }
 }
