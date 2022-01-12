@@ -37,7 +37,7 @@
                                     <div>
                                         @if (User.IsInRole("admin"))
                                         {
-                                            @Html.ActionLink("Edit", "Edit", "Media", new { @id = Model.MediaId}, new {@class = "btn btn-light" })
+                                            @Html.ActionLink("Edit", "EditMovie", "Media", new { @id = Model.MediaId}, new {@class = "btn btn-light" })
                                             @Html.ActionLink("Delete", "Delete", "Media", new { @id = Model.MediaId}, new {@class = "btn btn-light" })
                                         }
                                     </div>
