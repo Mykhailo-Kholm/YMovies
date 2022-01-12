@@ -10,19 +10,41 @@ namespace YMovies.Web.IMDB
 {
     public class APIworkerIMDB
     {
-        
-        static private string apiKey = "k_ycaf020q";
+        private ApiLib apiLib;
+        private string apiKey = System.Web.Configuration.WebConfigurationManager.AppSettings["IMDBApiKey"];
+        public APIworkerIMDB()
+        {
+            apiLib = new ApiLib(apiKey);
+        }
         /// <summary>
         /// топ 250 фильмов IMDB
         /// </summary>
         /// <returns> Task&lt;List&lt;Top250DataDetail&gt;&gt;</returns>
         public async Task<List<Top250DataDetail>> GetTop250MoviesAsync()
         {
-            var apiLib = new ApiLib(apiKey);
             var data = await apiLib.Top250MoviesAsync();
             return data.Items;
         }
-
+        /// <summary>
+        /// список фильмов по заданому expression
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns>Task&lt;List&lt;SearchResult&gt;&gt;</returns>
+        public async Task<List<SearchResult>> SearchMovieAsync(string expression)
+        {
+            var data = await apiLib.SearchMovieAsync(expression);
+            return data.Results;
+        }
+        /// <summary>
+        /// список Сериалов по заданому expression
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns>Task&lt;List&lt;SearchResult&gt;&gt;</returns>
+        public async Task<List<SearchResult>> SearchSeriesAsync(string expression)
+        {
+            var data = await apiLib.SearchSeriesAsync(expression);
+            return data.Results;
+        }
         /// <summary>
         /// Возвращает до 100 фильмов по умолчанию или по заданым параметрам(title, genre, releaseFrom, releaseTo, certificate, sort, group)
         /// </summary>
@@ -42,7 +64,6 @@ namespace YMovies.Web.IMDB
             AdvancedSearchSort sort = AdvancedSearchSort.Popularity_Ascending,
             AdvancedSearchTitleGroup group = 0)
         {
-            var apiLib = new ApiLib(apiKey);
             var data = await apiLib.AdvancedSearchAsync(
                 new AdvancedSearchInput() 
                 { 
@@ -63,9 +84,8 @@ namespace YMovies.Web.IMDB
         /// </summary>
         /// <param name="title">Имя фильма</param>
         /// <returns>Task&lt;List&lt;SearchResult&gt;&gt;</returns>
-        public async Task<List<SearchResult>> SearchByTitle(string title)
+        public async Task<List<SearchResult>> SearchByTitleAsync(string title)
         {
-            var apiLib = new ApiLib(apiKey);
             var data = await apiLib.SearchTitleAsync(title);
             return data.Results;
         }
@@ -74,9 +94,8 @@ namespace YMovies.Web.IMDB
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Task&lt;byte[]&gt;</returns>
-        public async Task<byte[]> ReportForMovie(string id = null)
+        public async Task<byte[]> ReportForMovieAsync(string id = null)
         {
-            var apiLib = new ApiLib(apiKey);
             var data = await apiLib.ReportBytesAsync(id,language: Language.en,false,Ratings: true);
             return data;
         }
@@ -84,9 +103,8 @@ namespace YMovies.Web.IMDB
         /// Фильмы которые показывают в кинотеатрах \ новинки
         /// </summary>
         /// <returns>Task&lt;List&lt;NewMovieDataDetail&gt;&gt;</returns>
-        public async Task<List<NewMovieDataDetail>> GetNewMovies()
+        public async Task<List<NewMovieDataDetail>> GetNewMoviesAsync()
         {
-            var apiLib = new ApiLib(apiKey);
             var data = await apiLib.InTheatersAsync();
             return data.Items;
         }
@@ -96,11 +114,44 @@ namespace YMovies.Web.IMDB
         /// </summary>
         /// <param name="id">Пример: tt1375666</param>
         /// <returns>Task&lt;TitleData&gt;</returns>
-        public async Task<TitleData> MovieOrSeriesInfo(string id = null)
+        public async Task<TitleData> MovieOrSeriesInfoAsync(string id = null)
         {
-            var apiLib = new ApiLib(apiKey);
-            var data = await apiLib.TitleAsync(id,FullCast:true);
+            var data = await apiLib.TitleAsync(id);
             return data;
+        }
+        /// <summary>
+        /// Возвращает url трейлера по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Task&lt;string&gt;</returns>
+        public async Task<string> GetYoutubeTrailerVideoID(string id)
+        {
+            var data = await apiLib.YouTubeTrailerAsync(id);
+            return "https://www.youtube.com/embed/" + data.VideoId;
+        }
+
+        /// <summary>
+        /// Возвращает список самых просматриваемых фильмов(imdb)
+        /// </summary>
+        /// <returns>Task&lt;List&lt;MostPopularDataDetail&gt;&gt;</returns>
+        public async Task<List<MostPopularDataDetail>> GetMostWatchedMovies()
+        {
+            var data = await apiLib.MostPopularMoviesAsync();
+            return data.Items;
+        }
+        /// <summary>
+        /// получить 100 фильмов текущего года
+        /// </summary>
+        /// <returns>Task&lt;List&lt;AdvancedSearchResult&gt;&gt;</returns>
+        public async Task<List<AdvancedSearchResult>> GetNewFilmsAsync()
+        {
+            var data = await apiLib.AdvancedSearchAsync(
+                new AdvancedSearchInput()
+                {
+                    Count = AdvancedSearchCount.Hundred,
+                    ReleaseDateFrom = DateTime.Today.Year.ToString()
+                });
+            return data.Results;
         }
     }
 }

@@ -1,0 +1,153 @@
+﻿@model YMovies.Web.Models.MediaCreationViewModels.NewSeriesViewModel
+
+@{
+    ViewBag.Title = "DeleteSeries";
+}
+
+<h2>DeleteSeries</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>NewSeriesViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.MediaId)</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MediaId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImdbId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImdbId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PosterUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PosterUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Plot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Plot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Budget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Budget)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GlobalFees)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GlobalFees)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeekFees)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeekFees)
+        </dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Companies)</dt>
+
+        <dd>@Html.DisplayFor(model => model.Companies)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.ImdbRating)</dt>
+
+        <dd>@Html.DisplayFor(model => model.ImdbRating)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Type)</dt>
+
+        <dd>@Html.DisplayFor(model => model.Type)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Seasons)</dt>
+
+        <dd>
+            <ul>
+                @foreach (var role in Model.Seasons)
+                {
+                    <li>Name - @role.Name | Episodes @role.NumberOfEpisodes </li>
+                }
+            </ul>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cast)
+        </dt>
+        <dd>
+            <ul>
+                @foreach (var role in Model.Cast)
+                {
+                    <li>Name - @role.Name</li>
+                }
+            </ul>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Countries)
+        </dt>
+        <dd>
+            <ul>
+                @foreach (var role in Model.Countries)
+                {
+                    <li>Name - @role.Name</li>
+                }
+            </ul>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genres)
+        </dt>
+        <dd>
+            <ul>
+                @foreach (var role in Model.Genres)
+                {
+                    <li>Name - @role.Name</li>
+                }
+            </ul>
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("ConfirmDelete", "Media")) {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.MediaId)
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-outline-dangerous" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

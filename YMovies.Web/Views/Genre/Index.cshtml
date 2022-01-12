@@ -1,0 +1,34 @@
+﻿@model IEnumerable<YMovies.MovieDbService.DTOs.GenreDto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Genre list</h2>
+<hr />
+<p>
+    @Html.ActionLink("Create New", "Create", null, new {@class="btn btn-primary"})
+</p>
+<div class="col-md-6">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

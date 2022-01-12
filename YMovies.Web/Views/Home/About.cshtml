@@ -1,7 +1,40 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@model YMovies.Web.Models.AboutUs.AboutUsViewModel
+@{ ViewBag.Title = "About us"; }
+<h1 align="center">@ViewBag.Title</h1>
+<h2 align="center">Team members</h2>
 
-<p>Use this area to provide additional information.</p>
+<link href="~/Content/profiles.css" rel="stylesheet"/>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="container profile-page">
+    <div class="row">
+        
+        @foreach (var m in Model.aboutUs)
+        {
+            <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="card profile-header">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="profile-image float-md-right"> <img src="@m.ImgUrl" alt=""> </div>
+                                <p class="social-icon m-t-5 m-b-0 col-lg-8">
+                                    <a title="LinkedIn" href="@m.LinkedInUrl"><i class="fa fa-linkedin"></i></a>
+                                </p>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <h4 class="m-t-0 m-b-0"><strong>@m.Name</strong> @m.SureName</h4>
+                                <span class="job_post">@m.Position </span>
+                                <p><strong>Responsibilities:</strong> </p>
+                                @foreach (var p in m.ResponsobilitiesList)
+                                {
+                                    <p>@p</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <h4><strong>General info:</strong> @m.GeneralInfo</h4>
+                </div>
+            </div>
+        }
+    </div>
+</div>

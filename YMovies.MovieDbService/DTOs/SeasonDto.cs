@@ -1,0 +1,14 @@
+﻿namespace YMovies.MovieDbService.DTOs
+{
+    public class SeasonDto
+    {
+        public int SeasonId { get; set; }
+        public string Name { get; set; }
+        public int NumberOfEpisodes { get; set; }
+        public int NumberOfLikes { get; set; }
+        public int NumberOfDislikes { get; set; }
+
+        public int CurrentSeriesId { get; set; }
+        public MediaDto CurrentSeries { get; set; }
+    }
+}

@@ -1,0 +1,47 @@
+﻿@model YMovies.Web.Models.AboutUs.AboutUsModel
+
+<div>
+    @using (@Html.BeginForm("ComfirmResult", "Admin", FormMethod.Post))
+    {
+    
+        @Html.LabelFor(m => m.Name, new { @class = "form-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(m => m.SureName, new { @class = "form-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(m => m.SureName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SureName, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(m => m.Position, new { @class = "form-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(m => m.Position, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Position, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(m => m.ImgUrl, new { @class = "form-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(m => m.ImgUrl, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ImgUrl, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(m => m.LinkedInUrl, new { @class = "form-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(m => m.LinkedInUrl, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.LinkedInUrl, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(m => m.GeneralInfo, new { @class = "form-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(m => m.GeneralInfo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.GeneralInfo, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(m => m.ResponsobilitiesList, new { @class = "form-label" })
+        <div class="col-md-8">
+            @Html.EditorFor(m => m.ResponsobilitiesList, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ResponsobilitiesList, "", new { @class = "text-danger" })
+        </div>
+    
+    <div>
+        <input type="submit" value="Edit" class="btn btn-primary" />
+    </div>
+    }
+</div>

@@ -1,0 +1,52 @@
+﻿@model YMovies.Web.Models.AdminViewModels.FindUserViewModel
+@{
+    ViewBag.Title = "ManageUsers";
+}
+<link rel="stylesheet" href="~/Content/typeahead.css" />
+
+@using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Enter user email to find him and edit his role</h4>
+    <hr />
+    <div class="mb-3">
+        @Html.LabelFor(m => Model.Email, new { @class = "col-md-2 form-label" })
+        <div class="col-md-4">
+            <input type="text" id="user" name="email" class="form-control" placeholder="example@gmail.com">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit" class="btn btn-primary" value="Find" />
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script src="~/Scripts/typeahead.bundle.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var user = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('email'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/admin/users?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#user').typeahead({
+                minLength: 2,
+                highLight: true,
+            }, {
+                name: 'user',
+                display: 'email',
+                source: user
+            }).on("typeahead:select", function (e, actor) {
+                $("#actor").value = actor.email
+            });
+
+        });
+    </script>
+}

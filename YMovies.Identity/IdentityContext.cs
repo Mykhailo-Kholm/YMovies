@@ -1,20 +1,18 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System.Data.Entity;
-using YMovies.Identity.Users;
-using YMovies.Identity.Utilities;
+using YMovies.Identity.DAL.Models;
 
 namespace YMovies.Identity
 {
     public class IdentityContext : IdentityDbContext<ApplicationUser>
     {
-        public IdentityContext()
-            : base("name=IdentityDb") 
+        public IdentityContext(string connectionString)
+            : base(connectionString)
         {
         }
 
         public static IdentityContext Create()
         {
-            return new IdentityContext();
+            return new IdentityContext("name=IdentityDb");
         }
     }
 }

@@ -1,42 +1,109 @@
-﻿using System;
+﻿using IMDbApiLib.Models;
+using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Async;
+using System.Web.Script.Serialization;
+using Ymovies.Identity.BLL.Interfaces;
+using YMovies.MovieDbService.Services.Service;
 using YMovies.Web.IMDB;
+using YMovies.Web.Models.AboutUs;
+using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            _userService = new UserService(IdentityUserService);
+            //ISeed dbseed = new DBSeed();
+            //await dbseed.AddMovieByImbdId("tt0468569");
+            return RedirectToAction("Index", "Movies");
+        }
+        private UserService _userService;
+
+        public IIdentityUserService IdentityUserService
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<IIdentityUserService>();
+            }
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            string FilePath = Server.MapPath("~/Json/");
+            string fileName = "aboutus.json";
+            var str = System.IO.File.ReadAllText(FilePath + fileName);
 
-            return View();
-        }
+            AboutUsViewModel infoList = new JavaScriptSerializer().Deserialize<AboutUsViewModel>(str);
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View(infoList);
         }
 
         public async Task<ActionResult> Mock(string id)
         {
             APIworkerIMDB imdb = new APIworkerIMDB();
 
-            ViewData["MovieReport"] = await imdb.ReportForMovie(id);
+            ViewData["MovieReport"] = await imdb.ReportForMovieAsync(id);
 
             return View("MockFilm");
+        }
+
+        public async Task<ActionResult> Genre(string genre)
+        {
+            APIworkerIMDB imdb = new APIworkerIMDB();
+            MovieModel movieModel = new MovieModel();
+            var films = await imdb.GetOneHundredFilmsAsync(group: AdvancedSearchTitleGroup.Oscar_Winner);
+            movieModel.Movies = new List<MovieGenreViewModel>();
+            foreach (var film in films)
+            {
+                if (film.Genres.ToLower().Contains(genre.ToLower()))
+                {
+                    movieModel.Movies.Add(new MovieGenreViewModel()
+                    {
+                        id = film.Id,
+                        Title = film.Title,
+                        Genre = film.Genres,
+                        Image = film.Image,
+                        imDbRating = film.IMDbRating
+
+                    }
+                    );
+
+                }
+            }
+
+            return View("MockSearch", movieModel);
+
+        }
+        public async Task<ActionResult> Title(string title)
+        {
+            APIworkerIMDB imdb = new APIworkerIMDB();
+            MovieModel movieModel = new MovieModel();
+            var films = await imdb.GetOneHundredFilmsAsync(group: AdvancedSearchTitleGroup.Oscar_Winner);
+            movieModel.Movies = new List<MovieGenreViewModel>();
+            foreach (var film in films)
+            {
+                if (film.Title.ToLower().Contains(title.ToLower()))
+                {
+                    movieModel.Movies.Add(new MovieGenreViewModel()
+                    {
+                        id = film.Id,
+                        Title = film.Title,
+                        Genre = film.Genres,
+                        Image = film.Image,
+                        imDbRating = film.IMDbRating
+                    }
+                    );
+
+                }
+            }
+
+            return View("MockSearch", movieModel);
+
         }
     }
 }

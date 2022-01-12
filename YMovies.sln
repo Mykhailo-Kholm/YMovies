@@ -1,14 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.32014.148
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMovies.Web", "YMovies.Web\YMovies.Web.csproj", "{D0A0481B-0FCE-4922-8DDB-1FE2247387CF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4EEDAF86-A5BB-49F7-A513-1DA7A4F302B9} = {4EEDAF86-A5BB-49F7-A513-1DA7A4F302B9}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMovies.Identity", "YMovies.Identity\YMovies.Identity.csproj", "{4EEDAF86-A5BB-49F7-A513-1DA7A4F302B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMovies.Identity.DAL", "YMovies.Identity\YMovies.Identity.DAL.csproj", "{4EEDAF86-A5BB-49F7-A513-1DA7A4F302B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMovies.MovieDbService", "YMovies.MovieDbService\YMovies.MovieDbService.csproj", "{9895EA37-952E-4939-935A-4993C55AF9FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ymovies.Identity.BLL", "Ymovies.IdentityBLL\Ymovies.Identity.BLL.csproj", "{4CA98478-AA78-4DA7-8F14-456FF0A29860}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{8754ECA2-3080-4B12-9FAF-B7930D41C6E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YMovies.Tests", "YMovies.Tests\YMovies.Tests.csproj", "{5A5DD6E8-41A3-4089-8279-9A7A029B0393}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,9 +32,25 @@ Global
 		{4EEDAF86-A5BB-49F7-A513-1DA7A4F302B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EEDAF86-A5BB-49F7-A513-1DA7A4F302B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EEDAF86-A5BB-49F7-A513-1DA7A4F302B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9895EA37-952E-4939-935A-4993C55AF9FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9895EA37-952E-4939-935A-4993C55AF9FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9895EA37-952E-4939-935A-4993C55AF9FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9895EA37-952E-4939-935A-4993C55AF9FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CA98478-AA78-4DA7-8F14-456FF0A29860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CA98478-AA78-4DA7-8F14-456FF0A29860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CA98478-AA78-4DA7-8F14-456FF0A29860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CA98478-AA78-4DA7-8F14-456FF0A29860}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A5DD6E8-41A3-4089-8279-9A7A029B0393}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A5DD6E8-41A3-4089-8279-9A7A029B0393}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A5DD6E8-41A3-4089-8279-9A7A029B0393}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A5DD6E8-41A3-4089-8279-9A7A029B0393}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4EEDAF86-A5BB-49F7-A513-1DA7A4F302B9} = {8754ECA2-3080-4B12-9FAF-B7930D41C6E9}
+		{4CA98478-AA78-4DA7-8F14-456FF0A29860} = {8754ECA2-3080-4B12-9FAF-B7930D41C6E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {47CC34F1-858F-42C9-BF24-9A27C19450A5}

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<YMovies.MovieDbService.DTOs.TypeDto>
+
+<h3 class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all">
+    <span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>
+    Types
+</h3>
+<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+    @foreach (var type in Model)
+    {
+        @Html.HiddenFor(c => type.Id)
+        @Html.ActionLink(type.Name, "FilterType", "Movies", new { data = type.Name }, new { @class = "btn btn-light " })
+    }
+</div>
