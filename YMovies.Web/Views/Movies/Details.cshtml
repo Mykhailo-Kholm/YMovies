@@ -33,7 +33,7 @@
                                     {
                                         @Html.ActionLink("Like", "Like", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()}, new {@class = "btn btn-primary"})
                                     }
-                                    @Html.ActionLink("Mark as watched", "DisLike", "Movies", new {id = Model.MediaId}, new {@class = "btn btn-primary"})
+                                    @Html.ActionLink("Mark as watched", "Watched", "Movies", new {id = Model.MediaId}, new {@class = "btn btn-primary"})
                                     <hr>
                                     <div>
                                         @if (User.IsInRole("admin"))
@@ -55,7 +55,7 @@
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0">Type</h6>
-                            @*<span class="text-secondary">@Model.Type.Name</span>*@
+                            <span class="text-secondary">@Model.Type.Name</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0">Budget</h6>
