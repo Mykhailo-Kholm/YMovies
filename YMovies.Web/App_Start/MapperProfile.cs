@@ -6,6 +6,7 @@ using YMovies.MovieDbService.Models;
 using YMovies.Web.DTOs;
 using YMovies.Web.Models;
 using YMovies.Web.Models.AdminViewModels;
+using YMovies.Web.Models.MediaCreationViewModels;
 using YMovies.Web.Models.MoviesInfoViewModel;
 using YMovies.Web.Utilites;
 using YMovies.Web.ViewModels;
@@ -59,11 +60,24 @@ namespace YMovies.Web.App_Start
                 .ForMember(dest => dest.UsersWatched, opt => opt.Ignore())
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genre))
                 .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Country));
+
             CreateMap<MediaDto, NewFilmViewModel>()
                 .ForMember(dest => dest.Cast, opt => opt.MapFrom(src => src.Cast))
                 .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genres))
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Countries))
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.Name));
+
+            CreateMap<SeasonDto, SeasonViewModel>()
+                .ReverseMap();
+
+            CreateMap<NewSeriesViewModel, MediaDto>()
+                .ForMember(dest => dest.Type, opt => opt.Ignore())
+                .ForMember(dest => dest.Cast, opt => opt.Ignore());
+
+            CreateMap<MediaDto, NewSeriesViewModel>()
+                .ForMember(dest => dest.Cast, opt => opt.MapFrom(src => src.Cast))
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.Name));
         }
+
     }
 }

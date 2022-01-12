@@ -235,7 +235,8 @@
     <Compile Include="Models\AboutUs\AboutUsViewModel.cs" />
     <Compile Include="Models\AboutUs\FindAboutUsModel.cs" />
     <Compile Include="Models\EntityViewModels\CastsViewModel.cs" />
-    <Compile Include="Models\FilmCreationViewModels\NewFilmViewModel.cs" />
+    <Compile Include="Models\MediaCreationViewModels\NewSeriesViewModel.cs" />
+    <Compile Include="Models\MediaCreationViewModels\NewFilmViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -249,6 +250,7 @@
     <Compile Include="Models\AdminViewModels\FindUserViewModel.cs" />
     <Compile Include="Models\AdminViewModels\ManageUserRightsViewModel.cs" />
     <Compile Include="Models\IndexPageViewModels\MenuViewModel.cs" />
+    <Compile Include="Models\MediaCreationViewModels\SeasonViewModel.cs" />
     <Compile Include="Models\MoviesInfoViewModel\IndexMediaViewModel.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -261,7 +263,7 @@
     <Compile Include="Utilites\ValidationAttributes\CountryAttribute.cs" />
     <Compile Include="Utilites\ValidationAttributes\GenresAttribute.cs" />
     <Compile Include="Utilites\ValidationAttributes\IdentityUserAttribute.cs" />
-    <Compile Include="ViewModels\CastViewModel.cs" />
+    <Compile Include="Models\MediaCreationViewModels\CastViewModel.cs" />
     <Compile Include="ViewModels\MovieGenreViewModel.cs" />
     <Compile Include="ViewModels\MovieModel.cs" />
     <Compile Include="Dtos\UserDto.cs" />
@@ -461,10 +463,14 @@
     <Content Include="Views\Type\Index.cshtml" />
     <Content Include="Views\Movies\Search.cshtml" />
     <Content Include="Views\Media\CreateMovie.cshtml" />
-    <Content Include="Views\Media\EditMovies.cshtml" />
+    <Content Include="Views\Media\EditMovie.cshtml" />
     <Content Include="Views\Admin\EditAboutUs.cshtml" />
     <Content Include="Views\Admin\FindAboutUS.cshtml" />
-    <Content Include="Views\Media\Delete.cshtml" />
+    <Content Include="Views\Media\DeleteMovie.cshtml" />
+    <Content Include="Views\Media\CreateSeries.cshtml" />
+    <Content Include="Views\Media\CreateMedia.cshtml" />
+    <Content Include="Views\Media\DeleteSeries.cshtml" />
+    <Content Include="Views\Media\EditSeries.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
