@@ -207,8 +207,6 @@ namespace YMovies.Web.Controllers
             MediaDto movie;
             if (filmId != 0)
             {
-                movie = _movieService.GetItem(filmId);
-
                 APIworkerIMDB imdb = new APIworkerIMDB();
                 movie = _movieService.GetItem(filmId);
                 Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
