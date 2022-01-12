@@ -1,4 +1,5 @@
-﻿using YMovies.MovieDbService.DatabaseContext;
+﻿using System.Collections.Generic;
+using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
@@ -43,6 +44,11 @@ namespace YMovies.MovieDbService.Services.Service
         public bool IsLiked(string userId, int mediaId)
         {
             var user = _userRepository.GetItem(userId);
+            if (user.LikedMedias == null)
+            {
+                user.LikedMedias = new List<Media>();
+                return false;
+            }
             var media = _mediaRepository.GetItem(mediaId);
             return user.LikedMedias.Contains(media);
         }

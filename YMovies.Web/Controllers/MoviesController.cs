@@ -46,19 +46,19 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> Like(int id, string userId)
         {
            service.LikedMediaByUser(userId, id);
-           return RedirectToAction("Details", id);
+           return RedirectToAction("Details", new { filmId = id });
         }
 
         public async Task<ActionResult> DisLike(int id)
         {
             service.DislikeMedia(id);
-            return RedirectToAction("Details", id);
+            return RedirectToAction("Details", new{filmId = id});
         }
 
         public async Task<ActionResult> Watched(int id)
         {
             service.DislikeMedia(id);
-            return RedirectToAction("Details", id);
+            return RedirectToAction("Details", new { filmId = id });
         }
 
         public async Task<ActionResult> MostLiked(int page = 1)
@@ -196,12 +196,12 @@ namespace YMovies.Web.Controllers
             return View(movieViewModel);
         }
 
-        public async Task<ActionResult> Details(int filmid, string imdbId)
+        public async Task<ActionResult> Details(int filmId, string imdbId)
         {
             MediaDto movie;
-            if (filmid != 0)
+            if (filmId != 0)
             {
-                movie = _movieService.GetItem(filmid);
+                movie = _movieService.GetItem(filmId);
             }
             else
             {
@@ -212,7 +212,7 @@ namespace YMovies.Web.Controllers
             }
             var userId = AuthenticationManager.User.Identity.GetUserId();
             if(userId!=null)
-                ViewBag.IsLiked = service.IsLiked(userId, filmid);
+                ViewBag.IsLiked = service.IsLiked(userId, filmId);
             return View(movie);
         }
 
