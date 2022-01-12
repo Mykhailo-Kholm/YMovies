@@ -26,7 +26,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             if (ModelState.IsValid)
             {
                 _typeService.AddItem(model);
-                RedirectToAction("Index", "Genre");
+                return RedirectToAction("Index", "Genre");
             }
             return View(model);
         }

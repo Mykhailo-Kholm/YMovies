@@ -90,7 +90,8 @@ namespace YMovies.Web.Controllers
                 if (operationDetails.Succedeed)
                 {
                     var userService = new UserService(IdentityUserService);
-                    userService.AddUserToMovieDb(userDto);
+                    var dto = IdentityUserService.GetUserByEmail(model.Email);
+                    userService.AddUserToMovieDb(dto);
                     return RedirectToAction("Index", "Home");
                 }
                 else
