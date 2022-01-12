@@ -204,7 +204,7 @@ namespace YMovies.Web.Controllers
                 movie = _movieService.GetItem(filmId);
 
                 APIworkerIMDB imdb = new APIworkerIMDB();
-                movie = _movieService.GetItem(filmid);
+                movie = _movieService.GetItem(filmId);
                 Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
             }
             else
