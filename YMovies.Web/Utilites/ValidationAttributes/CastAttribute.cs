@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using YMovies.MovieDbService.DTOs;
 using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Utilites.ValidationAttributes

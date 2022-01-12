@@ -1,8 +1,7 @@
 ﻿namespace YMovies.MovieDbService.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class Init : DbMigration
     {
         public override void Up()
@@ -10,178 +9,178 @@
             CreateTable(
                 "dbo.Casts",
                 c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Surname = c.String(),
-                        PictureUrl = c.String(),
-                    })
+                {
+                    Id = c.Int(nullable: false, identity: true),
+                    Name = c.String(),
+                    Surname = c.String(),
+                    PictureUrl = c.String(),
+                })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.Media",
                 c => new
-                    {
-                        MediaId = c.Int(nullable: false, identity: true),
-                        ImdbId = c.String(),
-                        Title = c.String(),
-                        PosterUrl = c.String(),
-                        Year = c.String(),
-                        Plot = c.String(),
-                        Budget = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Companies = c.String(),
-                        ImdbRating = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Rating = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        NumberOfLikes = c.Int(nullable: false),
-                        NumberOfDislikes = c.Int(nullable: false),
-                        Type_Id = c.Int(),
-                    })
+                {
+                    MediaId = c.Int(nullable: false, identity: true),
+                    ImdbId = c.String(),
+                    Title = c.String(),
+                    PosterUrl = c.String(),
+                    Year = c.String(),
+                    Plot = c.String(),
+                    Budget = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    Companies = c.String(),
+                    ImdbRating = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    Rating = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    NumberOfLikes = c.Int(nullable: false),
+                    NumberOfDislikes = c.Int(nullable: false),
+                    Type_Id = c.Int(),
+                })
                 .PrimaryKey(t => t.MediaId)
                 .ForeignKey("dbo.Types", t => t.Type_Id)
                 .Index(t => t.Type_Id);
-            
+
             CreateTable(
                 "dbo.Countries",
                 c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                    })
+                {
+                    Id = c.Int(nullable: false, identity: true),
+                    Name = c.String(),
+                })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.Genres",
                 c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                    })
+                {
+                    Id = c.Int(nullable: false, identity: true),
+                    Name = c.String(),
+                })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.Seasons",
                 c => new
-                    {
-                        SeasonId = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        NumberOfEpisodes = c.Int(nullable: false),
-                        CurrentSeriesId = c.Int(nullable: false),
-                    })
+                {
+                    SeasonId = c.Int(nullable: false, identity: true),
+                    Name = c.String(),
+                    NumberOfEpisodes = c.Int(nullable: false),
+                    CurrentSeriesId = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => t.SeasonId)
                 .ForeignKey("dbo.Media", t => t.CurrentSeriesId, cascadeDelete: true)
                 .Index(t => t.CurrentSeriesId);
-            
+
             CreateTable(
                 "dbo.Users",
                 c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        FullName = c.String(),
-                    })
+                {
+                    Id = c.Int(nullable: false, identity: true),
+                    FullName = c.String(),
+                })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.Types",
                 c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
-                    })
+                {
+                    Id = c.Int(nullable: false, identity: true),
+                    Name = c.String(nullable: false),
+                })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.MediaCast",
                 c => new
-                    {
-                        MediaRefId = c.Int(nullable: false),
-                        CastRefId = c.Int(nullable: false),
-                    })
+                {
+                    MediaRefId = c.Int(nullable: false),
+                    CastRefId = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => new { t.MediaRefId, t.CastRefId })
                 .ForeignKey("dbo.Media", t => t.MediaRefId, cascadeDelete: true)
                 .ForeignKey("dbo.Casts", t => t.CastRefId, cascadeDelete: true)
                 .Index(t => t.MediaRefId)
                 .Index(t => t.CastRefId);
-            
+
             CreateTable(
                 "dbo.MediaCountry",
                 c => new
-                    {
-                        MediaRefId = c.Int(nullable: false),
-                        CountryRefId = c.Int(nullable: false),
-                    })
+                {
+                    MediaRefId = c.Int(nullable: false),
+                    CountryRefId = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => new { t.MediaRefId, t.CountryRefId })
                 .ForeignKey("dbo.Media", t => t.MediaRefId, cascadeDelete: true)
                 .ForeignKey("dbo.Countries", t => t.CountryRefId, cascadeDelete: true)
                 .Index(t => t.MediaRefId)
                 .Index(t => t.CountryRefId);
-            
+
             CreateTable(
                 "dbo.MediaGenre",
                 c => new
-                    {
-                        MediaRefId = c.Int(nullable: false),
-                        GenreRefId = c.Int(nullable: false),
-                    })
+                {
+                    MediaRefId = c.Int(nullable: false),
+                    GenreRefId = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => new { t.MediaRefId, t.GenreRefId })
                 .ForeignKey("dbo.Media", t => t.MediaRefId, cascadeDelete: true)
                 .ForeignKey("dbo.Genres", t => t.GenreRefId, cascadeDelete: true)
                 .Index(t => t.MediaRefId)
                 .Index(t => t.GenreRefId);
-            
+
             CreateTable(
                 "dbo.LikedMedia",
                 c => new
-                    {
-                        UserRefId = c.Int(nullable: false),
-                        MediaRefId = c.Int(nullable: false),
-                    })
+                {
+                    UserRefId = c.Int(nullable: false),
+                    MediaRefId = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => new { t.UserRefId, t.MediaRefId })
                 .ForeignKey("dbo.Users", t => t.UserRefId, cascadeDelete: true)
                 .ForeignKey("dbo.Media", t => t.MediaRefId, cascadeDelete: true)
                 .Index(t => t.UserRefId)
                 .Index(t => t.MediaRefId);
-            
+
             CreateTable(
                 "dbo.LikedSeason",
                 c => new
-                    {
-                        UserRefId = c.Int(nullable: false),
-                        SeasonRefId = c.Int(nullable: false),
-                    })
+                {
+                    UserRefId = c.Int(nullable: false),
+                    SeasonRefId = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => new { t.UserRefId, t.SeasonRefId })
                 .ForeignKey("dbo.Users", t => t.UserRefId, cascadeDelete: true)
                 .ForeignKey("dbo.Seasons", t => t.SeasonRefId, cascadeDelete: true)
                 .Index(t => t.UserRefId)
                 .Index(t => t.SeasonRefId);
-            
+
             CreateTable(
                 "dbo.WatchedMedia",
                 c => new
-                    {
-                        UserRefId = c.Int(nullable: false),
-                        MediaRefId = c.Int(nullable: false),
-                    })
+                {
+                    UserRefId = c.Int(nullable: false),
+                    MediaRefId = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => new { t.UserRefId, t.MediaRefId })
                 .ForeignKey("dbo.Users", t => t.UserRefId, cascadeDelete: true)
                 .ForeignKey("dbo.Media", t => t.MediaRefId, cascadeDelete: true)
                 .Index(t => t.UserRefId)
                 .Index(t => t.MediaRefId);
-            
+
             CreateTable(
                 "dbo.WatchedSeason",
                 c => new
-                    {
-                        UserRefId = c.Int(nullable: false),
-                        SeasonRefId = c.Int(nullable: false),
-                    })
+                {
+                    UserRefId = c.Int(nullable: false),
+                    SeasonRefId = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => new { t.UserRefId, t.SeasonRefId })
                 .ForeignKey("dbo.Users", t => t.UserRefId, cascadeDelete: true)
                 .ForeignKey("dbo.Seasons", t => t.SeasonRefId, cascadeDelete: true)
                 .Index(t => t.UserRefId)
                 .Index(t => t.SeasonRefId);
-            
+
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Media", "Type_Id", "dbo.Types");

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity.Migrations;
 using System.Linq;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.Repositories.IRepository;
@@ -7,7 +6,7 @@ using Type = YMovies.MovieDbService.Models.Type;
 
 namespace YMovies.MovieDbService.Repositories.Repository
 {
-    public class TypeRepository:IRepository<Models.Type>
+    public class TypeRepository : IRepository<Models.Type>
     {
         private readonly MoviesContext _context;
         public TypeRepository(MoviesContext context) => _context = context;

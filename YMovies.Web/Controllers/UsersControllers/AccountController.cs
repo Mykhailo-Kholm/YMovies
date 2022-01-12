@@ -86,7 +86,7 @@ namespace YMovies.Web.Controllers
                 {
                     "user"
                 };
-                var operationDetails = await IdentityUserService.CreateAsync(userDto);                
+                var operationDetails = await IdentityUserService.CreateAsync(userDto);
                 if (operationDetails.Succedeed)
                 {
                     var userService = new UserService(IdentityUserService);

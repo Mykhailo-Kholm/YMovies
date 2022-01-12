@@ -10,7 +10,7 @@ namespace Ymovies.Identity.BLL.Interfaces
     public interface IIdentityUserService : IDisposable
     {
         Task<OperationDetails> CreateAsync(UserDTO userDTO);
-        Task<ClaimsIdentity> AuthenticateAsync(UserDTO userDTO);        
+        Task<ClaimsIdentity> AuthenticateAsync(UserDTO userDTO);
         UserDTO GetUserByEmail(string userEmal);
         IEnumerable<UserDTO> GetAllUsers();
         Task<OperationDetails> ResetPasswordAsync(string userEmail, string newPassword);

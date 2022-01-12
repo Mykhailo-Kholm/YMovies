@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
@@ -9,7 +8,7 @@ using YMovies.MovieDbService.Utilities;
 
 namespace YMovies.MovieDbService.Services.Service
 {
-    public class GenreService:IService<GenreDto>
+    public class GenreService : IService<GenreDto>
     {
         private readonly IRepository<Genre> _repository;
         public GenreService(GenreRepository repository) => _repository = repository;

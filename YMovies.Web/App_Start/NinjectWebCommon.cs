@@ -14,7 +14,7 @@ namespace YMovies.Web.App_Start
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
-        
+
         public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));

@@ -30,7 +30,7 @@ namespace YMovies.Web.Controllers
         }
 
         public async Task<ActionResult> Index(int page = 1)
-        { 
+        {
             return View(_castService.Items);
         }
 

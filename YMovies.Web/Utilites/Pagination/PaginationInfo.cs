@@ -6,7 +6,7 @@ namespace YMovies.Web.Utilites.Pagination
         public int TotalItems { get; set; }
         public int ItemsPerPage { get; set; }
         public int CurrentPage { get; set; }
-        public int TotalPages => 
+        public int TotalPages =>
             (int)Math.Ceiling((decimal)TotalItems / ItemsPerPage);
     }
 }

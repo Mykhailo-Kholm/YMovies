@@ -5,7 +5,7 @@ namespace YMovies.MovieDbService.Models
 {
     public class Country
     {
-        [Key] 
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public virtual ICollection<Media> Medias { get; set; }

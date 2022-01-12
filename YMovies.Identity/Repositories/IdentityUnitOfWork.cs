@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using YMovies.Identity.DAL.Interfaces;
 using YMovies.Identity.DAL.Managers;
@@ -23,7 +20,7 @@ namespace YMovies.Identity.DAL.Repositories
         {
             get { return userManager; }
         }
-       
+
         public ApplicationRoleManager ApplicationRoleManager
         {
             get { return roleManager; }
@@ -33,7 +30,7 @@ namespace YMovies.Identity.DAL.Repositories
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
         private bool disposed = false;
-        
+
         public async Task SaveAsync()
         {
             await db.SaveChangesAsync();
@@ -47,9 +44,9 @@ namespace YMovies.Identity.DAL.Repositories
 
         private void Dispose(bool disposing)
         {
-            if(!this.disposed)
+            if (!this.disposed)
             {
-                if(disposing)
+                if (disposing)
                 {
                     userManager.Dispose();
                     roleManager.Dispose();

@@ -12,7 +12,7 @@ namespace YMovies.Web
                          "~/Scripts/jquery.validate*",
                          "~/Scripts/modernizr-*",
                          "~/Scripts/bootstrap.min.js"));
-           
+
             bundles.Add(new StyleBundle("~/Content/libcss").Include(
                       "~/Content/site.css",
                       "~/Content/profiles.css",

@@ -43,7 +43,7 @@ namespace Ymovies.Web.Utilities
                .WithConstructorArgument("repository", new CastRepository(context));
 
             kernel.Bind(typeof(IService<GenreDto>)).To(typeof(GenreService))
-             .WithConstructorArgument("repository", new GenreRepository(context));      
+             .WithConstructorArgument("repository", new GenreRepository(context));
 
             kernel.Bind(typeof(IService<MediaDto>)).To(typeof(MovieService)).InSingletonScope()
                .WithConstructorArgument("repository", new MovieRepository(context));

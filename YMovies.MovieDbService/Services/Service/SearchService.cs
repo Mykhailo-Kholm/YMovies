@@ -10,16 +10,16 @@ namespace YMovies.MovieDbService.Services.Service
     {
         private readonly ISearchRepository _repository;
         public SearchService(ISearchRepository repository) => _repository = repository;
-        
+
         public List<MediaDto> GetMediaByTitle(string title)
         {
             var movies = AutoMap.Mapper.Map<List<Media>, List<MediaDto>>(_repository.GetMediaByTitle(title));
             return movies;
         }
 
-        public List<MediaDto> GetMediaByParams(string genre = null, string country = null, string year = null, string type=null)
+        public List<MediaDto> GetMediaByParams(string genre = null, string country = null, string year = null, string type = null)
         {
-            var movies = AutoMap.Mapper.Map<List<Media>, List<MediaDto>>(_repository.GetMediaByParams(genre, country,year,type));
+            var movies = AutoMap.Mapper.Map<List<Media>, List<MediaDto>>(_repository.GetMediaByParams(genre, country, year, type));
             return movies;
         }
     }

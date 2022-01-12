@@ -22,7 +22,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         readonly IService<MediaDto> _moviesService;
         readonly IService<CastDto> _castsService;
         readonly IService<TypeDto> _typesService;
-       
+
         public ActionResult CreateMedia()
         {
             return View();
@@ -33,7 +33,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             ViewBag.Types = _typesService.Items;
             return View("CreateSeries", new NewSeriesViewModel());
         }
-            
+
         [HttpPost]
         public ActionResult CreateSeries(NewSeriesViewModel model)
         {
@@ -48,7 +48,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             mediaDto.Type = GetType(model.Type);
             mediaDto.ImdbId = "";
             _moviesService.AddItem(mediaDto);
-            return RedirectToAction("Index", "Home");            
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult CreateFilm()
@@ -74,7 +74,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             _moviesService.AddItem(mediaDto);
             return RedirectToAction("Index", "Home");
         }
-        
+
         public ActionResult EditMovie(int? id)
         {
             if (id == null)
@@ -88,7 +88,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
                 var modelSeries = AutoMapperWeb.Mapper.Map<MediaDto, NewSeriesViewModel>(movie);
                 return View("EditSeries", modelSeries);
             }
-            var model = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel> (movie);
+            var model = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel>(movie);
             return View("EditMovie", model);
         }
 
@@ -129,12 +129,12 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         [HttpGet]
         public ActionResult Delete(int? id)
         {
-            if(id == null)
+            if (id == null)
                 return HttpNotFound();
             var dto = _moviesService.GetItem(id.Value);
             if (dto.Seasons != null)
             {
-                var modelsSeries = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel>(dto);
+                var modelsSeries = AutoMapperWeb.Mapper.Map<MediaDto, NewSeriesViewModel>(dto);
                 return View("DeleteSeries", modelsSeries);
             }
             var model = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel>(dto);
@@ -153,8 +153,8 @@ namespace YMovies.Web.Controllers.EntitiesContollers
 
         private ICollection<CastDto> GetAllActors(ICollection<CastViewModel> castsModel)
             => castsModel.Select(m => _castsService.GetItem(m.Id)).ToList() ?? null;
-        
-        private TypeDto GetType(string name) 
+
+        private TypeDto GetType(string name)
             => _typesService.Items.Where(t => t.Name == name).FirstOrDefault();
 
         private void UpdateFields(NewSeriesViewModel model)

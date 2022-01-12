@@ -1,12 +1,12 @@
 using IMDbApiLib.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Repositories.IRepository;
@@ -49,23 +49,23 @@ namespace YMovies.Web.Controllers
 
         public async Task<ActionResult> Like(int id, string userId)
         {
-           service.LikedMediaByUser(userId, id);
-           return RedirectToAction("Details", new { filmId = id });
+            service.LikedMediaByUser(userId, id);
+            return RedirectToAction("Details", new { filmId = id });
         }
 
         public async Task<ActionResult> DisLike(int id)
         {
             service.DislikeMedia(id);
-            return RedirectToAction("Details", new{filmId = id});
+            return RedirectToAction("Details", new { filmId = id });
         }
 
         public async Task<ActionResult> Watched(int id, string userId)
         {
             var isWatched = watchService.WatchedMediaByUser(userId, id);
-            if(isWatched)
+            if (isWatched)
                 return RedirectToAction("Details", new { filmId = id });
             return Content("The film was watched!");
-            
+
         }
 
         public async Task<ActionResult> MostLiked(int page = 1)
@@ -117,10 +117,10 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> TopByIMDb(int page = 1)
         {
 
-                APIworkerIMDB imdb = new APIworkerIMDB();
-                var films = await imdb.GetTop250MoviesAsync();
-                var topmovies = AutoMapperWeb.Mapper.Map<IEnumerable<Top250DataDetail>, List<MediaDto>>(films);
-            
+            APIworkerIMDB imdb = new APIworkerIMDB();
+            var films = await imdb.GetTop250MoviesAsync();
+            var topmovies = AutoMapperWeb.Mapper.Map<IEnumerable<Top250DataDetail>, List<MediaDto>>(films);
+
 
             var moviesDtos = topmovies
                 .Skip((page - 1) * pageSize)
@@ -251,7 +251,7 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> FilterCountry(string action, string data)
         {
             var dtList = searchService.GetMediaByParams(country: data);
-            
+
             Session["Movies"] = dtList;
 
             return RedirectToAction("Index");

@@ -43,7 +43,7 @@ namespace YMovies.Web.ViewModels
 
         [Required(ErrorMessage = "This field cannot be empty")]
         public string Type { get; set; }
-        
+
         [Cast(ErrorMessage = "This field cannot be empty")]
         public ICollection<CastViewModel> Cast { get; set; }
 

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using IMDbApiLib;
+﻿using IMDbApiLib;
 using IMDbApiLib.Models;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace YMovies.Web.IMDB
 {
@@ -57,22 +55,22 @@ namespace YMovies.Web.IMDB
         /// <param name="group"></param>
         /// <returns>Task&lt;List&lt;AdvancedSearchResult&gt;&gt;</returns>
         public async Task<List<AdvancedSearchResult>> GetOneHundredFilmsAsync(string title = null,
-            AdvancedSearchGenre genre = 0, 
-            string releaseFrom = null, 
+            AdvancedSearchGenre genre = 0,
+            string releaseFrom = null,
             string releaseTo = null,
             AdvancedSearchUSCertificate certificate = 0,
             AdvancedSearchSort sort = AdvancedSearchSort.Popularity_Ascending,
             AdvancedSearchTitleGroup group = 0)
         {
             var data = await apiLib.AdvancedSearchAsync(
-                new AdvancedSearchInput() 
-                { 
+                new AdvancedSearchInput()
+                {
                     Title = title,
-                    Genres = genre, 
-                    Count = AdvancedSearchCount.Hundred, 
-                    ReleaseDateFrom = releaseFrom, 
+                    Genres = genre,
+                    Count = AdvancedSearchCount.Hundred,
+                    ReleaseDateFrom = releaseFrom,
                     ReleaseDateTo = releaseTo,
-                    Sort=sort,
+                    Sort = sort,
                     USCertificates = certificate,
                     TitleGroups = group,
                 }
@@ -96,7 +94,7 @@ namespace YMovies.Web.IMDB
         /// <returns>Task&lt;byte[]&gt;</returns>
         public async Task<byte[]> ReportForMovieAsync(string id = null)
         {
-            var data = await apiLib.ReportBytesAsync(id,language: Language.en,false,Ratings: true);
+            var data = await apiLib.ReportBytesAsync(id, language: Language.en, false, Ratings: true);
             return data;
         }
         /// <summary>

@@ -19,7 +19,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         [HttpGet]
         public string Genres(string query = null)
         {
-          var genres = _genreService.Items;
+            var genres = _genreService.Items;
 
             if (!string.IsNullOrWhiteSpace(query))
                 genres = genres.Where(x => x.Name.Contains(query));

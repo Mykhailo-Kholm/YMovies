@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace YMovies.Web.ViewModels
+﻿namespace YMovies.Web.ViewModels
 {
     public class MovieGenreViewModel
     {
@@ -12,6 +7,6 @@ namespace YMovies.Web.ViewModels
         public string Image { get; set; }
         public string Genre { get; set; }
         public string imDbRating { get; set; }
-        
+
     }
 }

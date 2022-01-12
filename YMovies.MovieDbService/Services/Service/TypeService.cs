@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using AutoMapper;
+﻿using System.Collections.Generic;
 using YMovies.MovieDbService.DTOs;
-using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
 using YMovies.MovieDbService.Services.IService;
@@ -11,14 +8,14 @@ using Type = YMovies.MovieDbService.Models.Type;
 
 namespace YMovies.MovieDbService.Services.Service
 {
-    public class TypeService:IService<TypeDto>
+    public class TypeService : IService<TypeDto>
     {
         private readonly IRepository<Type> _repository;
-        
+
         public TypeService(TypeRepository repository) => _repository = repository;
-        
+
         public IEnumerable<TypeDto> Items => AutoMap.Mapper.Map<IEnumerable<Type>, IEnumerable<TypeDto>>(_repository.Items);
-        
+
         public TypeDto GetItem(int id)
         {
             var type = _repository.GetItem(id);

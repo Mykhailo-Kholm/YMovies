@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
@@ -9,11 +8,11 @@ using YMovies.MovieDbService.Utilities;
 
 namespace YMovies.MovieDbService.Services.Service
 {
-    public class SeasonService:IService<SeasonDto>
+    public class SeasonService : IService<SeasonDto>
     {
         private readonly IRepository<Season> _repository;
         public SeasonService(SeasonRepository repository) => _repository = repository;
-       
+
         public IEnumerable<SeasonDto> Items => AutoMap.Mapper.Map<IEnumerable<Season>, IEnumerable<SeasonDto>>(_repository.Items);
 
         public SeasonDto GetItem(int id)

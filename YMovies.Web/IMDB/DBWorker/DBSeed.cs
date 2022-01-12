@@ -10,8 +10,6 @@ using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
-using YMovies.Web.Dtos;
-using YMovies.Web.DTOs;
 using UserDto = YMovies.MovieDbService.DTOs.UserDto;
 
 namespace YMovies.Web.IMDB.DBWorker
@@ -29,20 +27,20 @@ namespace YMovies.Web.IMDB.DBWorker
         }
         public async Task AddMovieByImbdId(string imdbId)
         {
-            if(_context.Medias.Any(m => m.ImdbId == imdbId))
+            if (_context.Medias.Any(m => m.ImdbId == imdbId))
             {
                 return;
             }
 
             var media = await aPIworkerIMDB.MovieOrSeriesInfoAsync(imdbId);
 
-            if(media.Type == null || media.TvEpisodeInfo != null)
+            if (media.Type == null || media.TvEpisodeInfo != null)
             {
                 return;
             }
 
             _movieRepository.AddItem(MapMovieToDtoFromImdb(media));
-            
+
         }
 
         public async Task AddMediaByExpression(string expression)
@@ -92,7 +90,7 @@ namespace YMovies.Web.IMDB.DBWorker
             {
                 foreach (var imdbSeason in imdbModel.TvSeriesInfo.Seasons)
                 {
-                    movie.Seasons.Add(new Season(){Name = imdbSeason});
+                    movie.Seasons.Add(new Season() { Name = imdbSeason });
                 }
             };
 
@@ -146,8 +144,8 @@ namespace YMovies.Web.IMDB.DBWorker
                 Year = imdbModel.Year,
                 Plot = imdbModel.Plot,
                 Companies = imdbModel.Companies,
-                WeekFees = "", 
-                GlobalFees =  "",
+                WeekFees = "",
+                GlobalFees = "",
                 Type = new TypeDto(),
                 Cast = new List<CastDto>(),
                 Genres = new List<GenreDto>(),

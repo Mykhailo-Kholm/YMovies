@@ -5,7 +5,7 @@ using YMovies.MovieDbService.Models;
 
 namespace YMovies.MovieDbService.Utilities
 {
-    class MapperProfile:Profile
+    class MapperProfile : Profile
     {
         public MapperProfile()
         {
@@ -27,7 +27,7 @@ namespace YMovies.MovieDbService.Utilities
                 .ForMember(d => d.Genres, opt => opt.MapFrom(m => m.Genres))
                 .ForMember(d => d.Seasons, opt => opt.MapFrom(m => m.Seasons))
                 .ForMember(d => d.Type, opt => opt.MapFrom(m => m.Type))
-                .ReverseMap();                        
+                .ReverseMap();
         }
     }
 }

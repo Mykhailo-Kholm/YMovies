@@ -7,6 +7,6 @@ namespace YMovies.Identity.DAL.Models
         public ApplicationUser()
         { }
         public string Name { get; set; }
-        public string SecondName { get; set; }        
+        public string SecondName { get; set; }
     }
 }

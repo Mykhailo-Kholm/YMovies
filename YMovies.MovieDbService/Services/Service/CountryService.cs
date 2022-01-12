@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
@@ -9,11 +8,11 @@ using YMovies.MovieDbService.Utilities;
 
 namespace YMovies.MovieDbService.Services.Service
 {
-    public class CountryService:IService<CountryDto>
+    public class CountryService : IService<CountryDto>
     {
         private readonly IRepository<Country> _repository;
         public CountryService(CountryRepository repository) => _repository = repository;
-        
+
         public IEnumerable<CountryDto> Items => AutoMap.Mapper.Map<IEnumerable<Country>, IEnumerable<CountryDto>>(_repository.Items);
 
         public CountryDto GetItem(int id)

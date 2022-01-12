@@ -1,8 +1,7 @@
 ﻿namespace YMovies.MovieDbService.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class ReInit : DbMigration
     {
         public override void Up()
@@ -12,7 +11,7 @@
             AddColumn("dbo.Seasons", "NumberOfLikes", c => c.Int(nullable: false));
             AddColumn("dbo.Seasons", "NumberOfDislikes", c => c.Int(nullable: false));
         }
-        
+
         public override void Down()
         {
             DropColumn("dbo.Seasons", "NumberOfDislikes");

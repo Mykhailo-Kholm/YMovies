@@ -3,7 +3,7 @@ using YMovies.MovieDbService.Models;
 
 namespace YMovies.MovieDbService.DatabaseContext
 {
-    public class MoviesContext:DbContext
+    public class MoviesContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Media> Medias { get; set; }
@@ -15,7 +15,7 @@ namespace YMovies.MovieDbService.DatabaseContext
         public MoviesContext() : base("name=MoviesDb")
         {
         }
-        
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Media>()

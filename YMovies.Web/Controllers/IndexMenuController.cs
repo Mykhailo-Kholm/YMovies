@@ -10,7 +10,7 @@ using YMovies.Web.Models.IndexPageViewModels;
 namespace YMovies.Web.Controllers
 {
     public class IndexMenuController : Controller
-    {                
+    {
         public IndexMenuController(IService<GenreDto> genreService, IService<TypeDto> typeService, IService<CountryDto> countryService, IService<MediaDto> mediaService)
         {
             _genreService = genreService;

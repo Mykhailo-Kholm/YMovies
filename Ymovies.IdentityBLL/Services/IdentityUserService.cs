@@ -44,15 +44,15 @@ namespace Ymovies.Identity.BLL.Services
                     Name = userDTO.Name,
                     SecondName = userDTO.SecondName
                 };
-                
+
                 var result = await DataBase.ApplicationUserManager.CreateAsync(user, userDTO.Password);
                 if (result.Errors.Count() > 0)
                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
-                
+
                 foreach (var role in userDTO.Roles)
-                    await DataBase.ApplicationUserManager.AddToRoleAsync(user.Id, role);                
-                
-                await DataBase.SaveAsync();                
+                    await DataBase.ApplicationUserManager.AddToRoleAsync(user.Id, role);
+
+                await DataBase.SaveAsync();
                 return new OperationDetails(true, "", "");
             }
             else

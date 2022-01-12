@@ -8,7 +8,7 @@ using YMovies.MovieDbService.Repositories.IRepository;
 
 namespace YMovies.MovieDbService.Repositories.Repository
 {
-    public class MovieRepository:ISearchRepository
+    public class MovieRepository : ISearchRepository
     {
         private readonly MoviesContext _context;
         public MovieRepository(MoviesContext context) => _context = context;
@@ -24,7 +24,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
             var list = Items.ToList();
 
-            
+
             return movie;
         }
 
@@ -50,23 +50,23 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public List<Media> GetMediaByParams(string genre = null, string country = null, string year = null, string type = null)
         {
-            var mediaList = _context.Medias.Include(m=>m.Type).ToList();
+            var mediaList = _context.Medias.Include(m => m.Type).ToList();
 
-            
+
             if (!string.IsNullOrEmpty(genre))
             {
                 mediaList = mediaList.Where(m => m.Genres.Any(g => g.Name.ToLower().Contains(genre.ToLower()))).ToList();
-            }            
-            
+            }
+
             if (!string.IsNullOrEmpty(country))
             {
                 mediaList = mediaList.Where(m => m.Countries.Any(c => c.Name.ToLower().Contains(country.ToLower()))).ToList();
             }
-            
-            
+
+
             if (!string.IsNullOrEmpty(year))
             {
-                mediaList = mediaList.Where(y=> y.Year.Contains(year)).ToList();
+                mediaList = mediaList.Where(y => y.Year.Contains(year)).ToList();
             }
             if (!string.IsNullOrEmpty(type))
             {
@@ -91,17 +91,17 @@ namespace YMovies.MovieDbService.Repositories.Repository
             }
             foreach (var actor in item.Cast)
             {
-                if (!_context.Cast.Any(i => i.Name==actor.Name))
+                if (!_context.Cast.Any(i => i.Name == actor.Name))
                 {
                     _context.Cast.Add(actor);
                     cast.Add(actor);
                     continue;
                 }
-                cast.Add(_context.Cast.First(i => i.Name==actor.Name));
+                cast.Add(_context.Cast.First(i => i.Name == actor.Name));
             }
             foreach (var genre in item.Genres)
             {
-                if (!_context.Genres.Any(i => i.Name==genre.Name))
+                if (!_context.Genres.Any(i => i.Name == genre.Name))
                 {
                     _context.Genres.Add(genre);
                     genres.Add(genre);

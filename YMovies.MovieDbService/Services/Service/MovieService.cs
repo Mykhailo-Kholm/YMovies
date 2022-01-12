@@ -1,6 +1,4 @@
-using AutoMapper;
 using System.Collections.Generic;
-using System.Linq;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
@@ -14,7 +12,7 @@ namespace YMovies.MovieDbService.Services.Service
     {
         private readonly IRepository<Media> _repository;
         public MovieService(MovieRepository repository) => _repository = repository;
-        
+
         private IEnumerable<MediaDto> data;
 
         public IEnumerable<MediaDto> Items
@@ -26,7 +24,7 @@ namespace YMovies.MovieDbService.Services.Service
                 return data;
             }
         }
-        
+
         public MediaDto GetItem(int id)
         {
             var movie = _repository.GetItem(id);
