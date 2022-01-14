@@ -134,7 +134,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             var dto = _moviesService.GetItem(id.Value);
             if (dto.Seasons != null)
             {
-                var modelsSeries = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel>(dto);
+                var modelsSeries = AutoMapperWeb.Mapper.Map<MediaDto, NewSeriesViewModel>(dto);
                 return View("DeleteSeries", modelsSeries);
             }
             var model = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel>(dto);
