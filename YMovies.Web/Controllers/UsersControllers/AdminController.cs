@@ -9,6 +9,7 @@ using Ymovies.Identity.BLL.DTO;
 using Ymovies.Identity.BLL.Interfaces;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Services.IService;
+using YMovies.Web.IMDB.DBWorker;
 using YMovies.Web.Models.AboutUs;
 using YMovies.Web.Models.AdminViewModels;
 using YMovies.Web.Utilites;
@@ -104,6 +105,27 @@ namespace YMovies.Web.Controllers
             var jsondata = new JavaScriptSerializer().Serialize(infoList);
 
             System.IO.File.WriteAllText(FilePath + fileName, jsondata);
+
+            return RedirectToAction("Index", "Movies", null);
+        }
+
+        [HttpGet]
+        public ActionResult AddMediaFromImdb()
+        {
+            return View("AddMediaFromIMDB");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddMediaFromImdbById(AddMediaView model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("AddMediaFromIMDB");
+            }
+
+            ISeed dbSeed = new DBSeed();
+
+            await dbSeed.AddMovieByImbdId(model.ImdbId);
 
             return RedirectToAction("Index", "Movies", null);
         }

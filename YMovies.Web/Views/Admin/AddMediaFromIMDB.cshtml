@@ -1,0 +1,21 @@
+﻿@model YMovies.Web.Models.AdminViewModels.AddMediaView
+@{
+    ViewBag.Title = "Add Media";
+}
+
+<div>
+    @using (@Html.BeginForm("AddMediaFromImdbById", "Admin", FormMethod.Post))
+    {
+
+         @Html.LabelFor(m => m.ImdbId, new { @class = "form-label" })
+         <div class="col-md-8">
+             @Html.EditorFor(m => m.ImdbId, new { @class = "form-control" })
+             @Html.ValidationMessageFor(m => m.ImdbId, "", new { @class = "text-danger" })
+         </div>
+
+         <div>
+              <input type="submit" value="Add" class="btn btn-primary" />
+         </div>
+
+    }
+</div>

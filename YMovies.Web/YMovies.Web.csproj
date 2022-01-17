@@ -234,6 +234,7 @@
     <Compile Include="Models\AboutUs\AboutUsModel.cs" />
     <Compile Include="Models\AboutUs\AboutUsViewModel.cs" />
     <Compile Include="Models\AboutUs\FindAboutUsModel.cs" />
+    <Compile Include="Models\AdminViewModels\AddMediaView.cs" />
     <Compile Include="Models\EntityViewModels\CastsViewModel.cs" />
     <Compile Include="Models\MediaCreationViewModels\NewSeriesViewModel.cs" />
     <Compile Include="Models\MediaCreationViewModels\NewFilmViewModel.cs" />
@@ -471,6 +472,7 @@
     <Content Include="Views\Media\CreateMedia.cshtml" />
     <Content Include="Views\Media\DeleteSeries.cshtml" />
     <Content Include="Views\Media\EditSeries.cshtml" />
+    <Content Include="Views\Admin\AddMediaFromIMDB.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
