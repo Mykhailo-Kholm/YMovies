@@ -32,13 +32,7 @@ namespace YMovies.Web.Controllers
 
         private const int pageSize = 9;
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
         private readonly IService<MediaDto> _movieService;
 
         private static MoviesContext context = new MoviesContext();
@@ -53,9 +47,9 @@ namespace YMovies.Web.Controllers
            return RedirectToAction("Details", new { filmId = id });
         }
 
-        public async Task<ActionResult> DisLike(int id)
+        public async Task<ActionResult> DisLike(int id, string userId)
         {
-            //service.DislikedMediaByUser(id);
+            service.DislikedMediaByUser(userId, id);
             return RedirectToAction("Details", new{filmId = id});
         }
 
@@ -223,6 +217,7 @@ namespace YMovies.Web.Controllers
             if (userId != null)
             {
                 ViewBag.IsLiked = service.IsLiked(userId, filmId);
+                ViewBag.IsDisliked = service.IsDisliked(userId, filmId);
             }
             return View(movie);
         }

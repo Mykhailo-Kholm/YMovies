@@ -18,19 +18,11 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> Index()
         {
             _userService = new UserService(IdentityUserService);
-            //ISeed dbseed = new DBSeed();
-            //await dbseed.AddMovieByImbdId("tt0468569");
             return RedirectToAction("Index", "Movies");
         }
         private UserService _userService;
 
-        public IIdentityUserService IdentityUserService
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<IIdentityUserService>();
-            }
-        }
+        public IIdentityUserService IdentityUserService => HttpContext.GetOwinContext().GetUserManager<IIdentityUserService>();
 
         public ActionResult About()
         {

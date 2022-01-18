@@ -27,7 +27,11 @@ namespace YMovies.MovieDbService.Services.Service
 
             user.LikedMedias.Add(media);
             if (user.DislikedMedias?.Contains(media) ?? false)
+            {
                 user.DislikedMedias.Remove(media);
+                media.NumberOfDislikes--;
+            }
+
             _userRepository.UpdateItem(user);
             media.NumberOfLikes++;
             _mediaRepository.UpdateItem(media);
@@ -43,7 +47,10 @@ namespace YMovies.MovieDbService.Services.Service
 
             user.DislikedMedias.Add(media);
             if (user.LikedMedias?.Contains(media) ?? false)
+            {
                 user.LikedMedias.Remove(media);
+                media.NumberOfLikes--;
+            }
             _userRepository.UpdateItem(user);
             media.NumberOfDislikes++;
             _mediaRepository.UpdateItem(media);
@@ -58,7 +65,7 @@ namespace YMovies.MovieDbService.Services.Service
         {
             var user = _userRepository.GetItem(userId);
             var media = _mediaRepository.GetItem(mediaId);
-            return user.LikedMedias?.Contains(media) ?? false;
+            return user.DislikedMedias?.Contains(media) ?? false;
         }
 
 
