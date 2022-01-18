@@ -22,7 +22,13 @@
 
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    if (ViewBag.IsLiked == true)
+                                    if (!ViewBag.IsLiked && !ViewBag.IsDisliked)
+                                    {
+                                        @Html.ActionLink("Like", "Like", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()}, new {@class = "btn btn-light" })
+                                        @Html.ActionLink("Dislike", "DisLike", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()},
+                                            new {@class = "btn btn-light" })
+                                    }
+                                    else if (ViewBag.IsLiked == true)
                                     {
                                         @Html.ActionLink("Dislike", "DisLike", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()},
                                         new {@class = "btn btn-light" })

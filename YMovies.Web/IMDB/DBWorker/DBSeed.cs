@@ -157,8 +157,8 @@ namespace YMovies.Web.IMDB.DBWorker
                 Cast = new List<CastDto>(),
                 Genres = new List<GenreDto>(),
                 Countries = new List<CountryDto>(),
-                UsersLiked = new List<UserDto>(),
-                UsersWatched = new List<UserDto>(),
+                //UsersLiked = new List<UserDto>(),
+                //UsersWatched = new List<UserDto>(),
                 Seasons = new List<SeasonDto>()
             };
 

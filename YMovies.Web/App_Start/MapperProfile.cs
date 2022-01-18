@@ -60,8 +60,8 @@ namespace YMovies.Web.App_Start
                 .ForMember(dest => dest.NumberOfLikes, opt => opt.Ignore())
                 .ForMember(dest => dest.Seasons, opt => opt.Ignore())
                 .ForMember(dest => dest.Cast, opt => opt.Ignore())
-                .ForMember(dest => dest.UsersLiked, opt => opt.Ignore())
-                .ForMember(dest => dest.UsersWatched, opt => opt.Ignore())
+                //.ForMember(dest => dest.UsersLiked, opt => opt.Ignore())
+                //.ForMember(dest => dest.UsersWatched, opt => opt.Ignore())
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genre))
                 .ForMember(dest => dest.Countries, opt => opt.MapFrom(src => src.Country));
 

@@ -59,6 +59,15 @@ namespace YMovies.MovieDbService.DatabaseContext
                     mu.ToTable("LikedMedia");
                 });
             modelBuilder.Entity<User>()
+                .HasMany<Media>(u => u.DislikedMedias)
+                .WithMany(m => m.UsersDisliked)
+                .Map(mu =>
+                {
+                    mu.MapLeftKey("UserRefId");
+                    mu.MapRightKey("MediaRefId");
+                    mu.ToTable("DislikedMedia");
+                });
+            modelBuilder.Entity<User>()
                 .HasMany<Season>(u => u.LikedSeasons)
                 .WithMany(s => s.UsersLiked)
                 .Map(su =>
