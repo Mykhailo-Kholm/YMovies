@@ -237,6 +237,14 @@ namespace YMovies.Web.Controllers
                 Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
                 movie = dbSeed.MapMovieDtoToDtoFromImdb(films);
             }
+
+            var userId = AuthenticationManager.User.Identity.GetUserId();
+            if (userId != null)
+            {
+                ViewBag.IsLiked = service.IsLiked(userId, filmid);
+                ViewBag.IsDisliked = service.IsDisliked(userId, filmid);
+                ViewBag.IsWatched = watchService.IsWatched(userId, filmid);
+            }
             return View("TopMovieDetails", movie);
         }
 
@@ -257,6 +265,7 @@ namespace YMovies.Web.Controllers
 
             return RedirectToAction("Index");
         }
+
         public async Task<ActionResult> FilterType(string action, string data)
         {
             var dtList = searchService.GetMediaByParams(type: data);
@@ -265,6 +274,7 @@ namespace YMovies.Web.Controllers
 
             return RedirectToAction("Index");
         }
+
         public async Task<ActionResult> FilterYear(string action, string data)
         {
             var dtList = searchService.GetMediaByParams(year: data);
@@ -273,15 +283,14 @@ namespace YMovies.Web.Controllers
 
             return RedirectToAction("Index");
         }
+
         public async Task<ActionResult> FilterExclude(int countryId)
         {
-
-            List<MediaDto> newMovies = new List<MediaDto>();
+            var newMovies = new List<MediaDto>();
             if (Session["Movies"] != null)
             {
                 newMovies = Session["Movies"] as List<MediaDto>;
             }
-
 
             Session["Movies"] = newMovies;
 
