@@ -16,41 +16,51 @@ namespace YMovies.MovieDbService.Services.Service
             _mediaRepository = new MovieRepository(context);
             _userRepository = new UserRepository(context);
         }
-        public bool LikedMediaByUser(string userId, int mediaId)
+        public void LikedMediaByUser(string userId, int mediaId)
         {
             var user = _userRepository.GetItem(userId);
             var media = _mediaRepository.GetItem(mediaId);
-            if (!user.LikedMedias.Contains(media))
-            {
-                user.LikedMedias.Add(media);
-                _userRepository.UpdateItem(user);
-                LikeMedia(mediaId);
-                return true;
-            }
-            return false;
-        }
-        public void LikeMedia(int id)
-        {
-            var media = _mediaRepository.GetItem(id);
+            if (user.LikedMedias == null)
+                user.LikedMedias = new List<Media>();
+
+            if (user.LikedMedias.Contains(media)) return;
+
+            user.LikedMedias.Add(media);
+            if (user.DislikedMedias?.Contains(media) ?? false)
+                user.DislikedMedias.Remove(media);
+            _userRepository.UpdateItem(user);
             media.NumberOfLikes++;
             _mediaRepository.UpdateItem(media);
         }
-        public void DislikeMedia(int id)
+        public void DislikedMediaByUser(string userId, int mediaId)
         {
-            var media = _mediaRepository.GetItem(id);
+            var user = _userRepository.GetItem(userId);
+            var media = _mediaRepository.GetItem(mediaId);
+            if (user.DislikedMedias == null)
+                user.DislikedMedias = new List<Media>();
+
+            if (user.DislikedMedias.Contains(media)) return;
+
+            user.DislikedMedias.Add(media);
+            if (user.LikedMedias?.Contains(media) ?? false)
+                user.LikedMedias.Remove(media);
+            _userRepository.UpdateItem(user);
             media.NumberOfDislikes++;
             _mediaRepository.UpdateItem(media);
         }
         public bool IsLiked(string userId, int mediaId)
         {
             var user = _userRepository.GetItem(userId);
-            if (user.LikedMedias == null)
-            {
-                user.LikedMedias = new List<Media>();
-                return false;
-            }
             var media = _mediaRepository.GetItem(mediaId);
-            return user.LikedMedias.Contains(media);
+            return user.LikedMedias?.Contains(media) ?? false;
         }
+        public bool IsDisliked(string userId, int mediaId)
+        {
+            var user = _userRepository.GetItem(userId);
+            var media = _mediaRepository.GetItem(mediaId);
+            return user.LikedMedias?.Contains(media) ?? false;
+        }
+
+
     }
 }

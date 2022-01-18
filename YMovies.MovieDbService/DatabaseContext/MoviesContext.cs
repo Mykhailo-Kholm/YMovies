@@ -12,7 +12,7 @@ namespace YMovies.MovieDbService.DatabaseContext
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Season> Seasons { get; set; }
         public DbSet<Type> Types { get; set; }
-        public MoviesContext() : base("name=MoviesDb")
+        public MoviesContext() : base("name=DefaultConnection")
         {
         }
         
@@ -57,6 +57,15 @@ namespace YMovies.MovieDbService.DatabaseContext
                     mu.MapLeftKey("UserRefId");
                     mu.MapRightKey("MediaRefId");
                     mu.ToTable("LikedMedia");
+                });
+            modelBuilder.Entity<User>()
+                .HasMany<Media>(u => u.DislikedMedias)
+                .WithMany(m => m.UsersDisliked)
+                .Map(mu =>
+                {
+                    mu.MapLeftKey("UserRefId");
+                    mu.MapRightKey("MediaRefId");
+                    mu.ToTable("DislikedMedia");
                 });
             modelBuilder.Entity<User>()
                 .HasMany<Season>(u => u.LikedSeasons)

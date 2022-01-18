@@ -17,16 +17,8 @@ namespace YMovies.MovieDbService.Services.Service
         
         private IEnumerable<MediaDto> data;
 
-        public IEnumerable<MediaDto> Items
-        {
-            get
-            {
-                if (data == null)
-                    data = AutoMap.Mapper.Map<IEnumerable<Media>, List<MediaDto>>(_repository.Items);
-                return data;
-            }
-        }
-        
+        public IEnumerable<MediaDto> Items => data ?? (data = AutoMap.Mapper.Map<IEnumerable<Media>, List<MediaDto>>(_repository.Items.ToList()));
+
         public MediaDto GetItem(int id)
         {
             var movie = _repository.GetItem(id);

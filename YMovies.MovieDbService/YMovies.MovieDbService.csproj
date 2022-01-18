@@ -72,6 +72,14 @@
     <Compile Include="Migrations\202201111107195_ChangeCast.designer.cs">
       <DependentUpon>202201111107195_ChangeCast.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201171453308_AddTrailerUrlToMedia.cs" />
+    <Compile Include="Migrations\202201171453308_AddTrailerUrlToMedia.designer.cs">
+      <DependentUpon>202201171453308_AddTrailerUrlToMedia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201171521013_AddDislikedMediaTable.cs" />
+    <Compile Include="Migrations\202201171521013_AddDislikedMediaTable.designer.cs">
+      <DependentUpon>202201171521013_AddDislikedMediaTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cast.cs" />
     <Compile Include="Models\Country.cs" />
@@ -138,6 +146,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201111107195_ChangeCast.resx">
       <DependentUpon>202201111107195_ChangeCast.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201171453308_AddTrailerUrlToMedia.resx">
+      <DependentUpon>202201171453308_AddTrailerUrlToMedia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201171521013_AddDislikedMediaTable.resx">
+      <DependentUpon>202201171521013_AddDislikedMediaTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

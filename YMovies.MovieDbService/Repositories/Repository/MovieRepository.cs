@@ -128,7 +128,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public void UpdateItem(Media item)
         {
-            var temp = _context.Medias.Where(m => m.MediaId.Equals(item.MediaId)).FirstOrDefault();
+            var temp = _context.Medias.FirstOrDefault(m => m.MediaId.Equals(item.MediaId));
             if (temp == null)
                 _context.Medias.Add(item);
             else

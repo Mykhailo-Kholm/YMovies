@@ -55,13 +55,13 @@ namespace YMovies.Web.Controllers
 
         public async Task<ActionResult> DisLike(int id)
         {
-            service.DislikeMedia(id);
+            //service.DislikedMediaByUser(id);
             return RedirectToAction("Details", new{filmId = id});
         }
 
         public async Task<ActionResult> Watched(int id, string userId)
         {
-            var isWatched = watchService.WatchedMediaByUser(userId, id);
+            var isWatched = watchService.IsWatched(userId, id);
             if(isWatched)
                 return RedirectToAction("Details", new { filmId = id });
             return Content("The film was watched!");
