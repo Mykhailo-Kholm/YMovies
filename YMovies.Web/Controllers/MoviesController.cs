@@ -55,11 +55,8 @@ namespace YMovies.Web.Controllers
 
         public async Task<ActionResult> Watched(int id, string userId)
         {
-            var isWatched = watchService.IsWatched(userId, id);
-            if(isWatched)
-                return RedirectToAction("Details", new { filmId = id });
-            return Content("The film was watched!");
-            
+            watchService.WatchedMediaByUser(userId, id);
+            return RedirectToAction("Details", new { filmId = id });
         }
 
         public async Task<ActionResult> MostLiked(int page = 1)
@@ -199,17 +196,17 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> Details(int filmId, string imdbId)
         {
             MediaDto movie;
+            var imdb = new APIworkerIMDB();
+
             if (filmId != 0)
             {
-                APIworkerIMDB imdb = new APIworkerIMDB();
                 movie = _movieService.GetItem(filmId);
                 Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
             }
             else
             {
-                APIworkerIMDB imdb = new APIworkerIMDB();
                 var film = await imdb.MovieOrSeriesInfoAsync(imdbId);
-                DBSeed dbSeed = new DBSeed();
+                var dbSeed = new DBSeed();
                 Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
                 movie = dbSeed.MapMovieDtoToDtoFromImdb(film);
             }
@@ -218,6 +215,7 @@ namespace YMovies.Web.Controllers
             {
                 ViewBag.IsLiked = service.IsLiked(userId, filmId);
                 ViewBag.IsDisliked = service.IsDisliked(userId, filmId);
+                ViewBag.IsWatched = watchService.IsWatched(userId, filmId);
             }
             return View(movie);
         }
@@ -225,17 +223,16 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> TopMovieDetails(int filmid, string imdbId)
         {
             MediaDto movie;
+            var imdb = new APIworkerIMDB();
             if (filmid != 0)
             {
-                APIworkerIMDB imdb = new APIworkerIMDB();
                 movie = _movieService.GetItem(filmid);
                 Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
             }
             else
             {
-                APIworkerIMDB imdb = new APIworkerIMDB();
                 var films = await imdb.MovieOrSeriesInfoAsync(imdbId);
-                DBSeed dbSeed = new DBSeed();
+                var dbSeed = new DBSeed();
                 await dbSeed.AddMovieByImbdId(imdbId);
                 Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
                 movie = dbSeed.MapMovieDtoToDtoFromImdb(films);
@@ -251,6 +248,7 @@ namespace YMovies.Web.Controllers
 
             return RedirectToAction("Index");
         }
+
         public async Task<ActionResult> FilterGenre(string action, string data)
         {
             var dtList = searchService.GetMediaByParams(genre: data);

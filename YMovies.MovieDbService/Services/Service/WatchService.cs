@@ -30,7 +30,7 @@ namespace YMovies.MovieDbService.Services.Service
         {
             var user = _userRepository.GetItem(userId);
             var media = _mediaRepository.GetItem(mediaId);
-            return user.DislikedMedias?.Contains(media) ?? false;
+            return user.WatchedMedias?.Contains(media) ?? false;
         }
     }
 }
