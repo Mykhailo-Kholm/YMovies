@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using YMovies.MovieDbService.DTOs;
 
 namespace YMovies.MovieDbService.Services.IService
@@ -13,6 +9,6 @@ namespace YMovies.MovieDbService.Services.IService
         List<MediaDto> GetOneHundredMediaRandom();
         List<MediaDto> GetMostLiked();
         List<MediaDto> GetMediaByTitle(string title);
-        List<MediaDto> GetMediaByParams(string genre, string country, string year, string type);
+        List<MediaDto> GetMediaByParams(FilterInfoDto filterInfo);
     }
 }

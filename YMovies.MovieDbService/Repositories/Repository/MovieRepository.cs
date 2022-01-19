@@ -25,7 +25,6 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
             var list = Items.ToList();
 
-
             return movie;
         }
 
@@ -37,9 +36,10 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public List<Media> GetMostLiked()
         {
-            var mediaList = _context.Medias.OrderByDescending(gp => gp.NumberOfLikes)
-                                                                                    .Take(100)
-                                                                                    .ToList();
+            var mediaList = _context.Medias
+                .OrderByDescending(gp => gp.NumberOfLikes)
+                .Take(100)
+                .ToList();
             return mediaList;
         }
 
@@ -57,7 +57,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
                 foreach (var genre in filterInfo.Genres)
                 {
                     mediaList = mediaList.Where(m => m.Genres
-                                                    .Any(g =>g.Name.ToLower()
+                                                    .Any(g => g.Name.ToLower()
                                                             .Contains(genre.ToLower())));
                 }
 
@@ -72,7 +72,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
                 {
                     mediaList = mediaList.Where(y => y.Year.Contains(year));
                 }
-            
+
             if (filterInfo.Types != null)
                 foreach (var type in filterInfo.Types)
                 {

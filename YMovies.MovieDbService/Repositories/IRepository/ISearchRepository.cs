@@ -4,7 +4,7 @@ using YMovies.MovieDbService.Models;
 
 namespace YMovies.MovieDbService.Repositories.IRepository
 {
-    public interface ISearchRepository:IRepository<Media>
+    public interface ISearchRepository : IRepository<Media>
     {
         Media GetItem(string id);
         List<Media> GetOneHundredMediaRandom();

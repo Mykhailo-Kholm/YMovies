@@ -24,35 +24,35 @@ namespace YMovies.Web.Controllers
 {
     public class MoviesController : Controller
     {
-        public MoviesController(IService<MediaDto> movieService)
+        public MoviesController(IService<MediaDto> movieService, LikesService service, ISearchService searchService, WatchService watchService)
         {
             _movieService = movieService;
+            _likeService = service;
+            _searchService = searchService;
+            _watchService = watchService;
         }
 
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
         private readonly IService<MediaDto> _movieService;
-
-        private static MoviesContext context = new MoviesContext();
-        private LikesService service = new LikesService(context);
-        private static ISearchRepository repository = new MovieRepository(context);
-        private static SearchService searchService = new SearchService(repository);
-        private static WatchService watchService = new WatchService(context);
+        private readonly ISearchService _searchService;
+        private readonly LikesService _likeService;
+        private readonly WatchService _watchService;
 
         public async Task<ActionResult> Like(int id, string userId)
         {
-            service.LikedMediaByUser(userId, id);
+            _likeService.LikedMediaByUser(userId, id);
             return RedirectToAction("Details", new { filmId = id });
         }
 
         public async Task<ActionResult> DisLike(int id, string userId)
         {
-            service.DislikedMediaByUser(userId, id);
+            _likeService.DislikedMediaByUser(userId, id);
             return RedirectToAction("Details", new { filmId = id });
         }
 
         public async Task<ActionResult> Watched(int id, string userId)
         {
-            watchService.WatchedMediaByUser(userId, id);
+            _watchService.WatchedMediaByUser(userId, id);
             return RedirectToAction("Details", new { filmId = id });
         }
 
@@ -129,7 +129,7 @@ namespace YMovies.Web.Controllers
 
         public async Task<ActionResult> Search(string title, int page = 1)
         {
-            var moviesDtos = searchService.GetMediaByTitle(title)
+            var moviesDtos = _searchService.GetMediaByTitle(title)
                 .Skip((page - 1) * PaginationInfo.ItemsPerPage)
                 .Take(PaginationInfo.ItemsPerPage)
                 .ToList();
@@ -152,7 +152,7 @@ namespace YMovies.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(FilterInfoDto filterModel, int page = 1)
         {
-            var mediadtos = searchService
+            var mediadtos = _searchService
                 .GetMediaByParams(filterModel);
 
             var moviesDtos = mediadtos
@@ -195,9 +195,9 @@ namespace YMovies.Web.Controllers
             var userId = AuthenticationManager.User.Identity.GetUserId();
             if (userId != null)
             {
-                ViewBag.IsLiked = service.IsLiked(userId, filmId);
-                ViewBag.IsDisliked = service.IsDisliked(userId, filmId);
-                ViewBag.IsWatched = watchService.IsWatched(userId, filmId);
+                ViewBag.IsLiked = _likeService.IsLiked(userId, filmId);
+                ViewBag.IsDisliked = _likeService.IsDisliked(userId, filmId);
+                ViewBag.IsWatched = _watchService.IsWatched(userId, filmId);
             }
             return View(movie);
         }
@@ -223,9 +223,9 @@ namespace YMovies.Web.Controllers
             var userId = AuthenticationManager.User.Identity.GetUserId();
             if (userId != null)
             {
-                ViewBag.IsLiked = service.IsLiked(userId, filmid);
-                ViewBag.IsDisliked = service.IsDisliked(userId, filmid);
-                ViewBag.IsWatched = watchService.IsWatched(userId, filmid);
+                ViewBag.IsLiked = _likeService.IsLiked(userId, filmid);
+                ViewBag.IsDisliked = _likeService.IsDisliked(userId, filmid);
+                ViewBag.IsWatched = _watchService.IsWatched(userId, filmid);
             }
             return View("TopMovieDetails", movie);
         }
