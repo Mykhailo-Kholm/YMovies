@@ -163,13 +163,21 @@
                                 </div>
                             </div>
                         }
+
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Trailer</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <iframe width="418" height="290" src="@Session["Trailer"].ToString()" frameborder="0" allowfullscreen></iframe>
+                                @if (string.IsNullOrEmpty(Model.TrailerUrl))
+                                {
+                                    <iframe width="418" height="290" src="@Session["Trailer"].ToString()" frameborder="0" allowfullscreen></iframe>
+                                }
+                                else
+                                {
+                                    <iframe width="418" height="290" src="@Model.TrailerUrl" frameborder="0" allowfullscreen></iframe>
+                                }
                             </div>
                         </div>
                     </div>
