@@ -38,7 +38,14 @@
                                     {
                                         @Html.ActionLink("Like", "Like", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()}, new {@class = "btn btn-light" })
                                     }
-                                    @Html.ActionLink("Mark as watched", "Watched", "Movies", new { id = Model.MediaId, userId = User.Identity.GetUserId() }, new {@class = "btn btn-light" })
+                                    if (!ViewBag.IsWatched)
+                                    {
+                                        @Html.ActionLink("Mark as watched", "Watched", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()}, new {@class = "btn btn-light"})
+                                    }
+                                    else
+                                    {
+                                        <a>You have watched this media</a>
+                                    }
                                     <hr>
                                     <div>
                                         @if (User.IsInRole("admin"))
