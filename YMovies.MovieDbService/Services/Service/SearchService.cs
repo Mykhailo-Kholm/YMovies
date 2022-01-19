@@ -19,7 +19,7 @@ namespace YMovies.MovieDbService.Services.Service
         }
 
         public List<MediaDto> GetMediaByParams(FilterInfoDto filterInfoDto)
-        {
+        {                
             var movies = AutoMap.Mapper.Map<List<Media>, List<MediaDto>>(_repository.GetMediaByParams(filterInfoDto));
             return movies;
         }

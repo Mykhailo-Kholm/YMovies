@@ -7,10 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.DTOs;
-using YMovies.MovieDbService.Repositories.IRepository;
-using YMovies.MovieDbService.Repositories.Repository;
 using YMovies.MovieDbService.Services.IService;
 using YMovies.MovieDbService.Services.Service;
 using YMovies.Web.IMDB;
@@ -152,10 +149,9 @@ namespace YMovies.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(FilterInfoDto filterModel, int page = 1)
         {
-            var mediadtos = _searchService
-                .GetMediaByParams(filterModel);
-
-            var moviesDtos = mediadtos
+            var mediaDtos = _searchService
+                     .GetMediaByParams(filterModel);
+            var moviesDtos = mediaDtos
                 .Skip((page - 1) * PaginationInfo.ItemsPerPage)
                 .Take(PaginationInfo.ItemsPerPage)
                 .ToList();
@@ -168,13 +164,14 @@ namespace YMovies.Web.Controllers
                 Pagination = new PaginationInfo
                 {
                     CurrentPage = page,
-                    TotalItems = mediadtos.Count
-                }
+                    TotalItems = mediaDtos.Count()
+                },
+                Filter = filterModel
             };
 
             return View(movieViewModel);
         }
-
+       
         public async Task<ActionResult> Details(int filmId, string imdbId)
         {
             MediaDto movie;
@@ -241,6 +238,16 @@ namespace YMovies.Web.Controllers
             Session["Movies"] = newMovies;
 
             return RedirectToAction("Index");
+        }
+
+        private void AddToSession(FilterInfoDto filterInfoDto)
+        {
+            Session["Filtering"] = filterInfoDto;
+        }
+
+        private FilterInfoDto GetFromSession()
+        {
+            return (FilterInfoDto)Session["Fitering"];
         }
     }
 }

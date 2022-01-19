@@ -1,6 +1,7 @@
 ﻿@{ ViewBag.Title = "Home Page"; }
 @model YMovies.Web.ViewModels.MovieViewModel
 @using YMovies.Web.Utilites.Pagination
+@using YMovies.MovieDbService.DTOs
 
 <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css">
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
@@ -16,7 +17,6 @@
 @using (Html.BeginForm("Index", "Movies", FormMethod.Get))
 {
     @Html.Action("Menu", "IndexMenu")
-    @Html.HiddenFor(m => m.Pagination.CurrentPage)
     <button type="submit" class="btn btn-sm btn-secondary">Filter films</button>
 }
 
@@ -46,7 +46,7 @@
             </div>
         </div>
     }
-    <div>
+    <div>       
         @Html.PageLinks(Model.Pagination, x => Url.Action("Index", new { page = x }))
     </div>
 </div>
