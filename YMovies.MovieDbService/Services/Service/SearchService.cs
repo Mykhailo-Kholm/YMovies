@@ -17,9 +17,9 @@ namespace YMovies.MovieDbService.Services.Service
             return movies;
         }
 
-        public List<MediaDto> GetMediaByParams(string genre = null, string country = null, string year = null, string type=null)
+        public List<MediaDto> GetMediaByParams(FilterInfoDto filterInfoDto)
         {
-            var movies = AutoMap.Mapper.Map<List<Media>, List<MediaDto>>(_repository.GetMediaByParams(genre, country,year,type));
+            var movies = AutoMap.Mapper.Map<List<Media>, List<MediaDto>>(_repository.GetMediaByParams(filterInfoDto));
             return movies;
         }
     }

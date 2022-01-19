@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Models;
 
 namespace YMovies.MovieDbService.Repositories.IRepository
@@ -9,6 +10,6 @@ namespace YMovies.MovieDbService.Repositories.IRepository
         List<Media> GetOneHundredMediaRandom();
         List<Media> GetMostLiked();
         List<Media> GetMediaByTitle(string title);
-        List<Media> GetMediaByParams(string genre = null, string country = null, string year = null, string type = null);
+        List<Media> GetMediaByParams(FilterInfoDto filterInfo);
     }
 }

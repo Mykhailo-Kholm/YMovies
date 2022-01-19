@@ -1,12 +1,12 @@
 using IMDbApiLib.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Repositories.IRepository;
@@ -29,9 +29,6 @@ namespace YMovies.Web.Controllers
             _movieService = movieService;
         }
 
-
-        private const int pageSize = 9;
-
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
         private readonly IService<MediaDto> _movieService;
 
@@ -43,14 +40,14 @@ namespace YMovies.Web.Controllers
 
         public async Task<ActionResult> Like(int id, string userId)
         {
-           service.LikedMediaByUser(userId, id);
-           return RedirectToAction("Details", new { filmId = id });
+            service.LikedMediaByUser(userId, id);
+            return RedirectToAction("Details", new { filmId = id });
         }
 
         public async Task<ActionResult> DisLike(int id, string userId)
         {
             service.DislikedMediaByUser(userId, id);
-            return RedirectToAction("Details", new{filmId = id});
+            return RedirectToAction("Details", new { filmId = id });
         }
 
         public async Task<ActionResult> Watched(int id, string userId)
@@ -63,8 +60,8 @@ namespace YMovies.Web.Controllers
         {
             var films = _movieService.Items.OrderByDescending(m => m.NumberOfLikes);
             var moviesDtos = films
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
+                .Skip((page - 1) * PaginationInfo.ItemsPerPage)
+                .Take(PaginationInfo.ItemsPerPage)
                 .ToList();
 
             var movies = AutoMapperWeb.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
@@ -74,7 +71,6 @@ namespace YMovies.Web.Controllers
                 Pagination = new PaginationInfo
                 {
                     CurrentPage = page,
-                    ItemsPerPage = pageSize,
                     TotalItems = films.Count()
                 }
             };
@@ -88,8 +84,8 @@ namespace YMovies.Web.Controllers
 
             var movies = AutoMapperWeb.Mapper.Map<IEnumerable<MostPopularDataDetail>, List<IndexMediaViewModel>>(films);
             movies = movies
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
+                .Skip((page - 1) * PaginationInfo.ItemsPerPage)
+                .Take(PaginationInfo.ItemsPerPage)
                 .ToList();
 
             var movieViewModel = new MovieViewModel()
@@ -98,7 +94,6 @@ namespace YMovies.Web.Controllers
                 Pagination = new PaginationInfo
                 {
                     CurrentPage = page,
-                    ItemsPerPage = pageSize,
                     TotalItems = films.Count
                 }
             };
@@ -108,14 +103,14 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> TopByIMDb(int page = 1)
         {
 
-                APIworkerIMDB imdb = new APIworkerIMDB();
-                var films = await imdb.GetTop250MoviesAsync();
-                var topmovies = AutoMapperWeb.Mapper.Map<IEnumerable<Top250DataDetail>, List<MediaDto>>(films);
-            
+            APIworkerIMDB imdb = new APIworkerIMDB();
+            var films = await imdb.GetTop250MoviesAsync();
+            var topmovies = AutoMapperWeb.Mapper.Map<IEnumerable<Top250DataDetail>, List<MediaDto>>(films);
+
 
             var moviesDtos = topmovies
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
+                .Skip((page - 1) * PaginationInfo.ItemsPerPage)
+                .Take(PaginationInfo.ItemsPerPage)
                 .ToList();
 
             var movies = AutoMapperWeb.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
@@ -126,7 +121,6 @@ namespace YMovies.Web.Controllers
                 Pagination = new PaginationInfo
                 {
                     CurrentPage = page,
-                    ItemsPerPage = pageSize,
                     TotalItems = topmovies.Count
                 }
             };
@@ -136,8 +130,8 @@ namespace YMovies.Web.Controllers
         public async Task<ActionResult> Search(string title, int page = 1)
         {
             var moviesDtos = searchService.GetMediaByTitle(title)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
+                .Skip((page - 1) * PaginationInfo.ItemsPerPage)
+                .Take(PaginationInfo.ItemsPerPage)
                 .ToList();
 
             var movies = AutoMapperWeb.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
@@ -148,7 +142,6 @@ namespace YMovies.Web.Controllers
                 Pagination = new PaginationInfo
                 {
                     CurrentPage = page,
-                    ItemsPerPage = pageSize,
                     TotalItems = movies.Count
                 }
             };
@@ -157,24 +150,14 @@ namespace YMovies.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index(int page = 1)
+        public async Task<ActionResult> Index(FilterInfoDto filterModel, int page = 1)
         {
-
-
-            List<MediaDto> mediadtos;
-            if (Session["Movies"] != null)
-            {
-                mediadtos = Session["Movies"] as List<MediaDto>;
-                Session["Movies"] = null;
-            }
-            else
-            {
-                mediadtos = _movieService.Items.ToList();
-            }
+            var mediadtos = searchService
+                .GetMediaByParams(filterModel);
 
             var moviesDtos = mediadtos
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
+                .Skip((page - 1) * PaginationInfo.ItemsPerPage)
+                .Take(PaginationInfo.ItemsPerPage)
                 .ToList();
 
             var movies = AutoMapperWeb.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
@@ -185,7 +168,6 @@ namespace YMovies.Web.Controllers
                 Pagination = new PaginationInfo
                 {
                     CurrentPage = page,
-                    ItemsPerPage = pageSize,
                     TotalItems = mediadtos.Count
                 }
             };
@@ -246,42 +228,6 @@ namespace YMovies.Web.Controllers
                 ViewBag.IsWatched = watchService.IsWatched(userId, filmid);
             }
             return View("TopMovieDetails", movie);
-        }
-
-        public async Task<ActionResult> FilterCountry(string action, string data)
-        {
-            var dtList = searchService.GetMediaByParams(country: data);
-            
-            Session["Movies"] = dtList;
-
-            return RedirectToAction("Index");
-        }
-
-        public async Task<ActionResult> FilterGenre(string action, string data)
-        {
-            var dtList = searchService.GetMediaByParams(genre: data);
-
-            Session["Movies"] = dtList;
-
-            return RedirectToAction("Index");
-        }
-
-        public async Task<ActionResult> FilterType(string action, string data)
-        {
-            var dtList = searchService.GetMediaByParams(type: data);
-
-            Session["Movies"] = dtList;
-
-            return RedirectToAction("Index");
-        }
-
-        public async Task<ActionResult> FilterYear(string action, string data)
-        {
-            var dtList = searchService.GetMediaByParams(year: data);
-
-            Session["Movies"] = dtList;
-
-            return RedirectToAction("Index");
         }
 
         public async Task<ActionResult> FilterExclude(int countryId)
