@@ -1,3 +1,4 @@
+using System;
 using IMDbApiLib.Models;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -309,8 +310,15 @@ namespace YMovies.Web.Controllers
             {
                 var imdb = new APIworkerIMDB();
 
-                tempStrTrailerUrl = await imdb.GetYoutubeTrailerVideoID(idImdb);
-
+                try
+                {
+                    tempStrTrailerUrl = await imdb.GetYoutubeTrailerVideoID(idImdb);
+                }
+                catch (NullReferenceException e)
+                {
+                    tempStrTrailerUrl = "";
+                }
+                
                 Session["Trailer"] = tempStrTrailerUrl;
 
                 media.TrailerUrl = tempStrTrailerUrl;
