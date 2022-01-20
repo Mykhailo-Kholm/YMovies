@@ -1,4 +1,4 @@
-using IMDbApiLib.Models;
+    using IMDbApiLib.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System.Collections.Generic;
@@ -250,17 +250,17 @@ namespace YMovies.Web.Controllers
                 return false;
             if (a.Countries != null && b.Countries != null)
                 if(a.Countries.Equals(b.Countries))
-                    return true;
+                    return false;
             if (a.Genres != null && b.Genres != null)
                 if (a.Genres.Equals(b.Genres))
-                    return true;
+                    return false;
             if (a.Types != null && b.Types != null)
                 if (!a.Types.Equals(b.Types))
                     return false;
             if (a.Years != null && b.Years != null)
                 if (!a.Years.Equals(b.Years))
                     return false;
-            return true;
+            return false;
         }
     }
 }
