@@ -147,13 +147,11 @@ namespace YMovies.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index(FilterInfoDto filterModel, int page = 1)
+        public async Task<ActionResult> Index(FilterInfoDto filterInfo, int page = 1)
         {
-            if (Compare((FilterInfoDto)Session["Filter"], filterModel))
-                filterModel = (FilterInfoDto)Session["Filter"];
-
             var mediaDtos = _searchService
-                     .GetMediaByParams(filterModel);
+                     .GetMediaByParams(filterInfo);
+            
             var moviesDtos = mediaDtos
                 .Skip((page - 1) * PaginationInfo.ItemsPerPage)
                 .Take(PaginationInfo.ItemsPerPage)
@@ -169,13 +167,15 @@ namespace YMovies.Web.Controllers
                     CurrentPage = page,
                     TotalItems = mediaDtos.Count()
                 },
-                Filter = filterModel
+                Filter = filterInfo
             };
 
-            Session["Filter"] = filterModel;
+            Session["Filter"] = filterInfo;
             return View(movieViewModel);
         }
 
+       
+          
         public async Task<ActionResult> Details(int filmId, string imdbId)
         {
             MediaDto movie;
