@@ -52,34 +52,54 @@ namespace YMovies.MovieDbService.Repositories.Repository
         public List<Media> GetMediaByParams(FilterInfoDto filterInfo)
         {
             var mediaList = _context.Medias.Include(m => m.Type);
-
+            IEnumerable<Media> resultList = new List<Media>();
             if (filterInfo.Genres != null)
                 foreach (var genre in filterInfo.Genres)
                 {
-                    mediaList = mediaList.Where(m => m.Genres
+                    resultList = mediaList.Where(m => m.Genres
                                                     .Any(g => g.Name.ToLower()
-                                                            .Contains(genre.ToLower())));
-                }
-
-            if (filterInfo.Countries != null)
-                foreach (var country in filterInfo.Countries)
-                {
-                    mediaList = mediaList.Where(m => m.Countries.Any(c => c.Name.ToLower().Contains(country.ToLower())));
-                }
-
-            if (filterInfo.Years != null)
-                foreach (var year in filterInfo.Years)
-                {
-                    mediaList = mediaList.Where(y => y.Year.Contains(year));
+                                                            .Contains(genre.ToLower()))).ToList();
                 }
 
             if (filterInfo.Types != null)
+            {
+                var typesList = new List<Media>();
                 foreach (var type in filterInfo.Types)
                 {
-                    mediaList = mediaList.Where(t => t.Type.Name.ToLower().Contains(type.ToLower()));
+                    typesList.AddRange(mediaList.Where(t => t.Type.Name.ToLower().Contains(type.ToLower())));
                 }
+                if (resultList.Any())
+                    resultList = resultList.Intersect(typesList);
+                else
+                    resultList = resultList.Union(typesList);
+            }
 
-            return mediaList.ToList();
+            if (filterInfo.Countries != null)
+            {
+                var countryList = new List<Media>();
+                foreach (var country in filterInfo.Countries)
+                {
+                    countryList.AddRange(mediaList.Where(m => m.Countries.Any(c => c.Name.ToLower().Contains(country.ToLower()))));
+                }
+                if (resultList.Any())
+                    resultList = resultList.Intersect(countryList);
+                else
+                    resultList = resultList.Union(countryList);
+            }
+
+            if (filterInfo.Years != null)
+            {
+                var yearsList = new List<Media>();
+                foreach (var year in filterInfo.Years)
+                {
+                    yearsList.AddRange(mediaList.Where(y => y.Year.Contains(year)).ToList());                    
+                }
+                if (resultList.Any())
+                    resultList = resultList.Intersect(yearsList);
+                else
+                    resultList = resultList.Union(yearsList);
+            }
+            return resultList.Count() != 0 ? resultList.Distinct().ToList() : mediaList.ToList();
         }
 
         public void AddItem(Media item)

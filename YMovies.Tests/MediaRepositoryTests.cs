@@ -94,5 +94,11 @@ namespace YMovies.Tests
             //Assert 
             Assert.IsNotNull(result);
         }
+
+        [Test]
+        public void GetMediaByParams_FilterItems_ReturnsFilterdMovies()
+        {
+
+        }
     }
 }
