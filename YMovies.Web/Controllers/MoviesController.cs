@@ -181,7 +181,7 @@ namespace YMovies.Web.Controllers
             Session["Filter"] = filterInfo;
             return View(movieViewModel);
         }
-                 
+
         public async Task<ActionResult> Details(int filmId, string imdbId)
         {
             MediaDto movie;
