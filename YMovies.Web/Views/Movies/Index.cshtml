@@ -64,7 +64,7 @@
             <div class="btn-group" role="group">
                 @using (Html.BeginForm("Index", "Movies", FormMethod.Get))
                 {
-                    @Html.Hidden("page", j)
+                    <input type="hidden" name="page" value="@j">
                     if (filterInfo.Types != null)
                     {
                         for (int i = 0; i < filterInfo.Types.Count(); i++)
