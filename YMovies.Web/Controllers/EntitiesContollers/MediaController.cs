@@ -83,7 +83,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             if (movie == null)
                 return HttpNotFound();
             ViewBag.Types = _typesService.Items.ToList();
-            if (movie.Seasons != null)
+            if (movie.Seasons.Count != 0)
             {
                 var modelSeries = AutoMapperWeb.Mapper.Map<MediaDto, NewSeriesViewModel>(movie);
                 return View("EditSeries", modelSeries);
@@ -104,7 +104,6 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             var mediaDto = AutoMapperWeb.Mapper.Map<NewSeriesViewModel, MediaDto>(model);
             mediaDto.Type = GetType(model.Type);
             mediaDto.Cast = GetAllActors(model.Cast);
-            mediaDto.ImdbId = "";
             _moviesService.AddItem(mediaDto);
             return RedirectToAction("Index", "Home");
         }
@@ -121,7 +120,6 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             var mediaDto = AutoMapperWeb.Mapper.Map<NewFilmViewModel, MediaDto>(model);
             mediaDto.Type = GetType(model.Type);
             mediaDto.Cast = GetAllActors(model.Cast);
-            mediaDto.ImdbId = "";
             _moviesService.AddItem(mediaDto);
             return RedirectToAction("Index", "Home");
         }
@@ -132,13 +130,13 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             if(id == null)
                 return HttpNotFound();
             var dto = _moviesService.GetItem(id.Value);
-            if (dto.Seasons != null)
+            if (dto.Seasons.Count != 0)
             {
                 var modelsSeries = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel>(dto);
                 return View("DeleteSeries", modelsSeries);
             }
             var model = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel>(dto);
-            return View(model);
+            return View("DeleteMovie",model);
         }
 
         [HttpPost]

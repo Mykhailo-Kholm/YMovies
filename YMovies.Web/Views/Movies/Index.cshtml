@@ -1,49 +1,54 @@
 ﻿@{ ViewBag.Title = "Home Page"; }
 @model YMovies.Web.ViewModels.MovieViewModel
 @using YMovies.Web.Utilites.Pagination
+@using YMovies.MovieDbService.DTOs
 
 <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css">
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/MainPage.css" rel="stylesheet" />
 
-<style type="text/css">    
+<style type="text/css">
     .accordion-expand-holder {
         text-align: center;
         padding: 10px;
     }
 </style>
 
-@Html.Action("Menu", "IndexMenu")
+@using (Html.BeginForm("Index", "Movies", FormMethod.Get))
+{
+    @Html.Action("Menu", "IndexMenu")
+    <button type="submit" class="btn btn-sm btn-secondary">Filter films</button>
+}
 
 <div>
-@foreach (var film in Model.Movies)
-{
-    <div class="movie-card">
-        <div class="movie-header theDarkTower">
-            <a href="@Url.Action("Details", "Movies", new {filmid = film.MediaId, imdbid = film.ImdbId})">
-                <img src="@Html.Raw(film.PosterUrl)" class="movie-header theDarkTower">
-            </a>
-        </div>
-        <div class="movie-content">
-            <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">
-                        @film.Title
-                    </h3>
+    @foreach (var film in Model.Movies)
+    {
+        <div class="movie-card">
+            <div class="movie-header theDarkTower">
+                <a href="@Url.Action("Details", "Movies", new { filmid = film.MediaId, imdbid = film.ImdbId })">
+                    <img src="@Html.Raw(film.PosterUrl)" class="movie-header theDarkTower">
                 </a>
             </div>
-            <div class="movie-info">
-                <div class="info-section">
-                    <label>IMDb Rating</label>
-                    <span>@film.ImdbRating</span>
+            <div class="movie-content">
+                <div class="movie-content-header">
+                    <a href="#">
+                        <h3 class="movie-title">
+                            @film.Title
+                        </h3>
+                    </a>
+                </div>
+                <div class="movie-info">
+                    <div class="info-section">
+                        <label>IMDb Rating</label>
+                        <span>@film.ImdbRating</span>
+                    </div>
                 </div>
             </div>
         </div>
+    }
+    <div>       
+        @Html.PageLinks(Model.Pagination, x => Url.Action("Index", new { page = x }))
     </div>
-}
-<div>
-    @Html.PageLinks(Model.Pagination, x => Url.Action("Index", new { page = x }))
-</div>
 </div>
 
 @section scripts {

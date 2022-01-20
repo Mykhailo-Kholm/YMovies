@@ -5,8 +5,29 @@
     Years
 </h3>
 <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-    @foreach (var year in Model)
-    {
-        @Html.ActionLink(year, "FilterYear", "Movies", new { data = year }, new { @class = "btn btn-light " })
-    }
+    <div class="row">
+        @if (Model != null)
+        {
+            int i = 0;
+            var numOfColumns = Model.Count() / 6;
+            numOfColumns = numOfColumns * 6 == Model.Count() ? numOfColumns : numOfColumns + 1;
+
+            for (int j = 0; j < numOfColumns; j++)
+            {
+                <div class="col-4">
+                    @for (int count = 0; count < 6 && Model.Count() > count + i; count++)
+                    {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="@Model.ElementAt(i + count)" name="Years" id="yearsInput">
+                                <label class="form-check-label" for="yearsInput">
+                                    @Model.ElementAt(i + count)
+                                </label>
+                            </div>
+                    }
+                    <hr>
+                </div>
+                i += 6;
+            }
+        }
+    </div>
 </div>

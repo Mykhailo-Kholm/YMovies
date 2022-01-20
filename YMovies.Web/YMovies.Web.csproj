@@ -266,8 +266,6 @@
     <Compile Include="Utilites\ValidationAttributes\GenresAttribute.cs" />
     <Compile Include="Utilites\ValidationAttributes\IdentityUserAttribute.cs" />
     <Compile Include="Models\MediaCreationViewModels\CastViewModel.cs" />
-    <Compile Include="ViewModels\MovieGenreViewModel.cs" />
-    <Compile Include="ViewModels\MovieModel.cs" />
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Utilites\AutoMapperWeb.cs" />
     <Compile Include="Models\IndexPageViewModels\MovieViewModel.cs" />
