@@ -21,16 +21,14 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public Media GetItem(int id)
         {
-            var movie = _context.Medias.FirstOrDefault(m => m.MediaId == id);
-
-            var list = Items.ToList();
+            var movie = _context.Medias.Include(m => m.Type).FirstOrDefault(m => m.MediaId == id);
 
             return movie;
         }
 
         public Media GetItem(string id)
         {
-            var movie = _context.Medias.FirstOrDefault(m => m.ImdbId == id);
+            var movie = _context.Medias.Include(m=>m.Type).FirstOrDefault(m => m.ImdbId == id);
             return movie;
         }
 

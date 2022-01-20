@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,13 +28,13 @@ namespace YMovies.Web.Controllers
             _likeService = service;
             _searchService = searchService;
             _watchService = watchService;
-        }
 
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
         private readonly IService<MediaDto> _movieService;
         private readonly ISearchService _searchService;
         private readonly LikesService _likeService;
         private readonly WatchService _watchService;
+
 
         public async Task<ActionResult> Like(int id, string userId)
         {
@@ -181,17 +182,17 @@ namespace YMovies.Web.Controllers
             MediaDto movie;
             var imdb = new APIworkerIMDB();
 
+            await AddTrailerForMedia(imdbId);
+
             if (filmId != 0)
             {
                 movie = _movieService.GetItem(filmId);
-                Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
             }
             else
             {
                 var film = await imdb.MovieOrSeriesInfoAsync(imdbId);
                 var dbSeed = new DBSeed();
-                Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
-                movie = dbSeed.MapMovieDtoToDtoFromImdb(film);
+                movie = await dbSeed.MapMovieDtoToDtoFromImdb(film);
             }
             var userId = AuthenticationManager.User.Identity.GetUserId();
             if (userId != null)
@@ -210,15 +211,13 @@ namespace YMovies.Web.Controllers
             if (filmid != 0)
             {
                 movie = _movieService.GetItem(filmid);
-                Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
             }
             else
             {
                 var films = await imdb.MovieOrSeriesInfoAsync(imdbId);
                 var dbSeed = new DBSeed();
                 await dbSeed.AddMovieByImbdId(imdbId);
-                Session["Trailer"] = await imdb.GetYoutubeTrailerVideoID(imdbId);
-                movie = dbSeed.MapMovieDtoToDtoFromImdb(films);
+                movie = await dbSeed.MapMovieDtoToDtoFromImdb(films);
             }
 
             var userId = AuthenticationManager.User.Identity.GetUserId();
@@ -261,6 +260,28 @@ namespace YMovies.Web.Controllers
                 if (!a.Years.Equals(b.Years))
                     return false;
             return false;
+        private async Task AddTrailerForMedia(string idImdb)
+        {
+            if(string.IsNullOrEmpty(idImdb))
+                return;
+
+            string tempStrTrailerUrl;
+
+            var media = repository.GetItem(idImdb);
+
+            if (string.IsNullOrEmpty(media.TrailerUrl))
+            {
+                var imdb = new APIworkerIMDB();
+
+                tempStrTrailerUrl = await imdb.GetYoutubeTrailerVideoID(idImdb);
+
+                Session["Trailer"] = tempStrTrailerUrl;
+
+                media.TrailerUrl = tempStrTrailerUrl;
+
+                repository.UpdateItem(media);
+            }
+
         }
     }
 }
