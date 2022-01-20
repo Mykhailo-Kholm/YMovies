@@ -16,7 +16,15 @@
 
             <div class="form-horizontal">
                 @Html.HiddenFor(m => m.MediaId)
-                @Html.HiddenFor(m => m.ImdbId)
+                
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.ImdbId, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.ImdbId, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ImdbId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
                 <div class="mb-3">
                     @Html.LabelFor(m => m.Title, new { @class = "form-label" })
                     <div class="col-md-8">
@@ -38,6 +46,13 @@
                     <div class="col-md-8">
                         @Html.TextBoxFor(m => m.PosterUrl, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.PosterUrl, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.TrailerUrl, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.TrailerUrl, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.TrailerUrl, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -103,25 +118,24 @@
                         <div id="seasons">
                             @if (Model.Seasons == null)
                             {
-                                <div class="row g-3" id="seasonitem" style="margin-bottom:2%">
-                                    <div class="col-md-8">
-                                        <label for="inputSeasonName" class="form-label">Name</label>
-                                        <input type="text" name="Seasons[0].name" id="inputSeasonName"
-                                               class="form-control">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="inputSeasonSeriesNumber" class="form-label">Episodes</label>
-                                        <input type="text" name="Seasons[0].numberofepisodes" id="inputSeasonSeriesNumber"
-                                               class="form-control">
-                                    </div>
-                                </div>
-                            }
+            <div class="row g-3" id="seasonitem" style="margin-bottom:2%">
+                <div class="col-md-8">
+                    <label for="inputSeasonName" class="form-label">Name</label>
+                    <input type="text" name="Seasons[0].name" id="inputSeasonName"
+                           class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label for="inputSeasonSeriesNumber" class="form-label">Episodes</label>
+                    <input type="text" name="Seasons[0].numberofepisodes" id="inputSeasonSeriesNumber"
+                           class="form-control">
+                </div>
+            </div> }
                             else
                             {
                                 int seasonCount = 0;
                                 foreach (var season in Model.Seasons)
                                 {
-                                    <input type="hidden" name="Seasons[@seasonCount].seasonid" value="@season.SeasonId" />
+            <input type="hidden" name="Seasons[@seasonCount].seasonid" value="@season.SeasonId" />
                                     <div class="row g-3" style="margin-bottom:2%">
                                         <div class="col-md-8">
                                             <input type="text" name="Seasons[@seasonCount].name" id="inputSeasonName"
@@ -131,10 +145,9 @@
                                             <input type="text" name="Seasons[@seasonCount].numberofepisodes" id="inputSeasonSeriesNumber"
                                                    class="form-control" value="@season.NumberOfEpisodes">
                                         </div>
-                                    </div>
-                                    seasonCount++;
-                                }
-                            }
+                                    </div>seasonCount++;
+                                                        }
+                                                    }
                         </div>
                         <a href="#" id="addSeason" class="btn btn-sm btn-primary" style="margin-top:1%">Add season</a>
                         @Html.ValidationMessageFor(m => m.Seasons, "", new { @class = "text-danger" })
@@ -156,14 +169,13 @@
                     {
                         for (int i = 0; i < Model.Cast.Count; i++)
                         {
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="Cast[@i]" name="Cast[@i].id" value="@Model.Cast.ElementAt(i).Id"
-                                       checked="checked" />
-                                <label class="form-check-label" for="Cast[@i]">@Model.Cast.ElementAt(i).Name</label>
-                                <input type="hidden" name="Cast[@i].name" value="@Model.Cast.ElementAt(i).Name" />
-                            </div>
-                        }
-                    }
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Cast[@i]" name="Cast[@i].id" value="@Model.Cast.ElementAt(i).Id"
+                       checked="checked" />
+                <label class="form-check-label" for="Cast[@i]">@Model.Cast.ElementAt(i).Name</label>
+                <input type="hidden" name="Cast[@i].name" value="@Model.Cast.ElementAt(i).Name" />
+            </div>}
+                            }
                 </ul>
 
                 <div class="mb-3">
@@ -181,14 +193,13 @@
                     {
                         for (int i = 0; i < Model.Countries.Count; i++)
                         {
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="Countries[@i]" name="Countries[@i].id" value="@Model.Countries.ElementAt(i).Id"
-                                       checked="checked" />
-                                <label class="form-check-label" for="Country[@i]">@Model.Countries.ElementAt(i).Name</label>
-                                <input type="hidden" name="Countries[@i].name" value="@Model.Countries.ElementAt(i).Name" />
-                            </div>
-                        }
-                    }
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Countries[@i]" name="Countries[@i].id" value="@Model.Countries.ElementAt(i).Id"
+                       checked="checked" />
+                <label class="form-check-label" for="Country[@i]">@Model.Countries.ElementAt(i).Name</label>
+                <input type="hidden" name="Countries[@i].name" value="@Model.Countries.ElementAt(i).Name" />
+            </div>}
+                            }
                 </ul>
 
                 <div class="mb-3">
@@ -206,14 +217,13 @@
                     {
                         for (int i = 0; i < Model.Genres.Count; i++)
                         {
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="Genres[@i]" name="Genres[@i].id" value="@Model.Genres.ElementAt(i).Id"
-                                       checked="checked" />
-                                <label class="form-check-label" for="Genre[@i]">@Model.Genres.ElementAt(i).Name</label>
-                                <input type="hidden" name="Genres[@i].name" value="@Model.Genres.ElementAt(i).Name" />
-                            </div>
-                        }
-                    }
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Genres[@i]" name="Genres[@i].id" value="@Model.Genres.ElementAt(i).Id"
+                       checked="checked" />
+                <label class="form-check-label" for="Genre[@i]">@Model.Genres.ElementAt(i).Name</label>
+                <input type="hidden" name="Genres[@i].name" value="@Model.Genres.ElementAt(i).Name" />
+            </div>}
+                            }
                 </ul>
 
                 <div class="mb-3" style="margin-top:2px">

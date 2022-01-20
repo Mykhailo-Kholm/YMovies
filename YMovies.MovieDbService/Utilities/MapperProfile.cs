@@ -27,6 +27,7 @@ namespace YMovies.MovieDbService.Utilities
                 .ForMember(d => d.Genres, opt => opt.MapFrom(m => m.Genres))
                 .ForMember(d => d.Seasons, opt => opt.MapFrom(m => m.Seasons))
                 .ForMember(d => d.Type, opt => opt.MapFrom(m => m.Type))
+                .ForMember(d => d.TrailerUrl, opt => opt.MapFrom(m=>m.TrailerUrl))
                 .ReverseMap();                        
         }
     }

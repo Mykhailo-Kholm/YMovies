@@ -9,13 +9,13 @@ namespace YMovies.Web.ViewModels
     {
         public int MediaId { get; set; }
         public string ImdbId { get; set; }
-
         [Required(ErrorMessage = "This field cannot be empty")]
         public string Title { get; set; }
 
         [Required(ErrorMessage = "This field cannot be empty")]
         [DataType(DataType.ImageUrl, ErrorMessage = "This url isn't correct")]
         public string PosterUrl { get; set; }
+        public string TrailerUrl { get; set; }
 
         [Required(ErrorMessage = "This field cannot be empty")]
         [RegularExpression("^[12][0-9]{3}$", ErrorMessage = "Year isn't correct")]
@@ -37,7 +37,7 @@ namespace YMovies.Web.ViewModels
         public string Companies { get; set; }
 
         [Required]
-        [RegularExpression("[0-9](,[0-9][0-9])?", ErrorMessage = "This value isn't correct, should be in format 0,0")]
+        [RegularExpression("[0-9][0-9](,[0-9][0-9])?", ErrorMessage = "This value isn't correct, should be in format 00,0")]
         [Display(Name = "Rating on Imdb")]
         public decimal ImdbRating { get; set; }
 
