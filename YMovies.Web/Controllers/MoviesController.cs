@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using YMovies.MovieDbService.DTOs;
+using YMovies.MovieDbService.Repositories.Repository;
 using YMovies.MovieDbService.Services.IService;
 using YMovies.MovieDbService.Services.Service;
 using YMovies.Web.IMDB;
@@ -24,18 +25,22 @@ namespace YMovies.Web.Controllers
 {
     public class MoviesController : Controller
     {
-        public MoviesController(IService<MediaDto> movieService, LikesService service, ISearchService searchService, WatchService watchService)
+        public MoviesController(IService<MediaDto> movieService, LikesService service, ISearchService searchService,
+            WatchService watchService, MovieRepository repository)
         {
             _movieService = movieService;
             _likeService = service;
             _searchService = searchService;
             _watchService = watchService;
+            this.repository = repository;
+        }
 
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
         private readonly IService<MediaDto> _movieService;
         private readonly ISearchService _searchService;
         private readonly LikesService _likeService;
         private readonly WatchService _watchService;
+        private readonly MovieRepository repository;
 
 
         public async Task<ActionResult> Like(int id, string userId)
@@ -250,7 +255,7 @@ namespace YMovies.Web.Controllers
             if (a == null || b == null)
                 return false;
             if (a.Countries != null && b.Countries != null)
-                if(a.Countries.Equals(b.Countries))
+                if (a.Countries.Equals(b.Countries))
                     return false;
             if (a.Genres != null && b.Genres != null)
                 if (a.Genres.Equals(b.Genres))
@@ -262,6 +267,8 @@ namespace YMovies.Web.Controllers
                 if (!a.Years.Equals(b.Years))
                     return false;
             return false;
+        }
+
         private async Task AddTrailerForMedia(string idImdb)
         {
             if(string.IsNullOrEmpty(idImdb))
