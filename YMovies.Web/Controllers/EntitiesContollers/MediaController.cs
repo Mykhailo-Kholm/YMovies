@@ -46,7 +46,6 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             var mediaDto = AutoMapperWeb.Mapper.Map<MediaDto>(model);
             mediaDto.Cast = GetAllActors(model.Cast);
             mediaDto.Type = GetType(model.Type);
-            mediaDto.ImdbId = "";
             _moviesService.AddItem(mediaDto);
             return RedirectToAction("Index", "Home");            
         }
@@ -69,7 +68,6 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             UpdateFields(model);
             var mediaDto = AutoMapperWeb.Mapper.Map<MediaDto>(model);
             mediaDto.Type = GetType(model.Type);
-            mediaDto.ImdbId = "";
             mediaDto.Cast = GetAllActors(model.Cast);
             _moviesService.AddItem(mediaDto);
             return RedirectToAction("Index", "Home");
@@ -132,7 +130,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             var dto = _moviesService.GetItem(id.Value);
             if (dto.Seasons.Count != 0)
             {
-                var modelsSeries = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel>(dto);
+                var modelsSeries = AutoMapperWeb.Mapper.Map<MediaDto, NewSeriesViewModel>(dto);
                 return View("DeleteSeries", modelsSeries);
             }
             var model = AutoMapperWeb.Mapper.Map<MediaDto, NewFilmViewModel>(dto);
