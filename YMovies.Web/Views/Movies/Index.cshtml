@@ -7,9 +7,18 @@
 <link href="~/Content/MainPage.css" rel="stylesheet" />
 
 <style type="text/css">
-    .accordion-expand-holder {
+   .accordion-expand-holder {
         text-align: center;
         padding: 10px;
+    }
+
+    .page-link {
+        color: forestgreen !important;
+    }
+
+    .page-item.active .page-link {
+        color: forestgreen !important;
+        background-color: lightgray !important;
     }
 </style>
 
@@ -20,7 +29,7 @@
     <button type="submit" class="btn btn-sm btn-secondary">Filter films</button>
 }
 
-<div class="justify-content-center">
+<div class="container">
     @foreach (var film in Model.Movies)
     {
         <div class="movie-card">
@@ -48,7 +57,7 @@
     }
 </div>
 
-<nav aria-label="Page navigation example">
+<nav>
     <ul class="pagination justify-content-center">
         @for (int j = 1; j <= Model.Pagination.TotalPages; j++)
         {
