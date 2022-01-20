@@ -26,5 +26,6 @@ namespace YMovies.Web.Utilites.Pagination
             }
             return MvcHtmlString.Create(result.ToString());
         }
+
     }
 }

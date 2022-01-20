@@ -1,31 +1,18 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.DTOs;
-using YMovies.MovieDbService.Repositories.Repository;
 using YMovies.MovieDbService.Services.IService;
-using YMovies.MovieDbService.Services.Service;
-using YMovies.Web.Models.IndexPageViewModels;
 
 namespace YMovies.Web.Controllers
 {
     public class IndexMenuController : Controller
-    {                
+    {
         public IndexMenuController(IService<GenreDto> genreService, IService<TypeDto> typeService, IService<CountryDto> countryService, IService<MediaDto> mediaService)
         {
             _genreService = genreService;
             _typeService = typeService;
             _countryService = countryService;
             _mediaService = mediaService;
-        }
-
-        public IndexMenuController()
-        {
-            var dbContext = new MoviesContext();
-            _genreService = new GenreService(new GenreRepository(dbContext));
-            _typeService = new TypeService(new TypeRepository(dbContext));
-            _countryService = new CountryService(new CountryRepository(dbContext));
-            _mediaService = new MovieService(new MovieRepository(dbContext));
         }
 
         private readonly IService<GenreDto> _genreService;
@@ -35,11 +22,11 @@ namespace YMovies.Web.Controllers
 
         public ActionResult Menu()
         {
-            var model = new MenuViewModel
+            var model = new FilterInfoDto
             {
-                Genres = _genreService.Items.Distinct().ToList(),
-                Types = _typeService.Items.Distinct().ToList(),
-                Countries = _countryService.Items.Distinct().ToList(),
+                Genres = _genreService.Items.Select(g => g.Name).Distinct(),
+                Types = _typeService.Items.Distinct().Select(g => g.Name),
+                Countries = _countryService.Items.Distinct().Select(c => c.Name),
                 Years = _mediaService.Items.OrderBy(x => x.Year).Select(x => x.Year).Distinct().ToList()
             };
             return PartialView(model);
