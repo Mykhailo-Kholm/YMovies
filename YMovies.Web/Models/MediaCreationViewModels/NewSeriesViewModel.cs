@@ -20,6 +20,7 @@ namespace YMovies.Web.Models.MediaCreationViewModels
         [Required(ErrorMessage = "This field cannot be empty")]
         [DataType(DataType.ImageUrl, ErrorMessage = "This url isn't correct")]
         public string PosterUrl { get; set; }
+        public string TrailerUrl { get; set; }
 
         [Required(ErrorMessage = "This field cannot be empty")]
         [RegularExpression("^[12][0-9]{3}$", ErrorMessage = "Year isn't correct")]

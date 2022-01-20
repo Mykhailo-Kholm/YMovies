@@ -12,8 +12,16 @@
             <div class="form-horizontal">
                 <h4>Create Film</h4>
                 <hr />
-                @Html.HiddenFor(m => m.ImdbId)
                 @Html.HiddenFor(m => m.MediaId)
+
+                 <div class="mb-3">
+                     @Html.LabelFor(m => m.ImdbId, new { @class = "form-label" })
+                     <div class="col-md-8">
+                         @Html.TextBoxFor(m => m.ImdbId, new { @class = "form-control" })
+                         @Html.ValidationMessageFor(m => m.ImdbId, "", new { @class = "text-danger" })
+                     </div>
+                 </div>
+
                 <div class="mb-3">
                     @Html.LabelFor(m => m.Title, new { @class = "form-label" })
                     <div class="col-md-8">
@@ -35,6 +43,13 @@
                     <div class="col-md-8">
                         @Html.TextBoxFor(m => m.PosterUrl, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.PosterUrl, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.TrailerUrl, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.TrailerUrl, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.TrailerUrl, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -69,7 +84,7 @@
                         @Html.ValidationMessageFor(m => m.Companies, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                
+
                 <div class="mb-3">
                     @Html.LabelFor(m => m.WeekFees, new { @class = "form-label" })
                     <div class="col-md-8">
@@ -77,7 +92,7 @@
                         @Html.ValidationMessageFor(m => m.WeekFees, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                
+
                 <div class="mb-3">
                     @Html.LabelFor(m => m.GlobalFees, new { @class = "form-label" })
                     <div class="col-md-8">
@@ -85,7 +100,7 @@
                         @Html.ValidationMessageFor(m => m.GlobalFees, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                
+
                 <div class="mb-3">
                     @Html.LabelFor(m => m.Type, new { @class = "form-label" })
                     <div class="col-md-8">
@@ -94,7 +109,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="mb-3">
                     @Html.LabelFor(m => m.Cast, new { @class = "form-label" })
                     <div class="col-md-8">
@@ -115,9 +130,8 @@
                        checked="checked" />
                 <label class="form-check-label" for="Cast[@i]">@Model.Cast.ElementAt(i).Name</label>
                 <input type="hidden" name="Cast[@i].name" value="@Model.Cast.ElementAt(i).Name" />
-            </div>
-}
-    }
+            </div>}
+                            }
                 </ul>
 
                 <div class="mb-3">
@@ -140,9 +154,8 @@
                        checked="checked" />
                 <label class="form-check-label" for="Country[@i]">@Model.Country.ElementAt(i).Name</label>
                 <input type="hidden" name="Country[@i].name" value="@Model.Country.ElementAt(i).Name" />
-            </div>
-}
-    }
+            </div>}
+                            }
                 </ul>
 
                 <div class="mb-3">
@@ -165,9 +178,8 @@
                        checked="checked" />
                 <label class="form-check-label" for="Genre[@i]">@Model.Genre.ElementAt(i).Name</label>
                 <input type="hidden" name="Genre[@i].name" value="@Model.Genre.ElementAt(i).Name" />
-            </div>
-}
-    }
+            </div>}
+                            }
                 </ul>
 
                 <div class="mb-3" style="margin-top:2px">
