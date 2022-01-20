@@ -4,7 +4,6 @@
 @using YMovies.MovieDbService.DTOs
 
 <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css">
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/MainPage.css" rel="stylesheet" />
 
 <style type="text/css">
@@ -14,13 +13,14 @@
     }
 </style>
 
+@{ var filterInfo = Model.Filter ?? new FilterInfoDto(); }
 @using (Html.BeginForm("Index", "Movies", FormMethod.Get))
 {
     @Html.Action("Menu", "IndexMenu")
     <button type="submit" class="btn btn-sm btn-secondary">Filter films</button>
 }
 
-<div>
+<div class="justify-content-center">
     @foreach (var film in Model.Movies)
     {
         <div class="movie-card">
@@ -46,10 +46,60 @@
             </div>
         </div>
     }
-    <div>       
-        @Html.PageLinks(Model.Pagination, x => Url.Action("Index", new { page = x }))
-    </div>
 </div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        @for (int j = 1; j <= Model.Pagination.TotalPages; j++)
+        {
+            <div class="btn-group" role="group">
+                @using (Html.BeginForm("Index", "Movies", FormMethod.Get))
+                {
+                    @Html.Hidden("page", j)
+                    if (filterInfo.Types != null)
+                    {
+                        for (int i = 0; i < filterInfo.Types.Count(); i++)
+                        {
+                            @Html.Hidden("filterInfo.Types[" + i + "]", filterInfo.Types.ElementAt(i))
+                        }
+                    }
+                    if (filterInfo.Years != null)
+                    {
+                        for (int i = 0; i < filterInfo.Years.Count(); i++)
+                        {
+                            @Html.Hidden("filterInfo.Years[" + i + "]", filterInfo.Years.ElementAt(i))
+                        }
+                    }
+                    if (filterInfo.Genres != null)
+                    {
+                        for (int i = 0; i < filterInfo.Genres.Count(); i++)
+                        {
+                            @Html.Hidden("filterInfo.Genres[" + i + "]", filterInfo.Genres.ElementAt(i))
+                        }
+                    }
+                    if (filterInfo.Countries != null)
+                    {
+                        for (int i = 0; i < filterInfo.Countries.Count(); i++)
+                        {
+                            @Html.Hidden("filterInfo.Countries[" + i + "]", filterInfo.Countries.ElementAt(i))
+                        }
+                    }
+                    if (j == Model.Pagination.CurrentPage)
+                    {
+                        <div class="page-item active">
+                            <button type="submit" class="page-link">@j</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <button type="submit" class="page-link">@j</button>
+                    }
+                }
+            </div>
+
+        }
+    </ul>
+</nav>
 
 @section scripts {
     <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
@@ -59,7 +109,7 @@
             var headers = $('#accordion .accordion-header');
             var contentAreas = $('#accordion .ui-accordion-content ').hide();
             var expandLink = $('.accordion-expand-all');
-
+            
             headers.click(function () {
                 var panel = $(this).next();
                 var isOpen = panel.is(':visible');
@@ -96,7 +146,5 @@
                 }
             });
         });
-
     </script>
 }
-
