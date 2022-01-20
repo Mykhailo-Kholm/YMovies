@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using YMovies.MovieDbService.DatabaseContext;
@@ -27,14 +28,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public void UpdateItem(Genre item)
         {
-            var temp = _context.Genres.Where(m => m.Id.Equals(item.Id)).FirstOrDefault();
-            if (temp == null)
-                _context.Genres.Add(item);
-            else
-            {
-                _context.Genres.Remove(temp);
-                _context.Genres.Add(item);
-            }
+            _context.Entry(item).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
