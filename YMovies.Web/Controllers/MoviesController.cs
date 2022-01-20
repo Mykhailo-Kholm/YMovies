@@ -248,14 +248,18 @@ namespace YMovies.Web.Controllers
         {
             if (a == null || b == null)
                 return false;
-            if (!a.Countries.Equals(b.Countries))
-                return true;
-            if (!a.Genres.Equals(b.Genres))
-                return true;
-            if (!a.Types.Equals(b.Types))
-                return false;
-            if (!a.Years.Equals(b.Years))
-                return false;
+            if (a.Countries != null && b.Countries != null)
+                if(a.Countries.Equals(b.Countries))
+                    return true;
+            if (a.Genres != null && b.Genres != null)
+                if (a.Genres.Equals(b.Genres))
+                    return true;
+            if (a.Types != null && b.Types != null)
+                if (!a.Types.Equals(b.Types))
+                    return false;
+            if (a.Years != null && b.Years != null)
+                if (!a.Years.Equals(b.Years))
+                    return false;
             return true;
         }
     }
