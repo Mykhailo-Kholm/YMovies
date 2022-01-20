@@ -149,6 +149,9 @@ namespace YMovies.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(FilterInfoDto filterModel, int page = 1)
         {
+            if (Compare((FilterInfoDto)Session["Filter"], filterModel))
+                filterModel = (FilterInfoDto)Session["Filter"];
+
             var mediaDtos = _searchService
                      .GetMediaByParams(filterModel);
             var moviesDtos = mediaDtos
@@ -158,7 +161,7 @@ namespace YMovies.Web.Controllers
 
             var movies = AutoMapperWeb.Mapper.Map<IEnumerable<MediaDto>, List<IndexMediaViewModel>>(moviesDtos);
 
-            var movieViewModel = new MovieViewModel()
+            var movieViewModel = new MovieViewModel
             {
                 Movies = movies,
                 Pagination = new PaginationInfo
@@ -169,9 +172,10 @@ namespace YMovies.Web.Controllers
                 Filter = filterModel
             };
 
+            Session["Filter"] = filterModel;
             return View(movieViewModel);
         }
-       
+
         public async Task<ActionResult> Details(int filmId, string imdbId)
         {
             MediaDto movie;
@@ -240,14 +244,19 @@ namespace YMovies.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        private void AddToSession(FilterInfoDto filterInfoDto)
+        private bool Compare(FilterInfoDto a, FilterInfoDto b)
         {
-            Session["Filtering"] = filterInfoDto;
-        }
-
-        private FilterInfoDto GetFromSession()
-        {
-            return (FilterInfoDto)Session["Fitering"];
+            if (a == null || b == null)
+                return false;
+            if (!a.Countries.Equals(b.Countries))
+                return true;
+            if (!a.Genres.Equals(b.Genres))
+                return true;
+            if (!a.Types.Equals(b.Types))
+                return false;
+            if (!a.Years.Equals(b.Years))
+                return false;
+            return true;
         }
     }
 }
