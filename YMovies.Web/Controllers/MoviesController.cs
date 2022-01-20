@@ -316,7 +316,7 @@ namespace YMovies.Web.Controllers
                 }
                 catch (NullReferenceException e)
                 {
-                    tempStrTrailerUrl = "";
+                    tempStrTrailerUrl = "https://www.youtube.com/embed/";
                 }
                 
                 Session["Trailer"] = tempStrTrailerUrl;
