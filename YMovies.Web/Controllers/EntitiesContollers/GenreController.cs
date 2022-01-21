@@ -14,7 +14,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             _genreService = genreService;
         }
 
-        private IService<GenreDto> _genreService;
+        private readonly IService<GenreDto> _genreService;
 
         [HttpGet]
         public string Genres(string query = null)

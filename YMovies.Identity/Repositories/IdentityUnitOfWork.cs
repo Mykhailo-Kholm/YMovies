@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using YMovies.Identity.DAL.Interfaces;
 using YMovies.Identity.DAL.Managers;

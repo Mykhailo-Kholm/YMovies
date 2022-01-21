@@ -10,9 +10,6 @@ using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
-using YMovies.Web.Dtos;
-using YMovies.Web.DTOs;
-using UserDto = YMovies.MovieDbService.DTOs.UserDto;
 
 namespace YMovies.Web.IMDB.DBWorker
 {

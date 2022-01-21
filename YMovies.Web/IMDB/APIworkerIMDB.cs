@@ -1,11 +1,9 @@
-﻿using System;
+﻿using IMDbApiLib;
+using IMDbApiLib.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Caching;
 using System.Threading.Tasks;
-using System.Web;
-using IMDbApiLib;
-using IMDbApiLib.Models;
 
 namespace YMovies.Web.IMDB
 {

@@ -16,10 +16,6 @@ namespace YMovies.Web.Controllers
 {
     public class AccountController : Controller
     {
-        public AccountController()
-        {
-        }
-
         public IIdentityUserService IdentityUserService
         {
             get

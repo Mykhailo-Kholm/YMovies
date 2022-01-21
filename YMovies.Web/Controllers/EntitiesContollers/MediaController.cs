@@ -168,10 +168,10 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         }
 
         private ICollection<CastViewModel> UpdateFields(ICollection<CastViewModel> cast) =>
-                 cast != null ? cast.Where(c => c.Id != 0).ToList() : null;
+                 cast?.Where(c => c.Id != 0).ToList();
         private ICollection<GenreDto> UpdateFields(ICollection<GenreDto> genres) =>
-                    genres != null ? genres.Where(c => c.Id != 0).ToList() : null;
+                    genres?.Where(c => c.Id != 0).ToList();
         private ICollection<CountryDto> UpdateFields(ICollection<CountryDto> countries) =>
-                    countries != null ? countries.Where(c => c.Id != 0).ToList() : null;
+                    countries?.Where(c => c.Id != 0).ToList();
     }
 }

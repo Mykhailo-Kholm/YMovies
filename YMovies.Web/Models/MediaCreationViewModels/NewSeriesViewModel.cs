@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using YMovies.MovieDbService.DTOs;
 using YMovies.Web.Utilites.ValidationAttributes;
 using YMovies.Web.ViewModels;
