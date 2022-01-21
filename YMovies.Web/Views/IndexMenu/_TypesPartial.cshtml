@@ -15,12 +15,26 @@
             <div class="col-4">
                 @for (int count = 0; count < 6 && Model.Count() > count + i; count++)
                 {
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="@Model.ElementAt(i + count)" name="Types" id="typesInput">
-                        <label class="form-check-label" for="typesInput">
-                            @Model.ElementAt(i + count)
-                        </label>
-                    </div>
+                <div class="form-check">
+                    @if ((IEnumerable<string>)ViewData["SelectedTypes"] != null)
+                    {
+                        if (((IEnumerable<string>)ViewData["SelectedTypes"]).Contains(Model.ElementAt(i + count)))
+                        {
+                            <input class="form-check-input" type="checkbox" value="@Model.ElementAt(i + count)" name="Types" id="typesInput" checked />
+                        }
+                        else
+                        {
+                            <input class="form-check-input" type="checkbox" value="@Model.ElementAt(i + count)" name="Types" id="typesInput" />
+                        }
+                    }
+                    else
+                    {
+                        <input class="form-check-input" type="checkbox" value="@Model.ElementAt(i + count)" name="Types" id="typesInput" />
+                    }
+                    <label class="form-check-label" for="typesInput">
+                        @Model.ElementAt(i + count)
+                    </label>
+                </div>
                 }
                 <hr>
             </div>
