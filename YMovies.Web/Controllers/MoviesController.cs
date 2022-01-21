@@ -182,8 +182,6 @@ namespace YMovies.Web.Controllers
             return View(movieViewModel);
         }
 
-       
-          
         public async Task<ActionResult> Details(int filmId, string imdbId)
         {
             MediaDto movie;
@@ -249,26 +247,7 @@ namespace YMovies.Web.Controllers
 
             return RedirectToAction("Index");
         }
-
-        private bool Compare(FilterInfoDto a, FilterInfoDto b)
-        {
-            if (a == null || b == null)
-                return false;
-            if (a.Countries != null && b.Countries != null)
-                if (a.Countries.Equals(b.Countries))
-                    return false;
-            if (a.Genres != null && b.Genres != null)
-                if (a.Genres.Equals(b.Genres))
-                    return false;
-            if (a.Types != null && b.Types != null)
-                if (!a.Types.Equals(b.Types))
-                    return false;
-            if (a.Years != null && b.Years != null)
-                if (!a.Years.Equals(b.Years))
-                    return false;
-            return false;
-        }
-
+      
         private async Task AddTrailerForMedia(string idImdb)
         {
             if(string.IsNullOrEmpty(idImdb))
