@@ -19,7 +19,7 @@ namespace Ymovies.Identity.BLL.Services
             DataBase = unitOfWork;
         }
 
-        private IUnitOfWork DataBase;
+        private readonly IUnitOfWork DataBase;
         private bool disposedValue;
 
         public async Task<ClaimsIdentity> AuthenticateAsync(UserDTO userDTO)

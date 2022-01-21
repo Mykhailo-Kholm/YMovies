@@ -7,14 +7,11 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Ymovies.Identity.BLL.DTO;
 using Ymovies.Identity.BLL.Interfaces;
-using YMovies.MovieDbService.DTOs;
-using YMovies.MovieDbService.Services.IService;
 using YMovies.Web.IMDB.DBWorker;
 using YMovies.Web.Models.AboutUs;
 using YMovies.Web.Models.AdminViewModels;
 using YMovies.Web.Utilites;
 using YMovies.Web.Utilities;
-using YMovies.Web.ViewModels;
 
 namespace YMovies.Web.Controllers
 {

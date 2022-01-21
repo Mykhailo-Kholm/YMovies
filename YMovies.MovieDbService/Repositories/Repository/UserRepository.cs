@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using System.Linq;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.Models;
@@ -39,7 +38,6 @@ namespace YMovies.MovieDbService.Repositories.Repository
         public void UpdateItem(User item)
         {
             _context.Entry(item).State = EntityState.Modified;
-            //_context.Users.AddOrUpdate();
             _context.SaveChanges();
         }
 

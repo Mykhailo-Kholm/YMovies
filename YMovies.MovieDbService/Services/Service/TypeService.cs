@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using AutoMapper;
+﻿using System.Collections.Generic;
 using YMovies.MovieDbService.DTOs;
-using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Repositories.Repository;
 using YMovies.MovieDbService.Services.IService;
