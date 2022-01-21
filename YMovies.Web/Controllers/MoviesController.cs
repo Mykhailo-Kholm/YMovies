@@ -178,7 +178,10 @@ namespace YMovies.Web.Controllers
                 Filter = filterInfo
             };
 
-            Session["Filter"] = filterInfo;
+            ViewData["SelectedCountries"] = filterInfo.Countries;
+            ViewData["SelectedGenres"] = filterInfo.Genres;
+            ViewData["SelectedTypes"] = filterInfo.Types;
+            ViewData["SelectedYears"] = filterInfo.Years;
             return View(movieViewModel);
         }
 
