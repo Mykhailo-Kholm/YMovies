@@ -37,7 +37,7 @@ namespace YMovies.Web.ViewModels
         public string Companies { get; set; }
 
         [Required]
-        [RegularExpression("[0-9][0-9](,[0-9][0-9])?", ErrorMessage = "This value isn't correct, should be in format 00,0")]
+        [RegularExpression("[0-9][0-9]([.][0-9][0-9])?", ErrorMessage = "This value isn't correct, should be in format 00,0")]
         [Display(Name = "Rating on Imdb")]
         public decimal ImdbRating { get; set; }
 
