@@ -1,9 +1,0 @@
-﻿@using System.Drawing
-
-@{
-    ViewBag.Title = "MockFilm";
-}
-
-<h2>MockFilm(Report from IMDB)</h2>
-
-<img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ViewData["MovieReport"] as byte[]))" style="width: 100%; height: 100%"/>

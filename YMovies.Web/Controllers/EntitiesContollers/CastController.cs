@@ -16,7 +16,7 @@ namespace YMovies.Web.Controllers
             _castService = castService;
         }
 
-        private IService<CastDto> _castService;
+        private readonly IService<CastDto> _castService;
 
         [HttpGet]
         public string Casts(string query = null)

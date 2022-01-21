@@ -1,50 +1,114 @@
 ﻿@{ ViewBag.Title = "Home Page"; }
 @model YMovies.Web.ViewModels.MovieViewModel
 @using YMovies.Web.Utilites.Pagination
+@using YMovies.MovieDbService.DTOs
 
 <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css">
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/MainPage.css" rel="stylesheet" />
 
-<style type="text/css">    
-    .accordion-expand-holder {
+<style type="text/css">
+   .accordion-expand-holder {
         text-align: center;
         padding: 10px;
     }
+
+    .page-link {
+        color: forestgreen !important;
+    }
+
+    .page-item.active .page-link {
+        color: forestgreen !important;
+        background-color: lightgray !important;
+    }
 </style>
 
-@Html.Action("Menu", "IndexMenu")
-
-<div>
-@foreach (var film in Model.Movies)
+@{ var filterInfo = Model.Filter ?? new FilterInfoDto(); }
+@using (Html.BeginForm("Index", "Movies", FormMethod.Get))
 {
-    <div class="movie-card">
-        <div class="movie-header theDarkTower">
-            <a href="@Url.Action("Details", "Movies", new {filmid = film.MediaId, imdbid = film.ImdbId})">
-                <img src="@Html.Raw(film.PosterUrl)" class="movie-header theDarkTower">
-            </a>
-        </div>
-        <div class="movie-content">
-            <div class="movie-content-header">
-                <a href="#">
-                    <h3 class="movie-title">
-                        @film.Title
-                    </h3>
+    @Html.Action("Menu", "IndexMenu")
+    <button type="submit" class="btn btn-sm btn-secondary">Filter films</button>
+}
+
+<div class="container">
+    @foreach (var film in Model.Movies)
+    {
+        <div class="movie-card">
+            <div class="movie-header theDarkTower">
+                <a href="@Url.Action("Details", "Movies", new { filmid = film.MediaId, imdbid = film.ImdbId })">
+                    <img src="@Html.Raw(film.PosterUrl)" class="movie-header theDarkTower">
                 </a>
             </div>
-            <div class="movie-info">
-                <div class="info-section">
-                    <label>IMDb Rating</label>
-                    <span>@film.ImdbRating</span>
+            <div class="movie-content">
+                <div class="movie-content-header">
+                    <a href="#">
+                        <h3 class="movie-title">
+                            @film.Title
+                        </h3>
+                    </a>
+                </div>
+                <div class="movie-info">
+                    <div class="info-section">
+                        <label>IMDb Rating</label>
+                        <span>@film.ImdbRating</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-}
-<div>
-    @Html.PageLinks(Model.Pagination, x => Url.Action("Index", new { page = x }))
+    }
 </div>
-</div>
+
+<nav>
+    <ul class="pagination justify-content-center">
+        @for (int j = 1; j <= Model.Pagination.TotalPages; j++)
+        {
+            <div class="btn-group" role="group">
+                @using (Html.BeginForm("Index", "Movies", FormMethod.Get))
+                {
+                    <input type="hidden" name="page" value="@j">
+                    if (filterInfo.Types != null)
+                    {
+                        for (int i = 0; i < filterInfo.Types.Count(); i++)
+                        {
+                            @Html.Hidden("filterInfo.Types[" + i + "]", filterInfo.Types.ElementAt(i))
+                        }
+                    }
+                    if (filterInfo.Years != null)
+                    {
+                        for (int i = 0; i < filterInfo.Years.Count(); i++)
+                        {
+                            @Html.Hidden("filterInfo.Years[" + i + "]", filterInfo.Years.ElementAt(i))
+                        }
+                    }
+                    if (filterInfo.Genres != null)
+                    {
+                        for (int i = 0; i < filterInfo.Genres.Count(); i++)
+                        {
+                            @Html.Hidden("filterInfo.Genres[" + i + "]", filterInfo.Genres.ElementAt(i))
+                        }
+                    }
+                    if (filterInfo.Countries != null)
+                    {
+                        for (int i = 0; i < filterInfo.Countries.Count(); i++)
+                        {
+                            @Html.Hidden("filterInfo.Countries[" + i + "]", filterInfo.Countries.ElementAt(i))
+                        }
+                    }
+                    if (j == Model.Pagination.CurrentPage)
+                    {
+                        <div class="page-item active">
+                            <button type="submit" class="page-link">@j</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <button type="submit" class="page-link">@j</button>
+                    }
+                }
+            </div>
+
+        }
+    </ul>
+</nav>
 
 @section scripts {
     <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
@@ -54,7 +118,7 @@
             var headers = $('#accordion .accordion-header');
             var contentAreas = $('#accordion .ui-accordion-content ').hide();
             var expandLink = $('.accordion-expand-all');
-
+            
             headers.click(function () {
                 var panel = $(this).next();
                 var isOpen = panel.is(':visible');
@@ -91,7 +155,5 @@
                 }
             });
         });
-
     </script>
 }
-

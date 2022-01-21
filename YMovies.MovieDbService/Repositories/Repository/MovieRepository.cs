@@ -3,12 +3,13 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using YMovies.MovieDbService.DatabaseContext;
+using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.IRepository;
 
 namespace YMovies.MovieDbService.Repositories.Repository
 {
-    public class MovieRepository:ISearchRepository
+    public class MovieRepository : ISearchRepository
     {
         private readonly MoviesContext _context;
         public MovieRepository(MoviesContext context) => _context = context;
@@ -20,25 +21,23 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public Media GetItem(int id)
         {
-            var movie = _context.Medias.FirstOrDefault(m => m.MediaId == id);
+            var movie = _context.Medias.Include(m => m.Type).FirstOrDefault(m => m.MediaId == id);
 
-            var list = Items.ToList();
-
-            
             return movie;
         }
 
         public Media GetItem(string id)
         {
-            var movie = _context.Medias.FirstOrDefault(m => m.ImdbId == id);
+            var movie = _context.Medias.Include(m=>m.Type).FirstOrDefault(m => m.ImdbId == id);
             return movie;
         }
 
         public List<Media> GetMostLiked()
         {
-            var mediaList = _context.Medias.OrderByDescending(gp => gp.NumberOfLikes)
-                                                                                    .Take(100)
-                                                                                    .ToList();
+            var mediaList = _context.Medias
+                .OrderByDescending(gp => gp.NumberOfLikes)
+                .Take(100)
+                .ToList();
             return mediaList;
         }
 
@@ -48,32 +47,57 @@ namespace YMovies.MovieDbService.Repositories.Repository
             return mediaList;
         }
 
-        public List<Media> GetMediaByParams(string genre = null, string country = null, string year = null, string type = null)
+        public List<Media> GetMediaByParams(FilterInfoDto filterInfo)
         {
-            var mediaList = _context.Medias.Include(m=>m.Type).ToList();
+            var mediaList = _context.Medias.Include(m => m.Type);
+            IEnumerable<Media> resultList = new List<Media>();
+            if (filterInfo.Genres != null)
+                foreach (var genre in filterInfo.Genres)
+                {
+                    resultList = mediaList.Where(m => m.Genres
+                                                    .Any(g => g.Name.ToLower()
+                                                            .Contains(genre.ToLower()))).ToList();
+                }
 
-            
-            if (!string.IsNullOrEmpty(genre))
+            if (filterInfo.Types != null)
             {
-                mediaList = mediaList.Where(m => m.Genres.Any(g => g.Name.ToLower().Contains(genre.ToLower()))).ToList();
-            }            
-            
-            if (!string.IsNullOrEmpty(country))
-            {
-                mediaList = mediaList.Where(m => m.Countries.Any(c => c.Name.ToLower().Contains(country.ToLower()))).ToList();
-            }
-            
-            
-            if (!string.IsNullOrEmpty(year))
-            {
-                mediaList = mediaList.Where(y=> y.Year.Contains(year)).ToList();
-            }
-            if (!string.IsNullOrEmpty(type))
-            {
-                mediaList = mediaList.Where(t => t.Type.Name.ToLower().Contains(type.ToLower())).ToList();
+                var typesList = new List<Media>();
+                foreach (var type in filterInfo.Types)
+                {
+                    typesList.AddRange(mediaList.Where(t => t.Type.Name.ToLower().Contains(type.ToLower())));
+                }
+                if (resultList.Any())
+                    resultList = resultList.Intersect(typesList);
+                else
+                    resultList = resultList.Union(typesList);
             }
 
-            return mediaList;
+            if (filterInfo.Countries != null)
+            {
+                var countryList = new List<Media>();
+                foreach (var country in filterInfo.Countries)
+                {
+                    countryList.AddRange(mediaList.Where(m => m.Countries.Any(c => c.Name.ToLower().Contains(country.ToLower()))));
+                }
+                if (resultList.Any())
+                    resultList = resultList.Intersect(countryList);
+                else
+                    resultList = resultList.Union(countryList);
+            }
+
+            if (filterInfo.Years != null)
+            {
+                var yearsList = new List<Media>();
+                foreach (var year in filterInfo.Years)
+                {
+                    yearsList.AddRange(mediaList.Where(y => y.Year.Contains(year)).ToList());                    
+                }
+                if (resultList.Any())
+                    resultList = resultList.Intersect(yearsList);
+                else
+                    resultList = resultList.Union(yearsList);
+            }
+            return resultList.Count() != 0 ? resultList.Distinct().ToList() : mediaList.ToList();
         }
 
         public void AddItem(Media item)
@@ -91,17 +115,17 @@ namespace YMovies.MovieDbService.Repositories.Repository
             }
             foreach (var actor in item.Cast)
             {
-                if (!_context.Cast.Any(i => i.Name==actor.Name))
+                if (!_context.Cast.Any(i => i.Name == actor.Name))
                 {
                     _context.Cast.Add(actor);
                     cast.Add(actor);
                     continue;
                 }
-                cast.Add(_context.Cast.First(i => i.Name==actor.Name));
+                cast.Add(_context.Cast.First(i => i.Name == actor.Name));
             }
             foreach (var genre in item.Genres)
             {
-                if (!_context.Genres.Any(i => i.Name==genre.Name))
+                if (!_context.Genres.Any(i => i.Name == genre.Name))
                 {
                     _context.Genres.Add(genre);
                     genres.Add(genre);
@@ -128,14 +152,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public void UpdateItem(Media item)
         {
-            var temp = _context.Medias.Where(m => m.MediaId.Equals(item.MediaId)).FirstOrDefault();
-            if (temp == null)
-                _context.Medias.Add(item);
-            else
-            {
-                _context.Medias.Remove(temp);
-                _context.Medias.Add(item);
-            }
+            _context.Entry(item).State = EntityState.Modified;
             _context.SaveChanges();
         }
 

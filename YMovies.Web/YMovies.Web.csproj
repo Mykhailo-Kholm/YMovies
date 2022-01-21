@@ -98,6 +98,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -234,6 +235,7 @@
     <Compile Include="Models\AboutUs\AboutUsModel.cs" />
     <Compile Include="Models\AboutUs\AboutUsViewModel.cs" />
     <Compile Include="Models\AboutUs\FindAboutUsModel.cs" />
+    <Compile Include="Models\AdminViewModels\AddMediaView.cs" />
     <Compile Include="Models\EntityViewModels\CastsViewModel.cs" />
     <Compile Include="Models\MediaCreationViewModels\NewSeriesViewModel.cs" />
     <Compile Include="Models\MediaCreationViewModels\NewFilmViewModel.cs" />
@@ -264,8 +266,6 @@
     <Compile Include="Utilites\ValidationAttributes\GenresAttribute.cs" />
     <Compile Include="Utilites\ValidationAttributes\IdentityUserAttribute.cs" />
     <Compile Include="Models\MediaCreationViewModels\CastViewModel.cs" />
-    <Compile Include="ViewModels\MovieGenreViewModel.cs" />
-    <Compile Include="ViewModels\MovieModel.cs" />
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Utilites\AutoMapperWeb.cs" />
     <Compile Include="Models\IndexPageViewModels\MovieViewModel.cs" />
@@ -425,9 +425,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Home\MockFilm.cshtml" />
-    <Content Include="Views\Home\MockSearch.cshtml" />
-    <Content Include="Views\Home\MockFilm.cshtml" />
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Movies\Details.cshtml" />
     <Content Include="Views\Admin\Find.cshtml" />
@@ -471,6 +468,7 @@
     <Content Include="Views\Media\CreateMedia.cshtml" />
     <Content Include="Views\Media\DeleteSeries.cshtml" />
     <Content Include="Views\Media\EditSeries.cshtml" />
+    <Content Include="Views\Admin\AddMediaFromIMDB.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

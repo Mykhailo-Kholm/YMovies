@@ -15,8 +15,17 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
+            
+                
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.ImdbId, new { @class = "form-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.ImdbId, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ImdbId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-                    <div class="mb-3">
+                <div class="mb-3">
                         @Html.LabelFor(m => m.Title, new { @class = "form-label" })
                         <div class="col-md-8">
                             @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })

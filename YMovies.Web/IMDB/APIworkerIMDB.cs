@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using IMDbApiLib;
+﻿using IMDbApiLib;
 using IMDbApiLib.Models;
+using System;
+using System.Collections.Generic;
+using System.Runtime.Caching;
+using System.Threading.Tasks;
 
 namespace YMovies.Web.IMDB
 {
     public class APIworkerIMDB
     {
         private ApiLib apiLib;
+        private MemoryCache IMDBCache;
         private string apiKey = System.Web.Configuration.WebConfigurationManager.AppSettings["IMDBApiKey"];
         public APIworkerIMDB()
         {
@@ -22,8 +22,18 @@ namespace YMovies.Web.IMDB
         /// <returns> Task&lt;List&lt;Top250DataDetail&gt;&gt;</returns>
         public async Task<List<Top250DataDetail>> GetTop250MoviesAsync()
         {
-            var data = await apiLib.Top250MoviesAsync();
-            return data.Items;
+            IMDBCache = MemoryCache.Default;
+            if (IMDBCache.Get("top250IMDB") is null)
+            {
+                var data = await apiLib.Top250MoviesAsync();
+                IMDBCache.Set("top250IMDB", data.Items,DateTimeOffset.Now.AddHours(24));
+                return data.Items;
+            }
+            if(IMDBCache.Get("top250IMDB") != null)
+            {
+                return IMDBCache.Get("top250IMDB") as List<Top250DataDetail>;
+            }
+            return IMDBCache.Get("top250IMDB") as List<Top250DataDetail>;
         }
         /// <summary>
         /// список фильмов по заданому expression
@@ -136,8 +146,18 @@ namespace YMovies.Web.IMDB
         /// <returns>Task&lt;List&lt;MostPopularDataDetail&gt;&gt;</returns>
         public async Task<List<MostPopularDataDetail>> GetMostWatchedMovies()
         {
-            var data = await apiLib.MostPopularMoviesAsync();
-            return data.Items;
+            IMDBCache = MemoryCache.Default;
+            if (IMDBCache.Get("MostWatched") is null)
+            {
+                var data = await apiLib.MostPopularMoviesAsync();
+                IMDBCache.Set("MostWatched", data.Items, DateTimeOffset.Now.AddHours(24));
+                return data.Items;
+            }
+            if (IMDBCache.Get("MostWatched") != null)
+            {
+                return IMDBCache.Get("MostWatched") as List<MostPopularDataDetail>;
+            }
+            return IMDBCache.Get("MostWatched") as List<MostPopularDataDetail>;
         }
         /// <summary>
         /// получить 100 фильмов текущего года

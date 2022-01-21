@@ -15,20 +15,22 @@ namespace YMovies.MovieDbService.Services.Service
             _mediaRepository = new MovieRepository(context);
             _userRepository = new UserRepository(context);
         }
-        public bool WatchedMediaByUser(string userId, int mediaId)
+        public void WatchedMediaByUser(string userId, int mediaId)
         {
             var user = _userRepository.GetItem(userId);
             if (user.WatchedMedias == null)
                 user.WatchedMedias = new List<Media>();
             var media = _mediaRepository.GetItem(mediaId);
-            if (!user.WatchedMedias.Contains(media))
-            {
-                user.WatchedMedias.Add(media);
-                _userRepository.UpdateItem(user);
-                return true;
-            }
+            if (user.WatchedMedias.Contains(media)) return;
+            user.WatchedMedias.Add(media);
+            _userRepository.UpdateItem(user);
+        }
 
-            return false;
+        public bool IsWatched(string userId, int mediaId)
+        {
+            var user = _userRepository.GetItem(userId);
+            var media = _mediaRepository.GetItem(mediaId);
+            return user.WatchedMedias?.Contains(media) ?? false;
         }
     }
 }

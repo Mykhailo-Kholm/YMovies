@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using YMovies.MovieDbService.Models;
-using YMovies.MovieDbService.Repositories.IRepository;
 using YMovies.MovieDbService.Services.IService;
 
 namespace YMovies.Tests

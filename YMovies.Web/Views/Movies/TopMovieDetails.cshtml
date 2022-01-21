@@ -25,7 +25,13 @@
 
                             @if (User.Identity.IsAuthenticated)
                             {
-                                if (ViewBag.IsLiked == true)
+                                if (!ViewBag.IsLiked && !ViewBag.IsDisliked)
+                                {
+                                    @Html.ActionLink("Like", "Like", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()}, new {@class = "btn btn-light" })
+                                    @Html.ActionLink("Dislike", "DisLike", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()},
+                                        new {@class = "btn btn-light" })
+                                }
+                                else if (ViewBag.IsLiked == true)
                                 {
                                     @Html.ActionLink("Dislike", "DisLike", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()},
                                         new {@class = "btn btn-light" })
@@ -35,7 +41,14 @@
                                 {
                                     @Html.ActionLink("Like", "Like", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()}, new {@class = "btn btn-light" })
                                 }
-                                @Html.ActionLink("Mark as watched", "Watched", "Movies", new { id = Model.MediaId, userId = User.Identity.GetUserId() }, new {@class = "btn btn-light" })
+                                if (!ViewBag.IsWatched)
+                                {
+                                    @Html.ActionLink("Mark as watched", "Watched", "Movies", new {id = Model.MediaId, userId = User.Identity.GetUserId()}, new {@class = "btn btn-light"})
+                                }
+                                else
+                                {
+                                    <a>You have watched this media</a>
+                                }
                                 <hr>
                                 <div>
                                     @if (User.IsInRole("admin"))
@@ -162,7 +175,7 @@
                                 <h6 class="mb-0">Trailer</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <iframe width="478" height="304" src="@Session["Trailer"].ToString()" frameborder="0" allowfullscreen></iframe>
+                                <iframe width="418" height="290" src="@Model.TrailerUrl" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
