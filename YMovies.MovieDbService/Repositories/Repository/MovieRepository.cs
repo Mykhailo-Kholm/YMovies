@@ -152,7 +152,10 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public void UpdateItem(Media item)
         {
-            _context.Entry(item).State = EntityState.Modified;
+            var existingEntity = _context.Cast.Find(item.MediaId);
+
+            _context.Entry(existingEntity).CurrentValues.SetValues(item);
+
             _context.SaveChanges();
         }
 
