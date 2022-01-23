@@ -20,6 +20,41 @@
                             <img src="@Html.Raw(Model.PosterUrl)" alt="a description of the image" height="300" width="250">
                             <div class="mt-3">
                                 <h4>@Model.Title</h4>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    if (!ViewBag.IsLiked && !ViewBag.IsDisliked)
+                                    {
+                                        @Html.ActionLink("Like", "Like", "Movies", new { id = Model.MediaId, userId = User.Identity.GetUserId() }, new { @class = "btn btn-light" })
+                                        @Html.ActionLink("Dislike", "DisLike", "Movies", new { id = Model.MediaId, userId = User.Identity.GetUserId() },
+                                            new { @class = "btn btn-light" })
+                                    }
+                                    else if (ViewBag.IsLiked == true)
+                                    {
+                                        @Html.ActionLink("Dislike", "DisLike", "Movies", new { id = Model.MediaId, userId = User.Identity.GetUserId() },
+                                            new { @class = "btn btn-light" })
+
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Like", "Like", "Movies", new { id = Model.MediaId, userId = User.Identity.GetUserId() }, new { @class = "btn btn-light" })
+                                    }
+                                    if (!ViewBag.IsWatched)
+                                    {
+                                        @Html.ActionLink("Mark as watched", "Watched", "Movies", new { id = Model.MediaId, userId = User.Identity.GetUserId() }, new { @class = "btn btn-light" })
+                                    }
+                                    else
+                                    {
+                                        <a>You have watched this media</a>
+                                    }
+                                    <hr>
+                                    <div>
+                                        @if (User.IsInRole("admin"))
+                                        {
+                                            @Html.ActionLink("Edit", "EditMovie", "Media", new { @id = Model.MediaId }, new { @class = "btn btn-light" })
+                                            @Html.ActionLink("Delete", "Delete", "Media", new { @id = Model.MediaId }, new { @class = "btn btn-light" })
+                                        }
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
