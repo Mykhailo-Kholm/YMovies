@@ -372,6 +372,8 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Json\aboutus.json" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\IISProfile1.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="obj\Debug\YMovies.Web.csproj.FileListAbsolute.txt" />
     <Content Include="bin\roslyn\csc.exe" />
@@ -428,7 +430,6 @@
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Shared\_UserPartial.cshtml" />
     <Content Include="Scripts\typeahead.filmcreation.js" />
-    <Content Include="Views\Movies\Partial.cshtml" />
     <Content Include="Views\IndexMenu\_CountriesPartial.cshtml" />
     <Content Include="Views\IndexMenu\_GenresPartial.cshtml" />
     <Content Include="Views\IndexMenu\_TypesPartial.cshtml" />

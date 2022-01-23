@@ -21,7 +21,7 @@
 
     </dl>
 
-    @using (Html.BeginForm("Delee", "Genre"))
+    @using (Html.BeginForm("Delete", "Genre"))
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.Id)
