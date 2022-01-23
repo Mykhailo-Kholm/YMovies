@@ -27,7 +27,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public void UpdateItem(Season item)
         {
-            var existingEntity = _context.Cast.Find(item.SeasonId);
+            var existingEntity = _context.Seasons.Find(item.SeasonId);
 
             _context.Entry(existingEntity).CurrentValues.SetValues(item);
 

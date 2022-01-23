@@ -29,7 +29,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
         public void UpdateItem(Country item)
         {
 
-            var existingEntity = _context.Cast.Find(item.Id);
+            var existingEntity = _context.Countries.Find(item.Id);
 
             _context.Entry(existingEntity).CurrentValues.SetValues(item);
 
