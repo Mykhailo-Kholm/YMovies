@@ -145,9 +145,9 @@
     @using (Html.BeginForm("ConfirmDelete", "Media")) {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.MediaId)
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-outline-dangerous" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+<div class="form-actions no-color">
+    <input type="submit" value="Delete" class="btn btn-outline-dangerous" /> |
+    @Html.ActionLink("Back to List", "Index", "Movies")
+</div>
     }
 </div>
