@@ -26,7 +26,7 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public void UpdateItem(Type item)
         {
-            var existingEntity = _context.Cast.Find(item.Id);
+            var existingEntity = _context.Types.Find(item.Id);
 
             _context.Entry(existingEntity).CurrentValues.SetValues(item);
 
