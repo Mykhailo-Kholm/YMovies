@@ -36,11 +36,12 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         [HttpPost]
         public ActionResult Create(CountryDto model)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(model.Name))
             {
                 _countryService.AddItem(model);
                 return RedirectToAction("Index", "Country");
             }
+            ModelState.AddModelError("Name", "Name can't be empty");
             return View(model);
         }
 
@@ -58,11 +59,12 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         [HttpPost]
         public ActionResult Edit(CountryDto model)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(model.Name))
             {
                 _countryService.UpdateItem(model);
                 return RedirectToAction("Index", "Country");
             }
+            ModelState.AddModelError("Name", "Name can't be empty");
             return View(model);
         }
 

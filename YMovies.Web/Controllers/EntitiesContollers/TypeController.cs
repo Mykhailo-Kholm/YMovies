@@ -23,11 +23,12 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         [HttpPost]
         public ActionResult Create(TypeDto model)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(model.Name))
             {
                 _typeService.AddItem(model);
                 return RedirectToAction("Index", "Type");
             }
+            ModelState.AddModelError("Name", "Name can't be empty");
             return View(model);
         }
 
@@ -45,11 +46,12 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         [HttpPost]
         public ActionResult Edit(TypeDto model)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(model.Name))
             {
                 _typeService.UpdateItem(model);
                 return RedirectToAction("Index", "Type");
             }
+            ModelState.AddModelError("Name", "Name can't be empty");
             return View(model);
         }
 
