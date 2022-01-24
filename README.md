@@ -23,7 +23,7 @@ If you already seen movie you can mark it as watched.
 
 
 ## How to start project 
-...
+Request access from one of the participants.
 
 ## Example
 ...
