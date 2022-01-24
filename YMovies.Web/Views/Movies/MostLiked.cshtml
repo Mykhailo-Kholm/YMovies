@@ -10,7 +10,7 @@
 
         <div class="movie-card">
             <div class="movie-header theDarkTower">
-                <a href="@Url.Action("TopMovieDetails", "Movies", new { filmid = film.MediaId, imdbid=film.ImdbId})">
+                <a href="@Url.Action("PopularMovieDetails", "Movies", new { filmid = film.MediaId, imdbid=film.ImdbId})">
                     <img src="@Html.Raw(film.PosterUrl)" class="movie-header theDarkTower">
                 </a>
             </div><!--movie-header-->

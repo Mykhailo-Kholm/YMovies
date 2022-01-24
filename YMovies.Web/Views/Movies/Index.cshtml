@@ -7,7 +7,7 @@
 <link href="~/Content/MainPage.css" rel="stylesheet" />
 
 <style type="text/css">
-   .accordion-expand-holder {
+    .accordion-expand-holder {
         text-align: center;
         padding: 10px;
     }
@@ -22,10 +22,22 @@
     }
 </style>
 
-@{ var filterInfo = Model.Filter ?? new FilterInfoDto(); }
+@{
+    var filterInfo = Model.Filter ?? new FilterInfoDto();
+    var selectedCountries = ViewData["SelectedCountries"] ?? null;
+    var selectedGenres = ViewData["SelectedGenres"] ?? null;
+    var selectedTypes = ViewData["SelectedTypes"] ?? null;
+    var selectedYears = ViewData["SelectedYears"] ?? null;
+}
 @using (Html.BeginForm("Index", "Movies", FormMethod.Get))
 {
-    @Html.Action("Menu", "IndexMenu")
+    @Html.Action("Menu", "IndexMenu", new
+    {
+        selectedCountries = selectedCountries,
+        selectedGenres = selectedGenres,
+        selectedTypes = selectedTypes,
+        selectedYears = selectedYears,
+    })
     <button type="submit" class="btn btn-sm btn-secondary">Filter films</button>
 }
 
@@ -115,10 +127,11 @@
     <script type='text/javascript' src="//code.jquery.com/jquery-1.8.2.js"></script>
     <script type='text/javascript'>
         $(function () {
+
             var headers = $('#accordion .accordion-header');
             var contentAreas = $('#accordion .ui-accordion-content ').hide();
             var expandLink = $('.accordion-expand-all');
-            
+
             headers.click(function () {
                 var panel = $(this).next();
                 var isOpen = panel.is(':visible');

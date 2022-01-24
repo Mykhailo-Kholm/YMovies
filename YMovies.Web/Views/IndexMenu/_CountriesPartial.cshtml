@@ -1,32 +1,44 @@
 ﻿@model IEnumerable<string>
 
 <h3 class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all">
-        <span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>
-        Countries
-    </h3>
-    <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-        <div class="row">
-            @if (Model != null)
+    <span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>
+    Countries
+</h3>
+<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+    <div class="row">
+        @if (Model != null)
+        {
+            int i = 0;
+            double numOfColumns = Model.Count() / 6;
+            numOfColumns = numOfColumns * 6 == Model.Count() ? numOfColumns : numOfColumns + 1;
+            for (int j = 0; j < numOfColumns; j++)
             {
-                int i = 0;
-                double numOfColumns = Model.Count() / 6;
-                numOfColumns = numOfColumns * 6 == Model.Count() ? numOfColumns : numOfColumns + 1;
-                for (int j = 0; j < numOfColumns; j++)
-                {
-                    <div class="col-4">
-                        @for (int count = 0; count < 6 && Model.Count() > count + i; count++)
+                <div class="col-4">
+                    @for (int count = 0; count < 6 && Model.Count() > count + i; count++)
+                    {
+                    <div class="form-check">
+                        @if ((IEnumerable<string>)ViewData["SelectedCountries"] != null)
                         {
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="@Model.ElementAt(i + count)" name="Countries" id="countriesInput">
-                                <label class="form-check-label" for="countriesInput">
-                                    @Model.ElementAt(i + count)
-                                </label>
-                            </div>
+                            if (((IEnumerable<string>)ViewData["SelectedCountries"]).Contains(Model.ElementAt(i + count)))
+                            {
+                                <input class="form-check-input" type="checkbox" value="@Model.ElementAt(i + count)" name="Countries" id="countriesInput" checked />
+                            }
+                            else
+                            {
+                                <input class="form-check-input" type="checkbox" value="@Model.ElementAt(i + count)" name="Countries" id="countriesInput"/>
+                            }
                         }
-                        <hr>
-                    </div>
-                    i += 6;
-                }
+                        else
+                        {
+                            <input class="form-check-input" type="checkbox" value="@Model.ElementAt(i + count)" name="Countries" id="countriesInput" />
+                        }
+                        <label class="form-check-label" for="countriesInput">
+                            @Model.ElementAt(i + count)
+                        </label>
+                    </div>}
+                    <hr>
+                </div>i += 6;
             }
-        </div>
+        }
     </div>
+</div>

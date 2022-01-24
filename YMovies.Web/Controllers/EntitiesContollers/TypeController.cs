@@ -26,7 +26,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             if (ModelState.IsValid)
             {
                 _typeService.AddItem(model);
-                return RedirectToAction("Index", "Genre");
+                return RedirectToAction("Index", "Type");
             }
             return View(model);
         }
@@ -48,7 +48,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
             if (ModelState.IsValid)
             {
                 _typeService.UpdateItem(model);
-                return RedirectToAction("Index", "Genre");
+                return RedirectToAction("Index", "Type");
             }
             return View(model);
         }
@@ -68,7 +68,7 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         public ActionResult Delete(TypeDto model)
         {
             _typeService.DeleteItem(model);
-            return RedirectToAction("Index", "Genre");
+            return RedirectToAction("Index", "Type");
         }
     }
 }

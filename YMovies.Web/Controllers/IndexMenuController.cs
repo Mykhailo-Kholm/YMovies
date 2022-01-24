@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Services.IService;
@@ -20,7 +21,7 @@ namespace YMovies.Web.Controllers
         private readonly IService<CountryDto> _countryService;
         private readonly IService<MediaDto> _mediaService;
 
-        public ActionResult Menu()
+        public ActionResult Menu(IEnumerable<string> selectedCountries, IEnumerable<string> selectedTypes, IEnumerable<string> selectedGenres, IEnumerable<string> selectedYears)
         {
             var model = new FilterInfoDto
             {
@@ -29,6 +30,10 @@ namespace YMovies.Web.Controllers
                 Countries = _countryService.Items.Distinct().Select(c => c.Name),
                 Years = _mediaService.Items.OrderBy(x => x.Year).Select(x => x.Year).Distinct().ToList()
             };
+            ViewData["SelectedCountries"] = selectedCountries;
+            ViewData["SelectedGenres"] = selectedGenres;
+            ViewData["SelectedTypes"] = selectedTypes;
+            ViewData["SelectedYears"] = selectedYears;
             return PartialView(model);
         }
     }

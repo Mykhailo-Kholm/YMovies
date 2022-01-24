@@ -28,7 +28,11 @@ namespace YMovies.MovieDbService.Repositories.Repository
 
         public void UpdateItem(Country item)
         {
-            _context.Entry(item).State = EntityState.Modified;
+
+            var existingEntity = _context.Countries.Find(item.Id);
+
+            _context.Entry(existingEntity).CurrentValues.SetValues(item);
+
             _context.SaveChanges();
         }
 

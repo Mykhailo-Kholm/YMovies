@@ -96,44 +96,6 @@ namespace YMovies.Web.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
-        public ActionResult ForgotPassword()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ForgotPassword(ForgotPasswordViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = IdentityUserService.GetUserByEmail(model.Email);
-                if (user != null)
-                {
-                    return View("ResetPassword");
-                }
-            }
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = IdentityUserService.GetUserByEmail(model.Email);
-                if (user != null)
-                {
-                    var resultDetails = await IdentityUserService.ResetPasswordAsync(model.Email, model.Password);
-                    if (!resultDetails.Succedeed)
-                        ModelState.AddModelError("", resultDetails.Message);
-                    return RedirectToAction("Home", "Index");
-                }
-            }
-            return View(model);
-        }
 
         [HttpPost]
         public ActionResult LogOff()

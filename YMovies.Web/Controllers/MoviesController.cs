@@ -176,7 +176,10 @@ namespace YMovies.Web.Controllers
                 Filter = filterInfo
             };
 
-            Session["Filter"] = filterInfo;
+            ViewData["SelectedCountries"] = filterInfo.Countries;
+            ViewData["SelectedGenres"] = filterInfo.Genres;
+            ViewData["SelectedTypes"] = filterInfo.Types;
+            ViewData["SelectedYears"] = filterInfo.Years;
             return View(movieViewModel);
         }
 
@@ -207,7 +210,7 @@ namespace YMovies.Web.Controllers
             return View(movie);
         }
 
-        public async Task<ActionResult> TopMovieDetails(int filmid, string imdbId)
+        public async Task<ActionResult> PopularMovieDetails(int filmid, string imdbId)
         {
             MediaDto movie;
             var imdb = new APIworkerIMDB();
@@ -229,6 +232,24 @@ namespace YMovies.Web.Controllers
                 ViewBag.IsLiked = _likeService.IsLiked(userId, filmid);
                 ViewBag.IsDisliked = _likeService.IsDisliked(userId, filmid);
                 ViewBag.IsWatched = _watchService.IsWatched(userId, filmid);
+            }
+            return View("PopularMovieDetails", movie);
+        }
+
+          public async Task<ActionResult> TopMovieDetails(int filmid, string imdbId)
+        {
+            MediaDto movie;
+            var imdb = new APIworkerIMDB();
+            if (filmid != 0)
+            {
+                movie = _movieService.GetItem(filmid);
+            }
+            else
+            {
+                var films = await imdb.MovieOrSeriesInfoAsync(imdbId);
+                var dbSeed = new DBSeed();
+                await dbSeed.AddMovieByImbdId(imdbId);
+                movie = await dbSeed.MapMovieDtoToDtoFromImdb(films);
             }
             return View("TopMovieDetails", movie);
         }
