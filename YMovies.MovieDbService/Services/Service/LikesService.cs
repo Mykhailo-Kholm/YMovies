@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using YMovies.MovieDbService.DatabaseContext;
 using YMovies.MovieDbService.Models;
 using YMovies.MovieDbService.Repositories.Repository;
@@ -70,11 +71,12 @@ namespace YMovies.MovieDbService.Services.Service
 
         private void UpdateRating(Media media)
         {
-            var sumOfLikes = media.NumberOfLikes*10;
+            var sumOfVotes = media.NumberOfLikes*10;
             var numOfUsers = media.NumberOfDislikes + media.NumberOfLikes;
             var averageOfAssessment = media.ImdbRating/10;
-            if (numOfUsers!=0)
-                media.Rating = (sumOfLikes + averageOfAssessment * numOfUsers * 0.3m) / (numOfUsers + numOfUsers * 0.3m);
+            if (numOfUsers != 0)
+                media.Rating = Math.Round((sumOfVotes + averageOfAssessment * numOfUsers * 0.3m) /
+                               (numOfUsers + numOfUsers * 0.3m), 2);
         }
     }
 }
