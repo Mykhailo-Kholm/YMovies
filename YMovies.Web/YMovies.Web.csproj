@@ -221,6 +221,7 @@
     <Compile Include="Controllers\EntitiesContollers\MediaController.cs" />
     <Compile Include="Controllers\EntitiesContollers\TypeController.cs" />
     <Compile Include="Controllers\IndexMenuController.cs" />
+    <Compile Include="Controllers\UserFilmsInfoController.cs" />
     <Compile Include="Controllers\UsersControllers\AccountController.cs" />
     <Compile Include="Controllers\UsersControllers\AdminController.cs" />
     <Compile Include="Dtos\CastWebDto.cs" />
@@ -472,6 +473,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="Views\UserFilmsInfo\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -30,9 +30,9 @@ namespace YMovies.MovieDbService.Services.Service
                 user.DislikedMedias.Remove(media);
                 media.NumberOfDislikes--;
             }
-
             _userRepository.UpdateItem(user);
             media.NumberOfLikes++;
+            UpdateRating(media);
             _mediaRepository.UpdateItem(media);
         }
         public void DislikedMediaByUser(string userId, int mediaId)
@@ -52,6 +52,7 @@ namespace YMovies.MovieDbService.Services.Service
             }
             _userRepository.UpdateItem(user);
             media.NumberOfDislikes++;
+            UpdateRating(media);
             _mediaRepository.UpdateItem(media);
         }
         public bool IsLiked(string userId, int mediaId)
@@ -67,6 +68,13 @@ namespace YMovies.MovieDbService.Services.Service
             return user.DislikedMedias?.Contains(media) ?? false;
         }
 
-
+        private void UpdateRating(Media media)
+        {
+            var sumOfLikes = media.NumberOfLikes*10;
+            var numOfUsers = media.NumberOfDislikes + media.NumberOfLikes;
+            var averageOfAssessment = media.ImdbRating/10;
+            if (numOfUsers!=0)
+                media.Rating = (sumOfLikes + averageOfAssessment * numOfUsers * 0.3m) / (numOfUsers + numOfUsers * 0.3m);
+        }
     }
 }
