@@ -13,7 +13,10 @@ namespace YMovies.MovieDbService.Utilities
                 .ForMember(d => d.Id, opt => opt.MapFrom(m => m.Id))
                 .ForMember(d => d.FullName, opt => opt.MapFrom(m => m.Name + m.SecondName))
                 .ReverseMap();
-            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserDto>()
+                .ForMember(d => d.LikedMovies, opt => opt.MapFrom(u => u.LikedMedias))
+                .ForMember(d => d.WatchedMovies, opt => opt.MapFrom(u => u.WatchedMedias))
+                .ReverseMap();
             CreateMap<Cast, CastDto>().ReverseMap();
             CreateMap<Country, CountryDto>().ReverseMap();
             CreateMap<Genre, GenreDto>().ReverseMap();

@@ -468,12 +468,14 @@
     <Content Include="Views\Media\EditSeries.cshtml" />
     <Content Include="Views\Admin\AddMediaFromIMDB.cshtml" />
     <Content Include="Views\Movies\PopularMovieDetails.cshtml" />
+    <Content Include="Views\UserFilmsInfo\LikedMedias.cshtml" />
+    <Content Include="Views\UserFilmsInfo\WatchedMedias.cshtml" />
+    <Content Include="Views\UserFilmsInfo\EmptyInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
     <Folder Include="obj\Debug\TempPE\" />
-    <Folder Include="Views\UserFilmsInfo\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
