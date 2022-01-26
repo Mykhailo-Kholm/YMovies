@@ -36,11 +36,12 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         [HttpPost]
         public ActionResult Create(GenreDto model)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(model.Name))
             {
                 _genreService.AddItem(model);
                 return RedirectToAction("Index", "Genre");
             }
+            ModelState.AddModelError("Name", "Name can't be empty");
             return View(model);
         }
 
@@ -58,11 +59,12 @@ namespace YMovies.Web.Controllers.EntitiesContollers
         [HttpPost]
         public ActionResult Edit(GenreDto model)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(model.Name))
             {
                 _genreService.UpdateItem(model);
                 return RedirectToAction("Index", "Genre");
             }
+            ModelState.AddModelError("Name", "Name can't be empty");
             return View(model);
         }
 

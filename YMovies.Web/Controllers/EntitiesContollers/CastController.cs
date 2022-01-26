@@ -57,11 +57,12 @@ namespace YMovies.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,Name")] CastDto castDto)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(castDto.Name))
             {
                 _castService.AddItem(castDto);
                 return RedirectToAction("Index");
             }
+            ModelState.AddModelError("Name", "Name can't be empty");
             return View(castDto);
         }
 
@@ -83,11 +84,12 @@ namespace YMovies.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Name")] CastDto castDto)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(castDto.Name))
             {
                 _castService.UpdateItem(castDto);
                 return RedirectToAction("Index");
             }
+            ModelState.AddModelError("Name", "Name can't be empty");
             return View(castDto);
         }
 
