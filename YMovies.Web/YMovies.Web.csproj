@@ -221,6 +221,7 @@
     <Compile Include="Controllers\EntitiesContollers\MediaController.cs" />
     <Compile Include="Controllers\EntitiesContollers\TypeController.cs" />
     <Compile Include="Controllers\IndexMenuController.cs" />
+    <Compile Include="Controllers\UserFilmsInfoController.cs" />
     <Compile Include="Controllers\UsersControllers\AccountController.cs" />
     <Compile Include="Controllers\UsersControllers\AdminController.cs" />
     <Compile Include="Dtos\CastWebDto.cs" />
@@ -467,6 +468,9 @@
     <Content Include="Views\Media\EditSeries.cshtml" />
     <Content Include="Views\Admin\AddMediaFromIMDB.cshtml" />
     <Content Include="Views\Movies\PopularMovieDetails.cshtml" />
+    <Content Include="Views\UserFilmsInfo\LikedMedias.cshtml" />
+    <Content Include="Views\UserFilmsInfo\WatchedMedias.cshtml" />
+    <Content Include="Views\UserFilmsInfo\EmptyInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -23,34 +23,40 @@
                             <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 @HttpContext.Current.User.Identity.Name
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="userDropdown">                               
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li>
+                                    @Html.ActionLink("Liked Medias", "LikedMedias", "UserFilmsInfo", new{ id = User.Identity.GetUserId() }, new { @class = "dropdown-item" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Watched Medias", "WatchedMedias", "UserFilmsInfo", new { id = User.Identity.GetUserId() }, new { @class = "dropdown-item" })
+                                </li>
                                 <li><hr class="dropdown-divider"></li>
                                 @if (HttpContext.Current.User.IsInRole("admin"))
                                 {
                                     <li>
-                                        @Html.ActionLink("Manage users", "Find", "Admin", null, new { @class = "dropdown-item" })
+                                        @Html.ActionLink("Manage users", "Find", "Admin", null, new {@class = "dropdown-item"})
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
-                                        @Html.ActionLink("Create media", "CreateMedia", "Media", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                        @Html.ActionLink("Create media", "CreateMedia", "Media", null, new {@class = "dropdown-item", @tabindex = "-1"})
                                     </li>
                                     <li>
-                                        @Html.ActionLink("Manage cast", "Index", "Cast", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                        @Html.ActionLink("Manage cast", "Index", "Cast", null, new {@class = "dropdown-item", @tabindex = "-1"})
                                     </li>
                                     <li>
-                                        @Html.ActionLink("Manage countries", "Index", "Country", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                        @Html.ActionLink("Manage countries", "Index", "Country", null, new {@class = "dropdown-item", @tabindex = "-1"})
                                     </li>
                                     <li>
-                                        @Html.ActionLink("Manage genres", "Index", "Genre", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                        @Html.ActionLink("Manage genres", "Index", "Genre", null, new {@class = "dropdown-item", @tabindex = "-1"})
                                     </li>
                                     <li>
-                                        @Html.ActionLink("Manage types", "Index", "Type", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                        @Html.ActionLink("Manage types", "Index", "Type", null, new {@class = "dropdown-item", @tabindex = "-1"})
                                     </li>
                                     <li>
-                                        @Html.ActionLink("Manage about us", "EditAboutUs", "Admin", null, new { @class = "dropdown-item", @tabindex = "-1" })
+                                        @Html.ActionLink("Manage about us", "EditAboutUs", "Admin", null, new {@class = "dropdown-item", @tabindex = "-1"})
                                     </li>
                                     <li>
-                                        @Html.ActionLink("Add media from IMDB","AddMediaFromImdb","Admin",null,new { @class = "dropdown-item", @tabindex = "-1" })
+                                        @Html.ActionLink("Add media from IMDB", "AddMediaFromImdb", "Admin", null, new {@class = "dropdown-item", @tabindex = "-1"})
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
                                 }

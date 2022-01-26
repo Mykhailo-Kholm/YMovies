@@ -13,6 +13,10 @@ namespace YMovies.MovieDbService.Services.Service
 {
     public class UserService : IService<UserDto>
     {
+        public UserService()
+        {
+            _repository = new UserRepository(new MoviesContext());
+        }
         public UserService(IIdentityUserService service)
         {
             _databaseIdentity = service;
@@ -43,6 +47,11 @@ namespace YMovies.MovieDbService.Services.Service
             });
         }
         public UserDto GetItem(int id)
+        {
+            var user = _repository.GetItem(id);
+            return AutoMap.Mapper.Map<User, UserDto>(user);
+        }
+        public UserDto GetItem(string id)
         {
             var user = _repository.GetItem(id);
             return AutoMap.Mapper.Map<User, UserDto>(user);
