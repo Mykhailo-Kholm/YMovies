@@ -25,10 +25,10 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="userDropdown">
                                 <li>
-                                    @Html.ActionLink("Liked Medias", "LikedMedias", "UserFilmsInfo", new{ id = User.Identity.GetUserId() }, new { @class = "dropdown-item" })
+                                    @Html.ActionLink("Liked Medias", "LikedMedias", "UserFilmsInfo", null, new { @class = "dropdown-item" })
                                 </li>
                                 <li>
-                                    @Html.ActionLink("Watched Medias", "WatchedMedias", "UserFilmsInfo", new { id = User.Identity.GetUserId() }, new { @class = "dropdown-item" })
+                                    @Html.ActionLink("Watched Medias", "WatchedMedias", "UserFilmsInfo", null, new { @class = "dropdown-item" })
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 @if (HttpContext.Current.User.IsInRole("admin"))
