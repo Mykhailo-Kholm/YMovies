@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using YMovies.MovieDbService.DTOs;
 using YMovies.MovieDbService.Services.Service;
 using YMovies.Web.Models.MoviesInfoViewModel;
@@ -17,9 +20,11 @@ namespace YMovies.Web.Controllers
         {
             _userService = new UserService();
         }
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
         private readonly UserService _userService;
-        public ActionResult LikedMedias(string id, int page = 1)
+        public ActionResult LikedMedias(int page = 1)
         {
+            var id = AuthenticationManager.User.Identity.GetUserId();
             var userLikedMedia = _userService.GetItem(id).LikedMovies;
             if (userLikedMedia == null) return View("EmptyInfo");
             var moviesDtos = userLikedMedia
@@ -38,8 +43,9 @@ namespace YMovies.Web.Controllers
             };
             return View("LikedMedias", movieViewModel);
         }
-        public ActionResult WatchedMedias(string id, int page = 1)
+        public ActionResult WatchedMedias(int page = 1)
         {
+            var id = AuthenticationManager.User.Identity.GetUserId();
             var userWatchedMedias = _userService.GetItem(id).WatchedMovies;
             if (userWatchedMedias == null) return View("EmptyInfo");
             var moviesDtos = userWatchedMedias
